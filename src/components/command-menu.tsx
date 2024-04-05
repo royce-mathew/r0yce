@@ -24,6 +24,8 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
+import Link from "next/link";
+import { NavItem } from "@/types/nav";
 
 export function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter();
@@ -82,7 +84,7 @@ export function CommandMenu({ ...props }: DialogProps) {
           <CommandGroup heading="Links">
             {docsConfig.mainNav
               .filter((navitem) => !navitem.external)
-              .map((navItem) => (
+              .map((navItem: NavItem) => (
                 <CommandItem
                   key={navItem.href}
                   value={navItem.title}
@@ -97,10 +99,10 @@ export function CommandMenu({ ...props }: DialogProps) {
           </CommandGroup>
           {docsConfig.sidebarNav.map((group) => (
             <CommandGroup key={group.title} heading={group.title}>
-              {group.items.map((navItem) => (
+              {group.items.map((navItem: NavItem) => (
                 <CommandItem
                   key={navItem.href}
-                  value={navItem.title}
+                  value={navItem.href}
                   onSelect={() => {
                     runCommand(() => router.push(navItem.href as string));
                   }}

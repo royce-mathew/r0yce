@@ -3,16 +3,26 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import Link from "next/link";
-import { EnvelopeClosedIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
+import { LinkedInLogoIcon } from "@radix-ui/react-icons";
+import { allBases } from "contentlayer/generated";
+import { Mdx } from "@/components/mdx-components";
 
 export default function Home() {
+  const about = allBases.find(
+    (base) => base._raw.sourceFileName === "about.mdx"
+  );
+  if (!about) {
+    throw new Error("About base not found");
+  }
+
   return (
     <main className="flex min-h-screen flex-col">
       {/* Profile Information Box */}
       <div className="flex flex-col md:flex-row items-center justify-center md:space-x-8 my-24">
         <AvatarStack
           className="relative h-32 w-32 md:w-[230px] md:h-[230px]"
-          images={["/images/ProfilePicture2.jpg", "/images/ProfilePicture.jpg"]}
+          images={["/images/ProfilePicture2.jpg"]}
+          fallback="Profile Picture"
         />
         <div className="mt-4 space-y-2">
           {/* Name */}
@@ -68,41 +78,13 @@ export default function Home() {
       </div>
 
       {/* About Me */}
-      <div className="bg-black bg-opacity-5 dark:bg-opacity-15 flex flex-col items-center justify-center p-5 border">
+      <div className="bg-black bg-opacity-5 dark:bg-opacity-15 flex flex-col items-center justify-center p-5">
         <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
-          About Me
+          {about?.title}
         </h1>
-
-        <article className="prose dark:prose-invert max-w-[950px]">
-          <h2>Introduction</h2>
-          <p>
-            I'm Royce Mathew, a passionate software developer currently in his
-            third year studying at @OntarioTech University. I am currently
-            working as a Cloud Developer at{" "}
-            <span className="hyperlink"> RBC</span>.
-          </p>
-          <p>
-            I love working on games in my free time and contributing to open
-            source software. I have been developing games and programming on the
-            ROBLOX Engine for 5 years.
-          </p>
-          <h2>Experience</h2>
-          <p>
-            Throughout my career, I have recieved multiple opportunities to work
-            on a variety of fields in Computer Science. I have worked on
-            projects in fields ranging from Web Development, Game Development,
-            and Neural Networks, and Low Level Programming.
-          </p>
-          <h3>Game Development Career</h3>
-          <p>
-            I have worked on multiple games utilizing the ROBLOX engine. One of
-            my commissions were on the game known as{" "}
-            <a href="https://www.roblox.com/games/6573910231/Project-Star">
-              Project Star
-            </a>{" "}
-            which has over 20 Million player visits.
-          </p>
-        </article>
+        <div className="max-w-[900px]">
+          <Mdx code={about?.body.code} />
+        </div>
       </div>
     </main>
   );

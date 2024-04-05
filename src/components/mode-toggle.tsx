@@ -6,6 +6,7 @@ import * as SwitchPrimitives from "@radix-ui/react-switch";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { Skeleton } from "./ui/skeleton";
+import { useMounted } from "@/hooks/use-mounted";
 
 const sizeClass = "h-5 w-9";
 
@@ -13,21 +14,18 @@ const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
 >(({ className, ...props }, ref) => {
-  const [mounted, setMounted] = React.useState(false); // Wait for mounted to show Switch
-  const { setTheme, theme } = useTheme();
-
-  // useEffect only runs on the client, so now we can safely show the UI
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted(); // Wait for mounted to show Switch
+  const { setTheme, theme, systemTheme } = useTheme();
 
   if (!mounted) {
     return <Skeleton className={sizeClass} />;
   }
 
+  console.log(`:${theme} ;${systemTheme}`)
+
   return (
     <SwitchPrimitives.Root
-      checked={theme === "dark"}
+      checked={theme === "dark" || (theme === "system" && systemTheme === "dark")}
       onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
       className={cn(
         sizeClass,

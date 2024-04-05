@@ -1,0 +1,96 @@
+---
+title: Neural Networks Research Paper
+description: Research paper on using neural networks to predict the foreign exchange market.
+date: 2022-12-21
+toc: true
+imageSrc: /projects/research.png
+important: true
+---
+
+# Overview
+
+This page is a copy of the ipynb file being hosted on Github. Full research paper can be found [here](https://github.com/royce-mathew/ForexPredictor/blob/master/src/ForexPredictor.ipynb)
+
+Predicting the forex market can be quite hard for a nerual network to understand due to the properties of the market. To get an accurate prediction, a neural network needs a very high number of parameters, a lot of data, and thousands of iterations of training.
+
+This paper tries to explore the question on whether a neural network is able to accurately predict the foreign exchange market given a limited set of parameters.
+
+The program works by using a neural networking algorithm known as **"NEAT"**. NEAT stands for **"Neural Networks through Augmented Topologies"**. The neat algorithm works by using the concept of life, where each generation starts to learn more based on the knowledge of the previous generation; The best scoring individual from this generation gets to reproduce and go onto the next generation.
+
+A proper explanation on how the algorithm works can be found [here](https://www.cs.ucf.edu/~kstanley/neat.html/)
+
+## Retrieving / Downloading Forex Charts
+
+To start, we'll retrieve the data using a public module which imports data from yahoo.finance and automatically converts it into a csv file. This piece of code saves the data as a .csv file.
+
+```python line-numbers
+# Imports
+from matplotlib import ticker
+import yfinance as yf
+
+# Variables
+ticker_name: str = "JPY=X" # "JPY=X"
+
+
+# Download ticker data
+ticker_data = yf.download(
+    tickers=ticker_name, # Set ticker as variable
+    period="max", # Get as much data as possible
+)
+
+ticker_data.to_csv(f"./../assets/{ticker_name}.csv") # Save dataframe as a csv file
+
+ticker_data # Display Ticker Data
+
+```
+
+<Accordion type="multiple">
+
+<AccordionItem value="faq-1">
+	<AccordionTrigger>
+		Why copy/paste and not packaged as a dependency?
+	</AccordionTrigger>
+	<AccordionContent>
+The idea behind this is to give you ownership and control over the code, allowing you to decide how the components are built and styled.
+
+Start with some sensible defaults, then customize the components to your needs.
+
+One of the drawback of packaging the components in an npm package is that the style is coupled with the implementation. _The design of your components should be separate from their implementation._
+
+</AccordionContent>
+</AccordionItem>
+
+<AccordionItem value="faq-2">
+  <AccordionTrigger>
+    Do you plan to publish it as an npm package?
+  </AccordionTrigger>
+  <AccordionContent>
+    No. I have no plans to publish it as an npm package.
+  </AccordionContent>
+</AccordionItem>
+
+<AccordionItem value="faq-3">
+<AccordionTrigger>
+Which frameworks are supported?
+</AccordionTrigger>
+<AccordionContent>
+
+You can use any framework that supports React. [Next.js](https://ui.shadcn.com/docs/installation/next), [Astro](https://ui.shadcn.com/docs/installation/astro), [Remix](https://ui.shadcn.com/docs/installation/remix), [Gatsby](https://ui.shadcn.com/docs/installation/gatsby) etc.
+
+</AccordionContent>
+</AccordionItem>
+
+<AccordionItem value="faq-4">
+	<AccordionTrigger>
+	Can I use this in my project?
+	</AccordionTrigger>
+	<AccordionContent>
+Yes. Free to use for personal and commercial projects. No attribution required.
+
+But hey, let me know if you do. I'd love to see what you build.
+
+    </AccordionContent>
+
+</AccordionItem>
+
+</Accordion>

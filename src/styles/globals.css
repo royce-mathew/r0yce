@@ -76,11 +76,60 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-background text-foreground;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
   }
 }
 
-.hyperlink {
-  @apply text-primary hover:underline decoration-2;
+@layer utilities {
+  .step {
+    counter-increment: step;
+  }
+
+  .step:before {
+    @apply absolute w-9 h-9 bg-muted rounded-full font-mono font-medium text-center text-base inline-flex items-center justify-center -indent-px border-4 border-background;
+    @apply ml-[-50px] mt-[-4px];
+    content: counter(step);
+  }
+
+  .unordered-step {
+    counter-increment: step;
+  }
+
+  .unordered-step:before {
+    @apply absolute w-9 h-9 bg-muted rounded-full font-mono font-medium text-center text-base inline-flex items-center justify-center -indent-px border-4 border-background;
+    @apply ml-[-50px] mt-[-4px];
+    content: "•";
+  }
+
+  .halftone {
+    --mask: linear-gradient(to top, rgb(0 0 0) 10%, transparent 30%);
+    --stop1: 0.1rem;
+    --stop2: 0.5rem;
+    --invert: 0;
+    --dotColor: theme(colors.background);
+    --dottedBackground: radial-gradient(
+      circle at center,
+      var(--dotColor) var(--stop1),
+      transparent var(--stop2)
+    );
+    --bgSize: 0.4rem;
+  }
+
+  .halftone::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--dottedBackground);
+    background-size: var(--bgSize, 1rem) var(--bgSize, 1rem);
+    background-repeat: round;
+    background-position: 0 0, 50% var(--bgPosition);
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+  }
 }

@@ -1,8 +1,11 @@
 import "@/styles/globals.css";
+import "@/styles/mdx.css";
+
 import { cal, inter } from "@/styles/fonts";
 import type { Viewport, Metadata } from "next";
 import { ThemeProvider } from "@/components/providers";
 import { cn } from "@/lib/utils";
+import { domAnimation, LazyMotion } from "framer-motion";
 
 export const viewport: Viewport = {
   width: "device-width",
