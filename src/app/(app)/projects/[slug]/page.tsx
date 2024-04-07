@@ -71,7 +71,7 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
               {project.title}
             </h1>
             <div className="flex flex-col space-y-6 border-b border-border py-5">
-              <p className="text-lg">{project.description}</p>
+              <p className="text-sm sm:text-lg">{project.description}</p>
 
               <div className="flex flex-row justify-between">
                 <text className="text-sm">
@@ -80,8 +80,8 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
                     {project.metadata.wordCount}
                   </span>
                 </text>
-                <text className="text-sm">
-                  Last Updated:{" "}
+                <text className="text-sm flex flex-col md:flex-row md:gap-2">
+                  Last Updated:
                   <time dateTime={project.date} className="text-primary">
                     {format(parseISO(project.date), "LLLL d, yyyy")}
                   </time>

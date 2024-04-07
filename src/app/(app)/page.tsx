@@ -22,9 +22,9 @@ export default function Home() {
           images={["/images/ProfilePicture2.jpg"]}
           fallback="Profile Picture"
         />
-        <div className="mt-4 space-y-2">
+        <div className="mt-4 space-y-2 px-2">
           {/* Name */}
-          <h1 className="font-cal text-2xl md:text-5xl font-bold dark:text-white text-center">
+          <h1 className="font-cal text-2xl sm:text-3xl md:text-5xl font-bold dark:text-white text-center">
             Royce Mathew
           </h1>
 
