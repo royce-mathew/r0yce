@@ -20,7 +20,7 @@ export default function Home() {
         <AvatarStack
           className="relative h-32 w-32 md:w-[230px] md:h-[230px]"
           images={["/images/ProfilePicture2.jpg"]}
-          fallback="Profile Picture"
+          fallback="Profile"
         />
         <div className="mt-4 space-y-2 px-2">
           {/* Name */}

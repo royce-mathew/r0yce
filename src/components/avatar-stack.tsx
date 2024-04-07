@@ -14,22 +14,22 @@ const AvatarStack = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> & AvatarStackProps
 >(({ images, className, fallback, ...props }, ref) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+  //   }, 5000);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [images, currentImageIndex]);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [images, currentImageIndex]);
 
   return (
     <div>
       <Avatar className={className} {...props}>
-        <LazyMotion features={domAnimation}>
+        {/* <LazyMotion features={domAnimation}>
           <AnimatePresence>
             <m.div
               key={currentImageIndex}
@@ -44,7 +44,8 @@ const AvatarStack = React.forwardRef<
               />
             </m.div>
           </AnimatePresence>
-        </LazyMotion>
+        </LazyMotion> */}
+        <AvatarImage src={images[0]} className="object-cover absolute" />
         <AvatarFallback>{fallback}</AvatarFallback>
       </Avatar>
     </div>
