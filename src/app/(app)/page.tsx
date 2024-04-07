@@ -4,13 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import Link from "next/link";
 import { LinkedInLogoIcon } from "@radix-ui/react-icons";
-import { allBases } from "contentlayer/generated";
+import { mainContents } from "#site/content";
 import { Mdx } from "@/components/mdx-components";
 
 export default function Home() {
-  const about = allBases.find(
-    (base) => base._raw.sourceFileName === "about.mdx"
-  );
+  const about = mainContents.find((base) => base.slugAsParams === "about");
   if (!about) {
     throw new Error("About base not found");
   }
@@ -83,7 +81,7 @@ export default function Home() {
           {about?.title}
         </h1>
         <div className="max-w-[900px]">
-          <Mdx code={about?.body.code} />
+          <Mdx code={about.code} />
         </div>
       </div>
     </main>

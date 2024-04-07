@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
+import * as runtime from "react/jsx-runtime";
+
 import Image from "next/image";
 import Link from "next/link";
-import { useMDXComponent } from "next-contentlayer2/hooks";
-
 import { cn } from "@/lib/utils";
 import { Callout } from "@/components/callout";
 import { CodeBlockWrapper } from "@/components/code-block-wrapper";
@@ -17,8 +17,9 @@ import {
 } from "@/components/ui/accordion";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
-const components = {
+const sharedComponents = {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -29,7 +30,7 @@ const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
-        "font-heading mt-2 scroll-m-20 text-4xl font-bold",
+        "font-heading scroll-m-20 text-4xl font-bold border-border border flex justify-center py-4",
         className
       )}
       {...props}
@@ -47,7 +48,7 @@ const components = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        "font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight",
+        "mt-8 scroll-m-20 text-xl font-thin italic tracking-tight brightness-50",
         className
       )}
       {...props}
@@ -152,43 +153,36 @@ const components = {
   ),
   pre: ({
     className,
-    __rawString__,
-    __withMeta__,
-    __src__,
+    __raw__,
     ...props
   }: React.HTMLAttributes<HTMLPreElement> & {
-    __rawString__?: string;
-    __withMeta__?: boolean;
-    __src__?: string;
+    __raw__?: string;
   }) => {
     return (
-      <>
-        <pre
-          className={cn(
-            "mb-4 mt-6 max-h-[650px] overflow-x-auto rounded-lg border bg-zinc-950 py-4 dark:bg-zinc-900",
-            className
-          )}
-          {...props}
-        />
-        {__rawString__ && (
-          <CopyButton
-            value={__rawString__}
-            src={__src__}
-            className={cn("absolute right-4 top-4", __withMeta__ && "top-16")}
-          />
-        )}
-      </>
+      <ScrollArea>
+        <div className="max-h-[650px] max-w-full group">
+          <pre
+            className={cn("px-3 py-4 w-full min-w-max grid", className)}
+            {...props}
+          >
+            <div className="absolute right-4 top-4">
+              <CopyButton content={__raw__ ?? ""} />
+            </div>
+            {props.children}
+          </pre>
+        </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     );
   },
-  code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <code
-      className={cn(
-        "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm",
-        className
-      )}
-      {...props}
-    />
-  ),
+  code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
+    return (
+      <code
+        className={cn("w-full h-full px-2 py-2 font-mono text-sm", className)}
+        {...props}
+      />
+    );
+  },
   Image,
   Callout,
   AspectRatio,
@@ -244,19 +238,19 @@ const components = {
     <div className={cn("basis-1/2", className)} {...props} />
   ),
 };
+// parse the Velite generated MDX code into a React component function
+const useMDXComponent = (code: string) => {
+  const fn = new Function(code);
+  return fn({ ...runtime }).default;
+};
 
-interface MdxProps {
+interface MDXProps {
   code: string;
+  components?: Record<string, React.ComponentType>;
 }
 
-export function Mdx({ code }: MdxProps) {
-  const Component = useMDXComponent(code, {
-    style: "default",
-  });
-
-  return (
-    <div className="mdx">
-      <Component components={components} />
-    </div>
-  );
-}
+// MDXContent component
+export const Mdx = ({ code, components }: MDXProps) => {
+  const Component = useMDXComponent(code);
+  return <Component components={{ ...sharedComponents, ...components }} />;
+};

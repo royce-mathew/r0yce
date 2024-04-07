@@ -1,8 +1,6 @@
 "use client";
 
-import Link from "next/link";
 import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
-import { DesktopIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { Icons } from "./icons";
 import { useTheme } from "next-themes";
 import { useMounted } from "@/hooks/use-mounted";
@@ -37,13 +35,13 @@ export function SiteFooter() {
           value={theme}
         >
           <ToggleGroupItem value="light" className="rounded-full aspect-square">
-            <SunIcon />
+            <Icons.sun />
           </ToggleGroupItem>
           <ToggleGroupItem
             value="system"
             className="rounded-full aspect-square"
           >
-            <DesktopIcon />
+            <Icons.deviceStar />
           </ToggleGroupItem>
           <ToggleGroupItem value="dark" className="rounded-full aspect-square">
             <Icons.moon />

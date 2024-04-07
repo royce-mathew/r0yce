@@ -18,14 +18,13 @@ const AvatarStack = React.forwardRef<
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log(images[currentImageIndex]);
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 5000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [images]);
+  }, [images, currentImageIndex]);
 
   return (
     <div>
@@ -51,5 +50,6 @@ const AvatarStack = React.forwardRef<
     </div>
   );
 });
+AvatarStack.displayName = "AvatarStack";
 
 export default AvatarStack;

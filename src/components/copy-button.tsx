@@ -5,49 +5,44 @@ import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@radix-ui/react-separator";
+import { Icons } from "./icons";
 
 interface CopyButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  value: string;
-  src?: string;
+  content: string;
 }
 
-export async function copyToClipboardWithMeta(value: string) {
-  navigator.clipboard.writeText(value);
-}
-
-export function CopyButton({
-  value,
-  className,
-  src,
-  ...props
-}: CopyButtonProps) {
+export function CopyButton({ className, content, ...props }: CopyButtonProps) {
   const [hasCopied, setHasCopied] = React.useState(false);
 
-  React.useEffect(() => {
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(content);
+    setHasCopied(true);
+
     setTimeout(() => {
       setHasCopied(false);
     }, 2000);
-  }, [hasCopied]);
-
+  };
   return (
     <Button
-      size="icon"
       variant="ghost"
       className={cn(
-        "relative z-10 h-6 w-6 text-zinc-50 hover:bg-zinc-700 hover:text-zinc-50",
+        "relative z-10 w-fit p-2 bg-black/10 hover:bg-black/15 rounded-lg group-hover:opacity-100 opacity-0 transition-opacity duration-200 ease-in-out",
         className
       )}
-      onClick={() => {
-        copyToClipboardWithMeta(value);
-        setHasCopied(true);
-      }}
+      onClick={handleCopy}
       {...props}
     >
-      <span className="sr-only">Copy</span>
+      {/* <span className="sr-only">Copy</span> */}
       {hasCopied ? (
-        <CheckIcon className="h-3 w-3" />
+        <div className="flex space-x-3 items-center">
+          <div>Copied</div>
+          <div>
+            <Icons.clipboardCheck className="h-6 w-6" />
+          </div>
+        </div>
       ) : (
-        <CopyIcon className="h-3 w-3" />
+        <Icons.clipboardEmpty className="h-6 w-6" />
       )}
     </Button>
   );

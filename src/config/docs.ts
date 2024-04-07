@@ -1,5 +1,5 @@
 import { MainNavItem, SidebarNavItem } from "@/types/nav";
-import { allProjects } from "contentlayer/generated";
+import { projects } from "#site/content";
 
 interface DocsConfig {
   mainNav: MainNavItem[];
@@ -9,7 +9,7 @@ interface DocsConfig {
 export const docsConfig: DocsConfig = {
   mainNav: [
     {
-      title: "Portfolio",
+      title: "Home",
       href: "/",
     },
     {
@@ -20,9 +20,10 @@ export const docsConfig: DocsConfig = {
   sidebarNav: [
     {
       title: "Projects",
-      items: allProjects.map((project) => ({
+      href: "/projects",
+      items: projects.map((project) => ({
         title: project.title,
-        href: project.slug,
+        href: `/${project.slug}`,
         label: project.label,
         items: [],
       })),

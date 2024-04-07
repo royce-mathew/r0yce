@@ -10,6 +10,10 @@ import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { docsConfig } from "@/config/docs";
+
+const mobileLinkClasses =
+  "transition-colors hover:text-foreground/80 text-foreground/60";
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
@@ -26,22 +30,21 @@ export function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="pr-0">
-        <MobileLink
-          href="/"
-          className="flex items-center"
-          onOpenChange={setOpen}
-        >
-          <Icons.logo className="mr-2 h-4 w-4" />
-          <span className="font-bold">Portfolio</span>
-        </MobileLink>
+        <div className="flex items-center">
+          <span className="font-bold">Navigation Menu</span>
+        </div>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-3">
-            <MobileLink href="/Projects" onOpenChange={setOpen}>
-              Projects
-            </MobileLink>
-            <MobileLink href="/Contact" onOpenChange={setOpen}>
-              Docs
-            </MobileLink>
+            {docsConfig.mainNav.map((item, index) => (
+              <MobileLink
+                key={index}
+                href={item.href as string}
+                className={mobileLinkClasses}
+                onOpenChange={setOpen}
+              >
+                {item.title}
+              </MobileLink>
+            ))}
           </div>
         </ScrollArea>
       </SheetContent>

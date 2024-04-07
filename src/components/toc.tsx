@@ -2,21 +2,21 @@
 
 import * as React from "react";
 
-import { TableOfContents } from "@/lib/toc";
+import { TocEntry } from "@/types/toc";
 import { cn } from "@/lib/utils";
 import { useMounted } from "@/hooks/use-mounted";
 import { Separator } from "./ui/separator";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { ArrowUpIcon, TextAlignLeftIcon } from "@radix-ui/react-icons";
 
 interface TocProps {
-  toc: TableOfContents;
+  toc: TocEntry[];
 }
 
 export function DashboardTableOfContents({ toc }: TocProps) {
   const itemIds = React.useMemo(
     () =>
-      toc.items
-        ? toc.items
+      toc
+        ? toc
             .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
             .flat()
             .filter(Boolean)
@@ -28,29 +28,31 @@ export function DashboardTableOfContents({ toc }: TocProps) {
   const activeHeading = useActiveItem(itemIds);
   const mounted = useMounted();
 
-  if (!toc?.items || !mounted) {
+  if (!toc || !mounted) {
     return null;
   }
 
   // Check if the active heading is the first item in the TOC
-  const isOnPageTop =
-    toc.items?.at(0)?.url.substring(1) === activeHeading ||
-    activeHeading === null;
-
+  const isOnPageTop = itemIds[0] === activeHeading || activeHeading === null;
   return (
     <div className="space-y-2">
-      <p className="font-medium">On this page</p>
+      <div className="flex space-x-3 items-center">
+        <TextAlignLeftIcon className="h-4 w-4 inline-block" />
+        <p className="font-medium text-base">On this page</p>
+      </div>
       <Tree tree={toc} activeItem={activeHeading} />
-      <Separator className="" />
-      <a
-        href="#"
-        className={cn(
-          "text-sm flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-opacity",
-          !isOnPageTop ? "opacity-100" : "opacity-0"
-        )}
-      >
-        Back to top <ArrowUpIcon />
-      </a>
+      <div className="pt-3 space-y-3">
+        <Separator className="w-full" />
+        <a
+          href="#"
+          className={cn(
+            "text-sm flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-opacity",
+            !isOnPageTop ? "opacity-100" : "opacity-0"
+          )}
+        >
+          Back to top <ArrowUpIcon />
+        </a>
+      </div>
     </div>
   );
 }
@@ -91,15 +93,15 @@ function useActiveItem(itemIds: string[]) {
 }
 
 interface TreeProps {
-  tree: TableOfContents;
+  tree: TocEntry[];
   level?: number;
   activeItem?: string | null;
 }
 
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
-  return tree?.items?.length && level < 3 ? (
+  return tree?.length && level < 3 ? (
     <ul className={cn("m-0 list-none", { "pl-4": level !== 1 })}>
-      {tree.items.map((item, index) => {
+      {tree.map((item, index) => {
         return (
           <li key={index} className={cn("mt-0 pt-2")}>
             <a
@@ -114,7 +116,11 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
               {item.title}
             </a>
             {item.items?.length ? (
-              <Tree tree={item} level={level + 1} activeItem={activeItem} />
+              <Tree
+                tree={item.items}
+                level={level + 1}
+                activeItem={activeItem}
+              />
             ) : null}
           </li>
         );

@@ -1,9 +1,9 @@
-import { format, parseISO } from "date-fns";
-import { allProjects } from ".contentlayer/generated";
-import { getTableOfContents } from "@/lib/toc";
+import { projects } from "#site/content";
 import { Mdx } from "@/components/mdx-components";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DashboardTableOfContents } from "@/components/toc";
+import { format, parseISO } from "date-fns";
+import { Separator } from "@radix-ui/react-separator";
 
 /**
  * Props for the ProjectPage component.
@@ -21,7 +21,7 @@ interface ProjectPageProps {
  */
 async function getProjectFromParams({ params }: ProjectPageProps) {
   const slug = params.slug || "";
-  const project = allProjects.find((project) => project.slugAsParams === slug);
+  const project = projects.find((project) => project.slugAsParams === slug);
 
   if (!project) {
     return null;
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
  * @returns The generated static params.
  */
 export const generateStaticParams = async () =>
-  allProjects.map((project) => ({ slug: project.slugAsParams }));
+  projects.map((project) => ({ slug: project.slugAsParams }));
 
 /**
  * The layout component for the project page.
@@ -56,36 +56,57 @@ export const generateStaticParams = async () =>
  * @throws Error if the project is not found.
  */
 const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
-  const project = allProjects.find(
+  const project = projects.find(
     (project) => project.slugAsParams === params.slug
   );
-  // allProjects.map((project) =>
-  //   console.log('"', project.slugAsParams, '"', params.slug)
-  // );
+
   if (!project) throw new Error(`Project not found for slug: ${params.slug}`);
 
-  const toc = await getTableOfContents(project.body.raw);
-
   return (
-    <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
-      <article>
-        <div className="mb-8 text-center">
-          {/* <time dateTime={project.date} className="mb-1 text-xs text-gray-600">
-          {format(parseISO(project.date), "LLLL d, yyyy")}
-        </time> */}
-          <h1 className="text-3xl font-bold">{project.title}</h1>
-        </div>
-        <div className="pb-12 pt-8">
-          <Mdx code={project.body.code} />
-        </div>
-      </article>
+    <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_220px]">
+      <div className="mx-auto w-full min-w-0">
+        <article>
+          <div className="mb-2 text-center w-full">
+            <h1 className="xl:text-5xl lg:text-4xl text-3xl font-bold">
+              {project.title}
+            </h1>
+            <div className="flex flex-col space-y-6 border-b border-border py-5">
+              <p className="text-lg">{project.description}</p>
 
-      {project.toc && (
+              <div className="flex flex-row justify-between">
+                <text className="text-sm">
+                  Word Count:{" "}
+                  <span className="text-primary">
+                    {project.metadata.wordCount}
+                  </span>
+                </text>
+                <text className="text-sm">
+                  Last Updated:{" "}
+                  <time dateTime={project.date} className="text-primary">
+                    {format(parseISO(project.date), "LLLL d, yyyy")}
+                  </time>
+                </text>
+                <text className="text-sm">
+                  Reading Time:{" "}
+                  <span className="text-primary">
+                    {project.metadata.readingTime}m
+                  </span>
+                </text>
+              </div>
+            </div>
+          </div>
+          <div className="pb-12 pt-6">
+            <Mdx code={project.code} />
+          </div>
+        </article>
+      </div>
+
+      {project.hasToc && (
         <div className="hidden text-sm xl:block">
           <div className="sticky top-16 -mt-10 pt-4">
             <ScrollArea className="pb-10">
               <div className="sticky top-16 -mt-10 h-[calc(100vh-3.5rem)] py-12">
-                <DashboardTableOfContents toc={toc} />
+                <DashboardTableOfContents toc={project.toc} />
               </div>
             </ScrollArea>
           </div>

@@ -21,11 +21,11 @@ const Switch = React.forwardRef<
     return <Skeleton className={sizeClass} />;
   }
 
-  console.log(`:${theme} ;${systemTheme}`)
-
   return (
     <SwitchPrimitives.Root
-      checked={theme === "dark" || (theme === "system" && systemTheme === "dark")}
+      checked={
+        theme === "dark" || (theme === "system" && systemTheme === "dark")
+      }
       onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
       className={cn(
         sizeClass,

@@ -1,70 +1,80 @@
-[data-theme="light"] {
-  display: block;
+/* Apply Code themes based on color mode */
+
+/* LIGHT MODE */
+figure[data-rehype-pretty-code-figure] pre {
+  background-color: var(--shiki-light-bg);
 }
 
-[data-theme="dark"] {
-  display: none;
+figure[data-rehype-pretty-code-figure] pre code[data-theme*=" "],
+figure[data-rehype-pretty-code-figure] pre code[data-theme*=" "] span {
+  color: var(--shiki-light);
 }
 
-.dark [data-theme="light"] {
-  display: none;
+/* DARK MODE */
+.dark {
+  figure[data-rehype-pretty-code-figure] pre {
+    background-color: var(--shiki-dark-bg);
+  }
+  figure[data-rehype-pretty-code-figure] pre code[data-theme*=" "],
+  figure[data-rehype-pretty-code-figure] pre code[data-theme*=" "] span {
+    color: var(--shiki-dark);
+  }
 }
 
-.dark [data-theme="dark"] {
-  display: block;
+/* Style outer block */
+[data-rehype-pretty-code-figure] {
+  @apply bg-foreground/5 dark:bg-foreground/5 border border-y border-border rounded mt-4 mb-14;
+
+  figcaption {
+    @apply text-xs py-2 italic border-border border-t px-5;
+  }
 }
 
-[data-rehype-pretty-code-fragment] {
-  @apply relative text-white;
-}
-
-[data-rehype-pretty-code-fragment] code {
-  @apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0;
+/* Style Code blocks */
+[data-rehype-pretty-code-figure] code {
+  @apply w-max grid text-inherit break-words rounded-none border-0 bg-transparent;
   counter-reset: line;
-  box-decoration-break: clone;
 }
 
-[data-rehype-pretty-code-fragment] .line {
-  @apply px-4 min-h-[1rem] py-0.5 w-full inline-block;
+[data-rehype-pretty-code-figure] code > [data-line] {
+  @apply min-h-[1.5rem] px-4 break-words box-decoration-clone;
 }
 
-[data-rehype-pretty-code-fragment] [data-line-numbers] .line {
-  @apply px-2;
-}
-
-[data-rehype-pretty-code-fragment] [data-line-numbers] > .line::before {
-  @apply text-zinc-50/40 text-xs;
+[data-rehype-pretty-code-figure] code > [data-line]::before {
   counter-increment: line;
   content: counter(line);
-  display: inline-block;
-  width: 1.8rem;
-  margin-right: 1.4rem;
-  text-align: right;
+  @apply inline-block text-right mr-4 text-background/30 dark:text-foreground/30;
 }
 
-[data-rehype-pretty-code-fragment] .line--highlighted {
-  @apply bg-zinc-700/50;
-}
-
-[data-rehype-pretty-code-fragment] .line-highlighted span {
-  @apply relative;
-}
-
-[data-rehype-pretty-code-fragment] .word--highlighted {
-  @apply rounded-md bg-zinc-700/50 border-zinc-700/70 p-1;
-}
-
-.dark [data-rehype-pretty-code-fragment] .word--highlighted {
-  @apply bg-zinc-900;
+[data-rehype-pretty-code-figure] code {
+  @apply grid min-w-full break-words rounded-none border-0 p-0 box-decoration-clone;
+  counter-reset: line;
 }
 
 [data-rehype-pretty-code-title] {
-  @apply mt-2 pt-6 px-4 text-sm font-medium;
+  @apply py-2 px-5 text-sm font-medium border-b border-border;
 }
+
+/* [data-rehype-pretty-code-figure] .data-line {
+  @apply px-4 min-h-[1rem] py-0.5 w-full inline-block;
+} 
+
+[data-rehype-pretty-code-figure] .data-line-highlighted span {
+  @apply relative;
+}
+
+[data-rehype-pretty-code-figure] .word--highlighted {
+  @apply rounded-md bg-zinc-700/50 border-zinc-700/70 p-1;
+}
+
+.dark [data-rehype-pretty-code-figure] .word--highlighted {
+  @apply bg-zinc-900;
+}
+
 
 [data-rehype-pretty-code-title] + pre {
   @apply mt-2;
-}
+} */
 
 .mdx > .steps:first-child > h3:first-child {
   @apply mt-0;
