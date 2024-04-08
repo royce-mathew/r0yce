@@ -10,7 +10,7 @@ import { Mdx } from "@/components/mdx-components";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projects | r0yce",
+  title: "Home | r0yce",
   description: "r0yce.com - Portfolio website",
   keywords: [
     "developer",
