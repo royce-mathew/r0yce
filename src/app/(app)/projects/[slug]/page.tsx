@@ -4,6 +4,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { DashboardTableOfContents } from "@/components/toc";
 import { format, parseISO } from "date-fns";
 import { Separator } from "@radix-ui/react-separator";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Icons } from "@/components/icons";
 
 /**
  * Props for the ProjectPage component.
@@ -39,7 +42,52 @@ async function getProjectFromParams({ params }: ProjectPageProps) {
 export async function generateMetadata({ params }: ProjectPageProps) {
   const project = await getProjectFromParams({ params });
   if (!project) return {};
-  return { title: project.title };
+  return {
+    title: `${project.title} | r0yce`,
+    authors: [
+      {
+        name: "Royce Mathew",
+      },
+    ],
+    description: project.description,
+    keywords: project.tags,
+    openGraph: {
+      title: `${project.title} | r0yce`,
+      description: project.description,
+      type: "article",
+      url: `https://r0yce.com/${project.slug}`,
+      publishedTime: project.publishedDate,
+      modifiedTime: project.modifiedDate,
+      authors: ["https://r0yce.com/"],
+      tags: project.tags,
+      images: [
+        {
+          url: project.imageSrc,
+          width: 500,
+          height: 500,
+          alt: project.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      // site: "@r0yce02",
+      // creator: "@r0yce02",
+      title: `${project.title} | r0yce`,
+      description: project.description,
+      images: [
+        {
+          url: project.imageSrc,
+          width: 500,
+          height: 500,
+          alt: project.title,
+        },
+      ],
+    },
+    alternates: {
+      canonical: `https://r0yce.com/${project.slug}`,
+    },
+  };
 }
 
 /**
@@ -66,27 +114,58 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
     <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_220px]">
       <div className="mx-auto w-full min-w-0">
         <article>
-          <div className="mb-2 text-center w-full">
+          <div className="mb-2 text-center w-full border-b border-border">
             <h1 className="xl:text-5xl lg:text-4xl text-3xl font-bold">
               {project.title}
             </h1>
-            <div className="flex flex-col space-y-6 border-b border-border py-5">
-              <p className="text-sm sm:text-lg">{project.description}</p>
 
-              <div className="flex flex-row justify-between">
-                <text className="text-sm">
+            {/* Project Information */}
+            <div className="flex flex-col space-y-6 py-5">
+              <p className="text-xs md:text-lg">{project.description}</p>
+              {/* Tags and attached links */}
+              <div className="flex flex-row justify-between items-center">
+                <div className="space-x-2 flex flex-wrap">
+                  {project.tags.map((tag) => (
+                    <div
+                      key={tag}
+                      className="rounded-md mb-2 bg-primary text-background px-1.5 py-0.5 text-xs"
+                    >
+                      {tag}
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  {project.links?.github && (
+                    <Button asChild variant="outline" size="icon">
+                      <Link
+                        href={project.links.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Icons.github className="h-5 w-5" />
+                      </Link>
+                    </Button>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-row justify-between text-xs md:text-base">
+                <text>
                   Word Count:{" "}
                   <span className="text-primary">
                     {project.metadata.wordCount}
                   </span>
                 </text>
-                <text className="text-sm flex flex-col md:flex-row md:gap-2">
-                  Last Updated:
-                  <time dateTime={project.date} className="text-primary">
-                    {format(parseISO(project.date), "LLLL d, yyyy")}
+                <text className="flex flex-col md:flex-row md:gap-2">
+                  Published Date:
+                  <time
+                    dateTime={project.publishedDate}
+                    className="text-primary"
+                  >
+                    {format(parseISO(project.publishedDate), "LLLL d, yyyy")}
                   </time>
                 </text>
-                <text className="text-sm">
+                <text>
                   Reading Time:{" "}
                   <span className="text-primary">
                     {project.metadata.readingTime}m

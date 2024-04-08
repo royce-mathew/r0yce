@@ -15,6 +15,10 @@ const Label = s.object({
   className: s.string().optional(),
 });
 
+const Links = s.object({
+  github: s.string().optional(),
+});
+
 export const Project = defineCollection({
   name: "Project",
   pattern: `projects/**/*.mdx`,
@@ -22,12 +26,16 @@ export const Project = defineCollection({
     .object({
       title: s.string(),
       description: s.string(),
-      label: Label.optional(),
+      tags: s.array(s.string()).default([]),
+      links: Links.optional(), // Links to attach to the project
       imageSrc: s.string(), // Image to show in the project page
+      label: Label.optional(), // Label to show on the projects list
       columnSpan: s.number().default(1), // How many columns the project should span
       rowSpan: s.number().default(1), // Whether the project is important
-      date: s.isodate().default(new Date().toISOString()),
+      publishedDate: s.isodate().default(new Date().toISOString()),
+      modifiedDate: s.isodate().default(new Date().toISOString()),
       hasToc: s.boolean().default(false),
+      // Extracted data
       toc: s.toc(),
       code: s.mdx(),
       slug: s.path(),

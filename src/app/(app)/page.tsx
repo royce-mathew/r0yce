@@ -7,6 +7,51 @@ import { LinkedInLogoIcon } from "@radix-ui/react-icons";
 import { mainContents } from "#site/content";
 import { Mdx } from "@/components/mdx-components";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects | r0yce",
+  description: "r0yce.com - Portfolio website",
+  keywords: [
+    "developer",
+    "python",
+    "javascript",
+    "react",
+    "computer science",
+    "data science",
+  ],
+  openGraph: {
+    url: "https://r0yce.com",
+    type: "website",
+    title: "Home | r0yce",
+    description: "r0yce.com - Portfolio website",
+    images: [
+      {
+        url: "https://r0yce.com/images/ProfilePicture2.png",
+        width: 1200,
+        height: 630,
+        alt: "r0yce",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Home | r0yce",
+    description: "r0yce.com - Portfolio website",
+    images: [
+      {
+        url: "https://r0yce.com/images/ProfilePicture2.png",
+        width: 1200,
+        height: 630,
+        alt: "r0yce",
+      },
+    ],
+  },
+  alternates: {
+    canonical: "https://r0yce.com",
+  },
+};
+
 export default function Home() {
   const about = mainContents.find((base) => base.slugAsParams === "about");
   if (!about) {

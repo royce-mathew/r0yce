@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
+import { Skeleton } from "./ui/skeleton";
 
 type AvatarStackProps = {
   images: string[];
@@ -46,7 +47,9 @@ const AvatarStack = React.forwardRef<
           </AnimatePresence>
         </LazyMotion> */}
         <AvatarImage src={images[0]} className="object-cover absolute" />
-        <AvatarFallback>{fallback}</AvatarFallback>
+        <AvatarFallback>
+          <Skeleton className="w-full h-full" />
+        </AvatarFallback>
       </Avatar>
     </div>
   );

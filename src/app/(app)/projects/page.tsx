@@ -7,7 +7,43 @@ import { cn } from "@/lib/utils";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useMemo } from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects | r0yce",
+  description: "r0yce.com - List of all projects",
+  keywords: [...projects.map((project) => project.title)],
+  openGraph: {
+    url: "https://r0yce.com/projects",
+    type: "website",
+    title: "Projects | r0yce",
+    description: "r0yce.com - List of all projects",
+    images: [
+      ...projects.map((project) => ({
+        url: project.imageSrc,
+        width: 500,
+        height: 500,
+        alt: project.title,
+      })),
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Projects | r0yce",
+    description: "r0yce.com - List of all projects",
+    images: [
+      ...projects.map((project) => ({
+        url: project.imageSrc,
+        width: 500,
+        height: 500,
+        alt: project.title,
+      })),
+    ],
+  },
+  alternates: {
+    canonical: "https://r0yce.com/projects",
+  },
+};
 
 /**
  * The layout component for the project page.
@@ -105,8 +141,8 @@ const AllProjects = async () => {
 
                       <Separator />
                       <small className="text-sm text-right">
-                        {project?.date &&
-                          format(parseISO(project.date), "MMMM dd, yyyy")}
+                        {project?.publishedDate &&
+                          format(parseISO(project.publishedDate), "MMMM dd, yyyy")}
                       </small>
                     </div>
                   </div>
