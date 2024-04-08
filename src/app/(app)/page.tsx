@@ -86,6 +86,7 @@ export default function Home() {
               <Button asChild variant="outline" size="icon">
                 <Link
                   href="https://github.com/royce-mathew"
+                  aria-label="GitHub"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -95,6 +96,7 @@ export default function Home() {
               <Button asChild variant="outline" size="icon">
                 <Link
                   href="https://www.linkedin.com/in/royce-mathew"
+                  aria-label="LinkedIn"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -102,7 +104,7 @@ export default function Home() {
                 </Link>
               </Button>
               <Button asChild variant="outline" size="icon">
-                <a href="mailto:royce1mathew@gmail.com">
+                <a href="mailto:royce1mathew@gmail.com" aria-label="Email to user">
                   <Icons.envelope className="h-5 w-5" />
                 </a>
               </Button>
@@ -110,6 +112,7 @@ export default function Home() {
             <Button asChild variant="outline">
               <Link
                 href="/files/resume.pdf"
+                aria-label="Resume"
                 target="_blank"
                 rel="noopener noreferrer"
               >

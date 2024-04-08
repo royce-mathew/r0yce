@@ -33,17 +33,27 @@ export function SiteFooter() {
           onValueChange={handleThemeChange}
           loop={true}
           value={theme}
+          aria-label="Toggle theme mode"
         >
-          <ToggleGroupItem value="light" className="rounded-full aspect-square">
+          <ToggleGroupItem
+            value="light"
+            aria-label="Switch to light mode"
+            className="rounded-full aspect-square"
+          >
             <Icons.sun />
           </ToggleGroupItem>
           <ToggleGroupItem
             value="system"
+            aria-label="Switch to system preferred mode"
             className="rounded-full aspect-square"
           >
             <Icons.deviceStar />
           </ToggleGroupItem>
-          <ToggleGroupItem value="dark" className="rounded-full aspect-square">
+          <ToggleGroupItem
+            value="dark"
+            aria-label="Switch to dark mode"
+            className="rounded-full aspect-square"
+          >
             <Icons.moon />
           </ToggleGroupItem>
         </ToggleGroup>

@@ -26,6 +26,7 @@ const Switch = React.forwardRef<
       checked={
         theme === "dark" || (theme === "system" && systemTheme === "dark")
       }
+      aria-label={`Toggle ${theme === "light" ? "dark" : "light"} mode`}
       onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
       className={cn(
         sizeClass,
