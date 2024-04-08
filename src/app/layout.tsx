@@ -5,7 +5,7 @@ import { cal, inter } from "@/styles/fonts";
 import type { Viewport, Metadata } from "next";
 import { ThemeProvider } from "@/components/providers";
 import { cn } from "@/lib/utils";
-import { domAnimation, LazyMotion } from "framer-motion";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -30,11 +30,6 @@ export const metadata: Metadata = {
     "max-snippet": -1,
     "max-video-preview": -1,
     googleBot: "index, follow",
-  },
-  alternates: {
-    types: {
-      "application/rss+xml": "https://r0yce.com/rss.xml",
-    },
   },
   applicationName: "Portfolio | Royce Mathew",
   appleWebApp: {
@@ -103,6 +98,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
       </body>
+      <GoogleAnalytics gaId="G-ZNSHY2T64H" />
     </html>
   );
 }
