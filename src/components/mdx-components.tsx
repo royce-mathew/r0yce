@@ -18,6 +18,8 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { YouTubeEmbed } from "@next/third-parties/google";
+
 
 const sharedComponents = {
   Accordion,
@@ -27,6 +29,7 @@ const sharedComponents = {
   Alert,
   AlertTitle,
   AlertDescription,
+  YouTubeEmbed,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
