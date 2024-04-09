@@ -3,16 +3,9 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { DialogProps } from "@radix-ui/react-alert-dialog";
-import {
-  CircleIcon,
-  FileIcon,
-  LaptopIcon,
-  MoonIcon,
-  SunIcon,
-} from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
 
-import { docsConfig } from "@/config/docs";
+import { siteConfig } from "@/config/docs";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,7 +17,6 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import Link from "next/link";
 import { NavItem } from "@/types/nav";
 import { Icons } from "./icons";
 
@@ -69,21 +61,19 @@ export function CommandMenu({ ...props }: DialogProps) {
         onClick={() => setOpen(true)}
         {...props}
       >
-        {/* 
-            <span className="hidden lg:inline-flex">Search Documentation...</span>
-            <span className="inline-flex lg:hidden">Search...</span> 
-        */}
-        <span>Search...</span>
+        <span className="hidden lg:inline-flex">Search or jump to...</span>
+        <span className="inline-flex lg:hidden">Search...</span>
+
         <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
-          <span className="text-xs">⌘</span>K
+          <span className="text-xs">Ctrl</span>K
         </kbd>
       </Button>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
+      <CommandDialog  open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Links">
-            {docsConfig.mainNav
+          <CommandGroup heading="Main">
+            {siteConfig.mainNav
               .filter((navitem) => !navitem.external)
               .map((navItem: NavItem) => (
                 <CommandItem
@@ -93,12 +83,12 @@ export function CommandMenu({ ...props }: DialogProps) {
                     runCommand(() => router.push(navItem.href as string));
                   }}
                 >
-                  <FileIcon className="mr-2 h-4 w-4" />
+                  <Icons.link className="mr-2 h-4 w-4" />
                   {navItem.title}
                 </CommandItem>
               ))}
           </CommandGroup>
-          {docsConfig.sidebarNav.map((group) => (
+          {siteConfig.sidebarNav.map((group) => (
             <CommandGroup key={group.title} heading={group.title}>
               {group.items.map((navItem: NavItem) => (
                 <CommandItem
@@ -109,7 +99,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                   }}
                 >
                   <div className="mr-2 flex h-4 w-4 items-center justify-center">
-                    <CircleIcon className="h-3 w-3" />
+                    <Icons.code className="h-3 w-3" />
                   </div>
                   {navItem.title}
                 </CommandItem>
@@ -117,7 +107,11 @@ export function CommandMenu({ ...props }: DialogProps) {
             </CommandGroup>
           ))}
           <CommandSeparator />
-          <CommandGroup heading="Theme">
+          <CommandGroup heading="Theming">
+            <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
+              <Icons.deviceStar className="mr-2 h-4 w-4" />
+              System
+            </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
               <Icons.sun className="mr-2 h-4 w-4" />
               Light
@@ -125,10 +119,6 @@ export function CommandMenu({ ...props }: DialogProps) {
             <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
               <Icons.moon className="mr-2 h-4 w-4" />
               Dark
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
-              <Icons.deviceStar className="mr-2 h-4 w-4" />
-              System
             </CommandItem>
           </CommandGroup>
         </CommandList>

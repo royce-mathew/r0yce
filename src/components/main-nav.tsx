@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 import { Badge } from "./ui/badge";
-import { docsConfig } from "@/config/docs";
+import { siteConfig } from "@/config/docs";
 
 export function MainNav() {
   const pathname = usePathname();
@@ -18,7 +18,7 @@ export function MainNav() {
         <Icons.logo />
       </Link>
       <nav className="flex items-center gap-4 text-sm lg:gap-6">
-        {docsConfig.mainNav.map((item, index) => (
+        {siteConfig.mainNav.map((item, index) => (
           <Link
             key={index}
             href={item.href as string}

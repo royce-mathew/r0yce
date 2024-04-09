@@ -1,12 +1,12 @@
 import { MainNavItem, SidebarNavItem } from "@/types/nav";
 import { projects } from "#site/content";
 
-interface DocsConfig {
+interface SiteConfig {
   mainNav: MainNavItem[];
   sidebarNav: SidebarNavItem[];
 }
 
-export const docsConfig: DocsConfig = {
+export const siteConfig: SiteConfig = {
   mainNav: [
     {
       title: "Home",
