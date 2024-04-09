@@ -37,6 +37,7 @@ export function SubNav({
               "transition-colors hover:text-foreground/80 text-foreground/60 font-light justify-between w-full",
               pathname === subItem.href ? "text-primary" : ""
             )}
+            aria-label={subItem.title}
             onOpenChange={onOpenChange}
           >
             <span className="truncate overflow-hidden w-36">
@@ -78,6 +79,7 @@ export function MobileNav() {
                   <MobileLink
                     key={index}
                     href={item.href as string}
+                    aria-label={item.title}
                     className={cn(
                       "transition-colors hover:text-foreground/80 text-foreground/60 justify-between w-full",
                       firstPath === `${item.href?.slice(1)}`
