@@ -104,7 +104,10 @@ export default function Home() {
                 </Link>
               </Button>
               <Button asChild variant="outline" size="icon">
-                <a href="mailto:royce1mathew@gmail.com" aria-label="Email to user">
+                <a
+                  href="mailto:royce1mathew@gmail.com"
+                  aria-label="Email to user"
+                >
                   <Icons.envelope className="h-5 w-5" />
                 </a>
               </Button>

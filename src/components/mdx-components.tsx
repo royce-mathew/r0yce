@@ -20,7 +20,6 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { YouTubeEmbed } from "@next/third-parties/google";
 
-
 const sharedComponents = {
   Accordion,
   AccordionContent,
@@ -31,7 +30,7 @@ const sharedComponents = {
   AlertDescription,
   YouTubeEmbed,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h1
+    <h2
       className={cn(
         "font-heading scroll-m-20 text-4xl font-bold border-border border flex justify-center py-4",
         className
@@ -40,7 +39,7 @@ const sharedComponents = {
     />
   ),
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h2
+    <h3
       className={cn(
         "font-heading mt-12 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0",
         className
@@ -49,7 +48,7 @@ const sharedComponents = {
     />
   ),
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h3
+    <h4
       className={cn(
         "mt-8 scroll-m-20 text-xl font-thin italic tracking-tight brightness-50",
         className
@@ -58,7 +57,7 @@ const sharedComponents = {
     />
   ),
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h4
+    <h5
       className={cn(
         "font-heading mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
         className
@@ -67,18 +66,9 @@ const sharedComponents = {
     />
   ),
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h5
-      className={cn(
-        "mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
-        className
-      )}
-      {...props}
-    />
-  ),
-  h6: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h6
       className={cn(
-        "mt-8 scroll-m-20 text-base font-semibold tracking-tight",
+        "mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
         className
       )}
       {...props}
