@@ -146,7 +146,9 @@
     background: var(--dottedBackground);
     background-size: var(--bgSize, 1rem) var(--bgSize, 1rem);
     background-repeat: round;
-    background-position: 0 0, 50% var(--bgPosition);
+    background-position:
+      0 0,
+      50% var(--bgPosition);
     -webkit-mask: var(--mask);
     mask: var(--mask);
   }

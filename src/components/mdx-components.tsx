@@ -193,13 +193,13 @@ const sharedComponents = {
   ),
   Steps: ({ ...props }) => (
     <div
-      className="[&>h3]:step steps mb-12 ml-4 border-l pl-8 [counter-reset:step]"
+      className="[&>h4]:step steps mb-12 ml-4 border-l pl-8 [counter-reset:step]"
       {...props}
     />
   ),
   UnorderedSteps: ({ ...props }) => (
     <div
-      className="[&>h3]:unordered-step mb-12 ml-4 border-l pl-8 [counter-reset:unordered-step]"
+      className="[&>h4]:unordered-step mb-12 ml-4 border-l pl-8 [counter-reset:unordered-step]"
       {...props}
     />
   ),

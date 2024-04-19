@@ -76,10 +76,10 @@ figure[data-rehype-pretty-code-figure] pre code[data-theme*=" "] span {
   @apply mt-2;
 } */
 
-.mdx > .steps:first-child > h3:first-child {
+.mdx > .steps:first-child > h4:first-child {
   @apply mt-0;
 }
 
-.steps > h3 {
+.steps > h4 {
   @apply mt-8 mb-4 text-base font-semibold;
 }
