@@ -1,15 +1,16 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
+import { ArrowUpIcon, TextAlignLeftIcon } from "@radix-ui/react-icons"
 
-import { TocEntry } from "@/types/toc";
-import { cn } from "@/lib/utils";
-import { useMounted } from "@/hooks/use-mounted";
-import { Separator } from "./ui/separator";
-import { ArrowUpIcon, TextAlignLeftIcon } from "@radix-ui/react-icons";
+import { TocEntry } from "@/types/toc"
+import { cn } from "@/lib/utils"
+import { useMounted } from "@/hooks/use-mounted"
+
+import { Separator } from "./ui/separator"
 
 interface TocProps {
-  toc: TocEntry[];
+  toc: TocEntry[]
 }
 
 export function DashboardTableOfContents({ toc }: TocProps) {
@@ -24,16 +25,16 @@ export function DashboardTableOfContents({ toc }: TocProps) {
             .filter((id) => id !== undefined) // Filter out undefined values
         : [],
     [toc]
-  );
-  const activeHeading = useActiveItem(itemIds);
-  const mounted = useMounted();
+  )
+  const activeHeading = useActiveItem(itemIds)
+  const mounted = useMounted()
 
   if (!toc || !mounted) {
-    return null;
+    return null
   }
 
   // Check if the active heading is the first item in the TOC
-  const isOnPageTop = itemIds[0] === activeHeading || activeHeading === null;
+  const isOnPageTop = itemIds[0] === activeHeading || activeHeading === null
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
@@ -54,48 +55,48 @@ export function DashboardTableOfContents({ toc }: TocProps) {
         </a>
       </div>
     </div>
-  );
+  )
 }
 
 function useActiveItem(itemIds: string[]) {
-  const [activeId, setActiveId] = React.useState<string | null>(null);
+  const [activeId, setActiveId] = React.useState<string | null>(null)
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
+            setActiveId(entry.target.id)
           }
-        });
+        })
       },
       { rootMargin: `0% 0% -80% 0%` }
-    );
+    )
 
     itemIds?.forEach((id) => {
-      const element = document.getElementById(id);
+      const element = document.getElementById(id)
       if (element) {
-        observer.observe(element);
+        observer.observe(element)
       }
-    });
+    })
 
     return () => {
       itemIds?.forEach((id) => {
-        const element = document.getElementById(id);
+        const element = document.getElementById(id)
         if (element) {
-          observer.unobserve(element);
+          observer.unobserve(element)
         }
-      });
-    };
-  }, [itemIds]);
+      })
+    }
+  }, [itemIds])
 
-  return activeId;
+  return activeId
 }
 
 interface TreeProps {
-  tree: TocEntry[];
-  level?: number;
-  activeItem?: string | null;
+  tree: TocEntry[]
+  level?: number
+  activeItem?: string | null
 }
 
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
@@ -123,8 +124,8 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
               />
             ) : null}
           </li>
-        );
+        )
       })}
     </ul>
-  ) : null;
+  ) : null
 }

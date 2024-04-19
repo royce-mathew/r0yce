@@ -1,5 +1,6 @@
-import { siteConfig } from "@/config/docs";
-import React from "react";
+import React from "react"
+
+import { siteConfig } from "@/config/docs"
 
 const Topbar: React.FC = () => {
   return (
@@ -14,7 +15,7 @@ const Topbar: React.FC = () => {
         </ul>
       </nav>
     </div>
-  );
-};
+  )
+}
 
-export default Topbar;
+export default Topbar

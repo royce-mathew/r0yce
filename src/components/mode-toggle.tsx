@@ -1,24 +1,25 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import * as SwitchPrimitives from "@radix-ui/react-switch";
+import * as React from "react"
+import * as SwitchPrimitives from "@radix-ui/react-switch"
+import { useTheme } from "next-themes"
 
-import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
-import { Skeleton } from "./ui/skeleton";
-import { useMounted } from "@/hooks/use-mounted";
+import { cn } from "@/lib/utils"
+import { useMounted } from "@/hooks/use-mounted"
 
-const sizeClass = "h-5 w-9";
+import { Skeleton } from "./ui/skeleton"
+
+const sizeClass = "h-5 w-9"
 
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
 >(({ className, ...props }, ref) => {
-  const mounted = useMounted(); // Wait for mounted to show Switch
-  const { setTheme, theme, systemTheme } = useTheme();
+  const mounted = useMounted() // Wait for mounted to show Switch
+  const { setTheme, theme, systemTheme } = useTheme()
 
   if (!mounted) {
-    return <Skeleton className={sizeClass} />;
+    return <Skeleton className={sizeClass} />
   }
 
   return (
@@ -42,8 +43,8 @@ const Switch = React.forwardRef<
         )}
       />
     </SwitchPrimitives.Root>
-  );
-});
-Switch.displayName = SwitchPrimitives.Root.displayName;
+  )
+})
+Switch.displayName = SwitchPrimitives.Root.displayName
 
-export { Switch as ModeToggle };
+export { Switch as ModeToggle }

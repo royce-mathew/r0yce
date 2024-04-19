@@ -1,11 +1,12 @@
-import "@/styles/globals.css";
-import "@/styles/mdx.css";
+import "@/styles/globals.css"
+import "@/styles/mdx.css"
 
-import { cal, inter } from "@/styles/fonts";
-import type { Viewport, Metadata } from "next";
-import { ThemeProvider } from "@/components/providers";
-import { cn } from "@/lib/utils";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import type { Metadata, Viewport } from "next"
+import { GoogleAnalytics } from "@next/third-parties/google"
+
+import { cn } from "@/lib/utils"
+import { ThemeProvider } from "@/components/providers"
+import { cal, inter } from "@/styles/fonts"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -14,7 +15,7 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
-};
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://r0yce.com"),
@@ -72,12 +73,12 @@ export const metadata: Metadata = {
       // add apple-icon-72x72.png, apple-icon-76x76.png, apple-icon-114x114.png, apple-icon-120x120.png, apple-icon-144x144.png, apple-icon-152x152.png, apple-icon-180x180.png
     ],
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -100,5 +101,5 @@ export default function RootLayout({
       </body>
       <GoogleAnalytics gaId="G-ZNSHY2T64H" />
     </html>
-  );
+  )
 }

@@ -1,9 +1,10 @@
-import { MainNavItem, SidebarNavItem } from "@/types/nav";
-import { projects } from "#site/content";
+import { projects } from "#site/content"
+
+import { MainNavItem, SidebarNavItem } from "@/types/nav"
 
 interface SiteConfig {
-  mainNav: MainNavItem[];
-  sidebarNav: SidebarNavItem[];
+  mainNav: MainNavItem[]
+  sidebarNav: SidebarNavItem[]
 }
 
 export const siteConfig: SiteConfig = {
@@ -29,4 +30,4 @@ export const siteConfig: SiteConfig = {
       })),
     },
   ],
-};
+}

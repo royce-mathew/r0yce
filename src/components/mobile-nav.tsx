@@ -1,31 +1,30 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import Link, { LinkProps } from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { ViewVerticalIcon } from "@radix-ui/react-icons";
+import * as React from "react"
+import Link, { LinkProps } from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 
-import { cn } from "@/lib/utils";
-import { Icons } from "@/components/icons";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { siteConfig } from "@/config/docs";
+import { siteConfig } from "@/config/docs"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Icons } from "@/components/icons"
 
 export function SubNav({
   titleName,
   pathname,
   onOpenChange,
 }: {
-  titleName: string;
-  pathname: string;
-  onOpenChange?: (open: boolean) => void;
+  titleName: string
+  pathname: string
+  onOpenChange?: (open: boolean) => void
 }) {
   const foundSubnav = siteConfig.sidebarNav.find(
     (item) => item.title === titleName
-  );
+  )
 
-  if (foundSubnav === undefined) return null;
+  if (foundSubnav === undefined) return null
 
   return (
     <div className="text-l mt-4 flex w-full flex-col space-y-3 border-l px-3">
@@ -48,13 +47,13 @@ export function SubNav({
         </Button>
       ))}
     </div>
-  );
+  )
 }
 
 export function MobileNav() {
-  const [open, setOpen] = React.useState(false);
-  const pathname = usePathname();
-  const firstPath = pathname.split("/")[1];
+  const [open, setOpen] = React.useState(false)
+  const pathname = usePathname()
+  const firstPath = pathname.split("/")[1]
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -103,13 +102,13 @@ export function MobileNav() {
         </ScrollArea>
       </SheetContent>
     </Sheet>
-  );
+  )
 }
 
 interface MobileLinkProps extends LinkProps {
-  onOpenChange?: (open: boolean) => void;
-  children: React.ReactNode;
-  className?: string;
+  onOpenChange?: (open: boolean) => void
+  children: React.ReactNode
+  className?: string
 }
 
 function MobileLink({
@@ -119,18 +118,18 @@ function MobileLink({
   children,
   ...props
 }: MobileLinkProps) {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <Link
       href={href}
       onClick={() => {
-        router.push(href.toString());
-        onOpenChange?.(false);
+        router.push(href.toString())
+        onOpenChange?.(false)
       }}
       className={cn(className)}
       {...props}
     >
       {children}
     </Link>
-  );
+  )
 }

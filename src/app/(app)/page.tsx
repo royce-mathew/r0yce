@@ -1,20 +1,13 @@
-import { Metadata } from "next";
-import Link from "next/link";
-import { mainContents } from "#site/content";
-import AvatarStack from "@/components/avatar-stack";
-import { Icons } from "@/components/icons";
-import { Mdx } from "@/components/mdx-components";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { LinkedInLogoIcon } from "@radix-ui/react-icons";
-import { mainContents } from "#site/content";
-import AvatarStack from "@/components/avatar-stack";
-import { Icons } from "@/components/icons";
-import { Mdx } from "@/components/mdx-components";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { LinkedInLogoIcon } from "@radix-ui/react-icons";
+import { Metadata } from "next"
+import Link from "next/link"
+import { LinkedInLogoIcon } from "@radix-ui/react-icons"
+import { mainContents } from "#site/content"
 
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import AvatarStack from "@/components/avatar-stack"
+import { Icons } from "@/components/icons"
+import { Mdx } from "@/components/mdx-components"
 
 export const metadata: Metadata = {
   title: "Home | r0yce",
@@ -57,7 +50,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://r0yce.com",
   },
-};
+}
 
 export default function Home() {
   const about = mainContents.find((base) => base.slugAsParams === "about")

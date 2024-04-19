@@ -1,9 +1,5 @@
-// import {
-//     getAllCategories,
-//     getAllPostSlugsWithModifyTime
-//   } from "@/utils/getData";
-import { Project, projects } from "#site/content";
-import { MetadataRoute } from "next";
+import { MetadataRoute } from "next"
+import { Project, projects } from "#site/content"
 
 //   The sitemap can be wrapped in a Promise as well
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -27,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     //   priority: 0.9,
     // },
     // other pages
-  ];
+  ]
 
   const sitemap = [
     ...defaultPages,
@@ -37,7 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.8,
     })),
-  ];
+  ]
 
-  return sitemap as MetadataRoute.Sitemap;
+  return sitemap as MetadataRoute.Sitemap
 }

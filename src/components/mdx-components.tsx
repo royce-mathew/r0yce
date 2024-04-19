@@ -1,24 +1,24 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import * as runtime from "react/jsx-runtime";
+import * as React from "react"
+import * as runtime from "react/jsx-runtime"
+import Image from "next/image"
+import Link from "next/link"
+import { YouTubeEmbed } from "@next/third-parties/google"
 
-import Image from "next/image";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { Callout } from "@/components/callout";
-import { CodeBlockWrapper } from "@/components/code-block-wrapper";
-import { CopyButton } from "@/components/copy-button";
+import { cn } from "@/lib/utils"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { YouTubeEmbed } from "@next/third-parties/google";
+} from "@/components/ui/accordion"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AspectRatio } from "@/components/ui/aspect-ratio"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { Callout } from "@/components/callout"
+import { CodeBlockWrapper } from "@/components/code-block-wrapper"
+import { CopyButton } from "@/components/copy-button"
 
 const sharedComponents = {
   Accordion,
@@ -149,7 +149,7 @@ const sharedComponents = {
     __raw__,
     ...props
   }: React.HTMLAttributes<HTMLPreElement> & {
-    __raw__?: string;
+    __raw__?: string
   }) => {
     return (
       <ScrollArea>
@@ -166,7 +166,7 @@ const sharedComponents = {
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-    );
+    )
   },
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
     return (
@@ -174,7 +174,7 @@ const sharedComponents = {
         className={cn("size-full p-2 font-mono text-sm", className)}
         {...props}
       />
-    );
+    )
   },
   Image,
   Callout,
@@ -230,20 +230,20 @@ const sharedComponents = {
   GridItem: ({ className, ...props }: React.ComponentProps<"div">) => (
     <div className={cn("basis-1/2", className)} {...props} />
   ),
-};
+}
 // parse the Velite generated MDX code into a React component function
 const useMDXComponent = (code: string) => {
-  const fn = new Function(code);
-  return fn({ ...runtime }).default;
-};
+  const fn = new Function(code)
+  return fn({ ...runtime }).default
+}
 
 interface MDXProps {
-  code: string;
-  components?: Record<string, React.ComponentType>;
+  code: string
+  components?: Record<string, React.ComponentType>
 }
 
 // MDXContent component
 export const Mdx = ({ code, components }: MDXProps) => {
-  const Component = useMDXComponent(code);
-  return <Component components={{ ...sharedComponents, ...components }} />;
-};
+  const Component = useMDXComponent(code)
+  return <Component components={{ ...sharedComponents, ...components }} />
+}

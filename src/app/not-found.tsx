@@ -1,6 +1,7 @@
-"use client";
-import React from "react";
-import Image from "next/image";
+"use client"
+
+import React from "react"
+import Image from "next/image"
 
 export default function NotFound() {
   return (
@@ -20,5 +21,5 @@ export default function NotFound() {
         <h3 className="tracking-tight">Not Found</h3>
       </div>
     </div>
-  );
+  )
 }

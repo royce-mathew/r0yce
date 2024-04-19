@@ -1,28 +1,27 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
+import * as React from "react"
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@radix-ui/react-separator";
-import { Icons } from "./icons";
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+
+import { Icons } from "./icons"
 
 interface CopyButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  content: string;
+  content: string
 }
 
 export function CopyButton({ className, content, ...props }: CopyButtonProps) {
-  const [hasCopied, setHasCopied] = React.useState(false);
+  const [hasCopied, setHasCopied] = React.useState(false)
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(content);
-    setHasCopied(true);
+    await navigator.clipboard.writeText(content)
+    setHasCopied(true)
 
     setTimeout(() => {
-      setHasCopied(false);
-    }, 2000);
-  };
+      setHasCopied(false)
+    }, 2000)
+  }
   return (
     <Button
       variant="ghost"
@@ -45,5 +44,5 @@ export function CopyButton({ className, content, ...props }: CopyButtonProps) {
         <Icons.clipboardEmpty className="size-6" />
       )}
     </Button>
-  );
+  )
 }

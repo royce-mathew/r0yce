@@ -1,29 +1,21 @@
-import Link from "next/link";
-import { projects } from "#site/content";
-import { Icons } from "@/components/icons";
-import { Mdx } from "@/components/mdx-components";
-import { DashboardTableOfContents } from "@/components/toc";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@radix-ui/react-separator";
-import { format, parseISO } from "date-fns";
-import { projects } from "#site/content";
-import { Icons } from "@/components/icons";
-import { Mdx } from "@/components/mdx-components";
-import { DashboardTableOfContents } from "@/components/toc";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@radix-ui/react-separator";
-import { format, parseISO } from "date-fns";
+import Link from "next/link"
+import { Separator } from "@radix-ui/react-separator"
+import { projects } from "#site/content"
+import { format, parseISO } from "date-fns"
 
+import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Icons } from "@/components/icons"
+import { Mdx } from "@/components/mdx-components"
+import { DashboardTableOfContents } from "@/components/toc"
 
 /**
  * Props for the ProjectPage component.
  */
 interface ProjectPageProps {
   params: {
-    slug: string;
-  };
+    slug: string
+  }
 }
 
 /**
@@ -32,14 +24,14 @@ interface ProjectPageProps {
  * @returns The project matching the slug, or null if not found.
  */
 async function getProjectFromParams({ params }: ProjectPageProps) {
-  const slug = params.slug || "";
-  const project = projects.find((project) => project.slugAsParams === slug);
+  const slug = params.slug || ""
+  const project = projects.find((project) => project.slugAsParams === slug)
 
   if (!project) {
-    return null;
+    return null
   }
 
-  return project;
+  return project
 }
 
 /**
@@ -49,8 +41,8 @@ async function getProjectFromParams({ params }: ProjectPageProps) {
  * @throws Error if the project is not found.
  */
 export async function generateMetadata({ params }: ProjectPageProps) {
-  const project = await getProjectFromParams({ params });
-  if (!project) return {};
+  const project = await getProjectFromParams({ params })
+  if (!project) return {}
   return {
     title: `${project.title} | r0yce`,
     authors: [
@@ -96,7 +88,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
     alternates: {
       canonical: `https://r0yce.com/${project.slug}`,
     },
-  };
+  }
 }
 
 /**
@@ -104,7 +96,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
  * @returns The generated static params.
  */
 export const generateStaticParams = async () =>
-  projects.map((project) => ({ slug: project.slugAsParams }));
+  projects.map((project) => ({ slug: project.slugAsParams }))
 
 /**
  * The layout component for the project page.
@@ -117,7 +109,7 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
     (project) => project.slugAsParams === params.slug
   )
 
-  if (!project) throw new Error(`Project not found for slug: ${params.slug}`);
+  if (!project) throw new Error(`Project not found for slug: ${params.slug}`)
 
   return (
     <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_220px]">
@@ -201,7 +193,7 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
         </div>
       )}
     </main>
-  );
-};
+  )
+}
 
-export default ProjectLayout;
+export default ProjectLayout

@@ -1,17 +1,17 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { SidebarNavItem } from "@/types/nav";
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
-import { cn } from "@/lib/utils";
+import { SidebarNavItem } from "@/types/nav"
+import { cn } from "@/lib/utils"
 
 export interface ProjectSidebarNavProps {
-  items: SidebarNavItem[];
+  items: SidebarNavItem[]
 }
 
 export function ProjectSidebarNav({ items }: ProjectSidebarNavProps) {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return items.length ? (
     <div className="w-full">
@@ -30,12 +30,12 @@ export function ProjectSidebarNav({ items }: ProjectSidebarNavProps) {
         </div>
       ))}
     </div>
-  ) : null;
+  ) : null
 }
 
 interface ProjectSidebarNavItemsProps {
-  items: SidebarNavItem[];
-  pathname: string | null;
+  items: SidebarNavItem[]
+  pathname: string | null
 }
 
 export function ProjectSidebarNavItems({
@@ -89,5 +89,5 @@ export function ProjectSidebarNavItems({
         )
       )}
     </div>
-  ) : null;
+  ) : null
 }

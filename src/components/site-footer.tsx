@@ -1,22 +1,24 @@
-"use client";
+"use client"
 
-import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
-import { Icons } from "./icons";
-import { useTheme } from "next-themes";
-import { useMounted } from "@/hooks/use-mounted";
+import { useTheme } from "next-themes"
+
+import { useMounted } from "@/hooks/use-mounted"
+
+import { Icons } from "./icons"
+import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group"
 
 export function SiteFooter() {
-  const currentYear = new Date().getFullYear();
-  const mounted = useMounted();
-  const { setTheme, theme } = useTheme();
+  const currentYear = new Date().getFullYear()
+  const mounted = useMounted()
+  const { setTheme, theme } = useTheme()
 
   if (!mounted) {
-    return null;
+    return null
   }
 
   function handleThemeChange(value: string) {
     if (value) {
-      setTheme(value);
+      setTheme(value)
     }
   }
 
@@ -59,5 +61,5 @@ export function SiteFooter() {
         </ToggleGroup>
       </div>
     </footer>
-  );
+  )
 }

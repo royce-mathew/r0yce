@@ -1,9 +1,9 @@
-import { siteConfig } from "@/config/docs";
-import { ProjectSidebarNav } from "@/components/sidebar-nav";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { siteConfig } from "@/config/docs"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { ProjectSidebarNav } from "@/components/sidebar-nav"
 
 interface DocsLayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function DocsLayout({ children }: DocsLayoutProps) {
@@ -18,5 +18,5 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
         {children}
       </div>
     </div>
-  );
+  )
 }

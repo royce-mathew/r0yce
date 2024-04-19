@@ -2,14 +2,14 @@ export interface TocEntry {
   /**
    * Title of the entry
    */
-  title: string;
+  title: string
   /**
    * URL that can be used to reach
    * the content
    */
-  url: string;
+  url: string
   /**
    * Nested items
    */
-  items: TocEntry[];
+  items: TocEntry[]
 }

@@ -1,8 +1,10 @@
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import React from "react"
+
+import { SiteFooter } from "@/components/site-footer"
+import { SiteHeader } from "@/components/site-header"
 
 interface AppLayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function AppLayout({ children }: AppLayoutProps) {
@@ -12,5 +14,5 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <main>{children}</main>
       <SiteFooter />
     </>
-  );
+  )
 }

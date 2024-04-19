@@ -1,13 +1,14 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { useRouter } from "next/navigation";
-import { DialogProps } from "@radix-ui/react-alert-dialog";
-import { useTheme } from "next-themes";
+import * as React from "react"
+import { useRouter } from "next/navigation"
+import { DialogProps } from "@radix-ui/react-alert-dialog"
+import { useTheme } from "next-themes"
 
-import { siteConfig } from "@/config/docs";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { NavItem } from "@/types/nav"
+import { siteConfig } from "@/config/docs"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import {
   CommandDialog,
   CommandEmpty,
@@ -16,14 +17,14 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command";
-import { NavItem } from "@/types/nav";
-import { Icons } from "./icons";
+} from "@/components/ui/command"
+
+import { Icons } from "./icons"
 
 export function CommandMenu({ ...props }: DialogProps) {
-  const router = useRouter();
-  const [open, setOpen] = React.useState(false);
-  const { setTheme } = useTheme();
+  const router = useRouter()
+  const [open, setOpen] = React.useState(false)
+  const { setTheme } = useTheme()
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -34,22 +35,22 @@ export function CommandMenu({ ...props }: DialogProps) {
           e.target instanceof HTMLTextAreaElement ||
           e.target instanceof HTMLSelectElement
         ) {
-          return;
+          return
         }
 
-        e.preventDefault();
-        setOpen((open) => !open);
+        e.preventDefault()
+        setOpen((open) => !open)
       }
-    };
+    }
 
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
+    document.addEventListener("keydown", down)
+    return () => document.removeEventListener("keydown", down)
+  }, [])
 
   const runCommand = React.useCallback((command: () => unknown) => {
-    setOpen(false);
-    command();
-  }, []);
+    setOpen(false)
+    command()
+  }, [])
 
   return (
     <>
@@ -68,7 +69,7 @@ export function CommandMenu({ ...props }: DialogProps) {
           <span className="text-xs">Ctrl</span>K
         </kbd>
       </Button>
-      <CommandDialog  open={open} onOpenChange={setOpen}>
+      <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
@@ -80,7 +81,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                   key={navItem.href}
                   value={navItem.title}
                   onSelect={() => {
-                    runCommand(() => router.push(navItem.href as string));
+                    runCommand(() => router.push(navItem.href as string))
                   }}
                 >
                   <Icons.link className="mr-2 size-4" />
@@ -95,7 +96,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                   key={navItem.href}
                   value={navItem.href}
                   onSelect={() => {
-                    runCommand(() => router.push(navItem.href as string));
+                    runCommand(() => router.push(navItem.href as string))
                   }}
                 >
                   <div className="mr-2 flex size-4 items-center justify-center">
@@ -124,5 +125,5 @@ export function CommandMenu({ ...props }: DialogProps) {
         </CommandList>
       </CommandDialog>
     </>
-  );
+  )
 }
