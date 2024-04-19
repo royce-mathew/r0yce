@@ -1,11 +1,11 @@
-name: Code check
+name: Code Check
 
 on:
   pull_request:
     branches: ["*"]
 
 jobs:
-  lint:
+  code-lint:
     runs-on: ubuntu-latest
     name: pnpm lint
     steps:
