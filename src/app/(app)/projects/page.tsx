@@ -116,7 +116,8 @@ const AllProjects = async () => {
               )}
               variant={null}
             >
-              <Link href={project?.slug ?? "/"} className="size-full">
+              {/* eslint-disable-next-line tailwindcss/enforces-shorthand */}
+              <Link href={project?.slug ?? "/"} className="h-full w-full">
                 {project?.imageSrc && (
                   <div className="flex size-full flex-col justify-between">
                     <div className="relative p-1">
