@@ -127,7 +127,7 @@ export default function Home() {
       </div>
 
       {/* About Me */}
-      <div className="flex flex-col items-center justify-center bg-black bg-opacity-5 p-5 dark:bg-opacity-15">
+      <div className="flex flex-col items-center justify-center bg-black/[5%] p-5 dark:bg-black/[10%]">
         <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
           {about?.title}
         </h1>
