@@ -17,7 +17,7 @@ export function ProjectSidebarNav({ items }: ProjectSidebarNavProps) {
     <div className="w-full">
       {items.map((item, index) => (
         <div key={index} className={cn("pb-4")}>
-          <h3 className="mb-1 rounded-md px-2 py-1 text-md font-semibold text-lg">
+          <h3 className="text-md mb-1 rounded-md px-2 py-1 text-lg font-semibold">
             {item.href ? (
               <Link href={item.href}>{item.title}</Link>
             ) : (
@@ -53,7 +53,7 @@ export function ProjectSidebarNavItems({
               "group flex w-full items-center px-2 py-1",
               item.disabled && "cursor-not-allowed opacity-60",
               pathname === item.href
-                ? "font-medium text-foreground"
+                ? "text-foreground font-medium"
                 : "text-muted-foreground"
             )}
             target={item.external ? "_blank" : ""}
@@ -63,7 +63,7 @@ export function ProjectSidebarNavItems({
             {item.label && (
               <span
                 className={cn(
-                  "ml-2 rounded-md bg-primary text-background px-1.5 py-0.5 text-xs leading-none",
+                  "bg-primary text-background ml-2 rounded-md px-1.5 py-0.5 text-xs leading-none",
                   item.label.className
                 )}
               >
@@ -75,13 +75,13 @@ export function ProjectSidebarNavItems({
           <span
             key={index}
             className={cn(
-              "flex w-full cursor-not-allowed items-center rounded-md p-2 text-muted-foreground hover:underline",
+              "text-muted-foreground flex w-full cursor-not-allowed items-center rounded-md p-2 hover:underline",
               item.disabled && "cursor-not-allowed opacity-60"
             )}
           >
             {item.title}
             {item.label && (
-              <span className="ml-2 rounded-md bg-muted px-1.5 py-0.5 text-xs leading-none text-muted-foreground no-underline group-hover:no-underline">
+              <span className="bg-muted text-muted-foreground ml-2 rounded-md px-1.5 py-0.5 text-xs leading-none no-underline group-hover:no-underline">
                 {item.label.text}
               </span>
             )}

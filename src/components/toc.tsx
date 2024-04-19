@@ -36,17 +36,17 @@ export function DashboardTableOfContents({ toc }: TocProps) {
   const isOnPageTop = itemIds[0] === activeHeading || activeHeading === null;
   return (
     <div className="space-y-2">
-      <div className="flex space-x-3 items-center">
-        <TextAlignLeftIcon className="h-4 w-4 inline-block" />
-        <p className="font-medium text-base">On this page</p>
+      <div className="flex items-center space-x-3">
+        <TextAlignLeftIcon className="inline-block size-4" />
+        <p className="text-base font-medium">On this page</p>
       </div>
       <Tree tree={toc} activeItem={activeHeading} />
-      <div className="pt-3 space-y-3">
+      <div className="space-y-3 pt-3">
         <Separator className="w-full" />
         <a
           href="#"
           className={cn(
-            "text-sm flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-opacity",
+            "text-muted-foreground hover:text-foreground flex items-center space-x-2 text-sm transition-opacity",
             !isOnPageTop ? "opacity-100" : "opacity-0"
           )}
         >
@@ -107,9 +107,9 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
             <a
               href={item.url}
               className={cn(
-                "inline-block no-underline transition-colors hover:text-foreground",
+                "hover:text-foreground inline-block no-underline transition-colors",
                 item.url === `#${activeItem}`
-                  ? " font-medium text-foreground"
+                  ? " text-foreground font-medium"
                   : "text-muted-foreground"
               )}
             >

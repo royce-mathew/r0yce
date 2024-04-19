@@ -32,7 +32,7 @@ const sharedComponents = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        "font-heading scroll-m-20 text-4xl font-bold border-border border flex justify-center py-4",
+        "font-heading border-border flex scroll-m-20 justify-center border py-4 text-4xl font-bold",
         className
       )}
       {...props}
@@ -77,7 +77,7 @@ const sharedComponents = {
   a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
     <a
       className={cn(
-        "font-medium text-primary hover:underline decoration-2",
+        "text-primary font-medium decoration-2 hover:underline",
         className
       )}
       {...props}
@@ -122,7 +122,7 @@ const sharedComponents = {
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr
-      className={cn("m-0 border-t p-0 even:bg-muted", className)}
+      className={cn("even:bg-muted m-0 border-t p-0", className)}
       {...props}
     />
   ),
@@ -153,9 +153,9 @@ const sharedComponents = {
   }) => {
     return (
       <ScrollArea>
-        <div className="max-h-[650px] max-w-full group">
+        <div className="group max-h-[650px] max-w-full">
           <pre
-            className={cn("px-3 py-4 w-full min-w-max grid", className)}
+            className={cn("grid w-full min-w-max px-3 py-4", className)}
             {...props}
           >
             <div className="absolute right-4 top-4">
@@ -171,7 +171,7 @@ const sharedComponents = {
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
     return (
       <code
-        className={cn("w-full h-full px-2 py-2 font-mono text-sm", className)}
+        className={cn("size-full p-2 font-mono text-sm", className)}
         {...props}
       />
     );
@@ -212,7 +212,7 @@ const sharedComponents = {
   LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
       className={cn(
-        "flex w-full flex-col items-center rounded-xl border bg-card p-6 text-card-foreground shadow transition-colors hover:bg-muted/50 sm:p-10",
+        "bg-card text-card-foreground hover:bg-muted/50 flex w-full flex-col items-center rounded-xl border p-6 shadow transition-colors sm:p-10",
         className
       )}
       {...props}
@@ -221,7 +221,7 @@ const sharedComponents = {
   Grid: ({ className, ...props }: React.ComponentProps<"div">) => (
     <div
       className={cn(
-        "flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-5 p-2",
+        "flex flex-col space-y-4 p-2 md:flex-row md:space-x-5 md:space-y-0",
         className
       )}
       {...props}

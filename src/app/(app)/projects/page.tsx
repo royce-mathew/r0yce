@@ -98,41 +98,41 @@ const AllProjects = async () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <h1 className="font-cal text-5xl md:text-6xl font-bold text-center md:space-x-8 mt-16 mb-6">
+      <h1 className="font-cal mb-6 mt-16 text-center text-5xl font-bold md:space-x-8 md:text-6xl">
         Projects
       </h1>
-      <div className="flex relative w-full pt-16 pb-24 justify-center dark:bg-black/15 bg-black/10">
-        <div className="container grid grid-flow-row-dense grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto z-10">
+      <div className="relative flex w-full justify-center bg-black/10 pb-24 pt-16 dark:bg-black/15">
+        <div className="container z-10 mx-auto grid max-w-7xl grid-flow-row-dense grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projectsSorted.map((project: Project) => (
             <Button
               key={project?.slug}
               asChild
               // Weird bug with classNames not being applied when doing md:col-span-${project.columnSpan}
               className={cn(
-                "row-span-1 justify-between flex flex-col space-y-4 border border-border rounded p-1 bg-background hover:brightness-70 hover:scale-[102%] duration-200 hover:shadow-xl transition-all",
+                "border-border bg-background hover:brightness-70 row-span-1 flex flex-col justify-between space-y-4 rounded border p-1 transition-all duration-200 hover:scale-[102%] hover:shadow-xl",
                 project.columnSpan == 1 && `md:col-span-1`,
                 project.columnSpan == 2 && `md:col-span-2`,
                 project.columnSpan == 3 && `md:col-span-3`
               )}
               variant={null}
             >
-              <Link href={project?.slug ?? "/"} className="h-full w-full">
+              <Link href={project?.slug ?? "/"} className="size-full">
                 {project?.imageSrc && (
-                  <div className="flex flex-col justify-between h-full w-full">
+                  <div className="flex size-full flex-col justify-between">
                     <div className="relative p-1">
                       <Image
                         src={project.imageSrc}
                         alt="Profile Picture"
-                        className="h-full w-full max-h-64 object-cover rounded"
+                        className="size-full max-h-64 rounded object-cover"
                         width={1000}
                         height={1000}
                       />
-                      <div className="absolute inset-0 halftone" />
-                      <div className="absolute inset-0  bg-gradient-to-t from-background from-5% to-25% to-transparent bg-size-150% bg-pos-10%" />
+                      <div className="halftone absolute inset-0" />
+                      <div className="from-background bg-size-150%  bg-pos-10% absolute inset-0 bg-gradient-to-t from-5% to-transparent to-25%" />
                     </div>
 
-                    <div className="flex flex-col px-1 pt-4 pb-2 space-y-2 text-wrap">
-                      <h1 className="text-xl md:text-2xl font-semibold text-balance">
+                    <div className="flex flex-col space-y-2 text-wrap px-1 pb-2 pt-4">
+                      <h1 className="text-balance text-xl font-semibold md:text-2xl">
                         {project?.title}
                       </h1>
                       <p className="text-muted-foreground text-wrap">
@@ -140,7 +140,7 @@ const AllProjects = async () => {
                       </p>
 
                       <Separator />
-                      <small className="text-sm text-right">
+                      <small className="text-right text-sm">
                         {project?.publishedDate &&
                           format(parseISO(project.publishedDate), "MMMM dd, yyyy")}
                       </small>

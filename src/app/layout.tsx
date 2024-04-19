@@ -84,7 +84,7 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background antialiased",
+          "bg-background min-h-screen antialiased",
           cal.variable,
           inter.variable
         )}

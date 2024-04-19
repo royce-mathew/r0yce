@@ -3,7 +3,7 @@ import React from "react";
 
 const Topbar: React.FC = () => {
   return (
-    <div className="w-full max-h-8">
+    <div className="max-h-8 w-full">
       <nav>
         <ul>
           {siteConfig.mainNav.map((item, index) => (

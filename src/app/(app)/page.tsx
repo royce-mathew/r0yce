@@ -1,13 +1,20 @@
+import { Metadata } from "next";
+import Link from "next/link";
+import { mainContents } from "#site/content";
 import AvatarStack from "@/components/avatar-stack";
+import { Icons } from "@/components/icons";
+import { Mdx } from "@/components/mdx-components";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/icons";
-import Link from "next/link";
 import { LinkedInLogoIcon } from "@radix-ui/react-icons";
 import { mainContents } from "#site/content";
+import AvatarStack from "@/components/avatar-stack";
+import { Icons } from "@/components/icons";
 import { Mdx } from "@/components/mdx-components";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { LinkedInLogoIcon } from "@radix-ui/react-icons";
 
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Home | r0yce",
@@ -53,23 +60,23 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const about = mainContents.find((base) => base.slugAsParams === "about");
+  const about = mainContents.find((base) => base.slugAsParams === "about")
   if (!about) {
-    throw new Error("About base not found");
+    throw new Error("About base not found")
   }
 
   return (
     <main className="flex min-h-screen flex-col">
       {/* Profile Information Box */}
-      <div className="flex flex-col md:flex-row items-center justify-center md:space-x-8 my-24">
+      <div className="my-24 flex flex-col items-center justify-center md:flex-row md:space-x-8">
         <AvatarStack
-          className="relative h-32 w-32 md:w-[230px] md:h-[230px]"
+          className="relative size-32 md:size-[230px]"
           images={["/images/ProfilePicture2.jpg"]}
           fallback="Profile"
         />
         <div className="mt-4 space-y-2 px-2">
           {/* Name */}
-          <h1 className="font-cal text-2xl sm:text-3xl md:text-5xl font-bold dark:text-white text-center">
+          <h1 className="font-cal text-center text-2xl font-bold sm:text-3xl md:text-5xl dark:text-white">
             Royce Mathew
           </h1>
 
@@ -81,7 +88,7 @@ export default function Home() {
           </div>
 
           {/* Contact Information */}
-          <div className="flex justify-between items-center ">
+          <div className="flex items-center justify-between ">
             <div className="space-x-2">
               <Button asChild variant="outline" size="icon">
                 <Link
@@ -90,7 +97,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Icons.github className="h-5 w-5" />
+                  <Icons.github className="size-5" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="icon">
@@ -100,7 +107,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <LinkedInLogoIcon className="h-5 w-5" />
+                  <LinkedInLogoIcon className="size-5" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="icon">
@@ -108,7 +115,7 @@ export default function Home() {
                   href="mailto:royce1mathew@gmail.com"
                   aria-label="Email to user"
                 >
-                  <Icons.envelope className="h-5 w-5" />
+                  <Icons.envelope className="size-5" />
                 </a>
               </Button>
             </div>
@@ -119,7 +126,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Icons.pnpm className="mr-2 h-4 w-4" /> Resume
+                <Icons.pnpm className="mr-2 size-4" /> Resume
               </Link>
             </Button>
           </div>
@@ -127,7 +134,7 @@ export default function Home() {
       </div>
 
       {/* About Me */}
-      <div className="bg-black bg-opacity-5 dark:bg-opacity-15 flex flex-col items-center justify-center p-5">
+      <div className="flex flex-col items-center justify-center bg-black bg-opacity-5 p-5 dark:bg-opacity-15">
         <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
           {about?.title}
         </h1>
@@ -136,5 +143,5 @@ export default function Home() {
         </div>
       </div>
     </main>
-  );
+  )
 }

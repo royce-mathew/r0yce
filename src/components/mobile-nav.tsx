@@ -28,22 +28,22 @@ export function SubNav({
   if (foundSubnav === undefined) return null;
 
   return (
-    <div className="flex flex-col space-y-3 text-l border-l px-3 w-full mt-4">
+    <div className="text-l mt-4 flex w-full flex-col space-y-3 border-l px-3">
       {foundSubnav.items.map((subItem, subIndex) => (
         <Button key={subIndex} className="w-full" variant="outline" asChild>
           <MobileLink
             href={subItem.href as string}
             className={cn(
-              "transition-colors hover:text-foreground/80 text-foreground/60 font-light justify-between w-full",
+              "hover:text-foreground/80 text-foreground/60 w-full justify-between font-light transition-colors",
               pathname === subItem.href ? "text-primary" : ""
             )}
             aria-label={subItem.title}
             onOpenChange={onOpenChange}
           >
-            <span className="truncate overflow-hidden w-36">
+            <span className="w-36 overflow-hidden truncate">
               {subItem.title}
             </span>
-            <Icons.code className="h-5 w-5" />
+            <Icons.code className="size-5" />
           </MobileLink>
         </Button>
       ))}
@@ -69,9 +69,9 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent side="left" className="pr-0">
         <div className="flex items-center">
-          <span className="font-bold text-lg">Navigation Menu</span>
+          <span className="text-lg font-bold">Navigation Menu</span>
         </div>
-        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 px-6">
+        <ScrollArea className="my-4 h-[calc(100vh-8rem)] px-6 pb-10">
           <div className="flex flex-col space-y-3 text-lg">
             {siteConfig.mainNav.map((item, index) => (
               <div key={index}>
@@ -81,7 +81,7 @@ export function MobileNav() {
                     href={item.href as string}
                     aria-label={item.title}
                     className={cn(
-                      "transition-colors hover:text-foreground/80 text-foreground/60 justify-between w-full",
+                      "hover:text-foreground/80 text-foreground/60 w-full justify-between transition-colors",
                       firstPath === `${item.href?.slice(1)}`
                         ? "text-foreground"
                         : ""
@@ -89,7 +89,7 @@ export function MobileNav() {
                     onOpenChange={setOpen}
                   >
                     {item.title}
-                    <Icons.link className="h-5 w-5" />
+                    <Icons.link className="size-5" />
                   </MobileLink>
                 </Button>
                 <SubNav

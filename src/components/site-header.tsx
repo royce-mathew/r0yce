@@ -7,7 +7,7 @@ import { CommandMenu } from "@/components/command-menu";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-blue-500 border-b dark:border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="dark:border-border/40 bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b bg-blue-500 backdrop-blur">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <MainNav />
         <MobileNav />

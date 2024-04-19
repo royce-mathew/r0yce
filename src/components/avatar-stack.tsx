@@ -46,9 +46,9 @@ const AvatarStack = React.forwardRef<
             </m.div>
           </AnimatePresence>
         </LazyMotion> */}
-        <AvatarImage src={images[0]} className="object-cover absolute" alt="Profile"/>
+        <AvatarImage src={images[0]} className="absolute object-cover" alt="Profile"/>
         <AvatarFallback>
-          <Skeleton className="w-full h-full" />
+          <Skeleton className="size-full" />
         </AvatarFallback>
       </Avatar>
     </div>

@@ -21,14 +21,14 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="py-6 md:px-8 md:py-0 border-t dark:border-border/40 bg-background/95 ">
+    <footer className="dark:border-border/40 bg-background/95 border-t py-6 md:px-8 md:py-0 ">
       <div className="container flex flex-col items-center justify-between gap-4 md:h-16 md:flex-row">
-        <p className="text-balance text-center text-sm leading-loose text-muted-foreground">
+        <p className="text-muted-foreground text-balance text-center text-sm leading-loose">
           Copyright © {currentYear} Royce Mathew. All rights reserved.
         </p>
         <ToggleGroup
           type="single"
-          className="border rounded-full gap-0"
+          className="gap-0 rounded-full border"
           size="sm"
           onValueChange={handleThemeChange}
           loop={true}
@@ -38,21 +38,21 @@ export function SiteFooter() {
           <ToggleGroupItem
             value="light"
             aria-label="Switch to light mode"
-            className="rounded-full aspect-square"
+            className="aspect-square rounded-full"
           >
             <Icons.sun />
           </ToggleGroupItem>
           <ToggleGroupItem
             value="system"
             aria-label="Switch to system preferred mode"
-            className="rounded-full aspect-square"
+            className="aspect-square rounded-full"
           >
             <Icons.deviceStar />
           </ToggleGroupItem>
           <ToggleGroupItem
             value="dark"
             aria-label="Switch to dark mode"
-            className="rounded-full aspect-square"
+            className="aspect-square rounded-full"
           >
             <Icons.moon />
           </ToggleGroupItem>

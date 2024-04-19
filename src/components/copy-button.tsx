@@ -27,7 +27,7 @@ export function CopyButton({ className, content, ...props }: CopyButtonProps) {
     <Button
       variant="ghost"
       className={cn(
-        "relative z-10 w-fit p-2 bg-black/10 hover:bg-black/15 rounded-lg group-hover:opacity-100 opacity-0 transition-opacity duration-200 ease-in-out",
+        "relative z-10 w-fit rounded-lg bg-black/10 p-2 opacity-0 transition-opacity duration-200 ease-in-out hover:bg-black/15 group-hover:opacity-100",
         className
       )}
       onClick={handleCopy}
@@ -35,14 +35,14 @@ export function CopyButton({ className, content, ...props }: CopyButtonProps) {
     >
       {/* <span className="sr-only">Copy</span> */}
       {hasCopied ? (
-        <div className="flex space-x-3 items-center">
+        <div className="flex items-center space-x-3">
           <div>Copied</div>
           <div>
-            <Icons.clipboardCheck className="h-6 w-6" />
+            <Icons.clipboardCheck className="size-6" />
           </div>
         </div>
       ) : (
-        <Icons.clipboardEmpty className="h-6 w-6" />
+        <Icons.clipboardEmpty className="size-6" />
       )}
     </Button>
   );

@@ -1,12 +1,21 @@
-import { projects } from "#site/content";
-import { Mdx } from "@/components/mdx-components";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { DashboardTableOfContents } from "@/components/toc";
-import { format, parseISO } from "date-fns";
-import { Separator } from "@radix-ui/react-separator";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { projects } from "#site/content";
 import { Icons } from "@/components/icons";
+import { Mdx } from "@/components/mdx-components";
+import { DashboardTableOfContents } from "@/components/toc";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@radix-ui/react-separator";
+import { format, parseISO } from "date-fns";
+import { projects } from "#site/content";
+import { Icons } from "@/components/icons";
+import { Mdx } from "@/components/mdx-components";
+import { DashboardTableOfContents } from "@/components/toc";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@radix-ui/react-separator";
+import { format, parseISO } from "date-fns";
+
 
 /**
  * Props for the ProjectPage component.
@@ -106,7 +115,7 @@ export const generateStaticParams = async () =>
 const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
   const project = projects.find(
     (project) => project.slugAsParams === params.slug
-  );
+  )
 
   if (!project) throw new Error(`Project not found for slug: ${params.slug}`);
 
@@ -114,8 +123,8 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
     <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_220px]">
       <div className="mx-auto w-full min-w-0">
         <article>
-          <div className="mb-2 text-center w-full border-b border-border">
-            <h1 className="xl:text-5xl lg:text-4xl text-3xl font-bold">
+          <div className="border-border mb-2 w-full border-b text-center">
+            <h1 className="text-3xl font-bold lg:text-4xl xl:text-5xl">
               {project.title}
             </h1>
 
@@ -123,12 +132,12 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
             <div className="flex flex-col space-y-6 py-5">
               <p className="text-xs md:text-lg">{project.description}</p>
               {/* Tags and attached links */}
-              <div className="flex flex-row justify-between items-center">
-                <div className="space-x-2 flex flex-wrap">
+              <div className="flex flex-row items-center justify-between">
+                <div className="flex flex-wrap space-x-2">
                   {project.tags.map((tag) => (
                     <div
                       key={tag}
-                      className="rounded-md mb-2 bg-primary text-background px-1.5 py-0.5 text-xs"
+                      className="bg-primary text-background mb-2 rounded-md px-1.5 py-0.5 text-xs"
                     >
                       {tag}
                     </div>
@@ -142,7 +151,7 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Icons.github className="h-5 w-5" />
+                        <Icons.github className="size-5" />
                       </Link>
                     </Button>
                   )}
