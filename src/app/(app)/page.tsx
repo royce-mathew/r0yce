@@ -81,9 +81,9 @@ export default function Home() {
 
           {/* Badges */}
           <div className="flex items-center space-x-2">
-            <Badge>🎓 3rd Year Student</Badge>
-            <Badge>💻 Software Engineer</Badge>
-            <Badge>🎮 Game Developer</Badge>
+            <Badge variant="defaultNonInteractive">🎓 3rd Year Student</Badge>
+            <Badge variant="defaultNonInteractive">💻 Software Engineer</Badge>
+            <Badge variant="defaultNonInteractive">🎮 Game Developer</Badge>
           </div>
 
           {/* Contact Information */}
