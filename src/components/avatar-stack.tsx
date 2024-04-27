@@ -1,8 +1,9 @@
-"use client"
+// "use client"
 
-import React, { useEffect, useState } from "react"
+import React from "react"
 import * as AvatarPrimitive from "@radix-ui/react-avatar"
-import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion"
+
+// import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 

@@ -126,7 +126,7 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
               {/* Tags and attached links */}
               <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-wrap space-x-2">
-                  {project.tags.map((tag) => (
+                  {project.tags.map((tag: string) => (
                     <div
                       key={tag}
                       className="bg-primary text-background mb-2 rounded-md px-1.5 py-0.5 text-xs"

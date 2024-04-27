@@ -24,10 +24,10 @@ figure[data-rehype-pretty-code-figure] pre code[data-theme*=" "] span {
 /* Style outer block */
 [data-rehype-pretty-code-figure] {
   @apply bg-foreground/5 dark:bg-foreground/5 border border-y border-border rounded mt-4 mb-14;
+}
 
-  figcaption {
-    @apply text-xs py-2 italic border-border border-t px-5;
-  }
+[data-rehype-pretty-code-figure] figcaption {
+  @apply text-xs py-2 italic border-border border-t px-5;
 }
 
 /* Style Code blocks */

@@ -1,11 +1,12 @@
 import { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
-import { LinkedInLogoIcon } from "@radix-ui/react-icons"
 import { mainContents } from "#site/content"
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import AvatarStack from "@/components/avatar-stack"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Icons } from "@/components/icons"
 import { Mdx } from "@/components/mdx-components"
 
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     description: "r0yce.com - Portfolio website",
     images: [
       {
-        url: "https://r0yce.com/images/ProfilePicture2.png",
+        url: "https://r0yce.com/images/ProfilePicture2.webp",
         width: 1200,
         height: 630,
         alt: "r0yce",
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
     description: "r0yce.com - Portfolio website",
     images: [
       {
-        url: "https://r0yce.com/images/ProfilePicture2.png",
+        url: "https://r0yce.com/images/ProfilePicture2.webp",
         width: 1200,
         height: 630,
         alt: "r0yce",
@@ -62,11 +63,16 @@ export default function Home() {
     <main className="flex min-h-screen flex-col">
       {/* Profile Information Box */}
       <div className="my-24 flex flex-col items-center justify-center md:flex-row md:space-x-8">
-        <AvatarStack
-          className="relative size-32 md:size-[230px]"
-          images={["/images/ProfilePicture2.jpg"]}
-          fallback="Profile"
+        {/* Profile Image */}
+        <Image
+          className="size-32 rounded-full object-cover md:size-[230px]"
+          src="/images/ProfilePicture2.webp"
+          width={500}
+          height={500}
+          quality={100}
+          alt="Profile"
         />
+
         <div className="mt-4 space-y-2 px-2">
           {/* Name */}
           <h1 className="font-cal text-center text-2xl font-bold sm:text-3xl md:text-5xl dark:text-white">
@@ -100,7 +106,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <LinkedInLogoIcon className="size-5" />
+                  <Icons.linkedin className="size-5" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="icon">
@@ -125,12 +131,11 @@ export default function Home() {
           </div>
         </div>
       </div>
-
       {/* About Me */}
       <div className="flex flex-col items-center justify-center bg-black/[5%] p-5 dark:bg-black/[10%]">
-        <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
+        <h2 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
           {about?.title}
-        </h1>
+        </h2>
         <div className="max-w-[900px]">
           <Mdx code={about.code} />
         </div>
