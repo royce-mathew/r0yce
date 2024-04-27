@@ -3,6 +3,7 @@ import { Separator } from "@radix-ui/react-separator"
 import { projects } from "#site/content"
 import { format, parseISO } from "date-fns"
 
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Icons } from "@/components/icons"
@@ -127,12 +128,13 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
               <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-wrap space-x-2">
                   {project.tags.map((tag: string) => (
-                    <div
+                    <Badge
                       key={tag}
-                      className="bg-primary text-background mb-2 rounded-md px-1.5 py-0.5 text-xs"
+                      // className="bg-primary text-background mb-2 rounded-md px-1.5 py-0.5 text-xs"
+                      variant="defaultNonInteractive"
                     >
                       {tag}
-                    </div>
+                    </Badge>
                   ))}
                 </div>
                 <div>
