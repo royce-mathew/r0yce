@@ -65,7 +65,7 @@ export default function Home() {
       <div className="my-24 flex flex-col items-center justify-center md:flex-row md:space-x-8">
         {/* Profile Image */}
         <Image
-          className="size-32 rounded-full object-cover md:size-[230px]"
+          className="size-32 rounded-full md:size-[230px]"
           src="/images/ProfilePicture2.webp"
           width={500}
           height={500}
