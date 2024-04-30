@@ -11,8 +11,8 @@ export default function NotFound() {
         width={350}
         height={350}
         alt="Surprised Pikachu"
-        className="text-clip rounded"
-        src="/images/Error.jpg"
+        className="rounded"
+        src="/images/404.webp"
       />
       <div className="text-center">
         <h1 className="font-cal scroll-m-20 text-5xl tracking-tight lg:text-6xl">

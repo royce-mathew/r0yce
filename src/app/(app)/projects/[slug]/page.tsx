@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { Separator } from "@radix-ui/react-separator"
 import { projects } from "#site/content"
 import { format, parseISO } from "date-fns"
 
