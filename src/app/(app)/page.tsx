@@ -3,10 +3,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { mainContents } from "#site/content"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
 import { Icons } from "@/components/icons"
 import { Mdx } from "@/components/mdx-components"
 
