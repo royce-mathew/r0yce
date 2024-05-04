@@ -2,6 +2,7 @@ import "@/styles/globals.css"
 import "@/styles/mdx.css"
 
 import type { Metadata, Viewport } from "next"
+import { ErrorBoundary } from "next/dist/client/components/error-boundary"
 import { GoogleAnalytics } from "@next/third-parties/google"
 
 import { cn } from "@/lib/utils"

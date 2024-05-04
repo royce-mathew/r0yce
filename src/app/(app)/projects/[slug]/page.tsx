@@ -5,6 +5,7 @@ import { format, parseISO } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { ErrorBoundary } from "@/components/error"
 import { Icons } from "@/components/icons"
 import { Mdx } from "@/components/mdx-components"
 import { DashboardTableOfContents } from "@/components/toc"
@@ -105,17 +106,28 @@ export const generateStaticParams = async () =>
  * @throws Error if the project is not found.
  */
 const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
+  // Get the project from the provided params
   const project = projects.find(
     (project) => project.slugAsParams === params.slug
   )
 
-  if (!project) throw new Error(`Project not found for slug: ${params.slug}`)
+  // If the project is not found, return an error boundary
+  // This is a manual implementation until Nextjs supports custom error pages
+  // After official support, this can be replaced with throw new Error() and add a error.tsx
+  if (!project)
+    return (
+      <ErrorBoundary
+        error={{ message: `Project not found for slug: ${params.slug}` }}
+        rerouteUrl="/projects"
+      />
+    )
 
   return (
     <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_220px]">
       <div className="mx-auto w-full min-w-0">
         <article>
           <div className="border-border mb-2 w-full border-b text-center">
+            {/* Project Title */}
             <h1 className="text-3xl font-bold lg:text-4xl xl:text-5xl">
               {project.title}
             </h1>
@@ -123,8 +135,8 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
             {/* Project Information */}
             <div className="flex flex-col space-y-6 py-5">
               <p className="text-xs md:text-lg">{project.description}</p>
-              {/* Tags and attached links */}
               <div className="flex flex-row items-center justify-between">
+                {/* Tags */}
                 <div className="flex flex-wrap space-x-2">
                   {project.tags.map((tag: string) => (
                     <Badge
@@ -136,6 +148,7 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
                     </Badge>
                   ))}
                 </div>
+                {/* Custom Links */}
                 <div>
                   {project.links?.github && (
                     <Button asChild variant="outline" size="icon">
@@ -151,6 +164,7 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
                 </div>
               </div>
 
+              {/* Project Metadata */}
               <div className="flex flex-row justify-between text-xs md:text-base">
                 <text>
                   Word Count:{" "}
@@ -176,6 +190,7 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
               </div>
             </div>
           </div>
+          {/* Project Content */}
           <div className="pb-12 pt-6">
             <Mdx code={project.code} />
           </div>
