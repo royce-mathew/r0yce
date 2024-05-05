@@ -1,4 +1,4 @@
-import { Icons } from "@/components/icons"
+import { Icons } from "@/config/icons"
 
 export interface NavItem {
   title: string
