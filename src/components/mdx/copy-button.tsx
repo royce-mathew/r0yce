@@ -36,11 +36,11 @@ export function CopyButton({ className, content, ...props }: CopyButtonProps) {
         <div className="flex items-center space-x-3">
           <div>Copied</div>
           <div>
-            <Icons.clipboardCheck className="size-6" />
+            <Icons.ClipboardCheck className="size-6" />
           </div>
         </div>
       ) : (
-        <Icons.clipboardEmpty className="size-6" />
+        <Icons.ClipboardEmpty className="size-6" />
       )}
     </Button>
   )

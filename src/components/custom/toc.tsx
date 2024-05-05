@@ -1,9 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { ArrowUpIcon, TextAlignLeftIcon } from "@radix-ui/react-icons"
 
 import { TocEntry } from "@/types/toc"
+import { Icons } from "@/config/icons"
 import { cn } from "@/lib/utils"
 import { useMounted } from "@/hooks/use-mounted"
 import { Separator } from "@/components/ui/separator"
@@ -37,7 +37,7 @@ export function DashboardTableOfContents({ toc }: TocProps) {
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <TextAlignLeftIcon className="inline-block size-4" />
+        <Icons.Segment className="inline-block size-4" />
         <p className="text-base font-medium">On this page</p>
       </div>
       <Tree tree={toc} activeItem={activeHeading} />
@@ -50,7 +50,7 @@ export function DashboardTableOfContents({ toc }: TocProps) {
             !isOnPageTop ? "opacity-100" : "opacity-0"
           )}
         >
-          Back to top <ArrowUpIcon />
+          Back to top <Icons.PointUp />
         </a>
       </div>
     </div>

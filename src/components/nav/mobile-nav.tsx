@@ -9,7 +9,12 @@ import { Icons } from "@/config/icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 export function SubNav({
   titleName,
@@ -42,7 +47,7 @@ export function SubNav({
             <span className="w-36 overflow-hidden truncate">
               {subItem.title}
             </span>
-            <Icons.code className="size-5" />
+            <Icons.Code className="size-5" />
           </MobileLink>
         </Button>
       ))}
@@ -62,13 +67,22 @@ export function MobileNav() {
           variant="ghost"
           className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
         >
-          <Icons.hamburger />
+          <Icons.Hamburger />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="pr-0">
-        <div className="flex items-center">
+      <SheetContent side="left" className="pr-0" hideCloseButton>
+        <div className="flex items-center justify-between">
           <span className="text-lg font-bold">Navigation Menu</span>
+          <SheetClose asChild>
+            <Button
+              variant="ghost"
+              className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+            >
+              <Icons.Close />
+              <span className="sr-only">Toggle Menu</span>
+            </Button>
+          </SheetClose>
         </div>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] px-6 pb-10">
           <div className="flex flex-col space-y-3 text-lg">
@@ -82,13 +96,13 @@ export function MobileNav() {
                     className={cn(
                       "hover:text-foreground/80 text-foreground/60 w-full justify-between transition-colors",
                       firstPath === `${item.href?.slice(1)}`
-                        ? "text-foreground"
+                        ? "text-foreground bg-foreground/10"
                         : ""
                     )}
                     onOpenChange={setOpen}
                   >
                     {item.title}
-                    <Icons.link className="size-5" />
+                    <Icons.Link className="size-5" />
                   </MobileLink>
                 </Button>
                 <SubNav

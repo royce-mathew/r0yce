@@ -83,7 +83,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                     runCommand(() => router.push(navItem.href as string))
                   }}
                 >
-                  <Icons.link className="mr-2 size-4" />
+                  <Icons.Link className="mr-2 size-4" />
                   {navItem.title}
                 </CommandItem>
               ))}
@@ -99,7 +99,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                   }}
                 >
                   <div className="mr-2 flex size-4 items-center justify-center">
-                    <Icons.code className="size-3" />
+                    <Icons.Code className="size-3" />
                   </div>
                   {navItem.title}
                 </CommandItem>
@@ -109,15 +109,15 @@ export function CommandMenu({ ...props }: DialogProps) {
           <CommandSeparator />
           <CommandGroup heading="Theming">
             <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
-              <Icons.deviceStar className="mr-2 size-4" />
+              <Icons.DeviceStar className="mr-2 size-4" />
               System
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
-              <Icons.sun className="mr-2 size-4" />
+              <Icons.Sun className="mr-2 size-4" />
               Light
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
-              <Icons.moon className="mr-2 size-4" />
+              <Icons.Moon className="mr-2 size-4" />
               Dark
             </CommandItem>
           </CommandGroup>

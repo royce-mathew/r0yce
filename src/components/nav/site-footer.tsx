@@ -42,21 +42,21 @@ export function SiteFooter() {
             aria-label="Switch to light mode"
             className="aspect-square rounded-full"
           >
-            <Icons.sun />
+            <Icons.Sun />
           </ToggleGroupItem>
           <ToggleGroupItem
             value="system"
             aria-label="Switch to system preferred mode"
             className="aspect-square rounded-full"
           >
-            <Icons.deviceStar />
+            <Icons.DeviceStar />
           </ToggleGroupItem>
           <ToggleGroupItem
             value="dark"
             aria-label="Switch to dark mode"
             className="aspect-square rounded-full"
           >
-            <Icons.moon />
+            <Icons.Moon />
           </ToggleGroupItem>
         </ToggleGroup>
       </div>
