@@ -7,6 +7,7 @@ import { useTheme } from "next-themes"
 
 import { NavItem } from "@/types/nav"
 import { siteConfig } from "@/config/docs"
+import { Icons } from "@/config/icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -18,8 +19,6 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command"
-
-import { Icons } from "./icons"
 
 export function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter()

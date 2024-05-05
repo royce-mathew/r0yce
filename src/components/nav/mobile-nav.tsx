@@ -5,11 +5,11 @@ import Link, { LinkProps } from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 
 import { siteConfig } from "@/config/docs"
+import { Icons } from "@/config/icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Icons } from "@/components/icons"
 
 export function SubNav({
   titleName,

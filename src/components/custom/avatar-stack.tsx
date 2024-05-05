@@ -7,7 +7,7 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-import { Skeleton } from "./ui/skeleton"
+import { Skeleton } from "../ui/skeleton"
 
 type AvatarStackProps = {
   images: string[]

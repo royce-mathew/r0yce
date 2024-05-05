@@ -3,10 +3,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { mainContents } from "#site/content"
 
+import { Icons } from "@/config/icons"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
-import { Mdx } from "@/components/mdx-components"
+import { Mdx } from "@/components/mdx/mdx-components"
 
 export const metadata: Metadata = {
   title: "Home | r0yce",

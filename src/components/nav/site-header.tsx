@@ -1,7 +1,7 @@
-import { CommandMenu } from "@/components/command-menu"
-import { MainNav } from "@/components/main-nav"
-import { MobileNav } from "@/components/mobile-nav"
-import { ModeToggle } from "@/components/mode-toggle"
+import { CommandMenu } from "@/components/custom/command-menu"
+import { ModeToggle } from "@/components/custom/mode-toggle"
+import { MainNav } from "@/components/nav/main-nav"
+import { MobileNav } from "@/components/nav/mobile-nav"
 
 export function SiteHeader() {
   return (

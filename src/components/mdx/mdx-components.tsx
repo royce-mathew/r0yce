@@ -16,9 +16,9 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { Callout } from "@/components/callout"
-import { CodeBlockWrapper } from "@/components/code-block-wrapper"
-import { CopyButton } from "@/components/copy-button"
+import { Callout } from "@/components/mdx/callout"
+import { CodeBlockWrapper } from "@/components/mdx/code-block-wrapper"
+import { CopyButton } from "@/components/mdx/copy-button"
 
 const sharedComponents = {
   Accordion,

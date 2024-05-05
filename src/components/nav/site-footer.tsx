@@ -2,10 +2,10 @@
 
 import { useTheme } from "next-themes"
 
+import { Icons } from "@/config/icons"
 import { useMounted } from "@/hooks/use-mounted"
 
-import { Icons } from "./icons"
-import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group"
+import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group"
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear()

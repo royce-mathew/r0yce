@@ -6,8 +6,7 @@ import { ArrowUpIcon, TextAlignLeftIcon } from "@radix-ui/react-icons"
 import { TocEntry } from "@/types/toc"
 import { cn } from "@/lib/utils"
 import { useMounted } from "@/hooks/use-mounted"
-
-import { Separator } from "./ui/separator"
+import { Separator } from "@/components/ui/separator"
 
 interface TocProps {
   toc: TocEntry[]

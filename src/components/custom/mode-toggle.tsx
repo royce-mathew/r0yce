@@ -7,7 +7,7 @@ import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import { useMounted } from "@/hooks/use-mounted"
 
-import { Skeleton } from "./ui/skeleton"
+import { Skeleton } from "../ui/skeleton"
 
 const sizeClass = "h-5 w-9"
 

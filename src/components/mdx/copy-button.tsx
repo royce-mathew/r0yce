@@ -2,10 +2,9 @@
 
 import * as React from "react"
 
+import { Icons } from "@/config/icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-
-import { Icons } from "./icons"
 
 interface CopyButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   content: string

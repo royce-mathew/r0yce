@@ -5,7 +5,7 @@ import type { Metadata, Viewport } from "next"
 import { GoogleAnalytics } from "@next/third-parties/google"
 
 import { cn } from "@/lib/utils"
-import { ThemeProvider } from "@/components/providers"
+import { ThemeProvider } from "@/components/providers/theme"
 import { cal, inter } from "@/styles/fonts"
 
 export const viewport: Viewport = {

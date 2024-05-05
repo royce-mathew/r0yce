@@ -1,8 +1,8 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { ErrorBoundary } from "@/components/error"
-import { ThemeProvider } from "@/components/providers"
+import { ErrorBoundary } from "@/components/nav/error"
+import { ThemeProvider } from "@/components/providers/theme"
 import { cal, inter } from "@/styles/fonts"
 
 export default function GlobalError({

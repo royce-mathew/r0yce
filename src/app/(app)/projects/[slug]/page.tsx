@@ -2,13 +2,13 @@ import Link from "next/link"
 import { projects } from "#site/content"
 import { format, parseISO } from "date-fns"
 
+import { Icons } from "@/config/icons"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { ErrorBoundary } from "@/components/error"
-import { Icons } from "@/components/icons"
-import { Mdx } from "@/components/mdx-components"
-import { DashboardTableOfContents } from "@/components/toc"
+import { DashboardTableOfContents } from "@/components/custom/toc"
+import { Mdx } from "@/components/mdx/mdx-components"
+import { ErrorBoundary } from "@/components/nav/error"
 
 /**
  * Props for the ProjectPage component.
