@@ -5,6 +5,7 @@ import type { Metadata, Viewport } from "next"
 import { GoogleAnalytics } from "@next/third-parties/google"
 
 import { cn } from "@/lib/utils"
+import { AuthProvider } from "@/components/providers/session"
 import { ThemeProvider } from "@/components/providers/theme"
 import { cal, inter } from "@/styles/fonts"
 
@@ -20,7 +21,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://r0yce.com"),
   openGraph: {
-    siteName: "Portfolio | Royce Mathew",
+    siteName: "r0yce",
     type: "website",
     locale: "en_US",
   },
@@ -32,9 +33,9 @@ export const metadata: Metadata = {
     "max-video-preview": -1,
     googleBot: "index, follow",
   },
-  applicationName: "Portfolio | Royce Mathew",
+  applicationName: "r0yce",
   appleWebApp: {
-    title: "Portfolio | Royce Mathew",
+    title: "r0yce",
     statusBarStyle: "default",
     capable: true,
   },
@@ -96,7 +97,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>
       </body>
       <GoogleAnalytics gaId="G-ZNSHY2T64H" />

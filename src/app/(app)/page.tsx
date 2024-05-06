@@ -94,7 +94,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Icons.github className="size-5" />
+                  <Icons.Github className="size-5" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="icon">
@@ -104,7 +104,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Icons.linkedin className="size-5" />
+                  <Icons.LinkedIn className="size-5" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="icon">
@@ -112,7 +112,7 @@ export default function Home() {
                   href="mailto:royce1mathew@gmail.com"
                   aria-label="Email to user"
                 >
-                  <Icons.envelope className="size-5" />
+                  <Icons.Envelope className="size-5" />
                 </a>
               </Button>
             </div>
@@ -123,7 +123,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Icons.pnpm className="mr-2 size-4" /> Resume
+                <Icons.Document className="mr-2 size-4" /> Resume
               </Link>
             </Button>
           </div>

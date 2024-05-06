@@ -63,10 +63,7 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button
-          variant="ghost"
-          className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
-        >
+        <Button variant="icon" className="mr-2 px-0 md:hidden">
           <Icons.Hamburger />
           <span className="sr-only">Toggle Menu</span>
         </Button>
@@ -75,10 +72,7 @@ export function MobileNav() {
         <div className="flex items-center justify-between">
           <span className="text-lg font-bold">Navigation Menu</span>
           <SheetClose asChild>
-            <Button
-              variant="ghost"
-              className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
-            >
+            <Button variant="icon">
               <Icons.Close />
               <span className="sr-only">Toggle Menu</span>
             </Button>
