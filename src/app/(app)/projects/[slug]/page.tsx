@@ -87,7 +87,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
       ],
     },
     alternates: {
-      canonical: `https://r0yce.com/${project.slug}`,
+      canonical: `https://r0yce.com/projects/${project.slug}`,
     },
   }
 }
@@ -137,7 +137,7 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
               <p className="text-xs md:text-lg">{project.description}</p>
               <div className="flex flex-row items-center justify-between">
                 {/* Tags */}
-                <div className="flex flex-wrap space-x-2">
+                <div className="space-x-2 space-y-2">
                   {project.tags.map((tag: string) => (
                     <Badge
                       key={tag}
@@ -157,7 +157,7 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Icons.github className="size-5" />
+                        <Icons.Github className="size-5" />
                       </Link>
                     </Button>
                   )}
