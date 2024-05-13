@@ -1,0 +1,27 @@
+.tiptap p.is-editor-empty:first-child::before {
+  @apply text-muted-foreground/50 float-left h-0 pointer-events-none;
+  content: attr(data-placeholder);
+}
+
+/* Show content before every */
+.tiptap h1.is-empty::before,
+.tiptap h2.is-empty::before,
+.tiptap h3.is-empty::before,
+.tiptap h4.is-empty::before,
+.tiptap h5.is-empty::before,
+.tiptap h6.is-empty::before {
+  @apply text-muted-foreground/50 float-left h-0 pointer-events-none;
+  content: attr(data-placeholder);
+}
+
+/* Transition classes for the change effect  */
+.tiptap p.transition-out {
+  @apply opacity-0 scale-95; /* Fade out and slightly shrink */
+}
+
+.tiptap h1.transition-in {
+  @apply opacity-0 scale-95; /* Initially hidden and slightly smaller */
+  transition:
+    opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+}

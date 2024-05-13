@@ -13,4 +13,5 @@ const firebaseAdminSettings = {
 export const firebaseAdmin =
   getApps().length === 0 ? initializeApp(firebaseAdminSettings) : getApps()[0]
 export const firebaseAdminFirestore = initFirestore(firebaseAdminSettings)
-export { getAuth }
+const adminAuth = getAuth(firebaseAdmin)
+export { adminAuth }

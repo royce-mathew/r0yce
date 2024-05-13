@@ -5,6 +5,8 @@ import type { Metadata, Viewport } from "next"
 import { GoogleAnalytics } from "@next/third-parties/google"
 
 import { cn } from "@/lib/utils"
+import { Toaster } from "@/components/ui/sonner"
+import { TooltipProvider } from "@/components/ui/tooltip"
 import { AuthProvider } from "@/components/providers/session"
 import { ThemeProvider } from "@/components/providers/theme"
 import { cal, inter } from "@/styles/fonts"
@@ -97,7 +99,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+          </AuthProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
       <GoogleAnalytics gaId="G-ZNSHY2T64H" />

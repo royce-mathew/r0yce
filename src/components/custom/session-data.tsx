@@ -2,6 +2,7 @@
 
 import { signIn, signOut, useSession } from "next-auth/react"
 
+import { getInitials } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 
@@ -21,7 +22,7 @@ export const UserData: React.FC = () => {
             src={session?.user?.image || ""}
             alt={session?.user?.name || ""}
           />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>{getInitials(session?.user?.name)}</AvatarFallback>
         </Avatar>
         <div>
           <p className="text-base font-medium">{session?.user?.name}</p>

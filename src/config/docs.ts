@@ -17,6 +17,10 @@ export const siteConfig: SiteConfig = {
       title: "Projects",
       href: "/projects",
     },
+    {
+      title: "Kanjou",
+      href: "/kanjou",
+    },
   ],
   sidebarNav: [
     {

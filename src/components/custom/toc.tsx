@@ -1,9 +1,15 @@
 "use client"
 
 import * as React from "react"
+import {
+  IconArrowBadgeUp,
+  IconArrowBadgeUpFilled,
+  IconArticleFilled,
+  IconTransitionTop,
+  IconTransitionTopFilled,
+} from "@tabler/icons-react"
 
 import { TocEntry } from "@/types/toc"
-import { Icons } from "@/config/icons"
 import { cn } from "@/lib/utils"
 import { useMounted } from "@/hooks/use-mounted"
 import { Separator } from "@/components/ui/separator"
@@ -37,7 +43,7 @@ export function DashboardTableOfContents({ toc }: TocProps) {
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <Icons.Segment className="inline-block size-4" />
+        <IconArticleFilled className="inline-block size-4" />
         <p className="text-base font-medium">On this page</p>
       </div>
       <Tree tree={toc} activeItem={activeHeading} />
@@ -50,7 +56,7 @@ export function DashboardTableOfContents({ toc }: TocProps) {
             !isOnPageTop ? "opacity-100" : "opacity-0"
           )}
         >
-          Back to top <Icons.PointUp />
+          Back to top <IconTransitionTopFilled className="ml-3 size-5" />
         </a>
       </div>
     </div>

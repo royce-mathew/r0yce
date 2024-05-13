@@ -1,8 +1,8 @@
 import Link from "next/link"
+import { IconBrandGithubFilled } from "@tabler/icons-react"
 import { projects } from "#site/content"
 import { format, parseISO } from "date-fns"
 
-import { Icons } from "@/config/icons"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -157,7 +157,7 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Icons.Github className="size-5" />
+                        <IconBrandGithubFilled className="size-5" />
                       </Link>
                     </Button>
                   )}
@@ -166,13 +166,13 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
 
               {/* Project Metadata */}
               <div className="flex flex-row justify-between text-xs md:text-base">
-                <text>
+                <div>
                   Word Count:{" "}
                   <span className="text-primary">
                     {project.metadata.wordCount}
                   </span>
-                </text>
-                <text className="flex flex-col md:flex-row md:gap-2">
+                </div>
+                <div className="flex flex-col md:flex-row md:gap-2">
                   Published Date:
                   <time
                     dateTime={project.publishedDate}
@@ -180,13 +180,13 @@ const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
                   >
                     {format(parseISO(project.publishedDate), "LLLL d, yyyy")}
                   </time>
-                </text>
-                <text>
+                </div>
+                <div>
                   Reading Time:{" "}
                   <span className="text-primary">
                     {project.metadata.readingTime}m
                   </span>
-                </text>
+                </div>
               </div>
             </div>
           </div>

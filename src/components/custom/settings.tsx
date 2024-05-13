@@ -1,9 +1,6 @@
 import React from "react"
-import Link from "next/link"
 
 import { Icons } from "@/config/icons"
-import { auth } from "@/lib/auth"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   Popover,

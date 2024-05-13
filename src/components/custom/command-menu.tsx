@@ -3,11 +3,17 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { DialogProps } from "@radix-ui/react-alert-dialog"
+import {
+  IconCode,
+  IconDevicesStar,
+  IconLink,
+  IconMoonFilled,
+  IconSunFilled,
+} from "@tabler/icons-react"
 import { useTheme } from "next-themes"
 
 import { NavItem } from "@/types/nav"
 import { siteConfig } from "@/config/docs"
-import { Icons } from "@/config/icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -83,7 +89,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                     runCommand(() => router.push(navItem.href as string))
                   }}
                 >
-                  <Icons.Link className="mr-2 size-4" />
+                  <IconLink className="mr-2 size-4" />
                   {navItem.title}
                 </CommandItem>
               ))}
@@ -99,7 +105,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                   }}
                 >
                   <div className="mr-2 flex size-4 items-center justify-center">
-                    <Icons.Code className="size-3" />
+                    <IconCode className="size-3" />
                   </div>
                   {navItem.title}
                 </CommandItem>
@@ -109,15 +115,15 @@ export function CommandMenu({ ...props }: DialogProps) {
           <CommandSeparator />
           <CommandGroup heading="Theming">
             <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
-              <Icons.DeviceStar className="mr-2 size-4" />
+              <IconDevicesStar className="mr-2 size-4" />
               System
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
-              <Icons.Sun className="mr-2 size-4" />
+              <IconSunFilled className="mr-2 size-4" />
               Light
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
-              <Icons.Moon className="mr-2 size-4" />
+              <IconMoonFilled className="mr-2 size-4" />
               Dark
             </CommandItem>
           </CommandGroup>

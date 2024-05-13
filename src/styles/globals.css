@@ -107,6 +107,10 @@
     content: "•";
   }
 
+  ::selection {
+    @apply bg-foreground/10 text-primary;
+  }
+
   h2 a,
   h3 a,
   h4 a {

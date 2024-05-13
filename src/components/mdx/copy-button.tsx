@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
+import { IconClipboardCheck, IconClipboardCopy } from "@tabler/icons-react"
 
-import { Icons } from "@/config/icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
@@ -36,11 +36,11 @@ export function CopyButton({ className, content, ...props }: CopyButtonProps) {
         <div className="flex items-center space-x-3">
           <div>Copied</div>
           <div>
-            <Icons.ClipboardCheck className="size-6" />
+            <IconClipboardCheck className="size-6" />
           </div>
         </div>
       ) : (
-        <Icons.ClipboardEmpty className="size-6" />
+        <IconClipboardCopy className="size-6" />
       )}
     </Button>
   )

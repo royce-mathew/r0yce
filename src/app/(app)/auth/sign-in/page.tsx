@@ -1,13 +1,12 @@
-import Image from "next/image"
+import { IconBrandGithubFilled, IconBrandGoogle } from "@tabler/icons-react"
 
-import { Icons } from "@/config/icons"
 import { providerMap, signIn } from "@/lib/auth"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
 const iconMap: { [key: string]: React.ReactElement } = {
-  google: <Icons.Google className="size-5" />,
-  github: <Icons.Github className="size-5" />,
+  google: <IconBrandGoogle className="size-5" />,
+  github: <IconBrandGithubFilled className="size-5" />,
 }
 
 export default async function SignInPage({
@@ -22,8 +21,7 @@ export default async function SignInPage({
       <div className="bg-foreground/5 outline-outline max-w-96 space-y-3 rounded p-8">
         <h1 className="text-3xl font-bold">Sign in</h1>
         <p className="">
-          You need to sign in to use this feature. Please select a provider to
-          sign in with.
+          Sign in to access your account and continue where you left off.
         </p>
         <Separator />
         <div className="flex flex-col space-y-2">
@@ -50,6 +48,13 @@ export default async function SignInPage({
             </form>
           ))}
         </div>
+        <footer className="flex flex-col space-y-2">
+          <Separator />
+          <p className="text-xs">
+            Your account is automatically created when you sign in for the first
+            time.
+          </p>
+        </footer>
       </div>
     </div>
   )

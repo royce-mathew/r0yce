@@ -1,8 +1,13 @@
 "use client"
 
+import {
+  IconDevicesStar,
+  IconMoonFilled,
+  IconSun,
+  IconSunFilled,
+} from "@tabler/icons-react"
 import { useTheme } from "next-themes"
 
-import { Icons } from "@/config/icons"
 import { useMounted } from "@/hooks/use-mounted"
 
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group"
@@ -42,21 +47,21 @@ export function SiteFooter() {
             aria-label="Switch to light mode"
             className="aspect-square rounded-full"
           >
-            <Icons.Sun />
+            <IconSunFilled />
           </ToggleGroupItem>
           <ToggleGroupItem
             value="system"
             aria-label="Switch to system preferred mode"
             className="aspect-square rounded-full"
           >
-            <Icons.DeviceStar />
+            <IconDevicesStar />
           </ToggleGroupItem>
           <ToggleGroupItem
             value="dark"
             aria-label="Switch to dark mode"
             className="aspect-square rounded-full"
           >
-            <Icons.Moon />
+            <IconMoonFilled />
           </ToggleGroupItem>
         </ToggleGroup>
       </div>

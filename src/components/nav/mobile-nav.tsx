@@ -3,9 +3,9 @@
 import * as React from "react"
 import Link, { LinkProps } from "next/link"
 import { usePathname, useRouter } from "next/navigation"
+import { IconCode, IconLink, IconMenu, IconX } from "@tabler/icons-react"
 
 import { siteConfig } from "@/config/docs"
-import { Icons } from "@/config/icons"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -47,7 +47,7 @@ export function SubNav({
             <span className="w-36 overflow-hidden truncate">
               {subItem.title}
             </span>
-            <Icons.Code className="size-5" />
+            <IconCode className="size-5" />
           </MobileLink>
         </Button>
       ))}
@@ -64,7 +64,7 @@ export function MobileNav() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="icon" className="mr-2 px-0 md:hidden">
-          <Icons.Hamburger />
+          <IconMenu />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
@@ -73,7 +73,7 @@ export function MobileNav() {
           <span className="text-lg font-bold">Navigation Menu</span>
           <SheetClose asChild>
             <Button variant="icon">
-              <Icons.Close />
+              <IconX />
               <span className="sr-only">Toggle Menu</span>
             </Button>
           </SheetClose>
@@ -96,7 +96,7 @@ export function MobileNav() {
                     onOpenChange={setOpen}
                   >
                     {item.title}
-                    <Icons.Link className="size-5" />
+                    <IconLink className="size-5" />
                   </MobileLink>
                 </Button>
                 <SubNav

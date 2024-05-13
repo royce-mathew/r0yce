@@ -5,7 +5,7 @@ import GitHub from "next-auth/providers/github"
 import Google from "next-auth/providers/google"
 
 // Import the Firebase Admin SDK
-import { firebaseAdminFirestore, getAuth } from "@/lib/firebase/server"
+import { adminAuth, firebaseAdminFirestore } from "@/lib/firebase/server"
 
 // Get the environment variables
 const {
@@ -19,10 +19,12 @@ const providers: Provider[] = [
   Google({
     clientId: AUTH_GOOGLE_ID,
     clientSecret: AUTH_GOOGLE_SECRET,
+    allowDangerousEmailAccountLinking: true,
   }),
   GitHub({
     clientId: AUTH_GITHUB_ID,
     clientSecret: AUTH_GITHUB_SECRET,
+    allowDangerousEmailAccountLinking: true,
   }),
 ]
 
@@ -45,6 +47,42 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/auth/sign-in",
   },
+  callbacks: {
+    jwt: async ({ user, token }) => {
+      if (user) {
+        token.sub = user.id as string
+
+        // try {
+        //   await adminAuth.getUser(token.sub)
+        // } catch (error: any) {
+        //   if (error.code === "auth/user-not-found") {
+        //     // If the user does not exist, create a new user
+        //     await adminAuth.createUser({
+        //       uid: token.sub,
+        //       email: token.email as string,
+        //       displayName: token.name,
+        //       photoURL: token.picture,
+        //     })
+        //   } else {
+        //     throw error
+        //   }
+        // }
+      }
+      return token
+    },
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        if (token.sub) {
+          session.user.id = token.sub
+
+          const firebaseToken = await adminAuth.createCustomToken(token.sub)
+          session.firebaseToken = firebaseToken
+        }
+      }
+      return session
+    },
+  },
+
   theme: {
     brandColor: "#0062ff",
     logo: "/favicon.ico",

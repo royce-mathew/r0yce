@@ -1,6 +1,11 @@
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import {
+  IconBrandGithubFilled,
+  IconFileCertificate,
+  IconMailFilled,
+} from "@tabler/icons-react"
 import { mainContents } from "#site/content"
 
 import { Icons } from "@/config/icons"
@@ -94,7 +99,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Icons.Github className="size-5" />
+                  <IconBrandGithubFilled className="size-5" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="icon">
@@ -112,7 +117,7 @@ export default function Home() {
                   href="mailto:royce1mathew@gmail.com"
                   aria-label="Email to user"
                 >
-                  <Icons.Envelope className="size-5" />
+                  <IconMailFilled className="size-5" />
                 </a>
               </Button>
             </div>
@@ -123,7 +128,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Icons.Document className="mr-2 size-4" /> Resume
+                <IconFileCertificate className="mr-2 size-4" /> Resume
               </Link>
             </Button>
           </div>
