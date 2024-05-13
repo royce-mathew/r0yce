@@ -79,6 +79,7 @@
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "undici": "^6.16.1",
     "y-protocols": "^1.0.6",
     "yjs": "^13.6.15"
   },
