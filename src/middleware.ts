@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { getToken } from "@auth/core/jwt"
 
 export default async function middleware(req: NextRequest) {
@@ -20,8 +20,8 @@ export default async function middleware(req: NextRequest) {
 
     // Encode the callback URL to ensure proper redirection
     const encodedCallbackUrl = encodeURIComponent(callbackUrl)
-    return Response.redirect(
-      new URL(`/auth/sign-in?callbackUrl=${encodedCallbackUrl}`, nextUrl.origin)
+    return NextResponse.redirect(
+      new URL(`/api/auth/signin?callbackUrl=${encodedCallbackUrl}`, req.url)
     )
   }
 }
