@@ -1,4 +1,4 @@
-import { NextFetchEvent, NextRequest } from "next/server"
+import { NextRequest } from "next/server"
 import { getToken } from "@auth/core/jwt"
 
 export default async function middleware(req: NextRequest) {

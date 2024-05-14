@@ -7,23 +7,15 @@ import Google from "next-auth/providers/google"
 // Import the Firebase Admin SDK
 import { adminAuth, firebaseAdminFirestore } from "@/lib/firebase/server"
 
-// Get the environment variables
-const {
-  AUTH_GOOGLE_ID = "",
-  AUTH_GOOGLE_SECRET = "",
-  AUTH_GITHUB_ID = "",
-  AUTH_GITHUB_SECRET = "",
-} = process.env
-
 const providers: Provider[] = [
   Google({
-    clientId: AUTH_GOOGLE_ID,
-    clientSecret: AUTH_GOOGLE_SECRET,
+    clientId: process.env.AUTH_GOOGLE_ID as string,
+    clientSecret: process.env.AUTH_GOOGLE_SECRET as string,
     allowDangerousEmailAccountLinking: true,
   }),
   GitHub({
-    clientId: AUTH_GITHUB_ID,
-    clientSecret: AUTH_GITHUB_SECRET,
+    clientId: process.env.AUTH_GITHUB_ID as string,
+    clientSecret: process.env.AUTH_GITHUB_SECRET as string,
     allowDangerousEmailAccountLinking: true,
   }),
 ]
