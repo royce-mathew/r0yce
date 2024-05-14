@@ -21,7 +21,10 @@ export default async function middleware(req: NextRequest) {
     // Encode the callback URL to ensure proper redirection
     const encodedCallbackUrl = encodeURIComponent(callbackUrl)
     return Response.redirect(
-      new URL(`/auth/sign-in?callbackUrl=${encodedCallbackUrl}`, nextUrl.origin)
+      new URL(
+        `api/auth/signin?callbackUrl=${encodedCallbackUrl}`,
+        nextUrl.origin
+      )
     )
   }
 }
@@ -29,7 +32,6 @@ export default async function middleware(req: NextRequest) {
 // Don't invoke Middleware on certain paths
 export const config = {
   matcher: [
-    // "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|$|files|projects).*)",
     // Only invoke the middleware on the following paths
     "/kanjou/:path*",
   ],
