@@ -21,10 +21,7 @@ export default async function middleware(req: NextRequest) {
     // Encode the callback URL to ensure proper redirection
     const encodedCallbackUrl = encodeURIComponent(callbackUrl)
     return Response.redirect(
-      new URL(
-        `api/auth/signin?callbackUrl=${encodedCallbackUrl}`,
-        nextUrl.origin
-      )
+      new URL(`/auth/sign-in?callbackUrl=${encodedCallbackUrl}`, nextUrl.origin)
     )
   }
 }
