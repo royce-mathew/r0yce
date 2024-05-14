@@ -43,7 +43,7 @@ async function getProjectFromParams({ params }: ProjectPageProps) {
  */
 export async function generateMetadata({ params }: ProjectPageProps) {
   const project = await getProjectFromParams({ params })
-  if (!project) return {}
+  if (!project) return
   return {
     title: `${project.title} | r0yce`,
     authors: [
