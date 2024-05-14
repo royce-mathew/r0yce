@@ -65,7 +65,7 @@
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
     "firebase": "^10.12.0",
-    "firebase-admin": "^12.1.0",
+    "firebase-admin": "^11.11.1",
     "framer-motion": "^11.1.9",
     "hastscript": "^9.0.0",
     "lib0": "^0.2.93",
