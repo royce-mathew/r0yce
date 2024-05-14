@@ -12,13 +12,13 @@ const providers: Provider[] = [
     clientId: process.env.AUTH_GOOGLE_ID,
     clientSecret: process.env.AUTH_GOOGLE_SECRET,
     allowDangerousEmailAccountLinking: true,
-    authorization: {
-      params: {
-        prompt: "consent",
-        access_type: "offline",
-        response_type: "code",
-      },
-    },
+    // authorization: {
+    //   params: {
+    //     prompt: "consent",
+    //     access_type: "offline",
+    //     response_type: "code",
+    //   },
+    // },
   }),
   GitHub({
     clientId: process.env.AUTH_GITHUB_ID,
@@ -65,6 +65,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session
     },
   },
+  debug: true,
   theme: {
     brandColor: "#0062ff",
     logo: "/favicon.ico",
