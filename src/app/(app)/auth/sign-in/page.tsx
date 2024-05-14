@@ -1,13 +1,6 @@
-import { IconBrandGithubFilled, IconBrandGoogle } from "@tabler/icons-react"
-
-import { providerMap, signIn } from "@/lib/auth"
-import { Button } from "@/components/ui/button"
+import { providerMap } from "@/lib/auth"
 import { Separator } from "@/components/ui/separator"
-
-const iconMap: { [key: string]: React.ReactElement } = {
-  google: <IconBrandGoogle className="size-5" />,
-  github: <IconBrandGithubFilled className="size-5" />,
-}
+import SignInButton from "@/components/custom/signin-button"
 
 export default async function SignInPage({
   searchParams,
@@ -26,26 +19,11 @@ export default async function SignInPage({
         <Separator />
         <div className="flex flex-col space-y-2">
           {Object.values(providerMap).map((provider) => (
-            <form
+            <SignInButton
               key={provider.id}
-              action={async () => {
-                "use server"
-                await signIn(provider.id, {
-                  redirectTo: callbackUrl,
-                })
-              }}
-            >
-              <Button
-                variant="outline"
-                type="submit"
-                className="w-full space-x-3 py-5"
-              >
-                {iconMap[provider.id]}
-                <div>
-                  Sign in with <b>{provider.name}</b>
-                </div>
-              </Button>
-            </form>
+              provider={provider}
+              callbackUrl={callbackUrl}
+            />
           ))}
         </div>
         <footer className="flex flex-col space-y-2">
