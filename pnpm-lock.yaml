@@ -203,9 +203,6 @@ dependencies:
   tailwindcss-animate:
     specifier: ^1.0.7
     version: 1.0.7(tailwindcss@3.4.3)
-  undici:
-    specifier: ^6.16.1
-    version: 6.16.1
   y-protocols:
     specifier: ^1.0.6
     version: 1.0.6(yjs@13.6.15)
@@ -8740,11 +8737,6 @@ packages:
     engines: {node: '>=14.0'}
     dependencies:
       '@fastify/busboy': 2.1.1
-    dev: false
-
-  /undici@6.16.1:
-    resolution: {integrity: sha512-NeNiTT7ixpeiL1qOIU/xTVpHpVP0svmI6PwoCKaMGaI5AsHOaRdwqU/f7Fi9eyU4u03nd5U/BC8wmRMnS9nqoA==}
-    engines: {node: '>=18.17'}
     dev: false
 
   /unicorn-magic@0.1.0:
