@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getToken } from "@auth/core/jwt"
 
+const secure = process.env.NODE_ENV === "production"
+
 export default async function middleware(req: NextRequest) {
   // Retrieve the user data from the JWT token
-  // @ts-expect-error
   const userData = await getToken({
+    secureCookie: secure,
     req,
     secret: process.env.AUTH_SECRET ?? "",
+    salt: secure ? "__Secure-authjs.session-token" : "authjs.session-token",
   })
   const isLoggedIn = !!userData
 

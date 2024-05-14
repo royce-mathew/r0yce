@@ -2,6 +2,7 @@ import { build } from "velite"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ["next-auth"],
   reactStrictMode: true,
   // swcMinify: true,
 
