@@ -69,7 +69,7 @@
     "framer-motion": "^11.2.0",
     "hastscript": "^9.0.0",
     "lib0": "^0.2.93",
-    "next": "14.2.3",
+    "next": "14.2.2",
     "next-auth": "5.0.0-beta.18",
     "next-themes": "^0.3.0",
     "object-hash": "^3.0.0",
