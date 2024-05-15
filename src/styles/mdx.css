@@ -51,6 +51,10 @@ figure[data-rehype-pretty-code-figure] pre code[data-theme*=" "] span {
   counter-reset: line;
 }
 
+[data-rehype-pretty-code-figure] code > [data-highlighted-line] {
+  @apply bg-primary/10 dark:bg-primary/5;
+}
+
 [data-rehype-pretty-code-title] {
   @apply py-2 px-5 text-sm font-medium border-b border-border;
 }

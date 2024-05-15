@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import { BackgroundBeams } from "@/components/ui/background-beams"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
+import ProjectButton from "@/components/custom/project-button"
 
 export const metadata: Metadata = {
   title: "Projects | r0yce",
@@ -98,62 +99,45 @@ const projectsSorted = sortProjects(projects)
 export default function AllProjects() {
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <h1 className="font-cal mb-6 mt-16 text-center text-5xl font-bold md:space-x-8 md:text-6xl">
+      <h1 className="font-cal mb-5 mt-16 w-full bg-black/10 py-3 text-center text-5xl font-bold md:space-x-8 md:text-6xl dark:bg-black/15">
         Projects
       </h1>
+      <Separator className="container mb-5" />
+
+      <div className="container flex w-fit flex-col items-center justify-center rounded bg-black/10 dark:bg-black/15">
+        <h2 className=" my-6 flex w-full items-center justify-center md:space-x-8 md:text-4xl">
+          <Separator className="flex-1" />
+          <div className="flex-initial text-2xl font-semibold">
+            Featured Project
+          </div>
+          <Separator className="flex-1" />
+        </h2>
+
+        <div className="max-w-[420px]">
+          <ProjectButton
+            project={projectsSorted.find((project) => project.featured)}
+          />
+        </div>
+      </div>
+
+      <h2 className="container mb-6 mt-16 flex w-full items-center justify-center md:space-x-8 md:text-4xl">
+        <Separator className="flex-1" />
+        <div className="flex-initial text-3xl font-bold">All Projects</div>
+        <Separator className="flex-1" />
+      </h2>
 
       <div className="relative flex w-full justify-center bg-black/10 pb-24 pt-16 dark:bg-black/15">
         <div className="container z-10 mx-auto grid max-w-7xl grid-flow-row-dense grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projectsSorted.map((project: Project) => (
-            <Button
-              key={project?.slug}
-              asChild
-              // Weird bug with classNames not being applied when doing md:col-span-${project.columnSpan}
+            <ProjectButton
+              key={project.slug}
+              project={project}
               className={cn(
-                "border-border bg-background hover:brightness-70 row-span-1 flex flex-col justify-between space-y-4 rounded border p-1 transition-all duration-200 hover:scale-[102%] hover:shadow-xl",
                 project.columnSpan == 1 && `md:col-span-1`,
                 project.columnSpan == 2 && `md:col-span-2`,
                 project.columnSpan == 3 && `md:col-span-3`
               )}
-              variant={null}
-            >
-              {/* eslint-disable-next-line tailwindcss/enforces-shorthand */}
-              <Link href={project?.slug ?? "/"} className="h-full w-full">
-                {project?.imageSrc && (
-                  <div className="flex size-full flex-col justify-between">
-                    <div className="relative p-1">
-                      <Image
-                        src={project.imageSrc}
-                        alt="Project Example"
-                        className="size-full max-h-64 rounded object-cover"
-                        width={700}
-                        height={700}
-                      />
-                      <div className="halftone absolute inset-0" />
-                      <div className="from-background bg-size-150%  bg-pos-10% absolute inset-0 bg-gradient-to-t from-5% to-transparent to-25%" />
-                    </div>
-
-                    <div className="flex flex-col space-y-2 text-wrap px-1 pb-2 pt-4">
-                      <h1 className="text-balance text-xl font-semibold md:text-2xl">
-                        {project?.title}
-                      </h1>
-                      <p className="text-muted-foreground text-wrap">
-                        {project?.description}
-                      </p>
-
-                      <Separator />
-                      <small className="text-right text-sm">
-                        {project?.publishedDate &&
-                          format(
-                            parseISO(project.publishedDate),
-                            "MMMM dd, yyyy"
-                          )}
-                      </small>
-                    </div>
-                  </div>
-                )}
-              </Link>
-            </Button>
+            />
           ))}
         </div>
         <BackgroundBeams className=" z-0" />
