@@ -105,7 +105,7 @@ export default function AllProjects() {
       <Separator className="container mb-5" />
 
       <div className="container flex w-fit flex-col items-center justify-center rounded bg-black/10 dark:bg-black/15">
-        <h2 className=" my-6 flex w-full items-center justify-center md:space-x-8 md:text-4xl">
+        <h2 className="flex w-full items-center justify-center md:space-x-8 md:text-4xl">
           <Separator className="flex-1" />
           <div className="flex-initial text-2xl font-semibold">
             Featured Project
@@ -113,7 +113,7 @@ export default function AllProjects() {
           <Separator className="flex-1" />
         </h2>
 
-        <div className="max-w-[420px]">
+        <div className="mb-5 max-w-[420px]">
           <ProjectButton
             project={projectsSorted.find((project) => project.featured)}
           />
