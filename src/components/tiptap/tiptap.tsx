@@ -17,12 +17,14 @@ export interface TiptapProps {
   passedExtensions?: Extension[]
 }
 
+const proseCode =
+  "prose-code:before:content-none prose-code:after:content-none prose-code:px-2 prose-code:bg-foreground/10 prose-code:rounded prose-code:font-normal"
+
 const Tiptap = ({ passedExtensions }: TiptapProps) => {
   const editor = useEditor({
     editorProps: {
       attributes: {
-        class:
-          "prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-lg prose-ul:list-[revert] focus:outline-none p-3 max-w-full min-h-[1400px]",
+        class: `prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-lg prose-ul:list-[revert] ${proseCode} focus:outline-none p-3 max-w-full min-h-[1400px]`,
       },
     },
     extensions: [...extensions, ...(passedExtensions ?? [])],
