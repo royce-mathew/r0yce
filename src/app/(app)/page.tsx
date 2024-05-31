@@ -69,7 +69,7 @@ export default function Home() {
         {/* Profile Image */}
         <Image
           className="size-32 rounded-full md:size-[230px]"
-          src="/images/ProfilePicture2.webp"
+          src="/images/ProfilePicture.webp"
           width={500}
           height={500}
           quality={100}
