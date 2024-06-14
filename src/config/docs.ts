@@ -14,12 +14,12 @@ export const siteConfig: SiteConfig = {
       href: "/",
     },
     {
-      title: "Kanjou",
-      href: "/kanjou",
-    },
-    {
       title: "Projects",
       href: "/projects",
+    },
+    {
+      title: "Kanjou",
+      href: "/kanjou",
     },
   ],
   sidebarNav: [
