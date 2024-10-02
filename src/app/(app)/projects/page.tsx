@@ -142,7 +142,7 @@ export default function AllProjects() {
             />
           ))}
         </div>
-        <BackgroundBeams className="z-0" />
+        {/* <BackgroundBeams className="z-0" /> */}
       </div>
     </main>
   )
