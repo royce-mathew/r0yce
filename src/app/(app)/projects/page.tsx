@@ -99,15 +99,15 @@ const projectsSorted = sortProjects(projects)
 export default function AllProjects() {
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <h1 className="font-cal mb-5 mt-16 w-full bg-black/10 py-3 text-center text-5xl font-bold md:space-x-8 md:text-6xl dark:bg-black/15">
+      <h1 className="font-cal mb-5 mt-16 w-full py-3 text-center text-5xl font-bold md:space-x-8 md:text-6xl">
         Projects
       </h1>
       <Separator className="container mb-5" />
 
-      <div className="container flex w-fit flex-col items-center justify-center rounded bg-black/10 dark:bg-black/15">
+      <div className="container flex w-fit flex-col items-center justify-center rounded bg-black/5 dark:bg-black/15">
         <h2 className="flex w-full items-center justify-center md:space-x-8 md:text-4xl">
           <Separator className="flex-1" />
-          <div className="flex-initial text-2xl font-semibold">
+          <div className="flex-initial py-2 text-2xl font-semibold">
             Featured Project
           </div>
           <Separator className="flex-1" />
