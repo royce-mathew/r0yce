@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
-import { ModeToggle } from "@/components/custom/mode-toggle"
+import LightSwitch from "@/components/custom/lightswitch"
 import { UserData } from "@/components/custom/session-data"
 
 const Settings = async () => {
@@ -26,7 +26,7 @@ const Settings = async () => {
 
           <div className="flex items-center justify-between">
             Toggle Theme
-            <ModeToggle />
+            <LightSwitch />
           </div>
         </PopoverContent>
       </Popover>
