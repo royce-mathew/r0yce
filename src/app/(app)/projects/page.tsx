@@ -104,7 +104,7 @@ export default function AllProjects() {
       </h1>
       <Separator className="container mb-5" />
 
-      <div className="container flex w-fit flex-col items-center justify-center rounded bg-black/5 dark:bg-black/15">
+      <div className="border-border dark:border-border/50 container flex w-fit flex-col items-center justify-center rounded border bg-black/5 dark:bg-black/15">
         <h2 className="flex w-full items-center justify-center md:space-x-8 md:text-4xl">
           <Separator className="flex-1" />
           <div className="flex-initial py-2 text-2xl font-semibold">
@@ -120,9 +120,9 @@ export default function AllProjects() {
         </div>
       </div>
 
-      <h2 className="container z-10 mt-16 flex w-full items-center justify-center md:space-x-8 md:text-4xl">
+      <h2 className="container z-10 mt-16 flex w-full items-center justify-center md:space-x-5 md:text-4xl">
         <Separator className="flex-1" />
-        <div className="-my-40 flex-initial text-3xl font-bold">
+        <div className="-my-40 flex-initial px-4 py-1 text-3xl font-bold">
           All Projects
         </div>
         <Separator className="flex-1" />
