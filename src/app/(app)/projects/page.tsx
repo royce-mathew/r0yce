@@ -120,9 +120,11 @@ export default function AllProjects() {
         </div>
       </div>
 
-      <h2 className="container mb-6 mt-16 flex w-full items-center justify-center md:space-x-8 md:text-4xl">
+      <h2 className="container z-10 mt-16 flex w-full items-center justify-center md:space-x-8 md:text-4xl">
         <Separator className="flex-1" />
-        <div className="flex-initial text-3xl font-bold">All Projects</div>
+        <div className="-my-40 flex-initial text-3xl font-bold">
+          All Projects
+        </div>
         <Separator className="flex-1" />
       </h2>
 
@@ -140,7 +142,7 @@ export default function AllProjects() {
             />
           ))}
         </div>
-        <BackgroundBeams className=" z-0" />
+        <BackgroundBeams className="z-0" />
       </div>
     </main>
   )
