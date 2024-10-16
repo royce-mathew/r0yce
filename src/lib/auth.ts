@@ -1,16 +1,16 @@
-import { Provider } from "@auth/core/providers"
 import { FirestoreAdapter } from "@auth/firebase-adapter"
 import NextAuth from "next-auth"
-import GitHub from "next-auth/providers/github"
-import Google from "next-auth/providers/google"
+import { OAuthConfig } from "next-auth/providers"
+import GitHub, { GitHubProfile } from "next-auth/providers/github"
+import Google, { GoogleProfile } from "next-auth/providers/google"
 
 // Import the Firebase Admin SDK
 import { adminAuth, firebaseAdminFirestore } from "@/lib/firebase/server"
 
-const providers: Provider[] = [
+const providers = [
   Google({
-    clientId: process.env.AUTH_GOOGLE_ID,
-    clientSecret: process.env.AUTH_GOOGLE_SECRET,
+    clientId: process.env.AUTH_GOOGLE_ID!!,
+    clientSecret: process.env.AUTH_GOOGLE_SECRET!!,
     allowDangerousEmailAccountLinking: true,
     // authorization: {
     //   params: {
@@ -21,20 +21,17 @@ const providers: Provider[] = [
     // },
   }),
   GitHub({
-    clientId: process.env.AUTH_GITHUB_ID,
-    clientSecret: process.env.AUTH_GITHUB_SECRET,
+    clientId: process.env.AUTH_GITHUB_ID!!,
+    clientSecret: process.env.AUTH_GITHUB_SECRET!!,
     allowDangerousEmailAccountLinking: true,
   }),
 ]
 
-export const providerMap = providers.map((provider) => {
-  if (typeof provider === "function") {
-    const providerData = provider()
-    return { id: providerData.id, name: providerData.name }
-  } else {
+export const providerMap = providers.map(
+  (provider: OAuthConfig<GoogleProfile> | OAuthConfig<GitHubProfile>) => {
     return { id: provider.id, name: provider.name }
   }
-})
+)
 
 // Export the NextAuth configuration
 export const {
