@@ -17,8 +17,9 @@ export interface TiptapProps {
   passedExtensions?: Extension[]
 }
 
+// Styling for code blocks
 const proseCode =
-  "prose-code:before:content-none prose-code:after:content-none prose-code:px-2 prose-code:bg-foreground/10 prose-code:rounded prose-code:font-normal"
+  "prose-code:before:content-none prose-code:after:content-none prose-code:px-2 prose-code:rounded prose-code:font-normal"
 
 const Tiptap = ({ passedExtensions }: TiptapProps) => {
   const editor = useEditor({

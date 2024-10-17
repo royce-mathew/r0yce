@@ -14,6 +14,10 @@
   content: attr(data-placeholder);
 }
 
+.tiptap p code {
+  @apply bg-foreground/10 dark:bg-foreground/10;
+}
+
 /* Transition classes for the change effect  */
 .tiptap p.transition-out {
   @apply opacity-0 scale-95; /* Fade out and slightly shrink */
