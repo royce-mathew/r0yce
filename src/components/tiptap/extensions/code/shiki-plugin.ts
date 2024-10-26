@@ -168,19 +168,17 @@ export function ShikiPlugin({
               // @ts-ignore
               return (
                 // @ts-ignore
-                step.from !== undefined &&
+                (step.from !== undefined &&
                 // @ts-ignore
-                step.to !== undefined &&
-                oldNodes.some((node) => {
+                step.to !== undefined && oldNodes.some((node) => {
                   // @ts-ignore
                   return (
                     // @ts-ignore
-                    node.pos >= step.from &&
-                    // @ts-ignore
-                    node.pos + node.node.nodeSize <= step.to
-                  )
-                })
-              )
+                    (node.pos >= step.from && // @ts-ignore
+                    node.pos + node.node.nodeSize <= step.to)
+                  );
+                }))
+              );
             }))
 
         // only create code decoration when it's necessary to do so

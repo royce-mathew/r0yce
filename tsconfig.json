@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,21 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/lib/*": [
-        "./src/lib/*"
-      ],
-      "@/components/*": [
-        "./src/components/*"
-      ],
-      "@/components/ui/*": [
-        "./src/components/ui/*"
-      ],
-      "#site/content": [
-        "./.velite"
-      ]
+      "@/*": ["./src/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/components/ui/*": ["./src/components/ui/*"],
+      "#site/content": ["./.velite"]
     },
     "target": "ES2017"
   },
@@ -46,9 +32,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "./.velite"
+    "./.velite",
+    "next.config.mjs"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

@@ -2,11 +2,12 @@ import { providerMap } from "@/lib/auth"
 import { Separator } from "@/components/ui/separator"
 import SignInButton from "@/components/custom/signin-button"
 
-export default async function SignInPage({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined }
-}) {
+export default async function SignInPage(
+  props: {
+    searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
+  }
+) {
+  const searchParams = await props.searchParams;
   const callbackUrl = (searchParams?.callbackUrl as string) ?? "/"
   // Get the callbackUrl
   return (

@@ -110,7 +110,7 @@ const sharedComponents = {
     ...props
   }: React.ImgHTMLAttributes<HTMLImageElement>) => (
     // eslint-disable-next-line @next/next/no-img-element
-    <img className={cn("rounded-md", className)} alt={alt} {...props} />
+    (<img className={cn("rounded-md", className)} alt={alt} {...props} />)
   ),
   hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
     <hr className="my-4 md:my-8" {...props} />

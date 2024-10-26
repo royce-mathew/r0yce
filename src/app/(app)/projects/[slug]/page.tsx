@@ -14,9 +14,9 @@ import { ErrorBoundary } from "@/components/nav/error"
  * Props for the ProjectPage component.
  */
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 /**
@@ -25,7 +25,7 @@ interface ProjectPageProps {
  * @returns The project matching the slug, or null if not found.
  */
 async function getProjectFromParams({ params }: ProjectPageProps) {
-  const slug = params.slug || ""
+  const slug = (await params).slug || ""
   const project = projects.find((project) => project.slugAsParams === slug)
 
   if (!project) {
@@ -41,7 +41,8 @@ async function getProjectFromParams({ params }: ProjectPageProps) {
  * @returns The generated metadata.
  * @throws Error if the project is not found.
  */
-export async function generateMetadata({ params }: ProjectPageProps) {
+export async function generateMetadata(props: ProjectPageProps) {
+  const params = (await props).params
   const project = await getProjectFromParams({ params })
   if (!project) return
   return {
@@ -105,7 +106,8 @@ export const generateStaticParams = async () =>
  * @returns The rendered project page layout.
  * @throws Error if the project is not found.
  */
-const ProjectLayout = async ({ params }: { params: { slug: string } }) => {
+const ProjectLayout = async (props: { params: Promise<{ slug: string }> }) => {
+  const params = await props.params
   // Get the project from the provided params
   const project = projects.find(
     (project) => project.slugAsParams === params.slug

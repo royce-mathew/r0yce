@@ -15,7 +15,7 @@ type AvatarStackProps = {
 }
 
 const AvatarStack = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root>,
+  React.ComponentRef<typeof AvatarPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> & AvatarStackProps
 >(({ images, className, fallback, ...props }, ref) => {
   // const [currentImageIndex, setCurrentImageIndex] = useState(0);

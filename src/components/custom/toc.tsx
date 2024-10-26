@@ -1,13 +1,7 @@
 "use client"
 
 import * as React from "react"
-import {
-  IconArrowBadgeUp,
-  IconArrowBadgeUpFilled,
-  IconArticleFilled,
-  IconTransitionTop,
-  IconTransitionTopFilled,
-} from "@tabler/icons-react"
+import { IconArrowUp, IconArticleFilled } from "@tabler/icons-react"
 
 import { TocEntry } from "@/types/toc"
 import { cn } from "@/lib/utils"
@@ -56,7 +50,7 @@ export function DashboardTableOfContents({ toc }: TocProps) {
             !isOnPageTop ? "opacity-100" : "opacity-0"
           )}
         >
-          Back to top <IconTransitionTopFilled className="ml-3 size-5" />
+          Back to top <IconArrowUp className="ml-2 size-4" />
         </a>
       </div>
     </div>

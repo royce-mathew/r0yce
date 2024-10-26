@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, use } from "react";
 import dynamic from "next/dynamic"
 import { IconCheck, IconPointFilled } from "@tabler/icons-react"
 import Collaboration from "@tiptap/extension-collaboration"
@@ -24,16 +24,17 @@ const TipTap = dynamic(() => import("@/components/tiptap/tiptap"), {
   ssr: false,
 })
 
-export default function Kanjou({ params }: { params: { slug: string } }) {
+export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
+  const params = use(props.params);
   const { data: session } = useSession()
-  const provider = useRef<FireProvider | undefined>()
+  const provider = useRef<FireProvider | undefined>(undefined)
   const [access, setAccess] = useState<boolean | undefined>()
   const [saving, setSaving] = useState<boolean>(false)
   const [metadata, setMetadata] = useState<
     Partial<DocumentMetadata> | undefined
   >()
-  const yDoc = useRef<Y.Doc | undefined>()
-  const hash = useRef<Y.Map<unknown> | undefined>()
+  const yDoc = useRef<Y.Doc | undefined>(undefined)
+  const hash = useRef<Y.Map<unknown> | undefined>(undefined)
 
   // Fetch the document
   useEffect(() => {

@@ -19,9 +19,9 @@ const ToggleGroup: React.ForwardRefExoticComponent<
     React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> &
       VariantProps<typeof toggleVariants>
   > &
-    React.RefAttributes<React.ElementRef<typeof ToggleGroupPrimitive.Root>>
+    React.RefAttributes<React.ComponentRef<typeof ToggleGroupPrimitive.Root>>
 > = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Root>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> &
     VariantProps<typeof toggleVariants>
 >(({ className, variant, size, children, ...props }, ref) => (
@@ -39,7 +39,7 @@ const ToggleGroup: React.ForwardRefExoticComponent<
 ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
 
 const ToggleGroupItem = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Item>,
+  React.ComponentRef<typeof ToggleGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item> &
     VariantProps<typeof toggleVariants>
 >(({ className, children, variant, size, ...props }, ref) => {
