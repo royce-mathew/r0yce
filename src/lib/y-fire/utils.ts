@@ -173,9 +173,11 @@ export const base64ToUint8Array = async (base64: string) => {
 
 export const generateKey = async (sender: string, receiver: string) => {
   const secretBuffer = string.encodeUtf8(sender).buffer
-  const salt = string.encodeUtf8(receiver).buffer
+  const salt = new Uint8Array(string.encodeUtf8(receiver).buffer)
   const key = await crypto.subtle
-    .importKey("raw", secretBuffer, "PBKDF2", false, ["deriveKey"])
+    .importKey("raw", new Uint8Array(secretBuffer), "PBKDF2", false, [
+      "deriveKey",
+    ])
     .then((keyMaterial) =>
       crypto.subtle.deriveKey(
         {
