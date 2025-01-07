@@ -11,22 +11,6 @@ function generateUUID(): string {
   return guid
 }
 
-async function checkCookie() {
-  return fetch("https://www.roblox.com/mobileapi/userinfo", {
-    method: "GET",
-    headers: {
-      Cookie: `.ROBLOSECURITY=${process.env.ROBLOX_COOKIE};`,
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-    redirect: "error",
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      return res
-    })
-}
-
 async function getGeneralToken() {
   return fetch("https://auth.roblox.com/v2/logout", {
     method: "POST",
@@ -46,13 +30,17 @@ async function getGeneralToken() {
     })
 }
 
+const token = await getGeneralToken()
+
 async function createDevProduct(
   universeId: number | string,
   name: string,
   description: string,
-  priceInRobux: number | string,
-  token?: string
+  priceInRobux: number | string
 ) {
+  console.log(
+    `https://apis.roblox.com/developer-products/v1/universes/${universeId}/developerproducts?name=${name}&description=${description}&priceInRobux=${priceInRobux}`
+  )
   return fetch(
     `https://apis.roblox.com/developer-products/v1/universes/${universeId}/developerproducts?name=${name}&description=${description}&priceInRobux=${priceInRobux}`,
     {
@@ -60,13 +48,13 @@ async function createDevProduct(
       headers: {
         Cookie: `.ROBLOSECURITY=${process.env.ROBLOX_COOKIE};`,
         "Content-Type": "application/json",
-        "X-CSRF-TOKEN": token ?? (await getGeneralToken()),
+        "X-CSRF-TOKEN": token,
       },
       credentials: "include",
       redirect: "error",
     }
   )
-    .then((res) => res.json())
+    .then(async (res) => await res.json())
     .then((res) => {
       return NextResponse.json({
         success: true,
@@ -104,23 +92,13 @@ export async function GET(request: NextRequest) {
         { status: 400 }
       )
     }
-    const cookie = await checkCookie()
-    if (cookie === "User not authorized") {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Invalid Cookie",
-        },
-        { status: 401 }
-      )
-    }
     return await createDevProduct(universeId, name, description, priceInRobux)
   } catch (error) {
     console.log("An error occurred: " + error)
     return NextResponse.json(
       {
         success: false,
-        error: "An unknown error occurred",
+        error: "An unknown error occurred" + error,
       },
       { status: 500 }
     )

@@ -1,44 +1,50 @@
-import tailwindcss from "eslint-plugin-tailwindcss";
-import tsParser from "@typescript-eslint/parser";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import path from "node:path"
+import { fileURLToPath } from "node:url"
+import { FlatCompat } from "@eslint/eslintrc"
+import js from "@eslint/js"
+import tsParser from "@typescript-eslint/parser"
+import tailwindcss from "eslint-plugin-tailwindcss"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
+})
 
-export default [...compat.extends(
+const eslintConfig = [
+  ...compat.extends(
     "next/core-web-vitals",
     "prettier",
     "next",
-    "plugin:tailwindcss/recommended",
-), {
+    "plugin:tailwindcss/recommended"
+  ),
+  {
     plugins: {
-        tailwindcss,
+      tailwindcss,
     },
 
     settings: {
-        tailwindcss: {
-            callees: ["cn", "cva"],
-            config: "tailwind.config.cjs",
-        },
+      tailwindcss: {
+        callees: ["cn", "cva"],
+        config: "tailwind.config.cjs",
+      },
     },
 
     rules: {
-        "@next/next/no-html-link-for-pages": "off",
-        "tailwindcss/no-custom-classname": "off",
-        "tailwindcss/classnames-order": "error",
+      "@next/next/no-html-link-for-pages": "off",
+      "tailwindcss/no-custom-classname": "off",
+      "tailwindcss/classnames-order": "error",
     },
-}, {
+  },
+  {
     files: ["**/*.ts", "**/*.tsx"],
 
     languageOptions: {
-        parser: tsParser,
+      parser: tsParser,
     },
-}];
+  },
+]
+
+export default eslintConfig
