@@ -2,13 +2,10 @@
 
 import fs from "fs/promises"
 
-const words_file = await fs.readFile("public/files/words.txt", "utf8")
+const words_file = await fs.readFile("./words.txt", "utf8")
 const valid_words = words_file.split("\n").map((word) => word.trim())
 
-const all_words_file = await fs.readFile(
-  "public/files/possible_words.txt",
-  "utf8"
-)
+const all_words_file = await fs.readFile("./possible_words.txt", "utf8")
 const all_words = all_words_file.split("\n").map((word) => word.trim())
 
 // Get a random word
