@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/classnames-order */
 "use client"
 
 import React, { useEffect, useState } from "react"
@@ -95,7 +96,7 @@ const WordlePage: React.FC = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <h1 className="font-cal mt-16 w-full py-3 text-center text-5xl font-bold md:space-x-8 md:text-6xl">
+      <h1 className="mt-16 w-full py-3 text-center font-cal text-5xl font-bold md:space-x-8 md:text-6xl">
         Wordle
       </h1>
       <p className="w-1/3 text-center text-lg">
