@@ -43,7 +43,7 @@ figure[data-rehype-pretty-code-figure] pre code[data-theme*=" "] span {
 [data-rehype-pretty-code-figure] code > [data-line]::before {
   counter-increment: line;
   content: counter(line);
-  @apply inline-block text-right mr-4 text-background/30 dark:text-foreground/30;
+  @apply inline-block text-right mr-4 text-foreground/20 dark:text-foreground/30;
 }
 
 [data-rehype-pretty-code-figure] code {
