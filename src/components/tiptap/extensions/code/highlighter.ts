@@ -5,7 +5,7 @@ import {
   bundledLanguages,
   BundledTheme,
   bundledThemes,
-  getHighlighter,
+  createHighlighter,
   Highlighter,
 } from "shiki"
 
@@ -34,7 +34,7 @@ export function loadHighlighter(opts: HighlighterOptions) {
     const langs = opts.languages.filter(
       (lang): lang is BundledLanguage => !!lang && lang in bundledLanguages
     )
-    highlighterPromise = getHighlighter({ themes, langs }).then((h) => {
+    highlighterPromise = createHighlighter({ themes, langs }).then((h) => {
       highlighter = h
     })
     return highlighterPromise

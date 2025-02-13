@@ -3,13 +3,13 @@
 import fs from "fs/promises"
 
 const words_file = await fs.readFile(
-  process.cwd() + "/src/app/(app)/apps/wordle/words.txt",
+  process.cwd() + "/public/files/words.txt",
   "utf8"
 )
 const valid_words = words_file.split("\n").map((word) => word.trim())
 
 const all_words_file = await fs.readFile(
-  process.cwd() + "/src/app/(app)/apps/wordle/possible-words.txt",
+  process.cwd() + "/public/files/possible-words.txt",
   "utf8"
 )
 const all_words = all_words_file.split("\n").map((word) => word.trim())

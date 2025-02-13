@@ -3,8 +3,8 @@
 
 import React, { useEffect, useState } from "react"
 import confetti from "canvas-confetti"
-import { AnimatePresence, motion, useAnimationControls } from "framer-motion"
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
+import { AnimatePresence, motion, useAnimationControls } from "motion/react"
 import Keyboard from "react-simple-keyboard"
 import { toast } from "sonner"
 
@@ -96,16 +96,13 @@ const WordlePage: React.FC = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <h1 className="mt-16 w-full py-3 text-center font-cal text-5xl font-bold md:space-x-8 md:text-6xl">
+      <h1 className="mt-5 w-full py-0 text-center font-cal text-4xl font-bold md:space-x-8 md:text-6xl">
         Wordle
       </h1>
-      <p className="w-1/3 text-center text-lg">
-        Guess the 5-letter word within 6 attempts. After each guess, the color
-        of the tiles will change to show how close your guess was to the word.
-      </p>
-      <Separator className="container my-5" />
 
-      <div className="container flex w-fit flex-col items-center justify-center space-y-[5px]">
+      <Separator className="container my-3 md:my-5" />
+
+      <div className="flex w-fit flex-col items-center justify-center space-y-[5px]">
         <div className="flex select-none flex-col space-y-1">
           <AnimatePresence>
             {attempts.map((attempt, index) => (
@@ -124,7 +121,7 @@ const WordlePage: React.FC = () => {
                         transition={{ duration: 0.5, delay: slotIndex * 0.4 }}
                       >
                         <div
-                          className={`mx-[2.5px] size-16 border text-2xl font-bold uppercase first:rounded-l-md last:rounded-r-md ${
+                          className={`mx-[2.5px] size-12 border text-2xl font-bold uppercase first:rounded-l-md last:rounded-r-md md:size-16 ${
                             isCorrectPosition
                               ? "bg-green-500"
                               : isCorrect
@@ -169,7 +166,7 @@ const WordlePage: React.FC = () => {
                   {Array.from({ length: 5 }).map((_, index) => (
                     <InputOTPSlot
                       key={index}
-                      className="mx-[2.5px] size-16 text-2xl font-bold uppercase"
+                      className="mx-[2.5px] size-12 text-2xl font-bold uppercase md:size-16"
                       index={index}
                     />
                   ))}
@@ -186,7 +183,7 @@ const WordlePage: React.FC = () => {
                 {Array.from({ length: 5 }).map((_, slotIndex) => (
                   <div
                     key={slotIndex}
-                    className="mx-[2.5px] size-16 border text-2xl font-bold uppercase first:rounded-l-md last:rounded-r-md"
+                    className="mx-[2.5px] size-12 border text-2xl font-bold uppercase first:rounded-l-md last:rounded-r-md md:size-16"
                   />
                 ))}
               </div>
@@ -194,13 +191,13 @@ const WordlePage: React.FC = () => {
           )}
         </div>
         <div className="flex w-full items-center justify-center space-x-1 px-12">
-          <Button
+          {/* <Button
             className="w-2/3 rounded font-semibold"
             onClick={submit}
             variant="outline"
           >
             Submit
-          </Button>
+          </Button> */}
           <Button
             className="w-1/3 flex-initial rounded font-semibold"
             variant="outline"

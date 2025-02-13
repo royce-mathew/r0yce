@@ -4,7 +4,6 @@ import * as React from "react"
 import Link, { LinkProps } from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { IconCode, IconLink, IconMenu, IconX } from "@tabler/icons-react"
-
 import { siteConfig } from "@/config/docs"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -13,6 +12,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
 
@@ -38,7 +38,7 @@ export function SubNav({
           <MobileLink
             href={subItem.href as string}
             className={cn(
-              "hover:text-foreground/80 text-foreground/60 w-full justify-between font-light transition-colors",
+              "text-foreground/60 hover:text-foreground/80 w-full justify-between font-light transition-colors",
               pathname === subItem.href ? "text-primary" : ""
             )}
             aria-label={subItem.title}
@@ -68,6 +68,7 @@ export function MobileNav() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
+      <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
       <SheetContent side="left" className="pr-0" hideCloseButton>
         <div className="flex items-center justify-between">
           <span className="text-lg font-bold">Navigation Menu</span>
@@ -88,9 +89,9 @@ export function MobileNav() {
                     href={item.href as string}
                     aria-label={item.title}
                     className={cn(
-                      "hover:text-foreground/80 text-foreground/60 w-full justify-between transition-colors",
+                      "text-foreground/60 hover:text-foreground/80 w-full justify-between transition-colors",
                       firstPath === `${item.href?.slice(1)}`
-                        ? "text-foreground bg-foreground/10"
+                        ? "bg-foreground/10 text-foreground"
                         : ""
                     )}
                     onOpenChange={setOpen}
