@@ -1,28 +1,40 @@
 "use server"
 
 import fs from "fs/promises"
+import path from "path"
 
-const words_file = await fs.readFile(
-  process.cwd() + "/public/files/words.txt",
-  "utf8"
-)
-const valid_words = words_file.split("\n").map((word) => word.trim())
+let validWords: string[] | null = null
+let allWords: string[] | null = null
 
-const all_words_file = await fs.readFile(
-  process.cwd() + "/public/files/possible-words.txt",
-  "utf8"
-)
-const all_words = all_words_file.split("\n").map((word) => word.trim())
+async function loadWords() {
+  if (!validWords) {
+    const wordsFile = await fs.readFile(
+      path.join(process.cwd(), "public/files/words.txt"),
+      "utf8"
+    )
+    validWords = wordsFile.split("\n").map((word) => word.trim())
+  }
+}
+
+async function loadAllWords() {
+  if (!allWords) {
+    const allWordsFile = await fs.readFile(
+      path.join(process.cwd(), "public/files/possible-words.txt"),
+      "utf8"
+    )
+    allWords = allWordsFile.split("\n").map((word) => word.trim())
+  }
+}
 
 // Get a random word
 export async function getWord() {
-  const randomWord = valid_words[Math.floor(Math.random() * valid_words.length)]
+  await loadWords()
+  const randomWord = validWords![Math.floor(Math.random() * validWords!.length)]
   return randomWord
 }
 
 // Check if the word is valid
 export async function checkWord(word: string) {
-  console.log(word)
-  console.log(all_words.find((word) => word === "carts"))
-  return all_words.includes(word.toString().toLowerCase())
+  await loadAllWords()
+  return allWords!.includes(word.toString().toLowerCase())
 }
