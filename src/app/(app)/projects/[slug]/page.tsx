@@ -2,7 +2,6 @@ import Link from "next/link"
 import { IconBrandGithubFilled } from "@tabler/icons-react"
 import { projects } from "#site/content"
 import { format, parseISO } from "date-fns"
-
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -128,7 +127,7 @@ const ProjectLayout = async (props: { params: Promise<{ slug: string }> }) => {
     <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_220px]">
       <div className="mx-auto w-full min-w-0">
         <article>
-          <div className="border-border mb-2 w-full border-b text-center">
+          <div className="border-border mb-2 w-full border-b text-left md:text-center">
             {/* Project Title */}
             <h1 className="text-3xl font-bold lg:text-4xl xl:text-5xl">
               {project.title}
@@ -136,7 +135,9 @@ const ProjectLayout = async (props: { params: Promise<{ slug: string }> }) => {
 
             {/* Project Information */}
             <div className="flex flex-col space-y-6 py-5">
-              <p className="text-xs md:text-lg">{project.description}</p>
+              <p className="text-md text-foreground/60 md:text-lg">
+                {project.description}
+              </p>
               <div className="flex flex-row items-center justify-between">
                 {/* Tags */}
                 <div className="space-x-2 space-y-2">

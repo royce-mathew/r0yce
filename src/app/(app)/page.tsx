@@ -7,7 +7,6 @@ import {
   IconMailFilled,
 } from "@tabler/icons-react"
 import { mainContents } from "#site/content"
-
 import { Icons } from "@/config/icons"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -84,9 +83,24 @@ export default function Home() {
 
           {/* Badges */}
           <div className="flex items-center space-x-2">
-            <Badge variant="defaultNonInteractive">🎓 3rd Year Student</Badge>
-            <Badge variant="defaultNonInteractive">💻 Software Engineer</Badge>
-            <Badge variant="defaultNonInteractive">🎮 Game Developer</Badge>
+            <Badge
+              className="text-[10px] sm:text-sm"
+              variant="defaultNonInteractive"
+            >
+              🎓 4th Year Student
+            </Badge>
+            <Badge
+              className="text-[10px] sm:text-sm"
+              variant="defaultNonInteractive"
+            >
+              💻 Software Engineer
+            </Badge>
+            <Badge
+              className="text-[10px] sm:text-sm"
+              variant="defaultNonInteractive"
+            >
+              🎮 Game Developer
+            </Badge>
           </div>
 
           {/* Contact Information */}
