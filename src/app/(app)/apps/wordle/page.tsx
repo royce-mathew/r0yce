@@ -7,10 +7,8 @@ import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
 import { AnimatePresence, motion, useAnimationControls } from "motion/react"
 import Keyboard from "react-simple-keyboard"
 import { toast } from "sonner"
-
 import "react-simple-keyboard/build/css/index.css"
 import "@/styles/simple-keyboard.css"
-
 import { Button } from "@/components/ui/button"
 import {
   InputOTP,
@@ -18,7 +16,6 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp"
 import { Separator } from "@/components/ui/separator"
-
 import { checkWord, getWord } from "./get-word"
 
 const WordlePage: React.FC = () => {
@@ -160,6 +157,7 @@ const WordlePage: React.FC = () => {
                 onChange={(word) => setWord(word)}
                 onKeyDown={handleKeyDown}
                 ref={inputRef}
+                inputMode="none"
               >
                 <InputOTPGroup>
                   {/* Loop through 5 and create */}
