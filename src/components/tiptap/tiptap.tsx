@@ -2,11 +2,8 @@
 
 import { Extension } from "@tiptap/core"
 import { EditorContent, JSONContent, useEditor } from "@tiptap/react"
-
 import Toolbar from "./toolbar"
-
 import "@/styles/tiptap.css"
-
 import { extensions } from "./utils/extensions"
 
 export interface TiptapProps {
@@ -29,6 +26,7 @@ const Tiptap = ({ passedExtensions }: TiptapProps) => {
       },
     },
     extensions: [...extensions, ...(passedExtensions ?? [])],
+    immediatelyRender: false,
   })
 
   // Update the editor content when the initial text changes
@@ -38,6 +36,10 @@ const Tiptap = ({ passedExtensions }: TiptapProps) => {
   //   editor?.commands.setContent(initialContent)
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [initialContent])
+
+  if (!editor) {
+    return <div>Editor Loading...</div>
+  }
 
   return (
     <div className="bg-foreground/5 rounded border-2">

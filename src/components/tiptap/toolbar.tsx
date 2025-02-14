@@ -11,8 +11,8 @@ import {
   IconUnderline,
 } from "@tabler/icons-react"
 import { Level } from "@tiptap/extension-heading"
-import { Editor, JSONContent } from "@tiptap/react"
-
+import { Editor, JSONContent, useEditorState } from "@tiptap/react"
+import { set } from "date-fns"
 import {
   Menubar,
   MenubarCheckboxItem,
@@ -30,7 +30,6 @@ import {
 } from "@/components/ui/menubar"
 import { Separator } from "@/components/ui/separator"
 import { Toggle, toggleVariants } from "@/components/ui/toggle"
-
 import {
   Dialog,
   DialogContent,
@@ -56,7 +55,7 @@ import {
 } from "../ui/tooltip"
 
 export interface ToolbarProps {
-  editor?: Editor | null
+  editor: Editor
   onSaved?: (content: JSONContent) => void
   onCreate?: () => void
   onDeleted?: () => void
@@ -83,30 +82,62 @@ const TooltipHandler = ({
 }
 
 const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
-  const [style, setStyle] = useState("")
+  const [selectStyle, setSelectStyle] = useState("")
+  const [style, setStyle] = useState("p")
 
-  // Set the style of the current block based on the selection
+  // Set the style of the current block based on select value
+  useEffect(() => {
+    if (selectStyle === "") return
+    const headingLevel =
+      selectStyle === "h1"
+        ? 1
+        : selectStyle === "h2"
+          ? 2
+          : selectStyle === "h3"
+            ? 3
+            : null
+
+    if (!headingLevel) {
+      // If the selectStyle is a paragraph, set the block to a paragraph
+      editor.chain().focus().setParagraph().run()
+    } else {
+      // Set the block to a heading based on the level
+      editor
+        .chain()
+        .focus()
+        .toggleHeading({
+          level: headingLevel as Level,
+        })
+        .run()
+    }
+  }, [selectStyle, editor])
+
+  // Set the style of the current block based on the current selection
   useEffect(() => {
     if (!editor) return
-    const headingLevel = style.startsWith("h") ? parseInt(style[1]) : undefined
-
-    // If the style is a paragraph, set the block to a paragraph
-    if (!headingLevel) {
-      editor.chain().focus().setParagraph().run()
-      return
+    if (editor.isActive("heading", { level: 1 })) {
+      setStyle("h1")
+    } else if (editor.isActive("heading", { level: 2 })) {
+      setStyle("h2")
+    } else if (editor.isActive("heading", { level: 3 })) {
+      setStyle("h3")
+    } else {
+      setStyle("p")
     }
+  }, [editor, editor?.state.selection, style])
 
-    // Set the block to a heading based on the level
-    editor
-      .chain()
-      .focus()
-      .toggleHeading({
-        level: headingLevel as Level,
-      })
-      .run()
-  }, [style, editor])
+  const editorState = useEditorState({
+    editor,
+    // This function will be called every time the editor content changes
+    selector: ({ editor }: { editor: Editor }) => ({
+      // Get the current character count
+      isBold: editor.isActive("bold"),
+      isItalic: editor.isActive("italic"),
+      isUnderlined: editor.isActive("underline"),
+      isStriked: editor.isActive("strike"),
+    }),
+  })
 
-  if (!editor) return null
   return (
     <div className="flex flex-row flex-wrap items-center space-x-2 shadow-md drop-shadow-lg">
       {/* Menu Bar */}
@@ -207,27 +238,30 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
         </DialogContent>
       </Dialog>
       <Separator orientation="vertical" />
-      <Select
-        value={
-          editor?.isActive("heading", { level: 1 })
-            ? "h1"
-            : editor?.isActive("heading", { level: 2 })
-              ? "h2"
-              : editor?.isActive("heading", { level: 3 })
-                ? "h3"
-                : editor?.isActive("paragraph")
-                  ? "p"
-                  : style
-        }
-        onValueChange={setStyle}
-      >
+      <Select value={style} onValueChange={setSelectStyle}>
         <TooltipHandler content="Change Style">
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-[150px]">
             <SelectValue aria-label={style}>
-              {editor?.isActive("heading", { level: 1 }) && "Heading 1"}
-              {editor?.isActive("heading", { level: 2 }) && "Heading 2"}
-              {editor?.isActive("heading", { level: 3 }) && "Heading 3"}
-              {editor?.isActive("paragraph") && "Paragraph"}
+              <div className="flex items-center space-x-2">
+                {style === "h1" ? (
+                  <IconH1 className={iconSize} />
+                ) : style === "h2" ? (
+                  <IconH2 className={iconSize} />
+                ) : style === "h3" ? (
+                  <IconH3 className={iconSize} />
+                ) : (
+                  <IconAbc className={iconSize} />
+                )}
+                <span>
+                  {style === "h1"
+                    ? "Heading 1"
+                    : style === "h2"
+                      ? "Heading 2"
+                      : style === "h3"
+                        ? "Heading 3"
+                        : "Paragraph"}
+                </span>
+              </div>
             </SelectValue>
           </SelectTrigger>
         </TooltipHandler>
@@ -288,9 +322,9 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
           size="sm"
           aria-label="Toggle bold"
           onClick={() => editor.chain().focus().toggleBold().run()}
-          pressed={editor.isActive("bold")}
+          pressed={editorState.isBold}
         >
-          {editor.isActive("bold") ? (
+          {editorState.isBold ? (
             <IconBoldOff className={iconSize} />
           ) : (
             <IconBold className={iconSize} />
@@ -302,7 +336,7 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
           size="sm"
           aria-label="Toggle italic"
           onClick={() => editor.chain().focus().toggleItalic().run()}
-          pressed={editor.isActive("italic")}
+          pressed={editorState.isItalic}
         >
           <IconItalic className={iconSize} />
         </Toggle>
