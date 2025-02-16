@@ -21,7 +21,6 @@ import {
 } from "firebase/firestore"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
-
 import { Document, DocumentMetadata } from "@/types/document"
 import {
   allDocumentsRef,
@@ -145,7 +144,7 @@ export default function Kanjou() {
                 <DialogTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="bg-foreground/5 size-full rounded p-2"
+                    className="size-full rounded bg-foreground/5 p-2"
                     onClick={() => setRename("")}
                   >
                     <IconCirclePlus className="size-12" />
@@ -186,11 +185,11 @@ export default function Kanjou() {
       <div>
         <h1 className="my-10 text-2xl font-bold">All documents</h1>
         {!documents ? (
-          <Skeleton className="bg-foreground/5 h-20 w-full" />
+          <Skeleton className="h-20 w-full bg-foreground/5" />
         ) : (
           <div className="flex size-full flex-wrap gap-4">
             {documents.length === 0 && (
-              <div className="text-muted-foreground mt-16 w-full text-center text-xl">
+              <div className="mt-16 w-full text-center text-xl text-muted-foreground">
                 No documents found
               </div>
             )}
@@ -199,12 +198,12 @@ export default function Kanjou() {
                 key={doc.id}
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "bg-foreground/5 border-border flex h-fit min-w-48 flex-1 flex-col justify-end p-2 "
+                  "flex h-fit min-w-48 flex-1 flex-col justify-end border-border bg-foreground/5 p-2"
                 )}
               >
                 <div className="w-full text-left">
                   <Link
-                    className="bg-background size-full"
+                    className="size-full bg-background"
                     href={`/kanjou/${doc.id}`}
                   >
                     <p className="truncate pt-1 text-sm font-bold">
@@ -212,13 +211,13 @@ export default function Kanjou() {
                     </p>
                   </Link>
                   <div className="flex flex-row items-center justify-between">
-                    <p className="text-muted-foreground text-[.7rem] font-thin">
+                    <p className="text-[.7rem] font-thin text-muted-foreground">
                       Updated {timeAgo(doc.metadata.lastOpened)}
                     </p>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button variant="icon" className="ml-2 px-0">
-                          <IconDotsVertical className="size-5 " />
+                          <IconDotsVertical className="size-5" />
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="flex w-fit flex-col justify-start p-0">

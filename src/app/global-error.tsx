@@ -17,7 +17,7 @@ export default function GlobalError({
       <head />
       <body
         className={cn(
-          "bg-background min-h-screen antialiased",
+          "min-h-screen bg-background antialiased",
           cal.variable,
           inter.variable
         )}

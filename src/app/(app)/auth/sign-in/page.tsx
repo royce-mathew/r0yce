@@ -2,17 +2,15 @@ import { providerMap } from "@/lib/auth"
 import { Separator } from "@/components/ui/separator"
 import SignInButton from "@/components/custom/signin-button"
 
-export default async function SignInPage(
-  props: {
-    searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
-  }
-) {
-  const searchParams = await props.searchParams;
+export default async function SignInPage(props: {
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const searchParams = await props.searchParams
   const callbackUrl = (searchParams?.callbackUrl as string) ?? "/"
   // Get the callbackUrl
   return (
     <div className="container flex h-screen items-center justify-center">
-      <div className="bg-foreground/5 outline-outline max-w-96 space-y-3 rounded p-8">
+      <div className="outline-outline max-w-96 space-y-3 rounded bg-foreground/5 p-8">
         <h1 className="text-3xl font-bold">Sign in</h1>
         <p className="">
           Sign in to access your account and continue where you left off.

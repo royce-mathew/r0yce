@@ -1,9 +1,7 @@
 import "@/styles/globals.css"
 import "@/styles/mdx.css"
-
 import type { Metadata, Viewport } from "next"
 import { GoogleAnalytics } from "@next/third-parties/google"
-
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
@@ -88,7 +86,7 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "bg-background min-h-screen antialiased",
+          "min-h-screen bg-background antialiased",
           cal.variable,
           inter.variable
         )}

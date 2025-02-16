@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, use } from "react";
+import { use, useEffect, useRef, useState } from "react"
 import dynamic from "next/dynamic"
 import { IconCheck, IconPointFilled } from "@tabler/icons-react"
 import Collaboration from "@tiptap/extension-collaboration"
@@ -10,7 +10,6 @@ import { useSession } from "next-auth/react"
 import objectHash from "object-hash"
 import { toast } from "sonner"
 import * as Y from "yjs"
-
 import { DocumentMetadata } from "@/types/document"
 import { documentRef } from "@/lib/converters/document"
 import { firebaseApp } from "@/lib/firebase/client"
@@ -25,7 +24,7 @@ const TipTap = dynamic(() => import("@/components/tiptap/tiptap"), {
 })
 
 export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
-  const params = use(props.params);
+  const params = use(props.params)
   const { data: session } = useSession()
   const provider = useRef<FireProvider | undefined>(undefined)
   const [access, setAccess] = useState<boolean | undefined>()
@@ -145,7 +144,7 @@ export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
         </div>
       </div>
       <div>
-        <p className="text-muted-foreground px-2 pb-2 text-sm">
+        <p className="px-2 pb-2 text-sm text-muted-foreground">
           Last Updated: {timeAgo(provider.current?.metadata.lastUpdated)}
         </p>
       </div>

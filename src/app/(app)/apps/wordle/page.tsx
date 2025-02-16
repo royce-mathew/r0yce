@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/classnames-order */
 "use client"
 
 import React, { useEffect, useState } from "react"
@@ -100,7 +99,7 @@ const WordlePage: React.FC = () => {
       <Separator className="container my-3 md:my-5" />
 
       <div className="flex w-fit flex-col items-center justify-center space-y-[5px]">
-        <div className="flex select-none flex-col space-y-1">
+        <div className="flex flex-col space-y-1 select-none">
           <AnimatePresence>
             {attempts.map((attempt, index) => (
               <div key={index} className="flex">

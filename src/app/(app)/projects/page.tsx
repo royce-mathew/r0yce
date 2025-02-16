@@ -90,12 +90,12 @@ const projectsSorted = sortProjects(projects)
 export default function AllProjects() {
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <h1 className="font-cal mb-5 mt-16 w-full py-3 text-center text-5xl font-bold md:space-x-8 md:text-6xl">
+      <h1 className="mt-16 mb-5 w-full py-3 text-center font-cal text-5xl font-bold md:space-x-8 md:text-6xl">
         Projects
       </h1>
       <Separator className="container mb-5" />
 
-      <div className="border-border dark:border-border/50 container flex w-fit flex-col items-center justify-center rounded border bg-black/5 dark:bg-black/15">
+      <div className="container flex w-fit flex-col items-center justify-center rounded border border-border bg-black/5 dark:border-border/50 dark:bg-black/15">
         <h2 className="flex w-full items-center justify-center md:space-x-8 md:text-4xl">
           <Separator className="flex-1" />
           <div className="flex-initial py-2 text-2xl font-semibold">
@@ -111,7 +111,7 @@ export default function AllProjects() {
         </div>
       </div>
 
-      <h2 className="container z-10 mt-16 flex w-full items-center justify-center md:space-x-5 md:text-4xl">
+      <h2 className="z-10 container mt-16 flex w-full items-center justify-center md:space-x-5 md:text-4xl">
         <Separator className="flex-1" />
         <div className="-my-40 flex-initial px-4 py-1 text-3xl font-bold">
           All Projects
@@ -119,8 +119,8 @@ export default function AllProjects() {
         <Separator className="flex-1" />
       </h2>
 
-      <div className="relative flex w-full justify-center bg-black/10 pb-24 pt-16 dark:bg-black/15">
-        <div className="container z-10 mx-auto grid max-w-7xl grid-flow-row-dense grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="relative flex w-full justify-center bg-black/10 pt-16 pb-24 dark:bg-black/15">
+        <div className="z-10 container mx-auto grid max-w-7xl grid-flow-row-dense grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projectsSorted.map((project: Project) => (
             <ProjectButton
               key={project.slug}

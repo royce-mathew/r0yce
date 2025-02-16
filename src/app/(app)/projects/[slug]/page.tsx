@@ -127,7 +127,7 @@ const ProjectLayout = async (props: { params: Promise<{ slug: string }> }) => {
     <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_220px]">
       <div className="mx-auto w-full min-w-0">
         <article>
-          <div className="border-border mb-2 w-full border-b text-left md:text-center">
+          <div className="mb-2 w-full border-b border-border text-left md:text-center">
             {/* Project Title */}
             <h1 className="text-3xl font-bold lg:text-4xl xl:text-5xl">
               {project.title}
@@ -140,7 +140,7 @@ const ProjectLayout = async (props: { params: Promise<{ slug: string }> }) => {
               </p>
               <div className="flex flex-row items-center justify-between">
                 {/* Tags */}
-                <div className="space-x-2 space-y-2">
+                <div className="space-y-2 space-x-2">
                   {project.tags.map((tag: string) => (
                     <Badge
                       key={tag}
@@ -194,7 +194,7 @@ const ProjectLayout = async (props: { params: Promise<{ slug: string }> }) => {
             </div>
           </div>
           {/* Project Content */}
-          <div className="pb-12 pt-6">
+          <div className="pt-6 pb-12">
             <Mdx code={project.code} />
           </div>
         </article>

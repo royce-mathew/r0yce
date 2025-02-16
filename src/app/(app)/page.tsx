@@ -77,7 +77,7 @@ export default function Home() {
 
         <div className="mt-4 space-y-2 px-2">
           {/* Name */}
-          <h1 className="font-cal text-center text-2xl font-bold sm:text-3xl md:text-5xl dark:text-white">
+          <h1 className="text-center font-cal text-2xl font-bold sm:text-3xl md:text-5xl dark:text-white">
             Royce Mathew
           </h1>
 
@@ -104,7 +104,7 @@ export default function Home() {
           </div>
 
           {/* Contact Information */}
-          <div className="flex items-center justify-between ">
+          <div className="flex items-center justify-between">
             <div className="space-x-2">
               <Button asChild variant="outline" size="icon">
                 <Link
