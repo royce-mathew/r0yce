@@ -14,8 +14,14 @@
   content: attr(data-placeholder);
 }
 
+/* Inline Code Block */
 .tiptap p code {
   @apply bg-foreground/10 dark:bg-foreground/10;
+}
+
+/* Outer Code Block */
+.tiptap pre {
+  @apply bg-foreground/90 dark:bg-foreground/5 border border-y border-border rounded;
 }
 
 /* Transition classes for the change effect  */
