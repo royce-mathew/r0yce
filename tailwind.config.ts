@@ -1,8 +1,8 @@
 import type { Config } from "tailwindcss"
-import { fontFamily } from "tailwindcss/defaultTheme"
+import defaultTheme from "tailwindcss/defaultTheme"
 
 const config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -60,10 +60,10 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        default: ["var(--font-inter)", ...fontFamily.sans],
-        cal: ["var(--font-cal)", ...fontFamily.sans],
-        title: ["var(--font-title)", ...fontFamily.sans],
-        mono: ["Consolas", ...fontFamily.mono],
+        default: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
+        cal: ["var(--font-cal)", ...defaultTheme.fontFamily.sans],
+        title: ["var(--font-title)", ...defaultTheme.fontFamily.sans],
+        mono: ["Consolas", ...defaultTheme.fontFamily.mono],
       },
       typography: ({ theme }: { theme: any }) => ({
         DEFAULT: {

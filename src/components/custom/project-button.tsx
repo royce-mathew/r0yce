@@ -3,9 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Project } from "#site/content"
 import { format, parseISO } from "date-fns"
-
 import { cn } from "@/lib/utils"
-
 import { Button } from "../ui/button"
 import { Separator } from "../ui/separator"
 
@@ -46,7 +44,7 @@ const ProjectButton: React.FC<ProjectButtonProps> = ({
                 height={300}
               />
               <div className="halftone absolute inset-0" />
-              <div className="from-background bg-size-150%  bg-pos-10% absolute inset-0 bg-gradient-to-t from-5% to-transparent to-25%" />
+              <div className="from-background bg-size-150%  bg-pos-10% bg-linear-to-t absolute inset-0 from-5% to-transparent to-25%" />
             </div>
 
             <div className="flex flex-col space-y-2 text-wrap px-1 pb-2 pt-4">

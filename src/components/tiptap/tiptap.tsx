@@ -22,7 +22,7 @@ const Tiptap = ({ passedExtensions }: TiptapProps) => {
   const editor = useEditor({
     editorProps: {
       attributes: {
-        class: `prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-lg prose-ul:list-[revert] ${proseCode} focus:outline-none p-3 max-w-full min-h-[1400px]`,
+        class: `prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-lg prose-ul:list-[revert] ${proseCode} focus:outline-hidden p-3 max-w-full min-h-[1400px]`,
       },
     },
     extensions: [...extensions, ...(passedExtensions ?? [])],

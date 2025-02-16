@@ -125,7 +125,7 @@ export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
     <main className="container flex min-h-screen flex-col">
       <div className="flex items-center">
         <Input
-          className="my-4 border-none bg-transparent py-6 text-3xl font-bold outline-none"
+          className="my-4 border-none bg-transparent py-6 text-3xl font-bold outline-hidden"
           value={metadata?.title ?? ""}
           onChange={updateTitle}
           placeholder="Document Name"

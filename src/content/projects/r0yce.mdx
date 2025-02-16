@@ -20,11 +20,24 @@ This setup allows me to quickly modify or add MDX documents without extensive re
 
 ## Learning Experience
 
-- Handling serverless environments required a workaround for `firebase-admin`.
-- Velite's pipeline simplified `MDX parsing` and custom component rendering.
-- Firebase authentication streamlined user management and session handling.
-- Next.js routing and dynamic imports optimized content delivery.
-- Optimized SEO and metadata for improved search engine visibility.
+<Steps>
+### Firebase Integration
+
+Integrating Firebase with Next.js required handling serverless environments and client-side authentication. Firebase's client-side SDK manages user sessions and authentication, ensuring secure access to protected routes.
+
+### Velite Pipeline
+
+Velite's pipeline simplifies MDX parsing and custom component rendering, enabling the inclusion of interactive elements and dynamic features. The conversion process transforms MDX content into React components, enhancing readability and visual appeal.
+
+### Next.js Routing
+
+Next.js routing and dynamic imports optimize content delivery, ensuring that pages load quickly and efficiently. The combination of static site generation and server rendering provides a seamless user experience, with minimal loading times and improved performance.
+
+### SEO Optimization
+
+Optimized SEO and metadata enhance search engine visibility, making it easier for users to discover and access the website. By incorporating metadata and structured data, the website is more likely to appear in search results, increasing its online presence.
+
+</Steps>
 
 <br />
 
@@ -40,7 +53,7 @@ This setup allows me to quickly modify or add MDX documents without extensive re
    ├─ auth/             # Authentication
    │  └─ ...
    ├─ projects/         # Projects folder
-   │  └─ [slug]/        # Slug for each project. This slug dynamically loads the MDX content for the project.
+   │  └─ [slug]/        # Slug for each project. Dynamically loads the MDX content for the project.
    └─ ...
 ```
 

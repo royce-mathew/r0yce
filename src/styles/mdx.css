@@ -1,4 +1,5 @@
 /* Apply Code themes based on color mode */
+@reference "./globals.css";
 
 /* LIGHT MODE */
 figure[data-rehype-pretty-code-figure] pre {

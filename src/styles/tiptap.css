@@ -1,3 +1,5 @@
+@reference "./globals.css";
+
 .tiptap p.is-editor-empty:first-child::before {
   @apply text-muted-foreground/50 float-left h-0 pointer-events-none;
   content: attr(data-placeholder);

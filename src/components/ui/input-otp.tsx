@@ -3,7 +3,6 @@
 import * as React from "react"
 import { IconLineDashed } from "@tabler/icons-react"
 import { OTPInput, OTPInputContext } from "input-otp"
-
 import { cn } from "@/lib/utils"
 
 const InputOTP = React.forwardRef<
@@ -12,7 +11,7 @@ const InputOTP = React.forwardRef<
 >(({ className, containerClassName, ...props }, ref) => (
   <OTPInput
     ref={ref}
-    //  has-[:disabled]:opacity-75
+    //  has-disabled:opacity-75
     containerClassName={cn("flex items-center gap-2", containerClassName)}
     className={cn("disabled:cursor-not-allowed", className)}
     {...props}
@@ -39,7 +38,7 @@ const InputOTPSlot = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "border-input relative flex size-9 items-center justify-center border text-sm shadow-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md",
+        "border-input shadow-xs relative flex size-9 items-center justify-center border text-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md",
         isActive && "ring-ring z-10 ring-1",
         className
       )}
