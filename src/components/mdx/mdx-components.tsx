@@ -5,7 +5,6 @@ import * as runtime from "react/jsx-runtime"
 import Image from "next/image"
 import Link from "next/link"
 import { YouTubeEmbed } from "@next/third-parties/google"
-
 import { cn } from "@/lib/utils"
 import {
   Accordion,
@@ -50,7 +49,7 @@ const sharedComponents = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        "mt-8 scroll-m-20 text-xl font-thin italic tracking-tight brightness-50",
+        "border-border/50 bg-card/10 mt-8 w-fit scroll-m-20 rounded-md border p-2 text-lg font-thin italic tracking-tight",
         className
       )}
       {...props}
@@ -110,7 +109,7 @@ const sharedComponents = {
     ...props
   }: React.ImgHTMLAttributes<HTMLImageElement>) => (
     // eslint-disable-next-line @next/next/no-img-element
-    (<img className={cn("rounded-md", className)} alt={alt} {...props} />)
+    <img className={cn("rounded-md", className)} alt={alt} {...props} />
   ),
   hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
     <hr className="my-4 md:my-8" {...props} />
@@ -122,7 +121,7 @@ const sharedComponents = {
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr
-      className={cn("even:bg-muted m-0 border-t p-0", className)}
+      className={cn("even:bg-muted/40 m-0 border-t p-0", className)}
       {...props}
     />
   ),
@@ -171,7 +170,10 @@ const sharedComponents = {
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
     return (
       <code
-        className={cn("size-full p-2 font-mono text-sm", className)}
+        className={cn(
+          "text-primary size-full rounded bg-white/5 p-1 font-mono text-sm",
+          className
+        )}
         {...props}
       />
     )

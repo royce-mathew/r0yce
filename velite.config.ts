@@ -4,7 +4,6 @@ import rehypePrettyCode, { LineElement } from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import { defineCollection, defineConfig, s } from "velite"
-
 import { rawCodePostProcessor, rawCodePreProcessor } from "@/lib/rehype-pre-raw"
 
 const Label = s.object({

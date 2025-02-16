@@ -28,7 +28,7 @@ A proper explanation on how the algorithm works can be found [here](https://www.
 
 To start, we'll retrieve the data using a public module which imports data from yahoo.finance and automatically converts it into a csv file. This piece of code saves the data as a .csv file.
 
-```python
+```python showLineNumbers
 # Imports
 from matplotlib import ticker
 import yfinance as yf
@@ -46,14 +46,13 @@ ticker_data = yf.download(
 ticker_data.to_csv(f"./../assets/{ticker_name}.csv") # Save dataframe as a csv file
 
 ticker_data # Display Ticker Data
-
 ```
 
 ### Retrieving the dataset used
 
 To retrieve the data, we'll use pandas to pull the file from the github repository. Pandas automatically takes care of making the web request.
 
-```python
+```python showLineNumbers
 import pandas as pd
 import http.client as client # Need to read text file
 
@@ -70,7 +69,7 @@ To plot the initial data, pandas.plot is used. Pandas.plot internally uses matpl
 
 This plot displays the adjusted close price for each 24 hour period.
 
-```python
+```python showLineNumbers
 # Plot the data
 ticker_data.index = pd.to_datetime(ticker_data.index) # Convert the index to a datetime value
 ticker_data.plot.line(y="Adj Close", use_index=True)
@@ -89,7 +88,7 @@ We need to show the algorithm some trends in the data so it is able to learn pat
 
 After filling the dataset with all these values, the program minmaxes all the values to be between 0 and 1, generally considered good practise for inputs in machine learning.
 
-```python
+```python showLineNumbers
 
 import pandas_ta as ta # We use pandas_ta to see trends in the ticker data
 from sklearn.preprocessing import MinMaxScaler # Used to scale values between 0 and 1
@@ -157,7 +156,7 @@ Plot the important inputs that are passed to the neural network. The following f
 
 The input data that are passed to the neural network should help it approximate whether the next time period's closing value will be higher / lower compared to the current close.
 
-```python
+```python showLineNumbers
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -199,7 +198,7 @@ To plot the statistics of the neural network, matplotlib is used while the neat 
 
 This plot displasy the fitness of each each generation. The fitness attribute is given to a genome when it starts making profits by predicting the outcome of the future closes.
 
-```python
+```python showLineNumbers
 
 %matplotlib inline
 
@@ -242,7 +241,7 @@ There are 3 outputs that the genome gives:
 
 The genome is not allowed to gain negative profits and is removed from the population if it starts gaining negative profits.
 
-```python
+```python showLineNumbers
 %matplotlib inline
 import neat
 import pickle
@@ -392,7 +391,7 @@ train_model(generations=200)
 
 The best genome can be tested on the decisions it chooses each day.
 
-```python
+```python showLineNumbers
 index: int = 222 # Index to start testing from
 test_data_len: int = 500 # Number of days to test
 total_profit: float = 0 # The profit the genome has made

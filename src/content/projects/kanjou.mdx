@@ -1,11 +1,11 @@
 ---
 title: Kanjou
 label: { text: "New!" }
-description: A realtime collaborative text editor which saves your data to firebase.
+description: A Realtime Collaborative Text Editor
 tags: [typescript, react, nextjs, firebase]
 imageSrc: /projects/kanjou.webp
 publishedDate: 2024-05-14
-modifiedDate: 2024-05-14
+modifiedDate: 2025-02-16
 hasToc: true
 columnSpan: 2
 rowSpan: 2
@@ -51,7 +51,7 @@ There were several roadblocks I faced during the development of Kanjou.
         <AccordionContent>
             When using the firebase adapter, you cannot call the `auth()` method inside `middleware.ts`, instead you need to have a workaround. The `auth()` function currently does not work because of the `firebase-admin` package not being able to be used in the browser. The workaround is to use the `getToken` function from the `@auth/core/jwt` package.
 
-            ```typescript {8-13} title="middleware.ts"
+            ```typescript {8-13} title="middleware.ts" showLineNumbers
             import { NextRequest, NextResponse } from "next/server"
             import { getToken } from "@auth/core/jwt"
 
