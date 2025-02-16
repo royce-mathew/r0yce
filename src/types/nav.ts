@@ -3,6 +3,7 @@ import { Icons } from "@/config/icons"
 export interface NavItem {
   title: string
   href?: string
+  modifiedDate?: string
   disabled?: boolean
   external?: boolean
   icon?: keyof typeof Icons

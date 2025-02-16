@@ -3,7 +3,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { Project, projects } from "#site/content"
 import { format, parseISO } from "date-fns"
-
 import { cn } from "@/lib/utils"
 import { BackgroundBeams } from "@/components/ui/background-beams"
 import { Button } from "@/components/ui/button"
@@ -50,36 +49,28 @@ export const metadata: Metadata = {
 // The array should be organized in a way such that there is a 1:2 ratio of important to non-important projects.
 // This is to ensure that the grid is balanced. There is a value called gridSpan in the project schema
 function sortProjects(projects: Project[]): Project[] {
-  const organizedProjects = [...projects] // Create a copy to work with
+  // Sort by last modified date first (newest first)
+  const organizedProjects = [...projects].sort(
+    (a, b) =>
+      new Date(b.modifiedDate).getTime() - new Date(a.modifiedDate).getTime()
+  )
 
-  // Shuffle for randomness
-  for (let i = organizedProjects.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[organizedProjects[i], organizedProjects[j]] = [
-      organizedProjects[j],
-      organizedProjects[i],
-    ]
-  }
-
-  // Rearranging logic
   let columnCursor = 0
   for (let i = 0; i < organizedProjects.length; i++) {
     if (organizedProjects[i].columnSpan === 3) {
-      // Move wide items (columnSpan 3) to the beginning
       if (i !== 0) {
-        organizedProjects.unshift(organizedProjects.splice(i, 1)[0]) // Remove from current position and Insert at the beginning
+        organizedProjects.unshift(organizedProjects.splice(i, 1)[0])
       }
-      columnCursor = 3 // Skip to the end to avoid overlaps
+      columnCursor = 3
     } else if (organizedProjects[i].columnSpan === 2) {
       if (columnCursor >= 2) {
-        // Move to an available earlier slot
         organizedProjects.splice(
           columnCursor - 2,
           0,
           organizedProjects.splice(i, 1)[0]
         )
       }
-      columnCursor = (columnCursor + 2) % 3 // Move to the next valid column
+      columnCursor = (columnCursor + 2) % 3
     } else {
       columnCursor = (columnCursor + 1) % 3
     }

@@ -1,5 +1,4 @@
 import { projects } from "#site/content"
-
 import { MainNavItem, SidebarNavItem } from "@/types/nav"
 
 interface SiteConfig {
@@ -26,12 +25,20 @@ export const siteConfig: SiteConfig = {
     {
       title: "Projects",
       href: "/projects",
-      items: projects.map((project) => ({
-        title: project.title,
-        href: `/${project.slug}`,
-        label: project.label,
-        items: [],
-      })),
+      items: projects
+        .sort(
+          (a, b) =>
+            new Date(a.modifiedDate).getTime() -
+            new Date(b.modifiedDate).getTime()
+        )
+        .reverse()
+        .map((project) => ({
+          title: project.title,
+          href: `/${project.slug}`,
+          label: project.label,
+          modifiedDate: project.modifiedDate,
+          items: [],
+        })),
     },
   ],
 }
