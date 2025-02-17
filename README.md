@@ -70,3 +70,7 @@ It uses `husky` and `lint-staged` to run linting and formatting checks before co
    │  └─ [slug]/        # Slug for each project. Dynamically loads the MDX content for the project.
    └─ ...
 ```
+
+## License
+
+Licensed under the [GNU Affero General Public License v3.0](./LICENSE).
