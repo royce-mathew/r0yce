@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Overview
 
-## Getting Started
+<div align="center">
+    <a href="https://github.com/royce-mathew/r0yce">
+        <img src="./public/favicon.png" alt="Spyder" height="100" />
+    </a>
+    <p>
+        <b>
+            <a href="https://r0yce.com">r0yce.com</a>
+        </b>
+    </p>
+</div>
 
-First, run the development server:
+A Personal Website Built with Next.js and Firebase. This repository contains the source code for my personal website.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The `r0yce.com` website leverages Next.js to serve MDX content in a flexible environment, supporting both static site generation and on-demand server rendering. The application tracks content for each page, including projects, blog posts, and other resources, using MDX files to store metadata and content.
+
+It also includes a realtime text editor for collaborative editing, built with Firebase. To access the editor, visit the `src/app/(app)/kanjou` route on the website.
+
+## Installation
+
+To install the project, follow these steps:
+
+1. Clone the repository.
+2. Install dependencies using your preferred package manager. For example:  
+   • npm install  
+   • pnpm install  
+   • yarn install
+3. Run the development server using the `dev` command.
+4. To build the application for production, use the `build` command.
+
+## Commands
+
+Common commands are defined in the `package.json` file. You can run these commands using your preferred package manager.
+
+• `dev`: Runs Next.js in development mode.  
+• `build`: Builds the application for production.  
+• `start`: Runs the compiled production build.  
+• `lint`: Runs ESLint to check for code issues.  
+• `lint:fix`: Attempts to automatically fix lint issues.  
+• `format`: Formats the code with Prettier.
+
+## Development Environment
+
+To set up the development environment, follow these steps:
+
+1. Create a `.env.local` file in the root directory. Use the `.env.example` file as a template.
+2. Create a Firebase project and enable Google and Github authentication.
+3. Add your Firebase configuration to the `.env.local` file.
+4. Add Google OAuth and Github OAuth credentials to the `.env.local` file.
+
+### Commits
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages. You can use the `commit` command to create a commit message using the commitizen CLI.
+
+It uses `husky` and `lint-staged` to run linting and formatting checks before committing changes.
+
+## Content Organization
+
+```python
+./src/
+├─ content/             # Markdown content
+│ ├─ projects/          # Project pages in MDX format
+│ │ └─ r0yce.mdx
+│ └─ ...
+└─ app/                 # Application components
+   ├─ auth/             # Authentication
+   │  └─ ...
+   ├─ projects/         # Projects folder
+   │  └─ [slug]/        # Slug for each project. Dynamically loads the MDX content for the project.
+   └─ ...
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
