@@ -90,27 +90,41 @@ const projectsSorted = sortProjects(projects)
 export default function AllProjects() {
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <h1 className="mt-16 mb-5 w-full py-3 text-center font-cal text-5xl font-bold md:space-x-8 md:text-6xl">
-        Projects
-      </h1>
-      <Separator className="container mb-5" />
-
-      <div className="container flex w-fit flex-col items-center justify-center rounded border border-border bg-black/5 dark:border-border/50 dark:bg-black/15">
-        <h2 className="flex w-full items-center justify-center md:space-x-8 md:text-4xl">
-          <Separator className="flex-1" />
-          <div className="flex-initial py-2 text-2xl font-semibold">
-            Featured Project
-          </div>
-          <Separator className="flex-1" />
-        </h2>
-
-        <div className="mb-5 max-w-[420px]">
-          <ProjectButton
-            project={projectsSorted.find((project) => project.featured)}
-          />
+      <div className="container mt-16 flex w-full items-center justify-between py-3">
+        <h1 className="font-cal text-5xl font-bold md:space-x-8 md:text-6xl">
+          Projects
+        </h1>
+        <div className="flex items-center space-x-2 text-lg md:text-xl">
+          <span className="font-bold text-primary">{projects.length}</span>
+          <span>Total Projects</span>
         </div>
       </div>
 
+      <h2 className="z-10 container mt-16 flex w-full items-center justify-center md:space-x-5 md:text-4xl">
+        <Separator className="flex-1" />
+        <div className="-my-40 flex-initial px-4 py-1 text-3xl font-bold">
+          Featured Projects
+        </div>
+        <Separator className="flex-1" />
+      </h2>
+
+      <div className="relative flex w-full justify-center bg-black/10 pt-16 pb-24 dark:bg-black/15">
+        <div className="z-10 container mx-auto grid max-w-7xl grid-flow-row-dense grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {projectsSorted
+            .filter((project) => project.featured)
+            .map((project) => (
+              <ProjectButton
+                key={project.slug}
+                project={project}
+                className={cn(
+                  project.columnSpan == 1 && `md:col-span-1`,
+                  project.columnSpan == 2 && `md:col-span-2`,
+                  project.columnSpan == 3 && `md:col-span-3`
+                )}
+              />
+            ))}
+        </div>
+      </div>
       <h2 className="z-10 container mt-16 flex w-full items-center justify-center md:space-x-5 md:text-4xl">
         <Separator className="flex-1" />
         <div className="-my-40 flex-initial px-4 py-1 text-3xl font-bold">
@@ -121,17 +135,19 @@ export default function AllProjects() {
 
       <div className="relative flex w-full justify-center bg-black/10 pt-16 pb-24 dark:bg-black/15">
         <div className="z-10 container mx-auto grid max-w-7xl grid-flow-row-dense grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {projectsSorted.map((project: Project) => (
-            <ProjectButton
-              key={project.slug}
-              project={project}
-              className={cn(
-                project.columnSpan == 1 && `md:col-span-1`,
-                project.columnSpan == 2 && `md:col-span-2`,
-                project.columnSpan == 3 && `md:col-span-3`
-              )}
-            />
-          ))}
+          {projectsSorted
+            .filter((project) => !project.featured)
+            .map((project: Project) => (
+              <ProjectButton
+                key={project.slug}
+                project={project}
+                className={cn(
+                  project.columnSpan == 1 && `md:col-span-1`,
+                  project.columnSpan == 2 && `md:col-span-2`,
+                  project.columnSpan == 3 && `md:col-span-3`
+                )}
+              />
+            ))}
         </div>
         {/* <BackgroundBeams className="z-0" /> */}
       </div>
