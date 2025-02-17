@@ -2,7 +2,7 @@
 
 import { use, useEffect, useRef, useState } from "react"
 import dynamic from "next/dynamic"
-import { IconCheck, IconPointFilled } from "@tabler/icons-react"
+import { IconCheck, IconPointFilled, IconSend } from "@tabler/icons-react"
 import Collaboration from "@tiptap/extension-collaboration"
 import CollaborationCursor from "@tiptap/extension-collaboration-cursor"
 import { getDoc, updateDoc } from "firebase/firestore"
@@ -15,7 +15,19 @@ import { documentRef } from "@/lib/converters/document"
 import { firebaseApp } from "@/lib/firebase/client"
 import { deepEqual, timeAgo } from "@/lib/utils"
 import { FireProvider } from "@/lib/y-fire"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { ErrorBoundary } from "@/components/nav/error"
 import { yProvider } from "@/components/tiptap/providers/firebase-sync"
 
@@ -34,6 +46,8 @@ export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
   >()
   const yDoc = useRef<Y.Doc | undefined>(undefined)
   const hash = useRef<Y.Map<unknown> | undefined>(undefined)
+
+  const [sharingEmail, setSharingEmail] = useState<string>("")
 
   // Fetch the document
   useEffect(() => {
@@ -143,10 +157,69 @@ export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
           )}
         </div>
       </div>
-      <div>
-        <p className="px-2 pb-2 text-sm text-muted-foreground">
+      <div className="flex w-full items-center justify-between px-2 pb-2">
+        <p className="text-sm text-muted-foreground">
           Last Updated: {timeAgo(provider.current?.metadata.lastUpdated)}
         </p>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline" size="sm">
+              Share
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="text-2xl">
+                Share &quot;<span className="font-thin">{metadata?.title}</span>
+                &quot;
+              </DialogTitle>
+              <DialogDescription>
+                Share this document with others by inputting their email address
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex flex-col">
+              <div className="text-lg font-bold">People with Access</div>
+              <div className="flex flex-col">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <div className="h-4 w-4 rounded-full bg-primary" />
+                    <div className="pl-2">John Doe</div>
+                  </div>
+                  <Button variant="outline" size="sm">
+                    Remove
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <DialogFooter className="mt-3 flex flex-row items-center space-x-2">
+              <Input
+                id="link"
+                type="email"
+                value={sharingEmail}
+                onChange={(e) => setSharingEmail(e.target.value)}
+                placeholder="Email Address"
+                className="h-10"
+              />
+              <DialogClose asChild>
+                <Button
+                  type="submit"
+                  className="h-10"
+                  onClick={() => {
+                    console.log("Share the document with: ", sharingEmail)
+                    // Close the dialog
+
+                    // Add the user to the readAccess array
+                    // firebaseDoc.ref.update({
+                    //   readAccess: firebase.firestore.FieldValue.arrayUnion(email),
+                    // })
+                  }}
+                >
+                  <IconSend className="size-5" />
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <TipTap

@@ -3,16 +3,29 @@ import {
   IconAbc,
   IconBold,
   IconBoldOff,
+  IconClearFormatting,
+  IconCode,
   IconH1,
   IconH2,
   IconH3,
   IconItalic,
+  IconList,
+  IconListNumbers,
+  IconMath,
   IconStrikethrough,
   IconUnderline,
 } from "@tabler/icons-react"
 import { Level } from "@tiptap/extension-heading"
 import { Editor, JSONContent, useEditorState } from "@tiptap/react"
-import { set } from "date-fns"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import {
   Menubar,
   MenubarCheckboxItem,
@@ -28,16 +41,6 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar"
-import { Separator } from "@/components/ui/separator"
-import { Toggle, toggleVariants } from "@/components/ui/toggle"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog"
 import {
   Select,
   SelectContent,
@@ -46,13 +49,15 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "../ui/select"
+} from "@/components/ui/select"
+import { Separator } from "@/components/ui/separator"
+import { Toggle, toggleVariants } from "@/components/ui/toggle"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../ui/tooltip"
+} from "@/components/ui/tooltip"
 
 export interface ToolbarProps {
   editor: Editor
@@ -76,7 +81,7 @@ const TooltipHandler = ({
       <TooltipTrigger asChild>
         <div>{children}</div>
       </TooltipTrigger>
-      <TooltipContent>{content}</TooltipContent>
+      <TooltipContent side="bottom">{content}</TooltipContent>
     </Tooltip>
   )
 }
@@ -112,20 +117,6 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
     }
   }, [selectStyle, editor])
 
-  // Set the style of the current block based on the current selection
-  useEffect(() => {
-    if (!editor) return
-    if (editor.isActive("heading", { level: 1 })) {
-      setStyle("h1")
-    } else if (editor.isActive("heading", { level: 2 })) {
-      setStyle("h2")
-    } else if (editor.isActive("heading", { level: 3 })) {
-      setStyle("h3")
-    } else {
-      setStyle("p")
-    }
-  }, [editor, editor?.state.selection, style])
-
   const editorState = useEditorState({
     editor,
     // This function will be called every time the editor content changes
@@ -135,11 +126,28 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
       isItalic: editor.isActive("italic"),
       isUnderlined: editor.isActive("underline"),
       isStriked: editor.isActive("strike"),
+      isH1: editor.isActive("heading", { level: 1 }),
+      isH2: editor.isActive("heading", { level: 2 }),
+      isH3: editor.isActive("heading", { level: 3 }),
     }),
   })
 
+  // Set the style of the current block based on the current selection
+  useEffect(() => {
+    if (!editor) return
+    if (editorState.isH1) {
+      setStyle("h1")
+    } else if (editorState.isH2) {
+      setStyle("h2")
+    } else if (editorState.isH3) {
+      setStyle("h3")
+    } else {
+      setStyle("p")
+    }
+  }, [editor, style, editorState])
+
   return (
-    <div className="flex flex-row flex-wrap items-center space-x-2 shadow-md drop-shadow-lg">
+    <div className="sticky top-14 z-10 flex h-full flex-row flex-wrap items-center gap-x-2 gap-y-1 bg-background px-1 py-1 shadow-md drop-shadow-lg">
       {/* Menu Bar */}
       <Dialog>
         <Menubar className="max-w-full border-none">
@@ -237,7 +245,6 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
-      <Separator orientation="vertical" />
       <Select value={style} onValueChange={setSelectStyle}>
         <TooltipHandler content="Change Style">
           <SelectTrigger className="w-[150px]">
@@ -273,7 +280,7 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
                 <IconH1 className="size-5" />
                 <div className="flex flex-col items-start justify-start">
                   <span>Heading 1</span>
-                  <span className="text-muted-foreground text-xs">
+                  <span className="text-xs text-muted-foreground">
                     Used for a top-level heading
                   </span>
                 </div>
@@ -284,7 +291,7 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
                 <IconH2 className="size-5" />
                 <div className="flex flex-col items-start justify-start">
                   <span>Heading 2</span>
-                  <span className="text-muted-foreground text-xs">
+                  <span className="text-xs text-muted-foreground">
                     Used for key sections
                   </span>
                 </div>
@@ -295,7 +302,7 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
                 <IconH3 className="size-5" />
                 <div className="flex flex-col items-start justify-start">
                   <span>Heading 3</span>
-                  <span className="text-muted-foreground text-xs">
+                  <span className="text-xs text-muted-foreground">
                     Used for subsections and group headings
                   </span>
                 </div>
@@ -307,7 +314,7 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
                 <IconAbc className="size-5" />
                 <div className="flex flex-col items-start justify-start">
                   <span>Paragraph</span>
-                  <span className="text-muted-foreground text-xs">
+                  <span className="text-xs text-muted-foreground">
                     Used for body text
                   </span>
                 </div>
@@ -317,6 +324,7 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
         </SelectContent>
       </Select>
       {/* Toggles / Popovers */}
+      <Separator orientation="vertical" className="h-6" />
       <TooltipHandler content="Bold Text">
         <Toggle
           size="sm"
@@ -346,7 +354,7 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
           size="sm"
           aria-label="Toggle underline"
           onClick={() => editor.chain().focus().toggleUnderline().run()}
-          pressed={editor.isActive("underline")}
+          pressed={editorState.isUnderlined}
         >
           <IconUnderline className={iconSize} />
         </Toggle>
@@ -356,10 +364,89 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
           size="sm"
           aria-label="Toggle strikethrough"
           onClick={() => editor.chain().focus().toggleStrike().run()}
-          pressed={editor.isActive("strike")}
+          pressed={editorState.isStriked}
         >
           <IconStrikethrough className={iconSize} />
         </Toggle>
+      </TooltipHandler>
+      {/* Buttons */}
+      <Separator orientation="vertical" className="h-6" />
+
+      <TooltipHandler content="Insert Math">
+        <Button
+          size="sm"
+          variant="ghost"
+          aria-label="Insert Math"
+          className="border"
+          onClick={() => {
+            const { from, to } = editor.state.selection
+            const selectedText =
+              editor.state.doc.textBetween(from, to) || "x:=5"
+            editor
+              .chain()
+              .focus()
+              .insertContent({
+                updateSelection: true,
+                type: "inlineMath",
+                attrs: { latex: selectedText },
+              })
+              .run()
+          }}
+        >
+          <IconMath className={iconSize} />
+        </Button>
+      </TooltipHandler>
+      <TooltipHandler content="Insert Code Block">
+        <Button
+          size="sm"
+          variant="ghost"
+          aria-label="Insert Code Block"
+          className="border"
+          onClick={() => {
+            editor.chain().focus().setCodeBlock().run()
+          }}
+        >
+          <IconCode className={iconSize} />
+        </Button>
+      </TooltipHandler>
+      <TooltipHandler content="Insert Bullet List">
+        <Button
+          size="sm"
+          variant="ghost"
+          aria-label="Insert Bullet List"
+          className="border"
+          onClick={() => {
+            editor.chain().focus().toggleBulletList().run()
+          }}
+        >
+          <IconList className={iconSize} />
+        </Button>
+      </TooltipHandler>
+      <TooltipHandler content="Insert Numbered List">
+        <Button
+          size="sm"
+          variant="ghost"
+          aria-label="Insert Numbered List"
+          className="border"
+          onClick={() => {
+            editor.chain().focus().toggleOrderedList().run()
+          }}
+        >
+          <IconListNumbers className={iconSize} />
+        </Button>
+      </TooltipHandler>
+      <TooltipHandler content="Clear Formatting">
+        <Button
+          size="sm"
+          variant="ghost"
+          aria-label="Clear Formatting"
+          className="border"
+          onClick={() => {
+            editor.chain().focus().clearNodes().run()
+          }}
+        >
+          <IconClearFormatting className={iconSize} />
+        </Button>
       </TooltipHandler>
     </div>
   )

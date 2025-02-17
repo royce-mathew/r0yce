@@ -4,6 +4,7 @@ import { Extension } from "@tiptap/core"
 import { EditorContent, JSONContent, useEditor } from "@tiptap/react"
 import Toolbar from "./toolbar"
 import "@/styles/tiptap.css"
+import "katex/dist/katex.min.css"
 import { extensions } from "./utils/extensions"
 
 export interface TiptapProps {
@@ -42,7 +43,7 @@ const Tiptap = ({ passedExtensions }: TiptapProps) => {
   }
 
   return (
-    <div className="bg-foreground/5 rounded border-2">
+    <div className="rounded border-2 bg-foreground/3">
       <Toolbar editor={editor} />
       <EditorContent className="whitespace-pre-line" editor={editor} />
     </div>

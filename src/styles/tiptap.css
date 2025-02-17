@@ -37,3 +37,22 @@
     opacity 0.3s ease-in-out,
     transform 0.3s ease-in-out;
 }
+
+/* Katex */
+.tiptap .katex {
+  @apply text-foreground;
+}
+
+.tiptap .result {
+  @apply text-primary;
+}
+
+/* Collaboration */
+
+.tiptap .collaboration-cursor__label {
+  @apply relative ml-3 w-max rounded-full px-3 py-1 text-xs;
+}
+
+.tiptap .collaboration-cursor__caret {
+  @apply h-7 w-px border-1;
+}

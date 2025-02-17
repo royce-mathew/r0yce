@@ -1,3 +1,4 @@
+import { MathExtension } from "@aarkue/tiptap-math-extension"
 import { Editor } from "@tiptap/core"
 import Blockquote from "@tiptap/extension-blockquote"
 import Bold from "@tiptap/extension-bold"
@@ -19,7 +20,6 @@ import Typography from "@tiptap/extension-typography"
 import Underline from "@tiptap/extension-underline"
 import { Node } from "@tiptap/pm/model"
 import { Extensions } from "@tiptap/react"
-
 import { CodeBlockShiki } from "../extensions/code"
 import { Indent } from "../extensions/indent"
 import { Print } from "../extensions/print"
@@ -52,6 +52,7 @@ export const extensions: Extensions = [
   ListItem,
   Link,
   //   History,
+  MathExtension.configure({ evaluation: true }),
   Placeholder.configure({
     includeChildren: true,
     placeholder: ({
