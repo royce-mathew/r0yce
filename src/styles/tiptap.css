@@ -1,7 +1,7 @@
 @reference "./globals.css";
 
 .tiptap p.is-editor-empty:first-child::before {
-  @apply text-muted-foreground/50 float-left h-0 pointer-events-none;
+  @apply pointer-events-none float-left h-0 text-muted-foreground/50;
   content: attr(data-placeholder);
 }
 
@@ -12,7 +12,7 @@
 .tiptap h4.is-empty::before,
 .tiptap h5.is-empty::before,
 .tiptap h6.is-empty::before {
-  @apply text-muted-foreground/50 float-left h-0 pointer-events-none;
+  @apply pointer-events-none float-left h-0 text-muted-foreground/50;
   content: attr(data-placeholder);
 }
 
@@ -23,16 +23,16 @@
 
 /* Outer Code Block */
 .tiptap pre {
-  @apply bg-foreground/90 dark:bg-foreground/5 border border-y border-border rounded;
+  @apply rounded border border-y border-border bg-foreground/90 dark:bg-foreground/5;
 }
 
 /* Transition classes for the change effect  */
 .tiptap p.transition-out {
-  @apply opacity-0 scale-95; /* Fade out and slightly shrink */
+  @apply scale-95 opacity-0; /* Fade out and slightly shrink */
 }
 
 .tiptap h1.transition-in {
-  @apply opacity-0 scale-95; /* Initially hidden and slightly smaller */
+  @apply scale-95 opacity-0; /* Initially hidden and slightly smaller */
   transition:
     opacity 0.3s ease-in-out,
     transform 0.3s ease-in-out;

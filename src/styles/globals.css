@@ -94,8 +94,8 @@
   counter-increment: step;
 
   &:before {
-    @apply absolute size-10 bg-muted rounded-full font-mono font-extrabold not-italic text-center text-base inline-flex items-center justify-center -indent-px border-4 border-background;
-    @apply ml-[-73px] mt-[-10px];
+    @apply absolute inline-flex size-10 items-center justify-center rounded-full border-4 border-background bg-muted text-center -indent-px font-mono text-base font-extrabold not-italic;
+    @apply mt-[-10px] ml-[-73px];
     content: counter(step);
   }
 }
@@ -104,8 +104,8 @@
   counter-increment: step;
 
   &:before {
-    @apply absolute size-10 bg-muted rounded-full font-mono font-medium text-center text-base inline-flex items-center justify-center -indent-px border-4 border-background;
-    @apply ml-[-73px] mt-[-6px];
+    @apply absolute inline-flex size-10 items-center justify-center rounded-full border-4 border-background bg-muted text-center -indent-px font-mono text-base font-medium;
+    @apply mt-[-6px] ml-[-73px];
     content: "•";
   }
 }
@@ -203,10 +203,10 @@
   h2 a,
   h3 a,
   h4 a {
-    @apply hover:transition-colors hover:text-primary duration-200 flex items-center;
+    @apply flex items-center duration-200 hover:text-primary hover:transition-colors;
 
     svg {
-      @apply opacity-0 transition-opacity duration-200 ml-1;
+      @apply ml-1 opacity-0 transition-opacity duration-200;
     }
   }
 
