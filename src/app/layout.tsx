@@ -103,7 +103,11 @@ export default function RootLayout({
           <Toaster />
         </ThemeProvider>
       </body>
-      <GoogleAnalytics gaId="G-ZNSHY2T64H" />
+      {/* Google Analytics */}
+      {process.env.NODE_ENV === "production" &&
+        process.env.NEXT_PUBLIC_ANALYTICS_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_ANALYTICS_ID} />
+        )}
     </html>
   )
 }
