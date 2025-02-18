@@ -4,17 +4,14 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import {
   IconAbc,
-  IconCirclePlus,
   IconDotsVertical,
+  IconMath,
   IconTrash,
 } from "@tabler/icons-react"
 import {
   addDoc,
-  collection,
   deleteDoc,
-  doc,
   getDoc,
-  getDocs,
   onSnapshot,
   Timestamp,
   updateDoc,
@@ -27,8 +24,6 @@ import {
   documentRef,
   documentsByOwnerRef,
 } from "@/lib/converters/document"
-import { userRef } from "@/lib/converters/user"
-import { auth, db } from "@/lib/firebase/client"
 import { cn, timeAgo } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
@@ -49,6 +44,7 @@ import {
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
+import DocumentDialog from "@/components/custom/document-dialog"
 
 const popoverButtonClass = "w-full p-0 mr-10 rounded-none"
 const popoverIconClass = "mr-6 size-5"
@@ -61,6 +57,7 @@ export default function Kanjou() {
   // Fetch the user's documents
   useEffect(() => {
     if (session?.user.id === undefined) return
+
     return onSnapshot(
       documentsByOwnerRef(session.user.id),
       (snapshot) => {
@@ -73,13 +70,16 @@ export default function Kanjou() {
     )
   }, [session?.user.id])
 
-  async function createNewDocument(documentName: string = "Untitled Document") {
+  async function createNewDocument(
+    documentName: string = "Untitled Document",
+    content: any = {}
+  ) {
     if (session?.user.id === undefined) return
     try {
       const timestamp = Timestamp.now()
       // Create a new document
-      await addDoc(allDocumentsRef(), {
-        content: {},
+      const newDocument = await await addDoc(allDocumentsRef(), {
+        content: content,
         owner: session.user.id,
         readAccess: [],
         writeAccess: [],
@@ -94,6 +94,9 @@ export default function Kanjou() {
 
       // Notify the user
       toast("Created new document")
+
+      // Redirect to the new document
+      window.location.href = `/kanjou/${newDocument.id}`
     } catch (error) {
       toast(`Error creating document: ${error}`)
     }
@@ -130,6 +133,22 @@ export default function Kanjou() {
     }
   }
 
+  // Retrieve a specific document from firestore and get its content field which is a blob
+  const fetchDocumentContent = async (documentId: string) => {
+    try {
+      const docSnap = await getDoc(documentRef(documentId))
+      if (docSnap.exists()) {
+        const contentBlob = docSnap.data().content
+        console.log("Document data:", contentBlob)
+        return contentBlob
+      } else {
+        console.error("Document does not exist")
+      }
+    } catch (error) {
+      console.error("Error fetching document content:", error)
+    }
+  }
+
   return (
     <main className="container flex min-h-screen flex-col pb-52">
       {/* Create a new Document */}
@@ -139,51 +158,36 @@ export default function Kanjou() {
         <ScrollArea className="h-max">
           <div className="flex w-max space-x-5">
             {/* Button to create new Document */}
-            <div className="flex h-56 w-44 flex-col items-center">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="size-full rounded bg-foreground/5 p-2"
-                    onClick={() => setRename("")}
-                  >
-                    <IconCirclePlus className="size-12" />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>New Document</DialogTitle>
-                    <DialogDescription>
-                      Create a new document with a blank slate
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div>
-                    <Input
-                      className="w-full"
-                      placeholder="Document Name"
-                      value={rename}
-                      onChange={(e) => setRename(e.target.value)}
-                    />
-                    <DialogClose asChild>
-                      <Button
-                        className="mt-4"
-                        onClick={async () => await createNewDocument(rename)}
-                      >
-                        Create
-                      </Button>
-                    </DialogClose>
-                  </div>
-                </DialogContent>
-              </Dialog>
-              <div className="mt-1 text-sm">Blank Document</div>
-            </div>
+            {/* Blank Document */}
+            <DocumentDialog
+              documentName="Blank Document"
+              onDialogClose={createNewDocument}
+            >
+              <IconAbc className="size-12" />
+            </DocumentDialog>
+            <DocumentDialog
+              documentName="Math Preset"
+              onDialogClose={async (rename) =>
+                await createNewDocument(
+                  rename,
+                  await fetchDocumentContent(
+                    process.env.NEXT_PUBLIC_MATH_TEMPLATE_DOC_ID! // The ID of the math template document
+                  )
+                )
+              }
+            >
+              <IconMath className="size-12" />
+            </DocumentDialog>
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </div>
 
+      <Separator className="my-5" />
+
+      {/* All Documents */}
       <div>
-        <h1 className="my-10 text-2xl font-bold">All documents</h1>
+        <h1 className="mb-5 text-2xl font-bold">All documents</h1>
         {!documents ? (
           <Skeleton className="h-20 w-full bg-foreground/5" />
         ) : (

@@ -1,0 +1,33 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    match /documents/{documentId} {
+      // Allow read and write if the user is the owner or has write access
+      allow read, write: if request.auth.uid == resource.data.owner || request.auth.uid in resource.data.writeAccess;
+      
+      // Allow read if the user has read access or if "all" is in the readAccess array
+      allow read: if request.auth.uid in resource.data.readAccess || "all" in resource.data.readAccess;
+      
+      // Allow instances to be created and accessed by authenticated users
+      match /instances/{instanceId=**} {
+        allow read, write: if request.auth.uid != null;
+      }
+      
+      // Allow create if user is authenticated and provides valid data
+      allow create: if request.auth.uid != null && request.resource.data.owner == request.auth.uid;
+      
+      // Add validation to ensure data integrity
+      allow create, update: if request.resource.data.keys().hasAll(['owner', 'writeAccess', 'readAccess']) &&
+                            request.resource.data.owner == request.auth.uid &&
+                            request.resource.data.writeAccess is list &&
+                            request.resource.data.readAccess is list;
+    }
+
+    // User document access
+    match /users/{userId} {
+      allow read, update: if request.auth.uid == userId;
+    }
+  }
+}
