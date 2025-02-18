@@ -8,6 +8,7 @@ import Code from "@tiptap/extension-code"
 import Document from "@tiptap/extension-document"
 import Heading from "@tiptap/extension-heading"
 import History from "@tiptap/extension-history"
+import HorizontalRule from "@tiptap/extension-horizontal-rule"
 import Italic from "@tiptap/extension-italic"
 import Link from "@tiptap/extension-link"
 import ListItem from "@tiptap/extension-list-item"
@@ -51,6 +52,7 @@ export const extensions: Extensions = [
   }),
   ListItem,
   Link,
+  HorizontalRule,
   //   History,
   MathExtension.configure({ evaluation: true }),
   Placeholder.configure({

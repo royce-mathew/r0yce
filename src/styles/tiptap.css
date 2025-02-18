@@ -56,3 +56,11 @@
 .tiptap .collaboration-cursor__caret {
   @apply h-7 w-px border-1;
 }
+
+.tiptap hr {
+  @apply my-8 border-border;
+}
+
+.tiptap h1 {
+  @apply my-5 text-5xl font-bold;
+}
