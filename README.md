@@ -1,17 +1,14 @@
-## Overview
+# Overview
 
-<div align="center">
-    <a href="https://github.com/royce-mathew/r0yce">
-        <img src="./public/favicon.png" alt="Spyder" height="100" />
-    </a>
-    <p>
-        <b>
-            <a href="https://r0yce.com">r0yce.com</a>
-        </b>
-    </p>
-</div>
+ <a href="https://github.com/royce-mathew/r0yce">
+      <img src="./public/favicon.png" alt="Spyder" height="100" />
+  </a>
 
-A Personal Website Built with Next.js and Firebase. This repository contains the source code for my personal website.
+> A Personal Website Built with Next.js and Firebase. This repository contains the source code for my personal website.
+
+--- 
+
+![image](https://github.com/user-attachments/assets/f64c2265-3201-41a4-9312-151803339b7d)
 
 The `r0yce.com` website leverages Next.js to serve MDX content in a flexible environment, supporting both static site generation and on-demand server rendering. The application tracks content for each page, including projects, blog posts, and other resources, using MDX files to store metadata and content.
 
