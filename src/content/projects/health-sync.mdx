@@ -29,48 +29,35 @@ hasToc: true
 
 </div>
 
-## 👥 Development Team
-
-| #   | Full Name        | GitHub Username                                 |
-| --- | ---------------- | ----------------------------------------------- |
-| 1   | Sunny Patel      | [sunnypatell](https://github.com/sunnypatell/)  |
-| 2   | Michael Ispahani | [Michaelexe](https://github.com/Michaelexe)     |
-| 3   | Royce Mathew     | [royce-mathew](https://github.com/royce-mathew) |
-| 4   | Alyesha Singh    | [AlyeshaS](https://github.com/AlyeshaS)         |
-
 ## 🔍 Overview
 
 HealthSync is a cutting-edge medical documentation system that leverages artificial intelligence to streamline the patient intake process. It provides real-time, structured medical charting with an intuitive interface for healthcare professionals.
 
 ## ✨ Features
 
-### Core Functionality
+### AI-Powered Documentation
 
-- **AI-Powered Documentation**
-  - Real-time speech-to-text for verbal input
-  - Intelligent SOAP format adherence
-  - Automated medical terminology validation
+- Real-time speech-to-text for verbal input
+- Intelligent SOAP format adherence
+- Automated medical terminology validation
 
-### User Interface
+### Dual Chat Interface
 
-- **Dual Chat Interface**
-  - Choose between two AI assistants (Ava & Eli)
-  - Real-time conversation tracking
-  - Voice input support with visual feedback
+- Choose between two AI assistants (Ava & Eli)
+- Real-time conversation tracking
+- Voice input support with visual feedback
 
-### Charting System
+### Dynamic Charting Display
 
-- **Dynamic Charting Display**
-  - Warning and message categorization
-  - Visual indicators for different entry types
-  - Real-time updates during consultation
+- Warning and message categorization
+- Visual indicators for different entry types
+- Real-time updates during consultation
 
-### Data Processing
+### Structured Data Processing
 
-- **Structured Data Output**
-  - JSON-formatted medical records
-  - SOAP-compliant documentation
-  - Automated follow-up question generation
+- JSON-formatted medical records
+- SOAP-compliant documentation
+- Automated follow-up question generation
 
 ## 🏗 Architecture
 
@@ -93,24 +80,34 @@ HealthSync/
 
 ## 🛠 Technology Stack
 
-- **Frontend**
-
-  - Next.js 13
-  - React 18
-  - TailwindCSS
-  - Framer Motion
-
-- **AI Integration**
-
-  - Together AI API
-  - OpenAI Whisper
-  - Custom AI Agents (Ava & Eli)
-
-- **Development Tools**
-  - TypeScript
-  - ESLint
-  - Prettier
-  - Husky
+<Accordion type="multiple" className="mt-5 rounded bg-foreground/5 px-4">
+  <AccordionItem value="frontend">
+    <AccordionTrigger className="text-lg">Frontend</AccordionTrigger>
+    <AccordionContent>
+      Next.js 13 <br />
+      React 18 <br />
+      TailwindCSS <br />
+      Framer Motion <br />
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="ai">
+    <AccordionTrigger className="text-lg">AI Integration</AccordionTrigger>
+    <AccordionContent>
+      Together AI API <br />
+      OpenAI Whisper <br />
+      Custom AI Agents (Ava & Eli) <br />
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="tools">
+    <AccordionTrigger className="text-lg">Development Tools</AccordionTrigger>
+    <AccordionContent>
+      TypeScript <br />
+      ESLint <br />
+      Prettier <br />
+      Husky <br />
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
 
 ## 📁 Project Structure
 
