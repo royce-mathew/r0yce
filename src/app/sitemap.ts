@@ -6,22 +6,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const defaultPages = [
     {
       url: "https://r0yce.com",
-      lastModified: new Date(),
+      lastModified: new Date("2025-04-12"),
       changeFrequency: "daily",
       priority: 1,
     },
     {
       url: "https://r0yce.com/projects",
-      lastModified: new Date(),
+      lastModified: new Date("2025-04-12"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
-    // {
-    //   url: "https://r0yce.com/contact",
-    //   lastModified: new Date(),
-    //   changeFrequency: "monthly",
-    //   priority: 0.9,
-    // },
+    {
+      url: "https://r0yce.com/kanjou",
+      lastModified: new Date("2025-04-12"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
     // other pages
   ]
 
