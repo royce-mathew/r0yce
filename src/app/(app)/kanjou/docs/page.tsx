@@ -88,7 +88,7 @@ export default function Kanjou() {
           title: documentName,
           created: timestamp,
           lastUpdated: timestamp,
-          lastUpdatedBy: session?.user.name ?? "Main User",
+          lastUpdatedBy: session?.user.name!,
           lastOpened: timestamp,
         },
       })
@@ -198,30 +198,36 @@ export default function Kanjou() {
                 No documents found
               </div>
             )}
-            {documents.map((doc) => (
-              <div
-                key={doc.id}
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "flex h-fit min-w-48 flex-1 flex-col justify-end border-border bg-foreground/5 p-2"
-                )}
-              >
-                <div className="w-full text-left">
-                  <Link
-                    className="size-full bg-background"
-                    href={`/kanjou/docs/${doc.id}`}
-                  >
-                    <p className="truncate pt-1 text-sm font-bold">
-                      {doc.metadata.title ?? "Untitled Document"}
-                    </p>
-                  </Link>
-                  <div className="flex flex-row items-center justify-between">
-                    <p className="text-[.7rem] font-thin text-muted-foreground">
-                      Updated {timeAgo(doc.metadata.lastOpened)}
-                    </p>
+            {[...documents]
+              .sort(
+                (a, b) =>
+                  b.metadata.lastOpened.toMillis() -
+                  a.metadata.lastOpened.toMillis()
+              )
+              .map((doc) => (
+                <div
+                  key={doc.id}
+                  className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "flex h-fit min-w-48 flex-1 flex-col justify-between border-border bg-foreground/5 p-2"
+                  )}
+                >
+                  <div className="flex w-full items-center justify-between">
+                    <Link
+                      className="flex-1 overflow-hidden text-left"
+                      href={`/kanjou/docs/${doc.id}`}
+                    >
+                      <p className="truncate text-sm font-bold">
+                        {doc.metadata.title ?? "Untitled Document"}
+                      </p>
+                    </Link>
                     <Popover>
                       <PopoverTrigger asChild>
-                        <Button variant="icon" className="ml-2 px-0">
+                        <Button
+                          variant="icon"
+                          className="ml-1 h-auto flex-shrink-0 px-0"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           <IconDotsVertical className="size-5" />
                         </Button>
                       </PopoverTrigger>
@@ -278,9 +284,13 @@ export default function Kanjou() {
                       </PopoverContent>
                     </Popover>
                   </div>
+                  <Link className="mt-1 w-full" href={`/kanjou/docs/${doc.id}`}>
+                    <p className="truncate text-[.7rem] font-thin text-muted-foreground">
+                      Updated {timeAgo(doc.metadata.lastOpened)}
+                    </p>
+                  </Link>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         )}
       </div>
