@@ -79,7 +79,7 @@ export default function Kanjou() {
     try {
       const timestamp = Timestamp.now()
       // Create a new document
-      const newDocument = await await addDoc(allDocumentsRef(), {
+      const newDocument = await addDoc(allDocumentsRef(), {
         content: content,
         owner: session.user.id,
         readAccess: [],
