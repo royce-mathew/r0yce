@@ -156,7 +156,7 @@ const Screen = () => {
         </Button>
       </Link>
 
-      <div className="absolute -bottom-60 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-primary/30 blur-2xl" />
+      <div className="absolute -bottom-60 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-violet-500/50 blur-2xl" />
     </div>
   )
 }
