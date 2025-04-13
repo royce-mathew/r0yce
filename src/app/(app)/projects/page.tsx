@@ -108,8 +108,8 @@ export default function AllProjects() {
         <Separator className="flex-1" />
       </h2>
 
-      <div className="relative flex w-full justify-center bg-black/10 pt-16 pb-24 dark:bg-black/15">
-        <div className="z-10 container mx-auto grid max-w-7xl grid-flow-row-dense grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="relative flex w-full justify-center bg-black/10 pt-16 pb-24 dark:bg-black/5">
+        <div className="isolate z-10 container mx-auto grid max-w-7xl grid-flow-row-dense grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projectsSorted
             .filter((project) => project.featured)
             .map((project) => (
@@ -117,6 +117,7 @@ export default function AllProjects() {
                 key={project.slug}
                 project={project}
                 className={cn(
+                  "transform transition-transform hover:z-10",
                   project.columnSpan == 1 && `md:col-span-1`,
                   project.columnSpan == 2 && `md:col-span-2`,
                   project.columnSpan == 3 && `md:col-span-3`
@@ -133,8 +134,8 @@ export default function AllProjects() {
         <Separator className="flex-1" />
       </h2>
 
-      <div className="relative flex w-full justify-center bg-black/10 pt-16 pb-24 dark:bg-black/15">
-        <div className="z-10 container mx-auto grid max-w-7xl grid-flow-row-dense grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="relative flex w-full justify-center bg-black/10 pt-16 pb-24 dark:bg-black/5">
+        <div className="isolate z-10 container mx-auto grid max-w-7xl grid-flow-row-dense grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projectsSorted
             .filter((project) => !project.featured)
             .map((project: Project) => (
@@ -142,6 +143,7 @@ export default function AllProjects() {
                 key={project.slug}
                 project={project}
                 className={cn(
+                  "transform transition-transform hover:z-10",
                   project.columnSpan == 1 && `md:col-span-1`,
                   project.columnSpan == 2 && `md:col-span-2`,
                   project.columnSpan == 3 && `md:col-span-3`
