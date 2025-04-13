@@ -1,6 +1,13 @@
+import { Metadata } from "next"
 import { providerMap } from "@/lib/auth"
 import { Separator } from "@/components/ui/separator"
 import SignInButton from "@/components/custom/signin-button"
+
+export const metadata: Metadata = {
+  title: "Sign in | r0yce",
+  description:
+    "Sign in to access your account and continue where you left off.",
+}
 
 export default async function SignInPage(props: {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>

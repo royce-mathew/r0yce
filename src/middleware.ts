@@ -33,6 +33,6 @@ export default async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     // Only invoke the middleware on the following paths
-    "/kanjou/:path*",
+    "/kanjou/docs/:path*",
   ],
 }
