@@ -129,6 +129,12 @@
   "pnpm": {
     "patchedDependencies": {
       "rehype-pretty-code": "patches/rehype-pretty-code.patch"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@firebase/util",
+      "esbuild",
+      "protobufjs",
+      "sharp"
+    ]
   }
 }
