@@ -128,7 +128,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "rehype-pretty-code": "patches/rehype-pretty-code.patch"
+      "rehype-pretty-code@0.14.1": "patches/rehype-pretty-code.patch"
     }
   }
 }

@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  rehype-pretty-code:
+  rehype-pretty-code@0.14.1:
     hash: 7b9d04513969bb656e916bcb1a7fdccb2d4312977e6d98ad59326cee5d170ce6
     path: patches/rehype-pretty-code.patch
 
