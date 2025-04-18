@@ -125,10 +125,5 @@
     "typescript": "^5.8.3",
     "unist-util-visit": "^5.0.0",
     "velite": "^0.2.2"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "rehype-pretty-code": "patches/rehype-pretty-code.patch"
-    }
   }
 }
