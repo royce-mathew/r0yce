@@ -31,7 +31,7 @@ const sharedComponents = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        "font-heading border-border flex scroll-m-20 justify-center border py-4 text-4xl font-bold",
+        "font-heading flex scroll-m-20 justify-center border border-border py-4 text-4xl font-bold",
         className
       )}
       {...props}
@@ -49,7 +49,7 @@ const sharedComponents = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        "border-border/50 bg-card/10 mt-8 w-fit scroll-m-20 rounded-md border px-5 py-2 text-lg font-thin italic tracking-tight",
+        "mt-8 w-full scroll-m-20 rounded-md bg-foreground/10 px-5 py-2 text-lg font-thin tracking-tight italic dark:bg-foreground/5",
         className
       )}
       {...props}
@@ -76,14 +76,14 @@ const sharedComponents = {
   a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
     <a
       className={cn(
-        "text-primary font-medium decoration-2 hover:underline",
+        "font-medium text-primary decoration-2 hover:underline",
         className
       )}
       {...props}
     />
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className={cn("not-first:mt-6 leading-7", className)} {...props} />
+    <p className={cn("leading-7 not-first:mt-6", className)} {...props} />
   ),
   ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
     <ul className={cn("my-6 ml-6 list-disc", className)} {...props} />
@@ -118,7 +118,7 @@ const sharedComponents = {
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr
-      className={cn("even:bg-muted/40 m-0 border-t p-0", className)}
+      className={cn("m-0 border-t p-0 even:bg-muted/40", className)}
       {...props}
     />
   ),
@@ -154,7 +154,7 @@ const sharedComponents = {
             className={cn("grid w-full min-w-max px-3 py-4", className)}
             {...props}
           >
-            <div className="absolute right-4 top-4">
+            <div className="absolute top-4 right-4">
               <CopyButton content={__raw__ ?? ""} />
             </div>
             {props.children}
@@ -168,7 +168,7 @@ const sharedComponents = {
     return (
       <code
         className={cn(
-          "text-primary size-full rounded bg-white/5 p-1 font-mono text-sm",
+          "size-full rounded bg-white/5 p-1 font-mono text-sm text-primary",
           className
         )}
         {...props}
@@ -192,13 +192,13 @@ const sharedComponents = {
   ),
   Steps: ({ ...props }) => (
     <div
-      className="[&>h4]:step steps mb-12 ml-4 border-l pl-8 [counter-reset:step]"
+      className="steps mb-12 ml-4 border-l pl-8 [counter-reset:step] [&>h4]:step"
       {...props}
     />
   ),
   UnorderedSteps: ({ ...props }) => (
     <div
-      className="[&>h4]:unordered-step mb-12 ml-4 border-l pl-8 [counter-reset:unordered-step]"
+      className="mb-12 ml-4 border-l pl-8 [counter-reset:unordered-step] [&>h4]:unordered-step"
       {...props}
     />
   ),
@@ -211,7 +211,7 @@ const sharedComponents = {
   LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
       className={cn(
-        "bg-card text-card-foreground hover:bg-muted/50 flex w-full flex-col items-center rounded-xl border p-6 shadow-sm transition-colors sm:p-10",
+        "flex w-full flex-col items-center rounded-xl border bg-card p-6 text-card-foreground shadow-sm transition-colors hover:bg-muted/50 sm:p-10",
         className
       )}
       {...props}
@@ -220,7 +220,7 @@ const sharedComponents = {
   Grid: ({ className, ...props }: React.ComponentProps<"div">) => (
     <div
       className={cn(
-        "flex flex-col space-y-4 p-2 md:flex-row md:space-x-5 md:space-y-0",
+        "flex flex-col space-y-4 p-2 md:flex-row md:space-y-0 md:space-x-5",
         className
       )}
       {...props}

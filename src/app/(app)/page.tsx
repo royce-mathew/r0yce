@@ -84,19 +84,19 @@ export default function Home() {
           {/* Badges */}
           <div className="flex items-center space-x-2">
             <Badge
-              className="border border-border bg-foreground/10 text-[10px] text-foreground sm:text-sm dark:text-primary"
+              className="bg-primary/50 text-[10px] text-foreground sm:text-sm"
               variant="defaultNonInteractive"
             >
               🎓 4th Year Student
             </Badge>
             <Badge
-              className="border border-border bg-foreground/10 text-[10px] text-foreground sm:text-sm dark:text-primary"
+              className="bg-primary/50 text-[10px] text-foreground sm:text-sm"
               variant="defaultNonInteractive"
             >
               💻 Software Engineer
             </Badge>
             <Badge
-              className="border border-border bg-foreground/10 text-[10px] text-foreground sm:text-sm dark:text-primary"
+              className="bg-primary/50 text-[10px] text-foreground sm:text-sm"
               variant="defaultNonInteractive"
             >
               🎮 Game Developer
