@@ -3,7 +3,6 @@ import NextAuth from "next-auth"
 import { OAuthConfig } from "next-auth/providers"
 import GitHub, { GitHubProfile } from "next-auth/providers/github"
 import Google, { GoogleProfile } from "next-auth/providers/google"
-
 // Import the Firebase Admin SDK
 import { adminAuth, firebaseAdminFirestore } from "@/lib/firebase/server"
 
@@ -67,7 +66,7 @@ export const {
       return session
     },
   },
-  debug: true,
+  debug: false,
   theme: {
     brandColor: "#0062ff",
     logo: "/favicon.ico",
