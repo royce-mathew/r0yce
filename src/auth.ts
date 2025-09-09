@@ -33,12 +33,7 @@ export const providerMap = providers.map(
 )
 
 // Export the NextAuth configuration
-export const {
-  handlers: { GET, POST },
-  auth,
-  signIn,
-  signOut,
-} = NextAuth({
+export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: providers,
   adapter: FirestoreAdapter(firebaseAdminFirestore),
   session: {

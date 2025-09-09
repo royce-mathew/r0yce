@@ -1,7 +1,6 @@
 "use client"
 
 import { signIn, signOut, useSession } from "next-auth/react"
-
 import { getInitials } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -26,7 +25,7 @@ export const UserData: React.FC = () => {
         </Avatar>
         <div>
           <p className="text-base font-medium">{session?.user?.name}</p>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sm text-muted-foreground">
             {session?.user?.email}
           </p>
         </div>

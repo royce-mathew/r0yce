@@ -97,7 +97,7 @@ export default function Kanjou() {
       toast("Created new document")
 
       // Redirect to the new document
-      window.location.href = `/kanjou/${newDocument.id}`
+      window.location.href = `/kanjou/docs/${newDocument.id}`
     } catch (error) {
       toast(`Error creating document: ${error}`)
     }

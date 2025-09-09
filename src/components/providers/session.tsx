@@ -3,8 +3,7 @@
 import { useEffect } from "react"
 import { signInWithCustomToken } from "firebase/auth"
 import { Session } from "next-auth"
-import { SessionProvider, signOut, useSession } from "next-auth/react"
-
+import { SessionProvider, useSession } from "next-auth/react"
 // Here '@lib/firebase/firestore-database' refers to the '/app/_lib/firebase/firestore-database.js' file
 import { auth } from "@/lib/firebase/client"
 

@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { providerMap } from "@/lib/auth"
+import { providerMap } from "@/auth"
 import { Separator } from "@/components/ui/separator"
 import SignInButton from "@/components/custom/signin-button"
 

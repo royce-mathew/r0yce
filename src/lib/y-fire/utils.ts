@@ -154,7 +154,7 @@ export const Uint8ArrayToBase64 = async (buffer: Uint8Array) => {
   const base64url = await new Promise((r) => {
     const reader = new FileReader()
     reader.onload = () => r(reader.result)
-    reader.readAsDataURL(new Blob([buffer]))
+    reader.readAsDataURL(new Blob([new Uint8Array(buffer)]))
   })
   // remove the `data:...;base64,` part from the start
   const bas64: string = base64url as string
@@ -172,12 +172,10 @@ export const base64ToUint8Array = async (base64: string) => {
 }
 
 export const generateKey = async (sender: string, receiver: string) => {
-  const secretBuffer = string.encodeUtf8(sender).buffer
-  const salt = new Uint8Array(string.encodeUtf8(receiver).buffer)
+  const secretBuffer = new Uint8Array(string.encodeUtf8(sender))
+  const salt = new Uint8Array(string.encodeUtf8(receiver))
   const key = await crypto.subtle
-    .importKey("raw", new Uint8Array(secretBuffer), "PBKDF2", false, [
-      "deriveKey",
-    ])
+    .importKey("raw", secretBuffer, "PBKDF2", false, ["deriveKey"])
     .then((keyMaterial) =>
       crypto.subtle.deriveKey(
         {
@@ -235,10 +233,10 @@ export const decryptData = async (message: Uint8Array, key: CryptoKey) => {
     const decrypted = await crypto.subtle.decrypt(
       {
         name: "AES-GCM",
-        iv,
+        iv: new Uint8Array(iv),
       },
       key,
-      cipher
+      new Uint8Array(cipher)
     )
     // console.log("Decrypted", decrypted);
     const decoder = new TextDecoder()

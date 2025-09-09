@@ -1,11 +1,9 @@
 import React from "react"
+import { signIn } from "@/auth"
 import {
   IconBrandGithubFilled,
   IconBrandGoogleFilled,
 } from "@tabler/icons-react"
-
-import { signIn } from "@/lib/auth"
-
 import { Button } from "../ui/button"
 
 interface SignInButtonProps {
