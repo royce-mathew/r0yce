@@ -137,7 +137,7 @@ export default function Home() {
             </div>
             <Button asChild variant="outline">
               <Link
-                href="/files/resume.pdf"
+                href="/files/Royce%20Mathew%20Resume.pdf"
                 aria-label="Resume"
                 target="_blank"
                 rel="noopener noreferrer"
