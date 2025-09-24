@@ -66,14 +66,17 @@ export default function Home() {
       {/* Profile Information Box */}
       <div className="my-24 flex flex-col items-center justify-center md:flex-row md:space-x-8">
         {/* Profile Image */}
-        <Image
-          className="size-32 rounded-full md:size-[230px]"
-          src="/images/ProfilePicture.webp"
-          width={500}
-          height={500}
-          quality={100}
-          alt="Profile"
-        />
+        <div className="relative">
+          <div className="absolute top-[10px] left-[10px] -z-10 size-32 rounded-full border-4 border-black/5 bg-accent/50 md:size-[230px] dark:border-white/5" />
+          <Image
+            className="size-32 rounded-full md:size-[230px]"
+            src="/images/ProfilePicture.webp"
+            width={500}
+            height={500}
+            quality={100}
+            alt="Profile"
+          />
+        </div>
 
         <div className="mt-4 space-y-2 px-2">
           {/* Name */}
@@ -84,19 +87,19 @@ export default function Home() {
           {/* Badges */}
           <div className="flex items-center space-x-2">
             <Badge
-              className="bg-primary/50 text-[10px] text-foreground sm:text-sm"
+              className="bg-primary/20 text-[10px] text-foreground sm:text-sm"
               variant="defaultNonInteractive"
             >
               🎓 4th Year Student
             </Badge>
             <Badge
-              className="bg-primary/50 text-[10px] text-foreground sm:text-sm"
+              className="bg-primary/20 text-[10px] text-foreground sm:text-sm"
               variant="defaultNonInteractive"
             >
               💻 Software Engineer
             </Badge>
             <Badge
-              className="bg-primary/50 text-[10px] text-foreground sm:text-sm"
+              className="bg-primary/20 text-[10px] text-foreground sm:text-sm"
               variant="defaultNonInteractive"
             >
               🎮 Game Developer
