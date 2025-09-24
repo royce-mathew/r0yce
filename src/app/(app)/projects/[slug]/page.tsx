@@ -144,7 +144,7 @@ const ProjectLayout = async (props: { params: Promise<{ slug: string }> }) => {
                   {project.tags.map((tag: string) => (
                     <Badge
                       key={tag}
-                      className="mb-2 rounded-md bg-foreground/15 px-1.5 py-0.5 font-semibold text-primary"
+                      className="mb-2 rounded-md bg-foreground/[2%] px-1.5 py-0.5 font-semibold text-primary dark:bg-foreground/5"
                       variant="defaultNonInteractive"
                     >
                       {tag}

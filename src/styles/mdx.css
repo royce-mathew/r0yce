@@ -19,7 +19,7 @@
 
 /* Style outer block */
 [data-rehype-pretty-code-figure] {
-  @apply mt-4 mb-14 rounded border border-y border-border bg-foreground/5 dark:bg-foreground/5;
+  @apply mt-4 mb-4 rounded border border-y border-border bg-foreground/95 dark:bg-foreground/5;
 }
 
 [data-rehype-pretty-code-figure] figcaption {
@@ -39,7 +39,7 @@
 [data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
   counter-increment: line;
   content: counter(line);
-  @apply mr-4 inline-block text-right text-foreground/20 dark:text-foreground/30;
+  @apply mr-4 inline-block text-right text-white/20;
 }
 
 [data-rehype-pretty-code-figure] code {

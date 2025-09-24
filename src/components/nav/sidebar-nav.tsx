@@ -62,7 +62,7 @@ export function ProjectSidebarNavItems({
             {item.label && (
               <span
                 className={cn(
-                  "ml-2 rounded-md bg-foreground/15 px-1.5 py-0.5 text-xs leading-none text-primary",
+                  "ml-2 rounded-md bg-foreground/[2%] px-1.5 py-0.5 text-xs leading-none text-primary dark:bg-foreground/5",
                   item.label.className
                 )}
               >

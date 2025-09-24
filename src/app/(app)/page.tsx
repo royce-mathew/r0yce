@@ -149,8 +149,8 @@ export default function Home() {
         </div>
       </div>
       {/* About Me */}
-      <div className="flex flex-col items-center justify-center bg-black/[5%] p-5 dark:bg-black/[10%]">
-        <h2 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
+      <div className="flex flex-col items-center justify-center bg-black/[2%] p-5 dark:bg-black/[10%]">
+        <h2 className="scroll-m-20 text-3xl font-bold tracking-tight lg:text-4xl">
           {about?.title}
         </h2>
         <div className="max-w-[900px]">

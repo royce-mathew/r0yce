@@ -49,7 +49,7 @@ const sharedComponents = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        "mt-8 w-full scroll-m-20 rounded-md bg-foreground/10 px-5 py-2 text-lg font-thin tracking-tight italic dark:bg-foreground/5",
+        "mt-8 w-full scroll-m-20 rounded-md bg-foreground/5 px-5 py-2 text-lg font-thin tracking-tight italic dark:bg-foreground/5",
         className
       )}
       {...props}
@@ -168,7 +168,7 @@ const sharedComponents = {
     return (
       <code
         className={cn(
-          "size-full rounded bg-white/5 p-1 font-mono text-sm text-primary",
+          "size-full rounded bg-black/5 p-1 font-mono text-sm text-primary dark:bg-white/5",
           className
         )}
         {...props}
