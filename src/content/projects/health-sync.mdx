@@ -10,8 +10,6 @@ modifiedDate: 2025-02-02
 hasToc: true
 ---
 
-# 🏥 HealthSync
-
 <div align="center">
     ![HealthSync Logo](/projects/health-sync.png)
 
@@ -29,29 +27,29 @@ hasToc: true
 
 </div>
 
-## 🔍 Overview
+# Overview
 
-HealthSync is a cutting-edge medical documentation system that leverages artificial intelligence to streamline the patient intake process. It provides real-time, structured medical charting with an intuitive interface for healthcare professionals.
+**HealthSync** is a next-generation medical documentation platform designed to streamline patient intake and clinical charting. It leverages **AI-powered natural language processing** to provide structured, real-time medical records through an intuitive interface for healthcare professionals.
 
-## ✨ Features
+# Features
 
 ### AI-Powered Documentation
 
-- Real-time speech-to-text for verbal input
-- Intelligent SOAP format adherence
+- Real-time speech-to-text input
+- SOAP format compliance for structured charting
 - Automated medical terminology validation
 
 ### Dual Chat Interface
 
-- Choose between two AI assistants (Ava & Eli)
+- Two AI assistants (_Ava_ & _Eli_) for varied interaction styles
 - Real-time conversation tracking
 - Voice input support with visual feedback
 
 ### Dynamic Charting Display
 
-- Warning and message categorization
-- Visual indicators for different entry types
-- Real-time updates during consultation
+- Categorized warnings and system messages
+- Clear visual indicators for different entry types
+- Real-time updates during consultations
 
 ### Structured Data Processing
 
@@ -59,26 +57,7 @@ HealthSync is a cutting-edge medical documentation system that leverages artific
 - SOAP-compliant documentation
 - Automated follow-up question generation
 
-## 🏗 Architecture
-
-```plaintext
-HealthSync/
-├── src/
-│   ├── pages/
-│   │   ├── index.js        # Main application router
-│   │   ├── HomePage.js     # Initial selection interface
-│   │   ├── ChatPage.js     # AI interaction interface
-│   │   ├── Charting.js     # Medical documentation display
-│   │   └── api/
-│   │       └── agent.js    # Together AI integration
-│   └── styles/
-│       ├── index.css       # Global styles
-│       ├── home.css        # Homepage styles
-│       ├── chat.css        # Chat interface styles
-│       └── charting.css    # Documentation styles
-```
-
-## 🛠 Technology Stack
+## Technology Stack
 
 <Accordion type="multiple" className="mt-5 rounded bg-foreground/5 px-4">
   <AccordionItem value="frontend">
@@ -109,7 +88,7 @@ HealthSync/
   </AccordionItem>
 </Accordion>
 
-## 📁 Project Structure
+## Project Structure
 
 The project follows a modular architecture with clear separation of concerns:
 
@@ -120,7 +99,7 @@ The project follows a modular architecture with clear separation of concerns:
 - `types/` - TypeScript type definitions
 - `public/` - Static assets and resources
 
-## 🧩 Components
+## Components
 
 Key components include:
 
@@ -129,7 +108,7 @@ Key components include:
 - **ChartingDisplay** - Medical documentation view
 - **AgentSelector** - AI assistant selection interface
 
-## 🤖 AI Integration
+## AI Integration
 
 HealthSync uses Together AI's API for:
 
@@ -138,14 +117,14 @@ HealthSync uses Together AI's API for:
 - Automated documentation generation
 - Context-aware responses
 
-## 💅 Styling
+## Styling
 
 - TailwindCSS for utility-first styling
 - Custom CSS modules for complex components
 - Responsive design for all screen sizes
 - Dark/Light mode support
 
-## 🚀 Setup & Installation
+# Setup & Installation
 
 1. Install dependencies:
 
@@ -165,12 +144,12 @@ TOGETHER_API_KEY=your_api_key_here
 npm run dev
 ```
 
-## 💻 Development
+## Development
 
 - Build: `npm run build`
 - Lint: `npm run lint`
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch

@@ -194,7 +194,7 @@ const ProjectLayout = async (props: { params: Promise<{ slug: string }> }) => {
             </div>
           </div>
           {/* Project Content */}
-          <div className="pt-6 pb-12">
+          <div className="pb-12">
             <Mdx code={project.code} />
           </div>
         </article>

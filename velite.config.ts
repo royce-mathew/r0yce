@@ -50,7 +50,6 @@ export const Base = defineCollection({
   pattern: `main/*.mdx`,
   schema: s
     .object({
-      title: s.string(),
       date: s.date().optional(),
       code: s.mdx(),
       slug: s.path(),

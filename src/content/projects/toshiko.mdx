@@ -4,7 +4,7 @@ description: Horror Game written in the Lua-U utilizing the Roblox Engine.
 tags: [roblox, lua-u, horror, game]
 imageSrc: /projects/toshiko.webp
 publishedDate: 2023-08-01
-modifiedDate: 2024-04-08
+modifiedDate: 2025-04-08
 columnSpan: 2
 rowSpan: 2
 hasToc: true
@@ -12,15 +12,17 @@ hasToc: true
 
 # Overview
 
-A First Person Survival Horror Game written in Lua-U. As the sole programmer of this project, I had to work together in a team with modelers, builders, and designers to create a game which was fun to play, had a good atmosphere, and mainly, was scary. The game was inspired by the "Resident Evil" series and "PT". It's currently being built on the Roblox Engine, and is in the final stages of development.
+This project is a **first-person survival horror game** developed in `Lua-U` on the Roblox Engine. Inspired by classics such as _Resident Evil_ and _PT_, the game focuses on atmosphere, tension, and engaging gameplay.
+
+As the **sole programmer**, I collaborated closely with modelers, builders, and designers to bring the project to life. My role involved implementing the game’s core systems, ensuring smooth mechanics, and creating an immersive horror experience. The game is currently in its final stages of development.
 
 ## Learning Experience
 
-- Worked with a Server and Client architecture to handle game logic and user input.
-- Responsive Inventory System with Graphical User Interface.
-- Implemented a dynamic lighting system to create a dark and eerie atmosphere.
-- Dynamic Database System to store player data and game progress based on User Settings.
-- Several game events to create challenging and engaging gameplay.
+- Designed and implemented a **client-server architecture** to handle game logic and user interactions.
+- Built a **responsive inventory system** with an intuitive graphical interface.
+- Developed a **dynamic lighting system** to reinforce the eerie, horror-driven atmosphere.
+- Created a **database system** to manage player data, progress, and user settings.
+- Scripted **game events** to deliver challenging and unpredictable scenarios.
   <br />
   <br />
 
@@ -30,13 +32,16 @@ A First Person Survival Horror Game written in Lua-U. As the sole programmer of 
 
 ### How it works
 
-The game has a dynamic database system that stores player data and game progress based on the user's setting. A Player's data can be saved manually and automatically based on the setting they have enabled. The Inventory System is responsive and has a Graphical User Interface that allows the player to interact with items in the game world.
+The game includes a **dynamic database system** that tracks player progress, settings, and inventory. Data is saved automatically or manually, depending on user preference. The **inventory system** provides an interactive GUI, allowing players to manage and use items seamlessly within the game world.
 
 ### Internals
 
-Everytime the player loads into the game, the game checks their entry inside the database and loads their data. In the event that a player is new to the game, a new entry is created for them. Additionally, the database serves as a repository for user progress and inventory, allowing the game to accurately restore the player's previous location and inventory upon loading.
-
-A manual save system was also implemented, it utilizes the Database system which auto saves data before the player leaves the game. If the player has not manual saved, all progress data is stored inside a cache. When the player saves their data, the cache is then set as the player data which is automatically saved through the Database.
+- As the player joins, the game checks for an existing database entry and loads the player's progress; new players are automatically assigned a new entry.
+- The database serves as a persistent store for **progress and inventory**, ensuring players can resume exactly where they left off.
+- A **manual save system** which complements the auto-save feature:
+  - Unsaved progress is temporarily cached.
+  - When the player triggers a manual save, the cached data is committed to the database.
+  - This guarantees consistency and prevents progress loss even if the player exits unexpectedly.
 
 ## Party System
 
@@ -53,7 +58,7 @@ A manual save system was also implemented, it utilizes the Database system which
     	<h3 className='text-xl font-semibold mt-6'>How it works</h3>
 
     	The system communicates across servers
-    	to send requests to other players. Instead of waiting for an immediate
+    	to send requests to other players using [MessagingService](https://create.roblox.com/docs/reference/engine/classes/MessagingService). Instead of waiting for an immediate
     	response, the game server efficiently listens for events on a designated
     	hook. This approach ensures that the server doesn't block the thread or
     	unnecessarily consume resources while awaiting a response.
@@ -73,7 +78,7 @@ A manual save system was also implemented, it utilizes the Database system which
 	<GridItem>
 		<h3 className='text-xl font-semibold'>How it works</h3>
 
-    	The Custom Donation System lets players sponsor the developers with an amount based on their preference. The system communicates to a Backend server being hosted on RaspberryPi to create a new Developer Product.
+    	The Custom Donation System lets players sponsor the developers with an amount based on their preference. The system communicates to a Backend server which acts as a reverse proxy through `nginx`, hosted on **RaspberryPi** to create a new Developer Product.
 
     	<h3 className='text-xl font-semibold mt-6'>Why?</h3>
 

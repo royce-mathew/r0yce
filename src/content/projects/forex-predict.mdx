@@ -468,8 +468,6 @@ print(f"Time it took to test genome: {time.time() - test_start_time}")
 
 # Final Remarks
 
-## Discussion
-
 As the data shows, during learning, the genome's profits stay erratic between each generation and do not increase at a linear rate. To create a more efficient algorithm, the data that is passed to the neat algorithm would need to be more correlational for the algorithm to start to see patterns in data. More computing power and more iterations of generations are needed to see progress in profits.
 
 During testing, the best genome in all 200 generations is not able to create a profit at all with a new and different dataset. As displayed by the bar graph shown above, the neural network decides to mostly make hold decisions because it thinks that the longest way to survive is by holding. The neural network also decides to buy approximately 2 times but never decides to close the trade which leaves it at always a negative profit. One reason that the neural network decides to always hold the trade is possibly because it gains some fitness when the value of the currency goes up and it sees selling as too much of a risky decision.

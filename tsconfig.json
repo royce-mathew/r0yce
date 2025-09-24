@@ -23,6 +23,7 @@
       "@/lib/*": ["./src/lib/*"],
       "@/components/*": ["./src/components/*"],
       "@/components/ui/*": ["./src/components/ui/*"],
+      "@/styles/*": ["./src/styles/*"],
       "#site/content": ["./.velite"]
     },
     "target": "ES2017"

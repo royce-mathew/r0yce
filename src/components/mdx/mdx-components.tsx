@@ -29,13 +29,16 @@ const sharedComponents = {
   AlertDescription,
   YouTubeEmbed,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h2
-      className={cn(
-        "font-heading flex scroll-m-20 justify-center border border-border py-4 text-4xl font-bold",
-        className
-      )}
-      {...props}
-    />
+    <div className="relative mt-6 mb-2">
+      <div className="absolute top-[10px] left-[10px] -z-10 h-full w-full border-4 border-black/5 bg-accent/50 dark:border-white/5" />
+      <h2
+        className={cn(
+          "font-heading flex scroll-m-20 justify-center bg-accent py-4 text-4xl font-bold dark:bg-accent",
+          className
+        )}
+        {...props}
+      />
+    </div>
   ),
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
@@ -49,7 +52,7 @@ const sharedComponents = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        "mt-8 w-full scroll-m-20 rounded-md bg-foreground/5 px-5 py-2 text-lg font-thin tracking-tight italic dark:bg-foreground/5",
+        "mt-8 w-full scroll-m-20 rounded-md bg-accent/20 px-5 py-2 text-lg font-thin tracking-tight italic",
         className
       )}
       {...props}
@@ -67,7 +70,7 @@ const sharedComponents = {
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h6
       className={cn(
-        "mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
+        "font-headingmt-8 scroll-m-20 text-lg font-semibold tracking-tight",
         className
       )}
       {...props}
@@ -82,17 +85,23 @@ const sharedComponents = {
       {...props}
     />
   ),
+  strong: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
+    <b className={cn("font-semibold", className)} {...props} />
+  ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className={cn("leading-7 not-first:mt-6", className)} {...props} />
+    <p
+      className={cn("leading-7 text-foreground/80 not-first:mt-6", className)}
+      {...props}
+    />
   ),
   ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul className={cn("my-6 ml-6 list-disc", className)} {...props} />
+    <ul className={cn("mt-3 mb-6 ml-6 list-disc", className)} {...props} />
   ),
   ol: ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
     <ol className={cn("my-6 ml-6 list-decimal", className)} {...props} />
   ),
   li: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <li className={cn("mt-2", className)} {...props} />
+    <li className={cn("mt-2 text-foreground/70", className)} {...props} />
   ),
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <blockquote
@@ -192,13 +201,13 @@ const sharedComponents = {
   ),
   Steps: ({ ...props }) => (
     <div
-      className="steps mb-12 ml-4 border-l pl-8 [counter-reset:step] [&>h4]:step"
+      className="steps mb-12 ml-4 border-l pl-8 text-foreground/80 [counter-reset:step] [&>h4]:step"
       {...props}
     />
   ),
   UnorderedSteps: ({ ...props }) => (
     <div
-      className="mb-12 ml-4 border-l pl-8 [counter-reset:unordered-step] [&>h4]:unordered-step"
+      className="mb-12 ml-4 border-l pl-8 text-foreground/80 [counter-reset:unordered-step] [&>h4]:unordered-step"
       {...props}
     />
   ),

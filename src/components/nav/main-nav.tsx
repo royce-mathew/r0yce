@@ -3,7 +3,6 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-
 import { siteConfig } from "@/config/docs"
 import { Icons } from "@/config/icons"
 import { cn } from "@/lib/utils"
@@ -22,7 +21,7 @@ export function MainNav() {
             key={index}
             href={item.href as string}
             className={cn(
-              "hover:text-foreground/80 transition-colors",
+              "font-semibold transition-colors hover:text-foreground/80",
               pathname === item.href ? "text-foreground" : "text-foreground/60"
             )}
           >

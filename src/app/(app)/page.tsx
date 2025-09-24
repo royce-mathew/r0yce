@@ -4,6 +4,7 @@ import Link from "next/link"
 import {
   IconBrandGithubFilled,
   IconFileCertificate,
+  IconFileFilled,
   IconMailFilled,
 } from "@tabler/icons-react"
 import { mainContents } from "#site/content"
@@ -90,7 +91,7 @@ export default function Home() {
               className="bg-primary/20 text-[10px] text-foreground sm:text-sm"
               variant="defaultNonInteractive"
             >
-              🎓 4th Year Student
+              🎓 HBSc Student
             </Badge>
             <Badge
               className="bg-primary/20 text-[10px] text-foreground sm:text-sm"
@@ -102,7 +103,7 @@ export default function Home() {
               className="bg-primary/20 text-[10px] text-foreground sm:text-sm"
               variant="defaultNonInteractive"
             >
-              🎮 Game Developer
+              📊 Data Scientist
             </Badge>
           </div>
 
@@ -145,17 +146,14 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <IconFileCertificate className="mr-2 size-4" /> Resume
+                <IconFileFilled className="mr-2 size-5" /> Resume
               </Link>
             </Button>
           </div>
         </div>
       </div>
       {/* About Me */}
-      <div className="flex flex-col items-center justify-center bg-black/[2%] p-5 dark:bg-black/[10%]">
-        <h2 className="scroll-m-20 text-3xl font-bold tracking-tight lg:text-4xl">
-          {about?.title}
-        </h2>
+      <div className="flex flex-col items-center justify-center bg-black/[2%] p-5 dark:bg-white/[1%]">
         <div className="max-w-[900px]">
           <Mdx code={about.code} />
         </div>

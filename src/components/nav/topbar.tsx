@@ -1,5 +1,4 @@
 import React from "react"
-
 import { siteConfig } from "@/config/docs"
 
 const Topbar: React.FC = () => {
