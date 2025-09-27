@@ -3,23 +3,19 @@
 
 /* Remove the old @media rules and replace them with: */
 
-@media (prefers-color-scheme: dark) {
-  pre code[data-theme],
-  pre code[data-theme] span {
-    color: var(--shiki-dark);
-  }
+pre code[data-theme*=" "],
+pre code[data-theme*=" "] span {
+  color: var(--shiki-light) !important;
 }
 
-@media (prefers-color-scheme: light) {
-  pre code[data-theme],
-  pre code[data-theme] span {
-    color: var(--shiki-light);
-  }
+.dark pre code[data-theme*=" "],
+.dark pre code[data-theme*=" "] span {
+  color: var(--shiki-dark) !important;
 }
 
 /* Style outer block */
 [data-rehype-pretty-code-figure] {
-  @apply mt-4 mb-4 rounded border border-y border-border bg-foreground/95 dark:bg-foreground/5;
+  @apply mt-4 mb-4 rounded border border-border bg-accent dark:bg-foreground/5;
 }
 
 [data-rehype-pretty-code-figure] figcaption {
@@ -39,7 +35,7 @@
 [data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
   counter-increment: line;
   content: counter(line);
-  @apply mr-4 inline-block text-right text-white/20;
+  @apply mr-4 inline-block text-right text-black/20 dark:text-white/20;
 }
 
 [data-rehype-pretty-code-figure] code {

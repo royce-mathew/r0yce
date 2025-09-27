@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss"
 import defaultTheme from "tailwindcss/defaultTheme"
+import {inter} from "./src/styles/fonts"
 
 const config = {
   darkMode: "class",
@@ -60,7 +61,7 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        default: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
+        default: "var(--font-inter)",
         cal: ["var(--font-cal)", ...defaultTheme.fontFamily.sans],
         title: ["var(--font-title)", ...defaultTheme.fontFamily.sans],
         mono: ["Consolas", ...defaultTheme.fontFamily.mono],

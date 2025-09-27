@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { IconArrowUp, IconArticleFilled } from "@tabler/icons-react"
-
 import { TocEntry } from "@/types/toc"
 import { cn } from "@/lib/utils"
 import { useMounted } from "@/hooks/use-mounted"
@@ -43,15 +43,15 @@ export function DashboardTableOfContents({ toc }: TocProps) {
       <Tree tree={toc} activeItem={activeHeading} />
       <div className="space-y-3 pt-3">
         <Separator className="w-full" />
-        <a
+        <Link
           href="#"
           className={cn(
-            "text-muted-foreground hover:text-foreground flex items-center space-x-2 text-sm transition-opacity",
+            "flex items-center space-x-2 text-sm text-muted-foreground transition-opacity hover:text-foreground",
             !isOnPageTop ? "opacity-100" : "opacity-0"
           )}
         >
           Back to top <IconArrowUp className="ml-2 size-4" />
-        </a>
+        </Link>
       </div>
     </div>
   )
@@ -104,17 +104,17 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
       {tree.map((item, index) => {
         return (
           <li key={index} className={cn("mt-0 pt-2")}>
-            <a
+            <Link
               href={item.url}
               className={cn(
-                "hover:text-foreground inline-block no-underline transition-colors",
+                "inline-block no-underline transition-colors hover:text-foreground",
                 item.url === `#${activeItem}`
-                  ? " text-foreground font-medium"
+                  ? "font-medium text-foreground"
                   : "text-muted-foreground"
               )}
             >
               {item.title}
-            </a>
+            </Link>
             {item.items?.length ? (
               <Tree
                 tree={item.items}

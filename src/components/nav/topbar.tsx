@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 import { siteConfig } from "@/config/docs"
 
 const Topbar: React.FC = () => {
@@ -8,7 +9,7 @@ const Topbar: React.FC = () => {
         <ul>
           {siteConfig.mainNav.map((item, index) => (
             <li key={index}>
-              <a href={item.href as string}>{item.title}</a>
+              <Link href={item.href as string}>{item.title}</Link>
             </li>
           ))}
         </ul>

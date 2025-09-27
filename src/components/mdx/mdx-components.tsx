@@ -33,7 +33,7 @@ const sharedComponents = {
       <div className="absolute top-[10px] left-[10px] -z-10 h-full w-full border-4 border-black/5 bg-accent/50 dark:border-white/5" />
       <h2
         className={cn(
-          "font-heading flex scroll-m-20 justify-center bg-accent py-4 text-4xl font-bold dark:bg-accent",
+          "font-heading flex scroll-m-20 justify-center bg-background py-4 text-4xl font-bold dark:bg-accent",
           className
         )}
         {...props}
@@ -43,7 +43,7 @@ const sharedComponents = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
       className={cn(
-        "font-heading mt-12 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0",
+        "font-heading mt-12 scroll-m-20 border-b pb-2 text-2xl font-semibold first:mt-0",
         className
       )}
       {...props}
@@ -52,7 +52,7 @@ const sharedComponents = {
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h4
       className={cn(
-        "mt-8 w-full scroll-m-20 rounded-md bg-accent/20 px-5 py-2 text-lg font-thin tracking-tight italic",
+        "mt-8 w-full scroll-m-20 rounded-md bg-accent/20 px-5 py-2 text-lg font-thin italic",
         className
       )}
       {...props}
@@ -61,7 +61,7 @@ const sharedComponents = {
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h5
       className={cn(
-        "font-heading mt-8 scroll-m-20 text-lg font-semibold tracking-tight",
+        "font-heading mt-8 scroll-m-20 text-lg font-semibold",
         className
       )}
       {...props}
@@ -70,14 +70,31 @@ const sharedComponents = {
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h6
       className={cn(
-        "font-headingmt-8 scroll-m-20 text-lg font-semibold tracking-tight",
+        "font-headingmt-8 scroll-m-20 text-lg font-semibold",
         className
       )}
       {...props}
     />
   ),
-  a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
+  a: ({
+    className,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a
+      rel={
+        props.href
+          ? props.href.startsWith("http")
+            ? "noopener noreferrer"
+            : undefined
+          : undefined
+      }
+      target={
+        props.href
+          ? props.href.startsWith("http")
+            ? "_blank"
+            : undefined
+          : undefined
+      }
       className={cn(
         "font-medium text-primary decoration-2 hover:underline",
         className
@@ -86,7 +103,7 @@ const sharedComponents = {
     />
   ),
   strong: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <b className={cn("font-semibold", className)} {...props} />
+    <b className={cn("font-bold", className)} {...props} />
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
@@ -188,12 +205,12 @@ const sharedComponents = {
   Callout,
   AspectRatio,
   CodeBlockWrapper: ({ ...props }) => (
-    <CodeBlockWrapper className="rounded-md border" {...props} />
+    <CodeBlockWrapper className="rounded" {...props} />
   ),
   Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
     <h3
       className={cn(
-        "font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight",
+        "font-heading mt-8 scroll-m-20 text-xl font-semibold",
         className
       )}
       {...props}

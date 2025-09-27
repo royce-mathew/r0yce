@@ -1,0 +1,81 @@
+---
+title: notes-ai (Mobile)
+description: A mobile application for taking notes and managing tasks on the go.
+tags: [flutter, dart, python, flask, mobile, ai, ocr, notes]
+imageSrc: https://raw.githubusercontent.com/CSCI4100U/mobile-group-project-2023-sards/9293bfdb1cb673adba7db197e1f8e3a4d01a7e1d/screenshots/Screenshot_20240108_033924.jpg
+links:
+  github: https://github.com/CSCI4100U/mobile-group-project-2023-sards
+publishedDate: 2023-12-07
+modifiedDate: 2024-01-08
+hasToc: true
+gridSpan: 1
+rowSpan: 2
+---
+
+# Overview
+
+This project consisted of an AI-powered note taking mobile application that allows users to quickly write down their thoughts and save them on their phone, which will sync across all devices that have the app.
+
+The application interfaces with a Flask backend server that handles user authentication, note storage, and AI-powered categorization of notes. The mobile app was built using Flutter and Dart, and the backend was built using Python and Flask.
+
+The goal of this project was to build on typical features of note taking applications, improving on areas that are not only conventional to a note taking app, but also include new features, specifically with the transformative power of AI.
+
+# Features and Functionalities
+
+The features and functionalities of **notes.ai** are primarily divided into five sections based on what each suite of technology aims to achieve:
+
+1. **Artificial Intelligence-based Augmentations**
+   - **Autocomplete Text**
+   - Categorization
+   - **Optical Character Recognition (OCR)**
+
+2. **Text Formatting and Input**
+   - Markdown Support
+   - Writing/Drawing Support
+
+3. **Data Storage and Synchronization**
+   - Cloud Storage
+   - Local Storage
+
+4. **Accessibility**
+   - Text to Speech
+   - Speech to Text
+
+5. **Algorithms**
+   - Search
+
+## High Level Overview
+
+![High Level Architecture](/projects/notes-ai/high-level-overview.png)
+
+## Navigation Structure
+
+![Navigation Structure](/projects/notes-ai/navigation.png)
+
+## Design Class Diagram
+
+![Class Diagram](/projects/notes-ai/design-class.png)
+
+## Server Design
+
+![Server Architecture](/projects/notes-ai/server-design.png)
+
+# User-Side Component
+
+This project is a flutter application that will build a note taking app with AI-powered features. There are multiple screens, all of which are crucial to the application.
+
+_Note:_ Please use the build that has been uploaded to GitHub if possible. The SHA signature on Firebase corresponds to this build, so rebuilding the project on your machine will cause authentication to fail. It's not integral to the functionality of the app (yet), but it will cause the Sign In page to do nothing
+
+### Add Notes
+
+Press the + icon to enter the Create Note page and enter your note information. Press the save icon to save the note.
+
+### Settings
+
+In the settings page, you can choose whether to sync your notes to the cloud when you create a new one. There's also a button to import the notes from the cloud.
+Currently, the other options aren't implemented.
+
+### Categorization
+
+When you save a note, it will trigger an HTTP request to our Flask server, which will use an ML model to assign a category to the note.
+If this fails, our code will catch the error and the Tag displayed on the note will be "No Tag".

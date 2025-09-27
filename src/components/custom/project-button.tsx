@@ -19,14 +19,14 @@ const ProjectButton: React.FC<ProjectButtonProps> = ({
 }) => {
   if (!project) {
     return (
-      <div className="text-muted-foreground text-center">No Project found.</div>
+      <div className="text-center text-muted-foreground">No Project found.</div>
     )
   }
   return (
     <Button
       asChild
       className={cn(
-        "border-border bg-background hover:brightness-70 row-span-1 flex size-full flex-col justify-between space-y-4 rounded border p-1 transition-all duration-200 hover:scale-[102%] hover:shadow-xl",
+        "row-span-1 flex size-full flex-col justify-between space-y-4 rounded border border-border bg-background p-1 transition-all duration-200 hover:scale-[102%] hover:shadow-xl hover:brightness-70",
         className
       )}
       variant={null}
@@ -44,14 +44,14 @@ const ProjectButton: React.FC<ProjectButtonProps> = ({
                 height={300}
               />
               <div className="halftone absolute inset-0" />
-              <div className="from-background bg-size-150%  bg-pos-10% bg-linear-to-t absolute inset-0 from-5% to-transparent to-25%" />
+              <div className="bg-size-150% bg-pos-10% absolute inset-0 bg-linear-to-t from-background from-5% to-transparent to-25%" />
             </div>
 
-            <div className="flex flex-col space-y-2 text-wrap px-1 pb-2 pt-4">
-              <h1 className="text-balance text-xl font-semibold md:text-2xl">
+            <div className="flex flex-col space-y-2 px-1 pt-4 pb-2 text-wrap">
+              <h1 className="text-xl font-semibold text-balance md:text-2xl">
                 {project?.title}
               </h1>
-              <p className="text-muted-foreground text-wrap">
+              <p className="text-wrap text-muted-foreground">
                 {project?.description}
               </p>
 
