@@ -2,23 +2,20 @@ import { MathExtension } from "@aarkue/tiptap-math-extension"
 import { Editor } from "@tiptap/core"
 import Blockquote from "@tiptap/extension-blockquote"
 import Bold from "@tiptap/extension-bold"
-import BulletList from "@tiptap/extension-bullet-list"
-import CharacterCount from "@tiptap/extension-character-count"
 import Code from "@tiptap/extension-code"
 import Document from "@tiptap/extension-document"
 import Heading from "@tiptap/extension-heading"
-import History from "@tiptap/extension-history"
 import HorizontalRule from "@tiptap/extension-horizontal-rule"
 import Italic from "@tiptap/extension-italic"
 import Link from "@tiptap/extension-link"
-import ListItem from "@tiptap/extension-list-item"
-import OrderedList from "@tiptap/extension-ordered-list"
+// Updated imports for v3
+import { BulletList, ListItem, OrderedList } from "@tiptap/extension-list"
 import Paragraph from "@tiptap/extension-paragraph"
-import Placeholder from "@tiptap/extension-placeholder"
 import Strike from "@tiptap/extension-strike"
 import Text from "@tiptap/extension-text"
 import Typography from "@tiptap/extension-typography"
 import Underline from "@tiptap/extension-underline"
+import { CharacterCount, Placeholder } from "@tiptap/extensions"
 import { Node } from "@tiptap/pm/model"
 import { Extensions } from "@tiptap/react"
 import { CodeBlockShiki } from "../extensions/code"
@@ -53,7 +50,7 @@ export const extensions: Extensions = [
   ListItem,
   Link,
   HorizontalRule,
-  //   History,
+  // History is now UndoRedo in v3 and part of @tiptap/extensions
   MathExtension.configure({ evaluation: true }),
   Placeholder.configure({
     includeChildren: true,

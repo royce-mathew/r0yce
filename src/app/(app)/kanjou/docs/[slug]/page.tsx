@@ -4,7 +4,7 @@ import { use, useEffect, useRef, useState } from "react"
 import dynamic from "next/dynamic"
 import { IconCheck, IconPointFilled, IconSend } from "@tabler/icons-react"
 import Collaboration from "@tiptap/extension-collaboration"
-import CollaborationCursor from "@tiptap/extension-collaboration-cursor"
+import CollaborationCaret from "@tiptap/extension-collaboration-caret"
 import { getDoc, updateDoc } from "firebase/firestore"
 import { useSession } from "next-auth/react"
 import objectHash from "object-hash"
@@ -67,6 +67,8 @@ export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
       path: `documents/${params.slug}`,
       ydoc: yDoc.current,
     })
+
+    console.log("Provider: ", provider.current)
 
     // setMetadata(provider.current.metadata)
 
@@ -226,9 +228,9 @@ export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
         // initialContent={document?.content}
         passedExtensions={[
           Collaboration.configure({
-            document: provider.current?.doc,
+            document: provider.current?.doc ?? new Y.Doc(),
           }),
-          CollaborationCursor.configure({
+          CollaborationCaret.configure({
             provider: provider.current,
             user: {
               name: session?.user.name ?? "Unknown",
