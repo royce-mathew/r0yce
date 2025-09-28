@@ -76,7 +76,7 @@ export function ProfileSection() {
         </motion.div>
 
         <motion.div
-          className="flex w-full max-w-md flex-col space-y-6 text-center shadow-lg md:max-w-lg md:text-left"
+          className="flex w-full max-w-md flex-col space-y-6 text-center md:max-w-lg md:text-left"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={spring}
@@ -99,9 +99,9 @@ export function ProfileSection() {
             />
             {/* Description and Welcome Message */}
             <p className="hidden text-sm leading-relaxed text-foreground/60 md:block md:text-base lg:text-lg">
-              I&apos;m passionate about creating innovative solutions through
-              code and turning ideas into reality. Explore my projects and
-              journey in software development.
+              I&apos;m a passionate software developer with a keen interest in
+              cloud development and data science. This website showcases my
+              projects, skills, and experiences.
             </p>
           </div>
 
@@ -111,7 +111,7 @@ export function ProfileSection() {
               <Button
                 asChild
                 variant="outline"
-                className="size-10 p-0 md:size-12"
+                className="size-10 p-0 shadow-lg md:size-12"
               >
                 <Link
                   href="https://github.com/royce-mathew"
@@ -125,7 +125,7 @@ export function ProfileSection() {
               <Button
                 asChild
                 variant="outline"
-                className="size-10 p-0 md:size-12"
+                className="size-10 p-0 shadow-lg md:size-12"
               >
                 <Link
                   href="https://www.linkedin.com/in/royce-mathew"
@@ -139,7 +139,7 @@ export function ProfileSection() {
               <Button
                 asChild
                 variant="outline"
-                className="size-10 p-0 md:size-12"
+                className="size-10 p-0 shadow-lg md:size-12"
               >
                 <Link
                   href="mailto:royce1mathew@gmail.com"
@@ -152,7 +152,7 @@ export function ProfileSection() {
             <Button
               asChild
               variant="outline"
-              className="h-10 w-fit px-4 py-2 text-sm md:h-12 md:px-6 md:text-base"
+              className="h-10 w-fit px-4 py-2 text-sm shadow-lg md:h-12 md:px-6 md:text-base"
             >
               <Link
                 href="/files/Royce%20Mathew%20Resume.pdf"
