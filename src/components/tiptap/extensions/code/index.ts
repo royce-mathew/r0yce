@@ -1,11 +1,11 @@
 import CodeBlock, { CodeBlockOptions } from "@tiptap/extension-code-block"
 import { BundledLanguage, BundledTheme } from "shiki"
-
 import { ShikiPlugin } from "./shiki-plugin"
 
 export interface CodeBlockShikiOptions extends CodeBlockOptions {
   defaultLanguage: BundledLanguage | null | undefined
   defaultTheme: BundledTheme
+  languageClassPrefix: string
 }
 
 export const CodeBlockShiki = CodeBlock.extend<CodeBlockShikiOptions>({
@@ -13,6 +13,11 @@ export const CodeBlockShiki = CodeBlock.extend<CodeBlockShikiOptions>({
     return {
       ...this.parent?.(),
       defaultLanguage: null,
+      languageClassPrefix: "language-",
+      exitOnArrowDown: true,
+      exitOnTripleEnter: true,
+      enableTabIndentation: true,
+      tabSize: 4,
       defaultTheme: "github-dark",
       HTMLAttributes: {
         spellcheck: "false",
