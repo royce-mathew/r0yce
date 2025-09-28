@@ -3,14 +3,10 @@
 
 /* Remove the old @media rules and replace them with: */
 
-pre code[data-theme*=" "],
-pre code[data-theme*=" "] span {
-  color: var(--shiki-light) !important;
-}
-
-.dark pre code[data-theme*=" "],
-.dark pre code[data-theme*=" "] span {
-  color: var(--shiki-dark) !important;
+pre code[data-theme],
+pre code[data-theme] span {
+  @apply bg-[var(--shiki-light-bg)] text-[var(--shiki-light)];
+  @apply dark:bg-[var(--shiki-dark-bg)] dark:text-[var(--shiki-dark)];
 }
 
 /* Style outer block */
@@ -35,7 +31,7 @@ pre code[data-theme*=" "] span {
 [data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
   counter-increment: line;
   content: counter(line);
-  @apply mr-4 inline-block text-right text-black/20 dark:text-white/20;
+  @apply mr-4 inline-block text-right text-foreground/30;
 }
 
 [data-rehype-pretty-code-figure] code {
