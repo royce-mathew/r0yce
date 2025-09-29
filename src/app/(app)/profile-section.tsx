@@ -32,7 +32,7 @@ export function ProfileSection() {
 
   const spring = {
     type: "spring" as const,
-    damping: 60,
+    damping: 50,
     stiffness: 120,
     mass: 1.2,
   }
@@ -61,9 +61,95 @@ export function ProfileSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={spring}
           >
-            <div className="absolute top-[10px] left-[10px] -z-10 size-48 border-2 border-foreground/30 md:top-[20px] md:left-[20px] md:size-[350px]" />
-            <div className="absolute top-[21%] -left-[15px] z-10 size-8 rotate-45 border-2 border-foreground/30" />
-            <div className="absolute top-[21%] size-8 rotate-45 bg-primary" />
+            <m.svg
+              className="absolute top-[10px] left-[10px] -z-10 size-48 opacity-30 md:top-[15px] md:left-[15px] md:size-[350px]"
+              viewBox="0 0 100 100"
+              initial={{ pathLength: 0, rotate: -15, scale: 0.5 }}
+              animate={{ pathLength: 1, rotate: 0, scale: 1 }}
+              transition={{ ...spring }}
+            >
+              <m.rect
+                x="1"
+                y="1"
+                width="98"
+                height="98"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                vectorEffect="non-scaling-stroke"
+              />
+            </m.svg>
+
+            <m.svg
+              className="absolute top-[20%] -left-[3%] z-0 size-5 opacity-30"
+              viewBox="0 0 32 32"
+              initial={{ scale: 0, rotate: -45 }}
+              animate={{ scale: 1, rotate: 45 }}
+              transition={{ ...spring, delay: 0.5 }}
+            >
+              <m.rect
+                x="1"
+                y="1"
+                width="30"
+                height="30"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                vectorEffect="non-scaling-stroke"
+              />
+            </m.svg>
+
+            <m.svg
+              className="absolute top-[20%] -left-[1%] z-10 size-5"
+              viewBox="0 0 32 32"
+              initial={{ scale: 0, rotate: -45 }}
+              animate={{ scale: 1, rotate: 45 }}
+              transition={{ ...spring, delay: 0.5 }}
+            >
+              <m.rect
+                x="0"
+                y="0"
+                width="32"
+                height="32"
+                fill="hsl(var(--primary))"
+              />
+            </m.svg>
+
+            <m.svg
+              className="absolute -bottom-[5%] left-[20%] z-10 size-7 opacity-30"
+              viewBox="0 0 32 32"
+              initial={{ scale: 0, rotate: -30 }}
+              animate={{ scale: 1, rotate: 30 }}
+              transition={{ ...spring, delay: 1 }}
+            >
+              <m.rect
+                x="1"
+                y="1"
+                width="30"
+                height="30"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                vectorEffect="non-scaling-stroke"
+              />
+            </m.svg>
+
+            <m.svg
+              className="absolute -bottom-[2.5%] left-[20%] z-10 size-7"
+              viewBox="0 0 32 32"
+              initial={{ scale: 0, rotate: -30 }}
+              animate={{ scale: 1, rotate: 30 }}
+              transition={{ ...spring, delay: 1 }}
+            >
+              <m.rect
+                x="0"
+                y="0"
+                width="32"
+                height="32"
+                fill="hsl(var(--primary))"
+              />
+            </m.svg>
+
             <Image
               className="size-48 rounded shadow-2xl md:size-[350px]"
               fetchPriority="high"
@@ -90,18 +176,18 @@ export function ProfileSection() {
               <FlipWords
                 words={[
                   "Software Developer",
-                  "HBSc Student",
                   "Data Scientist",
                   "Game Developer",
+                  "HBSc Student",
                 ]}
                 duration={3000}
                 className="font-cal text-xl text-primary md:text-2xl lg:text-3xl"
               />
               {/* Description and Welcome Message */}
               <p className="hidden text-sm leading-relaxed text-foreground/60 md:block md:text-base lg:text-lg">
-                I&apos;m a passionate software developer with a keen interest in
-                cloud development and data science. This website showcases my
-                projects, skills, and experiences.
+                I&apos;m a developer based in Canada with an interest in cloud
+                and data science. This website showcases my projects, skills,
+                and experiences.
               </p>
             </div>
 
@@ -152,7 +238,7 @@ export function ProfileSection() {
               <Button
                 asChild
                 variant="outline"
-                className="h-10 w-fit px-4 py-2 text-sm shadow-lg md:h-12 md:px-6 md:text-base"
+                className="text-md h-10 w-fit px-4 py-2 shadow-lg md:h-12 md:px-6 md:text-xl"
               >
                 <Link
                   href="/files/Royce%20Mathew%20Resume.pdf"
