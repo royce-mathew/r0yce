@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import { Project, projects } from "#site/content"
 import { cn } from "@/lib/utils"
+import { NumberFlowComponent } from "@/components/ui/number"
 import { Separator } from "@/components/ui/separator"
 import ProjectButton from "@/components/custom/project-button"
 
@@ -99,7 +100,10 @@ export default function AllProjects() {
           Projects
         </h1>
         <div className="flex items-center space-x-2 text-lg md:text-xl">
-          <span className="font-bold text-primary">{projects.length}</span>
+          <NumberFlowComponent
+            className="font-bold text-primary"
+            value={projects.length}
+          />
           <span>Total Projects</span>
         </div>
       </div>

@@ -19,6 +19,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Callout } from "@/components/mdx/callout"
 import { CodeBlockWrapper } from "@/components/mdx/code-block-wrapper"
 import { CopyButton } from "@/components/mdx/copy-button"
+import { NumberFlowComponent } from "../ui/number"
 
 const sharedComponents = {
   Accordion,
@@ -29,35 +30,7 @@ const sharedComponents = {
   AlertTitle,
   AlertDescription,
   YouTubeEmbed,
-  NumberFlow: (props: React.ComponentProps<typeof NumberFlow>) => {
-    const [isVisible, setIsVisible] = React.useState(false)
-    const [displayValue, setDisplayValue] = React.useState(0)
-    const ref = React.useRef<HTMLDivElement>(null)
-
-    React.useEffect(() => {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting && !isVisible) {
-            setIsVisible(true)
-            setDisplayValue(Number(props.value) || 0)
-          }
-        },
-        { threshold: 0.1 }
-      )
-
-      if (ref.current) {
-        observer.observe(ref.current)
-      }
-
-      return () => observer.disconnect()
-    }, [isVisible, props.value])
-
-    return (
-      <div ref={ref}>
-        <NumberFlow {...props} value={displayValue} />
-      </div>
-    )
-  },
+  NumberFlow: NumberFlowComponent,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <div className="relative mt-6 mb-2">
       <div className="absolute top-[10px] left-[10px] -z-10 h-full w-full border-4 border-black/5 bg-accent/50 dark:border-white/5" />
