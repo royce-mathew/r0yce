@@ -37,6 +37,13 @@ export function ProfileSection() {
     mass: 1.2,
   }
 
+  const geometrySpring = {
+    type: "spring" as const,
+    damping: 20,
+    stiffness: 100,
+    mass: 0.8,
+  }
+
   return (
     <section
       data-section="profile"
@@ -85,7 +92,7 @@ export function ProfileSection() {
               viewBox="0 0 32 32"
               initial={{ scale: 0, rotate: -45 }}
               animate={{ scale: 1, rotate: 45 }}
-              transition={{ ...spring, delay: 0.5 }}
+              transition={{ ...geometrySpring, delay: 0.5 }}
             >
               <m.rect
                 x="1"
@@ -104,7 +111,7 @@ export function ProfileSection() {
               viewBox="0 0 32 32"
               initial={{ scale: 0, rotate: -45 }}
               animate={{ scale: 1, rotate: 45 }}
-              transition={{ ...spring, delay: 0.5 }}
+              transition={{ ...geometrySpring, delay: 0.5 }}
             >
               <m.rect
                 x="0"
@@ -120,7 +127,7 @@ export function ProfileSection() {
               viewBox="0 0 32 32"
               initial={{ scale: 0, rotate: -30 }}
               animate={{ scale: 1, rotate: 30 }}
-              transition={{ ...spring, delay: 1 }}
+              transition={{ ...geometrySpring, delay: 1 }}
             >
               <m.rect
                 x="1"
@@ -139,7 +146,7 @@ export function ProfileSection() {
               viewBox="0 0 32 32"
               initial={{ scale: 0, rotate: -30 }}
               animate={{ scale: 1, rotate: 30 }}
-              transition={{ ...spring, delay: 1 }}
+              transition={{ ...geometrySpring, delay: 1 }}
             >
               <m.rect
                 x="0"
