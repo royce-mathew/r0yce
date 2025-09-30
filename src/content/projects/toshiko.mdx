@@ -91,14 +91,16 @@ As the **sole programmer**, I collaborated closely with modelers, builders, and 
 
 ### How it works
 
-The game includes a **dynamic database system** that tracks player progress, settings, and inventory. Data is saved automatically or manually, depending on user preference. The **inventory system** provides an interactive GUI, allowing players to manage and use items seamlessly within the game world.
+The database system is built as a wrapper around loleris&apos;s [ProfileStore](https://github.com/MadStudioRoblox/ProfileStore), a periodic DataStore saving solution with session locking.
+
+The system tracks player progress, positions, settings, and inventory in different tables and distributes them across different scripts with a centralized state manager. Data can be saved automatically or manually, depending on user preference. The system was developed with an interactive GUI which allows players to click items and inspect them in 3d space using `ViewportFrames`.
 
 ### Internals
 
 - As the player joins, the game checks for an existing database entry and loads the player's progress; new players are automatically assigned a new entry.
 - The database serves as a persistent store for **progress and inventory**, ensuring players can resume exactly where they left off.
 - A **manual save system** which complements the auto-save feature:
-  - Unsaved progress is temporarily cached.
+  - Unsaved progress is temporarily cached and written to a local table.
   - When the player triggers a manual save, the cached data is committed to the database.
   - This guarantees consistency and prevents progress loss even if the player exits unexpectedly.
 
@@ -107,14 +109,14 @@ The game includes a **dynamic database system** that tracks player progress, set
 <Grid>
 	
 	<GridItem>
-		<h3 className='text-xl font-semibold'>Inspiration</h3>
+		  ### Inspiration
 
     	The Party System was initially created to allow players to
     	play together in the same game instance. I developed the comprehensive party
     	system which allows players to invite friends from different servers to join
     	their game instance.
 
-    	<h3 className='text-xl font-semibold mt-6'>How it works</h3>
+    	### How it works
 
     	The system communicates across servers
     	to send requests to other players using [MessagingService](https://create.roblox.com/docs/reference/engine/classes/MessagingService). Instead of waiting for an immediate
@@ -124,7 +126,7 @@ The game includes a **dynamic database system** that tracks player progress, set
     </GridItem>
     <GridItem>
 
-  		<Image src="/projects/party-system.webp" width={500} height={500} alt="Multiplayer invite window"/>
+  		<Image src="/projects/party-system.webp" className="mt-5" width={500} height={500} alt="Multiplayer invite window"/>
 	</GridItem>
 </Grid>
 
@@ -132,18 +134,18 @@ The game includes a **dynamic database system** that tracks player progress, set
 
 <Grid>
 	<GridItem className="mt-5">
-		<YouTubeEmbed videoid="pLMtez3b6Po" width={400} height={300}/>		
+		<YouTubeEmbed videoid="pLMtez3b6Po" />		
 	</GridItem>
 	<GridItem>
-		<h3 className='text-xl font-semibold'>How it works</h3>
+		  ### How it works
 
-    	The Custom Donation System lets players sponsor the developers with an amount based on their preference. The system communicates to a Backend server which acts as a reverse proxy through `nginx`, hosted on **RaspberryPi** to create a new Developer Product.
-
-    	<h3 className='text-xl font-semibold mt-6'>Why?</h3>
-
-    	Roblox does not offer support inside its game engine for creating developer products. Originally the backend was written in Rust using my [roblox-api](https://github.com/royce-mathew/robloxapi) cargo crate.
-
-    	Later, I realized that maintaining both, the rust package, and also working on the game would be hard. So I decided to switch to TypeScript instead and use the [noblox.js](https://noblox.js.org/) package.
+    	A Custom Donation System that lets players sponsor the developers with any amount of currency based on their preference. The system communicates to a Backend server which acts as a reverse proxy through `nginx`, hosted on **RaspberryPi** to create a new Developer Product.
     </GridItem>
 
 </Grid>
+
+### Why?
+
+Roblox does not offer support inside its game engine for creating developer products. Originally the backend was written in Rust using my [roblox-api](https://github.com/royce-mathew/robloxapi) library.
+
+Later, I realized that maintaining both, the rust package, and also working on the game would be hard. So I decided to switch to TypeScript instead and use the [noblox.js](https://noblox.js.org/) package.
