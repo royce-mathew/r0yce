@@ -13,9 +13,7 @@ import { ErrorBoundary } from "@/components/nav/error"
  * Props for the ProjectPage component.
  */
 interface ProjectPageProps {
-  params: Promise<{
-    slug: string
-  }>
+  params: Promise<{ slug: string }>
 }
 
 /**
@@ -23,15 +21,8 @@ interface ProjectPageProps {
  * @param params - The project page props.
  * @returns The project matching the slug, or null if not found.
  */
-async function getProjectFromParams({ params }: ProjectPageProps) {
-  const slug = (await params).slug || ""
-  const project = projects.find((project) => project.slugAsParams === slug)
-
-  if (!project) {
-    return null
-  }
-
-  return project
+function getProjectFromParams(slug: string) {
+  return projects.find((project) => project.slugAsParams === slug)
 }
 
 /**
@@ -40,10 +31,10 @@ async function getProjectFromParams({ params }: ProjectPageProps) {
  * @returns The generated metadata.
  * @throws Error if the project is not found.
  */
-export async function generateMetadata(props: ProjectPageProps) {
-  const params = (await props).params
-  const project = await getProjectFromParams({ params })
-  if (!project) return
+export async function generateMetadata({ params }: ProjectPageProps) {
+  const { slug } = await params
+  const project = getProjectFromParams(slug)
+  if (project == null) return {}
   return {
     title: `${project.title} | r0yce`,
     authors: [
@@ -105,12 +96,10 @@ export const generateStaticParams = async () =>
  * @returns The rendered project page layout.
  * @throws Error if the project is not found.
  */
-const ProjectLayout = async (props: { params: Promise<{ slug: string }> }) => {
-  const params = await props.params
+const ProjectLayout = async ({ params }: ProjectPageProps) => {
+  const { slug } = await params
   // Get the project from the provided params
-  const project = projects.find(
-    (project) => project.slugAsParams === params.slug
-  )
+  const project = getProjectFromParams(slug)
 
   // If the project is not found, return an error boundary
   // This is a manual implementation until Nextjs supports custom error pages
@@ -118,7 +107,7 @@ const ProjectLayout = async (props: { params: Promise<{ slug: string }> }) => {
   if (!project)
     return (
       <ErrorBoundary
-        error={{ message: `Project not found for slug: ${params.slug}` }}
+        error={{ message: `Project not found for slug: ${slug}` }}
         rerouteUrl="/projects"
       />
     )
