@@ -1,6 +1,7 @@
 import { s as svg } from "hastscript"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypePrettyCode, { LineElement } from "rehype-pretty-code"
+import { shikiDiffNotation } from "@/lib/shiki-diff-notation"
 import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import { defineCollection, defineConfig, s } from "velite"
@@ -93,6 +94,8 @@ export default defineConfig({
           onVisitHighlightedWord(node: LineElement) {
             node.properties.className = ["word--highlighted"]
           },
+          // shiki-style transformers to post-process the HAST produced by shiki
+          transformers: [shikiDiffNotation()],
         },
       ],
       rawCodePostProcessor,

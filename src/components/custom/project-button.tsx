@@ -40,8 +40,8 @@ const ProjectButton: React.FC<ProjectButtonProps> = ({
                 src={project?.imageSrc ?? ""}
                 alt="Project Example"
                 className="size-full max-h-64 rounded object-cover"
-                width={300}
-                height={300}
+                width={400}
+                height={400}
               />
               <div className="halftone absolute inset-0" />
               <div className="bg-size-150% bg-pos-10% absolute inset-0 bg-linear-to-t from-background from-5% to-transparent to-25%" />

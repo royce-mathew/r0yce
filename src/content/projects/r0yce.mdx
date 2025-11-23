@@ -4,7 +4,7 @@ description: A Personal Website Built with Next.js and Firebase.
 tags: [typescript, react, nextjs, firebase]
 imageSrc: /images/Portfolio.png
 publishedDate: 2025-02-16
-modifiedDate: 2025-09-30
+modifiedDate: 2025-11-23
 hasToc: true
 featured: true
 ---
@@ -27,6 +27,30 @@ Integrating Firebase with Next.js required handling serverless environments and 
 ### Velite Pipeline
 
 Velite's pipeline simplifies MDX parsing and custom component rendering, enabling the inclusion of interactive elements and dynamic features. The conversion process transforms MDX content into React components, enhancing readability and visual appeal.
+
+#### Diff Notation (Shiki + rehype-pretty-code)
+
+The docs need to support a concise GitHub-style diff notation in code fences. You can write changes using `+` and `-` at the start of lines, or mark the fence with `diff` (for example: `ts diff`). The MDX pipeline runs a small transformer that:
+
+- strips the leading `+`/`-` from rendered text (so copy/paste yields clean code)
+- adds `.add` / `.remove` classes to line elements (so you can style additions/removals)
+- scopes the block with a `.diff` class for targeted CSS
+
+Example (write this in MDX):
+
+```ts diff
+-console.log('hewwo')
++console.log('hello')
+console.log('goodbye')
+```
+
+Implementation notes:
+
+- Transformer: `src/lib/shiki-diff-notation.ts`
+- Pipeline: wired into `rehype-pretty-code` via `velite.config.ts`
+- Styling: use `src/styles/mdx.css` to control `.add`, `.remove`, and `.diff` visuals; markers are rendered via CSS pseudo-elements and are non-selectable.
+
+This notation preserves normal Shiki syntax highlighting while adding clear diff highlighting in the docs.
 
 ### Next.js Routing
 

@@ -39,14 +39,6 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     capable: true,
   },
-  // verification: {
-  //   google: "YOUR_DATA",
-  //   yandex: ["YOUR_DATA"],
-  //   other: {
-  //     "msvalidate.01": ["YOUR_DATA"],
-  //     "facebook-domain-verification": ["YOUR_DATA"]
-  //   }
-  // },
   icons: {
     icon: [
       {

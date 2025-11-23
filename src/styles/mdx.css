@@ -43,6 +43,45 @@ pre code[data-theme] span {
   @apply bg-primary/10 dark:bg-primary/5;
 }
 
+/* Diff line styles added for shiki-diff-notation transformer */
+
+/* Target both cases: class applied directly to the line element, or to the [data-line] element. */
+[data-rehype-pretty-code-figure] code > .add,
+[data-rehype-pretty-code-figure] code > [data-line].add,
+[data-rehype-pretty-code-figure] code [data-line].add {
+  background: rgba(76, 175, 80, 0.06);
+}
+
+[data-rehype-pretty-code-figure] code > .remove,
+[data-rehype-pretty-code-figure] code > [data-line].remove,
+[data-rehype-pretty-code-figure] code [data-line].remove {
+  background: rgba(240, 82, 82, 0.06);
+}
+
+/* Add non-selectable markers at line start */
+[data-rehype-pretty-code-figure] code > .add::before,
+[data-rehype-pretty-code-figure] code > .remove::before,
+[data-rehype-pretty-code-figure] code > [data-line].add::before,
+[data-rehype-pretty-code-figure] code > [data-line].remove::before {
+  user-select: none;
+  -webkit-user-select: none;
+  display: inline-block;
+  width: 1.2rem;
+  margin-right: 0.5rem;
+  text-align: center;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+[data-rehype-pretty-code-figure] code > .add::before {
+  content: "+";
+  color: #4caf50;
+}
+[data-rehype-pretty-code-figure] code > .remove::before {
+  content: "-";
+  color: #f44336;
+}
+
 [data-rehype-pretty-code-title] {
   @apply border-b border-border px-5 py-2 text-sm font-medium;
 }
