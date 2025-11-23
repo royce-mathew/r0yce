@@ -191,7 +191,7 @@ export function ProfileSection() {
                 className="font-cal text-xl text-primary md:text-2xl lg:text-3xl"
               />
               {/* Description and Welcome Message */}
-              <p className="hidden text-sm leading-relaxed text-foreground/60 md:block md:text-base lg:text-lg">
+              <p className="hidden rounded border border-border bg-accent px-4 py-2 text-sm leading-relaxed text-foreground/70 md:block md:text-base lg:text-lg">
                 I&apos;m a developer based in Canada with an interest in cloud
                 and data science. This website showcases my projects, skills,
                 and experiences.
