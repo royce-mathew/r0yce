@@ -1,0 +1,95 @@
+---
+title: Axelot
+description: A modern, fast, and secure collaborative document/story platform
+tags: [react, nextjs, firebase, realtime, yjs]
+imageSrc: /projects/axelot.png
+publishedDate: 2025-11-23
+modifiedDate: 2025-11-23
+featured: true
+hasToc: true
+columnSpan: 2
+rowSpan: 2
+---
+
+# Axelot — Modern Collaborative Documents
+
+## Overview
+
+I started developing Axelot because I wanted a collaborative document/story platform that actually feels modern, fast, and secure. I was initially inspired by how https://gist.github.com/ works. Most existing tools either lack real-time editing features, have clunky authentication, or don’t scale well to edge runtimes.
+
+The goal was to combine Next.js, Firebase, and Yjs to build something that&nbsp;s both powerful and future-proof. Many features in this project were ported from [Kanjou](https://r0yce.com/kanjou) and adjusted to be compatible with Material UI (MUI).
+
+## Development Journey
+
+1. **Auth Integration.** Get Auth.js working with Firebase custom tokens — ensuring token generation and verification flow is secure and stateless.
+2. **Edge Compatibility.** Refactor services so everything is stateless and safe for Vercel Edge (no in-memory session state, short-lived tokens, and signed URLs when needed).
+3. **Collaboration.** Integrate Yjs and WebRTC for low-latency peer sync; use Firestore for signaling and persistence.
+4. **Theming & Accessibility.** Use MUI theming and focus states to ensure an accessible editor experience.
+5. **Testing & Validation.** Batch file edits, lint checks, and manual UI validation across device sizes and network conditions.
+
+# Optimizations
+
+## Server-rendered non-user-specific sections
+
+A practical example of when server rendering helps is the project dashboard. Some sections (for example, a list of recently published stories) are global and do not depend on the currently-authenticated user. Rendering these parts on the server avoids an unnecessary client round-trip and reduces perceived load time.
+
+Server-rendered approach (before / after):
+
+```tsx diff title="app/dashboard/page.tsx" showLineNumbers
+-"use client"
+import React from 'react'
+
+export default function Page() {
+    // Client-side fetch during mount — blocks visible content until network completes
+    const [recentlyAdded, setRecentlyAdded] = React.useState(null)
+
+-    React.useEffect(() => {
+-        // Client-side fetch
+-        firebase.firestore()
+-            .collection('documents')
+-            .orderBy('createdAt', 'desc')
+-            .limit(10)
+-            .get()
+-            .then(
+-                snap => setRecentlyAdded(
+-                    snap.docs.map(d => ({ id: d.id, ...(d.data() as any) }))
+-                )
+-            )
+-    }, [])
+
++   // Fetch global dashboard data with server-side rendering
++   const snap = await firebaseAdmin
++       .firestore()
++       .collection('documents')
++       .orderBy('createdAt', 'desc')
++       .limit(10)
++       .get()
++
++   const recentlyAdded = snap.docs.map(d => ({ id: d.id, ...(d.data() as any) }))
+
+    return <DashboardShell recentlyAdded={recentlyAdded} />
+}
+
+```
+
+The `DashboardShell` can render the `recentlyAdded` list directly and mount lightweight client-only widgets for personalized sections (notifications, user drafts, presence) after the shell is visible.
+Client-side hydration for user-specific widgets:
+
+Why this helps:
+
+- The server-rendered `recentlyAdded` list is cached at the edge, so all clients receive HTML immediately and avoid an extra client fetch.
+- Personalized widgets remain client-only, so sensitive data or session-bound requests are still retrieved securely on the client.
+
+# How It Works
+
+## How Authorization Works
+
+Authentication begins with Auth.js (NextAuth-style flows) to support OIDC and social providers. After sign-in we mint a Firebase custom token server-side and hand it to the client. The client exchanges the custom token for a Firebase SDK session and uses the UID provided by that token for Firestore access.
+
+All Firestore rules reference `request.auth.uid` so reads/writes are validated at the database layer. Session handling is stateless and compatible with Edge runtimes (no in-memory caches or long-running processes required).
+
+## Collaboration in Real-Time
+
+Yjs handles CRDT state for documents and presence (awareness). WebRTC is used for peer-to-peer replication between collaborators, while Firestore is used for signaling (offer/answer exchange). All updates are encrypted on the client and merged using Yjs, so conflicts are deterministic and predictable.
+
+We use `y-protocols/awareness` to sync cursors and presence metadata (name, color, current selection). The system falls back to Firestore realtime updates when WebRTC peers cannot be established.
