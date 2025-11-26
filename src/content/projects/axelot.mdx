@@ -19,6 +19,20 @@ I started developing Axelot because I wanted a collaborative document/story plat
 
 The goal was to combine Next.js, Firebase, and Yjs to build something that&nbsp;s both powerful and future-proof. Many features in this project were ported from [Kanjou](https://r0yce.com/kanjou) and adjusted to be compatible with Material UI (MUI).
 
+# How It Works
+
+## Authorization
+
+Authentication begins with Auth.js (NextAuth-style flows) to support OIDC and social providers. After sign-in we mint a Firebase custom token server-side and hand it to the client. The client exchanges the custom token for a Firebase SDK session and uses the UID provided by that token for Firestore access.
+
+All Firestore rules reference `request.auth.uid` so reads/writes are validated at the database layer. Session handling is stateless and compatible with Edge runtimes (no in-memory caches or long-running processes required).
+
+## Collaboration in Real-Time
+
+Yjs handles CRDT state for documents and presence (awareness). WebRTC is used for peer-to-peer replication between collaborators, while Firestore is used for signaling (offer/answer exchange). All updates are encrypted on the client and merged using Yjs, so conflicts are deterministic and predictable.
+
+We use `y-protocols/awareness` to sync cursors and presence metadata (name, color, current selection). The system falls back to Firestore realtime updates when WebRTC peers cannot be established.
+
 # Optimizations
 
 ## Server-rendered non-user-specific sections
@@ -106,17 +120,3 @@ return NextResponse.json(result, {
 ```
 
 > **Impact**: ~95% reduction in Firestore reads during peak traffic, sub-50ms response times for cached hits vs 200-500ms cold queries.
-
-# How It Works
-
-## How Authorization Works
-
-Authentication begins with Auth.js (NextAuth-style flows) to support OIDC and social providers. After sign-in we mint a Firebase custom token server-side and hand it to the client. The client exchanges the custom token for a Firebase SDK session and uses the UID provided by that token for Firestore access.
-
-All Firestore rules reference `request.auth.uid` so reads/writes are validated at the database layer. Session handling is stateless and compatible with Edge runtimes (no in-memory caches or long-running processes required).
-
-## Collaboration in Real-Time
-
-Yjs handles CRDT state for documents and presence (awareness). WebRTC is used for peer-to-peer replication between collaborators, while Firestore is used for signaling (offer/answer exchange). All updates are encrypted on the client and merged using Yjs, so conflicts are deterministic and predictable.
-
-We use `y-protocols/awareness` to sync cursors and presence metadata (name, color, current selection). The system falls back to Firestore realtime updates when WebRTC peers cannot be established.
