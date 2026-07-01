@@ -14,6 +14,7 @@ const Label = s.object({
 
 const Links = s.object({
   github: s.string().optional(),
+  website: s.string().optional(),
 })
 
 export const Project = defineCollection({

@@ -1,8 +1,11 @@
 import Image from "next/image"
 import Link from "next/link"
-import { IconArrowLeft, IconBrandGithubFilled } from "@tabler/icons-react"
+import {
+  IconArrowLeft,
+  IconBrandGithubFilled,
+  IconLink,
+} from "@tabler/icons-react"
 import { projects } from "#site/content"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { TagPill } from "@/components/custom/tag-pill"
 import { DashboardTableOfContents } from "@/components/custom/toc"
@@ -134,7 +137,7 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
         {/* Meta bar */}
         <div className="mt-8 flex flex-wrap items-center gap-6 border-y border-border/20 py-4">
           {/* Tags */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex max-w-full flex-wrap gap-2 md:max-w-[380px]">
             {project.tags.map((tag: string) => (
               <TagPill key={tag} tag={tag} />
             ))}
@@ -180,6 +183,23 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
                 rel="noopener noreferrer"
               >
                 <IconBrandGithubFilled className="size-4" />
+              </Link>
+            </Button>
+          )}
+          {/* Website link */}
+          {project.links?.website && (
+            <Button
+              asChild
+              variant="outline"
+              size="icon"
+              className="size-9 rounded-sm border-border/30 hover:border-primary/30 hover:bg-primary/5"
+            >
+              <Link
+                href={project.links.website}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <IconLink className="size-4" />
               </Link>
             </Button>
           )}

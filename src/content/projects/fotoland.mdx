@@ -1,0 +1,51 @@
+---
+title: Fotoland
+description: A warm, minimalist editorial photography portfolio website built for a professional maternity and newborn photographer.
+tags: [react, nextjs, amazon-ses, turnstile]
+imageSrc: /projects/fotoland.png
+featured: true
+links:
+  website: https://www.fotoland.net/
+publishedDate: 2026-06-30
+modifiedDate: 2026-06-30
+hasToc: true
+columnSpan: 2
+rowSpan: 2
+---
+
+# Overview
+
+## What is Fotoland?
+
+[**Fotoland**](https://www.fotoland.net/) is a premium digital portfolio and client-onboarding platform developed for Ajitha Prashant, a professional maternity, newborn, and family photographer based in Oshawa, Ontario.
+
+The application is designed to emulate the tactile feel of an editorial art book, matching the unhurried, intentional, and warm style of the photography itself. It serves as both a high-fidelity visual showcase and a seamless booking funnel for expecting mothers and new families.
+
+---
+
+# Design & Philosophy
+
+To reflect the photographer's core principles of **authenticity, warmth, and artistry**, the user interface avoids typical commercial layouts in favor of:
+
+- **Editorial Typography**: A curated pairing of elegant serif headings and clean sans-serif body text that communicates a high-end, premium feel.
+- **Micro-Animations & Smooth Physics**: Subtle transitions and custom interactive drag elements for the featured work gallery that mimic the unhurried pacing of a real photo session.
+- **Warm, Film-Inspired Palette**: Colors and backgrounds curated to complement the soft shadows and natural light characteristic of the photographer's portfolio.
+
+---
+
+# Technical Implementations
+
+### Automated Email Routing with Amazon SES
+
+To handle booking inquiries and contact requests reliably, the website's backend integrates **Amazon Simple Email Service (SES)**. Every submission through the contact portal is processed via secure API endpoints that trigger beautifully formatted email digests directly to the photographer, ensuring high deliverability without relying on heavy third-party form-handling tools.
+
+### Spam Protection via Cloudflare Turnstile
+
+To secure the client inquiry form against automated spam bots without degrading the clean aesthetic with annoying CAPTCHAs, the system incorporates **Cloudflare Turnstile**. This provides a seamless, invisible verification layer that respects user privacy while maintaining form security.
+
+### Optimized Visual Performance
+
+High-resolution photography portfolios can easily become slow due to heavy image payloads. The platform implements:
+
+- **Next.js Image Optimization**: Dynamic image resizing, lazy loading, and next-generation formats (WebP) to ensure lightning-fast paint times.
+- **Fluid Layouts**: Responsive grids featuring flexible column structures that scale beautifully across mobile devices, tablets, and desktop displays.

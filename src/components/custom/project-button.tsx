@@ -77,7 +77,7 @@ const ProjectButton: React.FC<ProjectButtonProps> = ({
 
           {/* Tags & Date */}
           <div className="mt-4 flex items-center justify-between border-t border-border/20 pt-4">
-            <div className="flex flex-wrap gap-2">
+            <div className="flex max-w-[65%] flex-wrap gap-2">
               {project.tags.slice(0, 3).map((tag: string) => (
                 <TagPill key={tag} tag={tag} className="scale-95" />
               ))}
