@@ -1,16 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
 
-// Function to generate a random name
-function generateUUID(): string {
-  let dateTime = new Date().getTime()
-  const guid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-    const r = (dateTime + Math.random() * 16) % 16 | 0
-    dateTime = Math.floor(dateTime / 16)
-    return (c === "x" ? r : (r & 0x3) | 0x8).toString(16)
-  })
-  return guid
-}
-
 async function getGeneralToken() {
   return fetch("https://auth.roblox.com/v2/logout", {
     method: "POST",
@@ -75,7 +64,7 @@ async function createDevProduct(
 
 export async function GET(request: NextRequest) {
   const priceInRobux = request.nextUrl.searchParams.get("priceInRobux")
-  const name = request.nextUrl.searchParams.get("name") ?? generateUUID()
+  const name = request.nextUrl.searchParams.get("name") ?? crypto.randomUUID()
   const universeId =
     request.nextUrl.searchParams.get("universeId") ?? 2889709413
   const description =

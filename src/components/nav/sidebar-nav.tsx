@@ -16,13 +16,6 @@ export function ProjectSidebarNav({ items }: ProjectSidebarNavProps) {
     <div className="w-full">
       {items.map((item, index) => (
         <div key={index} className={cn("pb-4")}>
-          <h3 className="text-md mb-1 rounded-md px-2 py-1 text-lg font-semibold">
-            {item.href ? (
-              <Link href={item.href}>{item.title}</Link>
-            ) : (
-              item.title
-            )}
-          </h3>
           {item?.items?.length && (
             <ProjectSidebarNavItems items={item.items} pathname={pathname} />
           )}
@@ -42,27 +35,30 @@ export function ProjectSidebarNavItems({
   pathname,
 }: ProjectSidebarNavItemsProps) {
   return items?.length ? (
-    <div className="grid grid-flow-row auto-rows-max text-sm">
+    <div className="grid grid-flow-row auto-rows-max gap-0.5 text-sm">
       {items.map((item, index) =>
         item.href && !item.disabled ? (
           <Link
             key={index}
             href={item.href}
             className={cn(
-              "group flex w-full items-center px-2 py-1",
+              "group flex w-full items-center rounded-sm px-2.5 py-1.5 transition-colors duration-200",
               item.disabled && "cursor-not-allowed opacity-60",
               pathname === item.href
-                ? "font-medium text-foreground"
-                : "text-muted-foreground"
+                ? "bg-primary/5 text-foreground font-medium"
+                : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
             )}
             target={item.external ? "_blank" : ""}
             rel={item.external ? "noreferrer" : ""}
           >
-            <span className="group-hover:underline">{item.title}</span>
+            {pathname === item.href && (
+              <span className="mr-2 h-3 w-px bg-primary/60" />
+            )}
+            <span className="truncate text-[0.8125rem]">{item.title}</span>
             {item.label && (
               <span
                 className={cn(
-                  "ml-2 rounded-md bg-foreground/[2%] px-1.5 py-0.5 text-xs leading-none text-primary dark:bg-foreground/5",
+                  "ml-auto text-[0.6rem] font-medium tracking-[0.08em] uppercase text-muted-foreground/60",
                   item.label.className
                 )}
               >
@@ -74,13 +70,13 @@ export function ProjectSidebarNavItems({
           <span
             key={index}
             className={cn(
-              "flex w-full cursor-not-allowed items-center rounded-md p-2 text-muted-foreground hover:underline",
+              "flex w-full cursor-not-allowed items-center rounded-sm px-2.5 py-1.5 text-muted-foreground/50",
               item.disabled && "cursor-not-allowed opacity-60"
             )}
           >
-            {item.title}
+            <span className="truncate text-[0.8125rem]">{item.title}</span>
             {item.label && (
-              <span className="ml-2 rounded-md bg-muted px-1.5 py-0.5 text-xs leading-none text-muted-foreground no-underline group-hover:no-underline">
+              <span className="ml-auto text-[0.6rem] font-medium tracking-[0.08em] uppercase text-muted-foreground/40">
                 {item.label.text}
               </span>
             )}

@@ -1,6 +1,5 @@
 import Image from "next/image"
-import Google from "@auth/core/providers/google"
-
+ 
 // https://tabler.io/icons
 type IconProps = React.HTMLAttributes<SVGElement>
 

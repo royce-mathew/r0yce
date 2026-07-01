@@ -1,7 +1,4 @@
-/* Apply Code themes based on color mode */
 @reference "./globals.css";
-
-/* Remove the old @media rules and replace them with: */
 
 pre code[data-theme],
 pre code[data-theme] span {
@@ -9,108 +6,261 @@ pre code[data-theme] span {
   @apply dark:bg-[var(--shiki-dark-bg)] dark:text-[var(--shiki-dark)];
 }
 
-/* Style outer block */
-[data-rehype-pretty-code-figure] {
-  @apply mt-4 mb-4 rounded border border-border bg-accent dark:bg-foreground/5;
+.mdx-shell {
+  position: relative;
+  --mdx-max-width: 70ch;
 }
 
-[data-rehype-pretty-code-figure] figcaption {
-  @apply border-t border-border px-5 py-2 text-xs italic;
+.mdx-shell-about {
+  --mdx-max-width: 66ch;
 }
 
-/* Style Code blocks */
-[data-rehype-pretty-code-figure] code {
-  @apply grid w-max rounded-none border-0 bg-transparent break-words text-inherit;
+.mdx-shell-project {
+  --mdx-max-width: 74ch;
+}
+
+.mdx-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--gold) / 0.22),
+    transparent
+  );
+  opacity: 0.85;
+}
+
+.mdx {
+  margin: 0 auto;
+  max-width: var(--mdx-max-width);
+}
+
+.mdx > * + * {
+  margin-top: 1.25rem;
+}
+
+.mdx > p:first-of-type {
+  font-size: 1.08rem;
+  line-height: 1.95;
+  color: hsl(var(--foreground) / 0.9);
+}
+
+.mdx :is(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 7rem;
+}
+
+.mdx a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.mdx strong {
+  color: hsl(var(--foreground));
+}
+
+.mdx blockquote {
+  position: relative;
+}
+
+.mdx blockquote::before {
+  content: "“";
+  position: absolute;
+  top: -0.75rem;
+  left: 1rem;
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  line-height: 1;
+  color: hsl(var(--gold));
+  opacity: 0.12;
+}
+
+.mdx blockquote p {
+  margin-top: 0;
+}
+
+.mdx ul,
+.mdx ol {
+  margin: 1rem 0;
+  padding-left: 0;
+}
+
+.mdx ul {
+  list-style: none;
+}
+
+.mdx ul > li {
+  position: relative;
+  padding-left: 1.1rem;
+}
+
+.mdx ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 9999px;
+  background: hsl(var(--gold));
+  box-shadow: 0 0 0 4px hsl(var(--gold) / 0.12);
+}
+
+.mdx ol {
+  list-style: none;
+  counter-reset: mdx-list-item;
+}
+
+.mdx ol > li {
+  position: relative;
+  counter-increment: mdx-list-item;
+  padding-left: 2.2rem;
+}
+
+.mdx ol > li::before {
+  content: counter(mdx-list-item, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.08rem;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  color: hsl(var(--gold-dim));
+}
+
+.mdx figure {
+  margin: 2rem 0;
+}
+
+.mdx figcaption {
+  margin-top: 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+
+.mdx [data-rehype-pretty-code-figure] {
+  margin: 2rem 0;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border) / 0.9);
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    180deg,
+    hsl(var(--card) / 0.95),
+    hsl(var(--card) / 0.82)
+  );
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.12);
+}
+
+.mdx [data-rehype-pretty-code-title] {
+  border-bottom: 1px solid hsl(var(--border) / 0.8);
+  padding: 0.85rem 1.15rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: hsl(var(--foreground) / 0.74);
+}
+
+.mdx [data-rehype-pretty-code-figure] figcaption {
+  border-top: 1px solid hsl(var(--border) / 0.8);
+  padding: 0.75rem 1.15rem;
+}
+
+.mdx [data-rehype-pretty-code-figure] code,
+.mdx [data-rehype-pretty-code-figure] pre {
+  background: transparent;
+}
+
+.mdx [data-rehype-pretty-code-figure] code {
   counter-reset: line;
 }
 
-[data-rehype-pretty-code-figure] code > [data-line] {
-  @apply min-h-[1.5rem] box-decoration-clone px-4 break-words;
+.mdx [data-rehype-pretty-code-figure] code > [data-line] {
+  min-height: 1.55rem;
+  padding-left: 1.15rem;
+  padding-right: 1.15rem;
 }
 
-[data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
+.mdx
+  [data-rehype-pretty-code-figure]
+  code[data-line-numbers]
+  > [data-line]::before {
   counter-increment: line;
   content: counter(line);
-  @apply mr-4 inline-block text-right text-foreground/30;
+  display: inline-block;
+  width: 2rem;
+  margin-right: 0.9rem;
+  text-align: right;
+  color: hsl(var(--muted-foreground) / 0.65);
 }
 
-[data-rehype-pretty-code-figure] code {
-  @apply grid min-w-full rounded-none border-0 box-decoration-clone p-0 break-words;
-  counter-reset: line;
+.mdx [data-rehype-pretty-code-figure] code > [data-highlighted-line] {
+  background: hsl(var(--gold) / 0.08);
 }
 
-[data-rehype-pretty-code-figure] code > [data-highlighted-line] {
-  @apply bg-primary/10 dark:bg-primary/5;
+.mdx [data-rehype-pretty-code-figure] code > .add,
+.mdx [data-rehype-pretty-code-figure] code > [data-line].add,
+.mdx [data-rehype-pretty-code-figure] code [data-line].add {
+  background: rgba(76, 175, 80, 0.08);
 }
 
-/* Diff line styles added for shiki-diff-notation transformer */
-
-/* Target both cases: class applied directly to the line element, or to the [data-line] element. */
-[data-rehype-pretty-code-figure] code > .add,
-[data-rehype-pretty-code-figure] code > [data-line].add,
-[data-rehype-pretty-code-figure] code [data-line].add {
-  background: rgba(76, 175, 80, 0.06);
+.mdx [data-rehype-pretty-code-figure] code > .remove,
+.mdx [data-rehype-pretty-code-figure] code > [data-line].remove,
+.mdx [data-rehype-pretty-code-figure] code [data-line].remove {
+  background: rgba(240, 82, 82, 0.08);
 }
 
-[data-rehype-pretty-code-figure] code > .remove,
-[data-rehype-pretty-code-figure] code > [data-line].remove,
-[data-rehype-pretty-code-figure] code [data-line].remove {
-  background: rgba(240, 82, 82, 0.06);
-}
-
-/* Add non-selectable markers at line start */
-[data-rehype-pretty-code-figure] code > .add::before,
-[data-rehype-pretty-code-figure] code > .remove::before,
-[data-rehype-pretty-code-figure] code > [data-line].add::before,
-[data-rehype-pretty-code-figure] code > [data-line].remove::before {
+.mdx [data-rehype-pretty-code-figure] code > .add::before,
+.mdx [data-rehype-pretty-code-figure] code > .remove::before,
+.mdx [data-rehype-pretty-code-figure] code > [data-line].add::before,
+.mdx [data-rehype-pretty-code-figure] code > [data-line].remove::before {
   user-select: none;
   -webkit-user-select: none;
   display: inline-block;
   width: 1.2rem;
-  margin-right: 0.5rem;
+  margin-right: 0.45rem;
   text-align: center;
-  font-weight: 600;
-  opacity: 0.9;
+  font-weight: 700;
+  opacity: 0.95;
 }
 
-[data-rehype-pretty-code-figure] code > .add::before {
+.mdx [data-rehype-pretty-code-figure] code > .add::before {
   content: "+";
-  color: #4caf50;
+  color: #66bb6a;
 }
-[data-rehype-pretty-code-figure] code > .remove::before {
+
+.mdx [data-rehype-pretty-code-figure] code > .remove::before {
   content: "-";
-  color: #f44336;
+  color: #ef5350;
 }
 
-[data-rehype-pretty-code-title] {
-  @apply border-b border-border px-5 py-2 text-sm font-medium;
+.mdx table {
+  width: 100%;
 }
 
-/* [data-rehype-pretty-code-figure] .data-line {
-  @apply px-4 min-h-[1rem] py-0.5 w-full inline-block;
-} 
-
-[data-rehype-pretty-code-figure] .data-line-highlighted span {
-  @apply relative;
+.mdx tbody tr:hover {
+  background: hsl(var(--accent) / 0.45);
 }
 
-[data-rehype-pretty-code-figure] .word--highlighted {
-  @apply rounded-md bg-zinc-700/50 border-zinc-700/70 p-1;
+.mdx img {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
 }
-
-.dark [data-rehype-pretty-code-figure] .word--highlighted {
-  @apply bg-zinc-900;
-}
-
-
-[data-rehype-pretty-code-title] + pre {
-  @apply mt-2;
-} */
 
 .mdx > .steps:first-child > h4:first-child {
-  @apply mt-0;
+  margin-top: 0;
 }
 
 .steps > h4 {
-  @apply mt-8 mb-4 text-base font-semibold;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
 }

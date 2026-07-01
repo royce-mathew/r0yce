@@ -6,15 +6,16 @@ import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { AuthProvider } from "@/components/providers/session"
+import { LenisProvider } from "@/components/providers/lenis-provider"
 import { ThemeProvider } from "@/components/providers/theme"
-import { cal, inter } from "@/styles/fonts"
+import { cal, dmSans, instrumentSerif, jetbrainsMono } from "@/styles/fonts"
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f3ef" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0c0a" },
   ],
 }
 
@@ -79,8 +80,10 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background antialiased",
-          cal.variable,
-          inter.variable
+          dmSans.variable,
+          instrumentSerif.variable,
+          jetbrainsMono.variable,
+          cal.variable
         )}
       >
         <ThemeProvider
@@ -89,11 +92,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>
-            <TooltipProvider>{children}</TooltipProvider>
-          </AuthProvider>
+          <LenisProvider>
+            <AuthProvider>
+              <TooltipProvider>{children}</TooltipProvider>
+            </AuthProvider>
+          </LenisProvider>
           <Toaster />
         </ThemeProvider>
+        {/* Grain overlay for atmospheric texture */}
+        <div className="grain-overlay" aria-hidden="true" />
       </body>
       {/* Google Analytics */}
       {process.env.NODE_ENV === "production" &&

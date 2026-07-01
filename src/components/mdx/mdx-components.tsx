@@ -1,11 +1,10 @@
 "use client"
-
+ 
 import * as React from "react"
 import * as runtime from "react/jsx-runtime"
 import Image from "next/image"
 import Link from "next/link"
 import { YouTubeEmbed } from "@next/third-parties/google"
-import NumberFlow from "@number-flow/react"
 import { cn } from "@/lib/utils"
 import {
   Accordion,
@@ -19,6 +18,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Callout } from "@/components/mdx/callout"
 import { CodeBlockWrapper } from "@/components/mdx/code-block-wrapper"
 import { CopyButton } from "@/components/mdx/copy-button"
+import { MdxMotionBlock, MdxMotionImage, StepsContext } from "@/components/mdx/mdx-motion"
 import { NumberFlowComponent } from "../ui/number"
 
 const sharedComponents = {
@@ -32,52 +32,62 @@ const sharedComponents = {
   YouTubeEmbed,
   NumberFlow: NumberFlowComponent,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <div className="relative mt-6 mb-2">
-      <div className="absolute top-[10px] left-[10px] -z-10 h-full w-full border-4 border-black/5 bg-accent/50 dark:border-white/5" />
-      <h2
+    <MdxMotionBlock intensity={18} scale={0.988} className="mt-10 mb-8">
+      <div className="relative border-y border-border/60 py-5">
+        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[hsl(var(--gold))] to-transparent opacity-60" />
+        <h2
+          className={cn(
+            "flex scroll-m-20 items-center gap-4 font-display text-4xl leading-none font-semibold tracking-[-0.04em] md:text-5xl",
+            className
+          )}
+          {...props}
+        />
+      </div>
+    </MdxMotionBlock>
+  ),
+  h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <MdxMotionBlock intensity={14} scale={0.992} className="mt-12 first:mt-0">
+      <h3
         className={cn(
-          "font-heading flex scroll-m-20 justify-center bg-background py-4 text-4xl font-bold dark:bg-accent",
+          "flex scroll-m-20 items-center gap-4 font-display text-2xl font-semibold tracking-[-0.03em]",
           className
         )}
         {...props}
       />
-    </div>
-  ),
-  h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h3
-      className={cn(
-        "font-heading mt-12 scroll-m-20 border-b pb-2 text-2xl font-semibold first:mt-0",
-        className
-      )}
-      {...props}
-    />
+    </MdxMotionBlock>
   ),
   h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h4
-      className={cn(
-        "mt-8 w-full scroll-m-20 rounded-md bg-accent/20 px-5 py-2 text-lg font-thin italic",
-        className
-      )}
-      {...props}
-    />
+    <MdxMotionBlock intensity={10} scale={0.995} className="mt-8 mb-4">
+      <h4
+        className={cn(
+          "font-display text-xl font-semibold tracking-[-0.02em] text-foreground/90 italic",
+          className
+        )}
+        {...props}
+      />
+    </MdxMotionBlock>
   ),
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h5
-      className={cn(
-        "font-heading mt-8 scroll-m-20 text-lg font-semibold",
-        className
-      )}
-      {...props}
-    />
+    <MdxMotionBlock intensity={8} scale={0.996} className="mt-8">
+      <h5
+        className={cn(
+          "relative scroll-m-20 text-[0.72rem] font-semibold tracking-[0.22em] text-gold-dim uppercase",
+          className
+        )}
+        {...props}
+      />
+    </MdxMotionBlock>
   ),
   h5: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h6
-      className={cn(
-        "font-headingmt-8 scroll-m-20 text-lg font-semibold",
-        className
-      )}
-      {...props}
-    />
+    <MdxMotionBlock intensity={6} scale={0.997} className="mt-8">
+      <h6
+        className={cn(
+          "scroll-m-20 text-sm font-semibold tracking-[0.12em] text-foreground/70 uppercase",
+          className
+        )}
+        {...props}
+      />
+    </MdxMotionBlock>
   ),
   a: ({
     className,
@@ -106,44 +116,61 @@ const sharedComponents = {
     />
   ),
   strong: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <b className={cn("font-bold", className)} {...props} />
+    <b className={cn("font-semibold text-foreground", className)} {...props} />
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p
-      className={cn("leading-7 text-foreground/80 not-first:mt-6", className)}
-      {...props}
-    />
+    <MdxMotionBlock intensity={8} scale={0.999} className="not-first:mt-5">
+      <p className={cn("leading-8 text-foreground/82", className)} {...props} />
+    </MdxMotionBlock>
   ),
   ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul className={cn("mt-3 mb-6 ml-6 list-disc", className)} {...props} />
+    <MdxMotionBlock intensity={10} scale={0.995} className="my-6">
+      <ul className={cn("ml-0 space-y-3 pl-0", className)} {...props} />
+    </MdxMotionBlock>
   ),
   ol: ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
-    <ol className={cn("my-6 ml-6 list-decimal", className)} {...props} />
+    <MdxMotionBlock intensity={10} scale={0.995} className="my-6">
+      <ol className={cn("ml-0 space-y-3 pl-0", className)} {...props} />
+    </MdxMotionBlock>
   ),
   li: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <li className={cn("mt-2 text-foreground/70", className)} {...props} />
+    <li className={cn("leading-7 text-foreground/76", className)} {...props} />
   ),
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <blockquote
-      className={cn("mt-6 border-l-2 pl-6 italic", className)}
-      {...props}
-    />
+    <MdxMotionBlock intensity={16} scale={0.99} className="my-8">
+      <blockquote
+        className={cn(
+          "relative overflow-hidden rounded-2xl border border-border/70 bg-card/70 px-6 py-5 text-foreground/88 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur-sm",
+          className
+        )}
+        {...props}
+      />
+    </MdxMotionBlock>
   ),
   img: ({
     className,
     alt,
     ...props
   }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img className={cn("rounded-md", className)} alt={alt} {...props} />
+    <MdxMotionImage className={cn("my-8", className)} alt={alt} {...props} />
   ),
-  hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
-    <hr className="my-4 md:my-8" {...props} />
+  hr: ({ className, ...props }: React.HTMLAttributes<HTMLHRElement>) => (
+    <MdxMotionBlock intensity={6} scale={1} className="my-8">
+      <hr
+        className={cn("border-border/70 opacity-100", className)}
+        {...props}
+      />
+    </MdxMotionBlock>
   ),
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className="my-6 w-full overflow-y-auto">
-      <table className={cn("w-full", className)} {...props} />
-    </div>
+    <MdxMotionBlock intensity={14} scale={0.994} className="my-8">
+      <div className="w-full overflow-x-auto rounded-2xl border border-border/70 bg-card/60 shadow-[0_18px_50px_rgba(0,0,0,0.08)]">
+        <table
+          className={cn("w-full border-separate border-spacing-0", className)}
+          {...props}
+        />
+      </div>
+    </MdxMotionBlock>
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr
@@ -154,7 +181,7 @@ const sharedComponents = {
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
       className={cn(
-        "border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right",
+        "border-b border-border/70 bg-background/60 px-4 py-3 text-left text-[0.7rem] font-semibold tracking-[0.16em] text-foreground/70 uppercase backdrop-blur [[align=center]]:text-center [[align=right]]:text-right",
         className
       )}
       {...props}
@@ -163,7 +190,7 @@ const sharedComponents = {
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td
       className={cn(
-        "border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right",
+        "border-b border-border/50 px-4 py-3 text-left align-top text-foreground/80 [[align=center]]:text-center [[align=right]]:text-right",
         className
       )}
       {...props}
@@ -177,20 +204,25 @@ const sharedComponents = {
     __raw__?: string
   }) => {
     return (
-      <ScrollArea>
-        <div className="group max-h-[650px] max-w-full">
-          <pre
-            className={cn("grid w-full min-w-max px-3 py-4", className)}
-            {...props}
-          >
-            <div className="absolute top-4 right-4">
-              <CopyButton content={__raw__ ?? ""} />
-            </div>
-            {props.children}
-          </pre>
-        </div>
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
+      <MdxMotionBlock intensity={16} scale={0.992} className="my-8">
+        <ScrollArea>
+          <div className="group relative max-h-[650px] max-w-full">
+            <pre
+              className={cn(
+                "grid w-full min-w-max bg-transparent px-3 py-4",
+                className
+              )}
+              {...props}
+            >
+              <div className="absolute top-4 right-4">
+                <CopyButton content={__raw__ ?? ""} />
+              </div>
+              {props.children}
+            </pre>
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </MdxMotionBlock>
     )
   },
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
@@ -211,36 +243,81 @@ const sharedComponents = {
     <CodeBlockWrapper className="rounded" {...props} />
   ),
   Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
-    <h3
-      className={cn(
-        "font-heading mt-8 scroll-m-20 text-xl font-semibold",
-        className
-      )}
-      {...props}
-    />
+    <MdxMotionBlock intensity={12} scale={0.994} className="mt-8">
+      <h3
+        className={cn(
+          "relative scroll-m-20 font-display text-xl font-semibold tracking-[-0.03em]",
+          className
+        )}
+        {...props}
+      />
+    </MdxMotionBlock>
   ),
-  Steps: ({ ...props }) => (
-    <div
-      className="steps mb-12 ml-4 border-l pl-8 text-foreground/80 [counter-reset:step] [&>h4]:step"
-      {...props}
-    />
-  ),
-  UnorderedSteps: ({ ...props }) => (
-    <div
-      className="mb-12 ml-4 border-l pl-8 text-foreground/80 [counter-reset:unordered-step] [&>h4]:unordered-step"
-      {...props}
-    />
-  ),
+  Steps: ({ className, ...props }: React.ComponentProps<"div">) => {
+    const steps = groupChildrenIntoSteps(props.children)
+    return (
+      <StepsContext.Provider value={true}>
+        <div
+          className={cn(
+            "steps mb-12 ml-4 [counter-reset:step] text-foreground/80 [&>div>h1]:step [&>div>h2]:step [&>div>h3]:step [&>div>h4]:step [&>div>div>h1]:step [&>div>div>h2]:step [&>div>div>h3]:step [&>div>div>h4]:step",
+            className
+          )}
+        >
+          {steps.map((step, idx) => (
+            <div
+              key={idx}
+              className={cn(
+                "step-group relative pl-8 pb-10 last:pb-0 isolate",
+                idx < steps.length - 1 && "step-line"
+              )}
+            >
+              {step.heading}
+              {step.content}
+            </div>
+          ))}
+        </div>
+      </StepsContext.Provider>
+    )
+  },
+  UnorderedSteps: ({ className, ...props }: React.ComponentProps<"div">) => {
+    const steps = groupChildrenIntoSteps(props.children)
+    return (
+      <StepsContext.Provider value={true}>
+        <div
+          className={cn(
+            "unordered-steps mb-12 ml-4 [counter-reset:unordered-step] text-foreground/80 [&>div>h1]:unordered-step [&>div>h2]:unordered-step [&>div>h3]:unordered-step [&>div>h4]:unordered-step [&>div>div>h1]:unordered-step [&>div>div>h2]:unordered-step [&>div>div>h3]:unordered-step [&>div>div>h4]:unordered-step",
+            className
+          )}
+        >
+          {steps.map((step, idx) => (
+            <div
+              key={idx}
+              className={cn(
+                "step-group relative pl-8 pb-10 last:pb-0 isolate",
+                idx < steps.length - 1 && "step-line"
+              )}
+            >
+              {step.heading}
+              {step.content}
+            </div>
+          ))}
+        </div>
+      </StepsContext.Provider>
+    )
+  },
   Link: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
-      className={cn("font-medium underline underline-offset-4", className)}
+      className={cn(
+        "font-medium text-gold-dim underline decoration-[hsl(var(--gold)/0.45)] underline-offset-4 transition-colors hover:text-foreground hover:decoration-[hsl(var(--gold))]",
+        className
+      )}
       {...props}
     />
   ),
   LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
       className={cn(
-        "flex w-full flex-col items-center rounded-xl border bg-card p-6 text-card-foreground shadow-sm transition-colors hover:bg-muted/50 sm:p-10",
+        "flex w-full flex-col items-center rounded-2xl border border-border/70 bg-card/80 p-6 text-card-foreground shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-1 hover:border-[hsl(var(--gold)/0.45)] sm:p-10",
         className
       )}
       {...props}
@@ -248,16 +325,45 @@ const sharedComponents = {
   ),
   Grid: ({ className, ...props }: React.ComponentProps<"div">) => (
     <div
-      className={cn(
-        "flex flex-col space-y-4 p-2 md:flex-row md:space-y-0 md:space-x-5",
-        className
-      )}
+      className={cn("flex flex-col gap-5 p-2 md:flex-row md:gap-6", className)}
       {...props}
     />
   ),
   GridItem: ({ className, ...props }: React.ComponentProps<"div">) => (
     <div className={cn("basis-1/2", className)} {...props} />
   ),
+}
+
+function isStepHeading(child: any): boolean {
+  if (!React.isValidElement(child)) return false
+  const type = child.type
+  if (typeof type === "string") {
+    return ["h1", "h2", "h3"].includes(type.toLowerCase())
+  }
+  return (
+    type === sharedComponents.h1 ||
+    type === sharedComponents.h2 ||
+    type === sharedComponents.h3
+  )
+}
+
+function groupChildrenIntoSteps(children: React.ReactNode) {
+  const childrenArray = React.Children.toArray(children)
+  const steps: { heading: React.ReactNode; content: React.ReactNode[] }[] = []
+
+  childrenArray.forEach((child) => {
+    if (isStepHeading(child)) {
+      steps.push({ heading: child, content: [] })
+    } else {
+      if (steps.length === 0) {
+        steps.push({ heading: null, content: [child] })
+      } else {
+        steps[steps.length - 1].content.push(child)
+      }
+    }
+  })
+
+  return steps
 }
 // parse the Velite generated MDX code into a React component function
 const useMDXComponent = (code: string) => {
@@ -268,12 +374,20 @@ const useMDXComponent = (code: string) => {
 interface MDXProps {
   code: string
   components?: Record<string, React.ComponentType>
+  className?: string
   [key: string]: any
 }
 
-export const Mdx = ({ code, components, ...props }: MDXProps) => {
+export const Mdx = ({ code, components, className, ...props }: MDXProps) => {
   const Component = useMDXComponent(code)
   return (
-    <Component components={{ ...sharedComponents, ...components }} {...props} />
+    <div className={cn("mdx-shell", className)}>
+      <div className="mdx">
+        <Component
+          components={{ ...sharedComponents, ...components }}
+          {...props}
+        />
+      </div>
+    </div>
   )
 }

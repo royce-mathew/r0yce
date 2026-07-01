@@ -151,24 +151,22 @@ export const refreshPeers = (newPeers: string[], oldPeers: Set<string>) => {
 }
 
 export const Uint8ArrayToBase64 = async (buffer: Uint8Array) => {
-  const base64url = await new Promise((r) => {
-    const reader = new FileReader()
-    reader.onload = () => r(reader.result)
-    reader.readAsDataURL(new Blob([new Uint8Array(buffer)]))
-  })
-  // remove the `data:...;base64,` part from the start
-  const bas64: string = base64url as string
-  return bas64.slice(bas64.indexOf(",") + 1)
+  let binary = ""
+  const len = buffer.byteLength
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(buffer[i])
+  }
+  return btoa(binary)
 }
 
 export const base64ToUint8Array = async (base64: string) => {
-  var dataUrl = "data:application/octet-binary;base64," + base64
-
-  const uint8 = await fetch(dataUrl)
-    .then((res) => res.arrayBuffer())
-    .then((buffer) => new Uint8Array(buffer))
-
-  return uint8
+  const binary = atob(base64)
+  const len = binary.length
+  const bytes = new Uint8Array(len)
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binary.charCodeAt(i)
+  }
+  return bytes
 }
 
 export const generateKey = async (sender: string, receiver: string) => {

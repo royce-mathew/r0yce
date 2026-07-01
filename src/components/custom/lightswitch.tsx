@@ -14,7 +14,6 @@ import { useMounted } from "@/hooks/use-mounted"
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group"
 
 const LightSwitch: React.FC = () => {
-  const currentYear = new Date().getFullYear()
   const mounted = useMounted()
   const { setTheme, theme } = useTheme()
 

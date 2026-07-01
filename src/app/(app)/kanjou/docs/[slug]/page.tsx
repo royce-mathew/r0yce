@@ -13,7 +13,7 @@ import * as Y from "yjs"
 import { DocumentMetadata } from "@/types/document"
 import { documentRef } from "@/lib/converters/document"
 import { firebaseApp } from "@/lib/firebase/client"
-import { deepEqual, timeAgo } from "@/lib/utils"
+import { timeAgo } from "@/lib/utils"
 import { FireProvider } from "@/lib/y-fire"
 import { Button } from "@/components/ui/button"
 import {

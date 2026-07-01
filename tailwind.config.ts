@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss"
 import defaultTheme from "tailwindcss/defaultTheme"
-import {inter} from "./src/styles/fonts"
 
 const config = {
   darkMode: "class",
@@ -54,6 +53,11 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        gold: {
+          DEFAULT: "hsl(var(--gold))",
+          dim: "hsl(var(--gold-dim))",
+        },
+        surface: "hsl(var(--surface))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -61,10 +65,12 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        default: "var(--font-inter)",
+        default: "var(--font-sans)",
+        sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+        display: ["var(--font-display)", "Georgia", ...defaultTheme.fontFamily.serif],
         cal: ["var(--font-cal)", ...defaultTheme.fontFamily.sans],
         title: ["var(--font-title)", ...defaultTheme.fontFamily.sans],
-        mono: ["Consolas", ...defaultTheme.fontFamily.mono],
+        mono: ["var(--font-mono)", "Consolas", ...defaultTheme.fontFamily.mono],
       },
       typography: ({ theme }: { theme: any }) => ({
         DEFAULT: {
@@ -78,6 +84,7 @@ const config = {
             },
             "h1, h2, h3, h4": {
               color: theme("colors.foreground"),
+              fontFamily: "var(--font-display), Georgia, serif",
             },
             "blockquote p:first-of-type::before": { content: "none" },
             "blockquote p:first-of-type::after": { content: "none" },
@@ -97,11 +104,31 @@ const config = {
           "0%,70%,100%": { opacity: "1" },
           "20%,50%": { opacity: "0" },
         },
+        "fade-in-up": {
+          "0%": { opacity: "0", transform: "translateY(30px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        "slide-in-right": {
+          "0%": { opacity: "0", transform: "translateX(30px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
+        "line-reveal": {
+          "0%": { transform: "scaleX(0)" },
+          "100%": { transform: "scaleX(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
+        "fade-in-up": "fade-in-up 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards",
+        "fade-in": "fade-in 0.6s ease-out forwards",
+        "slide-in-right": "slide-in-right 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards",
+        "line-reveal": "line-reveal 1s cubic-bezier(0.19, 1, 0.22, 1) forwards",
       },
     },
   },

@@ -1,10 +1,10 @@
+import Image from "next/image"
 import Link from "next/link"
-import { IconBrandGithubFilled } from "@tabler/icons-react"
+import { IconArrowLeft, IconBrandGithubFilled } from "@tabler/icons-react"
 import { projects } from "#site/content"
-import { format, parseISO } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { TagPill } from "@/components/custom/tag-pill"
 import { DashboardTableOfContents } from "@/components/custom/toc"
 import { Mdx } from "@/components/mdx/mdx-components"
 import { ErrorBoundary } from "@/components/nav/error"
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   const project = getProjectFromParams(slug)
   if (project == null) return {}
   return {
-    title: `${project.title} | r0yce`,
+    title: `${project.title} — r0yce`,
     authors: [
       {
         name: "Royce Mathew",
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
     description: project.description,
     keywords: project.tags,
     openGraph: {
-      title: `${project.title} | r0yce`,
+      title: `${project.title} — r0yce`,
       description: project.description,
       type: "article",
       url: `https://r0yce.com/${project.slug}`,
@@ -64,9 +64,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
     },
     twitter: {
       card: "summary_large_image",
-      // site: "@r0yce02",
-      // creator: "@r0yce02",
-      title: `${project.title} | r0yce`,
+      title: `${project.title} — r0yce`,
       description: project.description,
       images: [
         {
@@ -98,12 +96,9 @@ export const generateStaticParams = async () =>
  */
 const ProjectLayout = async ({ params }: ProjectPageProps) => {
   const { slug } = await params
-  // Get the project from the provided params
   const project = getProjectFromParams(slug)
 
   // If the project is not found, return an error boundary
-  // This is a manual implementation until Nextjs supports custom error pages
-  // After official support, this can be replaced with throw new Error() and add a error.tsx
   if (!project)
     return (
       <ErrorBoundary
@@ -113,93 +108,104 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
     )
 
   return (
-    <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_220px]">
-      <div className="mx-auto w-full min-w-0">
-        <article>
-          <div className="mb-2 w-full border-b border-border text-left md:text-center">
-            {/* Project Title */}
-            <h1 className="text-3xl font-bold lg:text-4xl xl:text-5xl">
-              {project.title}
-            </h1>
+    <main className="relative">
+      {/* Project Hero */}
+      <section className="container mx-auto max-w-5xl px-6 pt-12 pb-8 md:px-8 md:pt-20 md:pb-12">
+        {/* Back link */}
+        <Link
+          href="/projects"
+          className="link-underline mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <IconArrowLeft className="size-3.5" />
+          <span className="tracking-wide">All Projects</span>
+        </Link>
 
-            {/* Project Information */}
-            <div className="flex flex-col space-y-6 py-5">
-              <p className="text-md text-foreground/60 md:text-lg">
-                {project.description}
-              </p>
-              <div className="flex flex-row items-center justify-between">
-                {/* Tags */}
-                <div className="space-y-2 space-x-2">
-                  {project.tags.map((tag: string) => (
-                    <Badge
-                      key={tag}
-                      className="mb-2 rounded-md bg-foreground/[2%] px-1.5 py-0.5 font-semibold text-primary dark:bg-foreground/5"
-                      variant="defaultNonInteractive"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-                {/* Custom Links */}
-                <div>
-                  {project.links?.github && (
-                    <Button asChild variant="outline" size="icon">
-                      <Link
-                        href={project.links.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <IconBrandGithubFilled className="size-5" />
-                      </Link>
-                    </Button>
-                  )}
-                </div>
-              </div>
+        {/* Title & description */}
+        <div className="mt-6 space-y-4">
+          <span className="label-editorial text-gold">Project</span>
+          <h1 className="font-display text-4xl leading-[0.95] md:text-5xl lg:text-6xl">
+            {project.title}
+          </h1>
+          <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            {project.description}
+          </p>
+        </div>
 
-              {/* Project Metadata */}
-              <div className="flex flex-row justify-between text-xs md:text-base">
-                <div>
-                  Word Count:{" "}
-                  <span className="text-primary">
-                    {project.metadata.wordCount}
-                  </span>
-                </div>
-                <div className="flex flex-col md:flex-row md:gap-2">
-                  Published Date:
-                  <time
-                    dateTime={project.publishedDate}
-                    className="text-primary"
-                  >
-                    {format(parseISO(project.publishedDate), "LLLL d, yyyy")}
-                  </time>
-                </div>
-                <div>
-                  Reading Time:{" "}
-                  <span className="text-primary">
-                    {project.metadata.readingTime}m
-                  </span>
-                </div>
+        {/* Meta bar */}
+        <div className="mt-8 flex flex-wrap items-center gap-6 border-y border-border/20 py-4">
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2">
+            {project.tags.map((tag: string) => (
+              <TagPill key={tag} tag={tag} />
+            ))}
+          </div>
+
+          <div className="hidden h-4 w-px bg-border/30 md:block" />
+
+          {/* Date */}
+          <time
+            dateTime={project.publishedDate}
+            className="text-[0.7rem] font-medium tracking-[0.05em] text-muted-foreground/70 uppercase"
+          >
+            {new Date(project.publishedDate).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "UTC",
+            })}
+          </time>
+
+          <div className="hidden h-4 w-px bg-border/30 md:block" />
+
+          {/* Reading time */}
+          <span className="text-[0.7rem] font-medium tracking-[0.05em] text-muted-foreground/70 uppercase">
+            {project.metadata.readingTime} min read ·{" "}
+            {project.metadata.wordCount} words
+          </span>
+
+          {/* Spacer */}
+          <div className="flex-1" />
+
+          {/* GitHub link */}
+          {project.links?.github && (
+            <Button
+              asChild
+              variant="outline"
+              size="icon"
+              className="size-9 rounded-sm border-border/30 hover:border-primary/30 hover:bg-primary/5"
+            >
+              <Link
+                href={project.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <IconBrandGithubFilled className="size-4" />
+              </Link>
+            </Button>
+          )}
+        </div>
+      </section>
+
+      {/* Content */}
+      <section className="relative lg:grid lg:grid-cols-[1fr_220px] lg:gap-10">
+        <div className="container mx-auto max-w-5xl px-6 pb-16 md:px-8">
+          <article>
+            <div className="pb-12">
+              <Mdx code={project.code} className="mdx-shell-project" />
+            </div>
+          </article>
+        </div>
+
+        {project.hasToc && (
+          <div className="hidden text-sm xl:block">
+            <div className="sticky top-20 -mt-10 pt-4">
+              <div className="h-[calc(100vh-3.5rem)] overflow-visible py-12">
+                <DashboardTableOfContents toc={project.toc} />
               </div>
             </div>
           </div>
-          {/* Project Content */}
-          <div className="pb-12">
-            <Mdx code={project.code} />
-          </div>
-        </article>
-      </div>
-
-      {project.hasToc && (
-        <div className="hidden text-sm xl:block">
-          <div className="sticky top-16 -mt-10 pt-4">
-            <ScrollArea className="pb-10">
-              <div className="sticky top-16 -mt-10 h-[calc(100vh-3.5rem)] py-12">
-                <DashboardTableOfContents toc={project.toc} />
-              </div>
-            </ScrollArea>
-          </div>
-        </div>
-      )}
+        )}
+      </section>
     </main>
   )
 }

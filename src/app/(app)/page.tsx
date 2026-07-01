@@ -2,10 +2,12 @@ import { Metadata } from "next"
 import { mainContents } from "#site/content"
 import { Mdx } from "@/components/mdx/mdx-components"
 import { ProfileSection } from "./profile-section"
+import { AboutSection } from "./about-section"
 
 export const metadata: Metadata = {
-  title: "Home | r0yce",
-  description: "r0yce.com - Portfolio website",
+  title: "Royce Mathew — Developer & Data Scientist",
+  description:
+    "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
   keywords: [
     "developer",
     "python",
@@ -13,31 +15,35 @@ export const metadata: Metadata = {
     "react",
     "computer science",
     "data science",
+    "portfolio",
+    "royce mathew",
   ],
   openGraph: {
     url: "https://r0yce.com",
     type: "website",
-    title: "Home | r0yce",
-    description: "r0yce.com - Portfolio website",
+    title: "Royce Mathew — Developer & Data Scientist",
+    description:
+      "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
     images: [
       {
         url: "https://r0yce.com/images/ProfilePicture2.webp",
         width: 1200,
         height: 630,
-        alt: "r0yce",
+        alt: "Royce Mathew",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Home | r0yce",
-    description: "r0yce.com - Portfolio website",
+    title: "Royce Mathew — Developer & Data Scientist",
+    description:
+      "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
     images: [
       {
         url: "https://r0yce.com/images/ProfilePicture2.webp",
         width: 1200,
         height: 630,
-        alt: "r0yce",
+        alt: "Royce Mathew",
       },
     ],
   },
@@ -54,19 +60,11 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col">
-      {/* Profile Information Box */}
+      {/* Hero */}
       <ProfileSection />
 
       {/* About Me */}
-      <section
-        id="about"
-        data-section="about"
-        className="flex flex-col items-center justify-center bg-black/[2%] p-5 dark:bg-white/[1%]"
-      >
-        <div className="w-full max-w-[900px]">
-          <Mdx code={about.code} />
-        </div>
-      </section>
+      <AboutSection code={about.code} />
     </main>
   )
 }
