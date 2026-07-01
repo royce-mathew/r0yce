@@ -2,8 +2,8 @@
 
 pre code[data-theme],
 pre code[data-theme] span {
-  @apply bg-[var(--shiki-light-bg)] text-[var(--shiki-light)];
-  @apply dark:bg-[var(--shiki-dark-bg)] dark:text-[var(--shiki-dark)];
+  @apply bg-(--shiki-light-bg) text-(--shiki-light);
+  @apply dark:bg-(--shiki-dark-bg) dark:text-(--shiki-dark);
 }
 
 .mdx-shell {

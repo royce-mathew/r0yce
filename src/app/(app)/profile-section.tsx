@@ -93,7 +93,7 @@ export function ProfileSection() {
               transition={{ duration: 1, ease: [0.19, 1, 0.22, 1], delay: 0.7 }}
               style={{ transformOrigin: "left" }}
             >
-              <div className="h-px flex-1 bg-gradient-to-r from-primary/40 to-transparent" />
+              <div className="h-px flex-1 bg-linear-to-r from-primary/40 to-transparent" />
               <span className="label-editorial text-muted-foreground">
                 Based in Canada
               </span>
@@ -168,7 +168,7 @@ export function ProfileSection() {
 
           {/* Right: Profile Image */}
           <motion.div
-            className="relative flex-shrink-0"
+            className="relative shrink-0"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.3 }}

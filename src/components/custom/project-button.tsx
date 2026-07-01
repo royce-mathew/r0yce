@@ -48,7 +48,7 @@ const ProjectButton: React.FC<ProjectButtonProps> = ({
       >
         {/* Image container */}
         {project?.imageSrc && (
-          <div className="relative aspect-[16/10] w-full overflow-hidden">
+          <div className="relative aspect-16/10 w-full overflow-hidden">
             <Image
               src={project.imageSrc}
               alt={project.title}
@@ -57,7 +57,7 @@ const ProjectButton: React.FC<ProjectButtonProps> = ({
               height={375}
             />
             {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-60" />
+            <div className="absolute inset-0 bg-linear-to-t from-card via-card/20 to-transparent opacity-60" />
 
             {/* Gold accent line at bottom — reveals on hover */}
             <div className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-primary/60 transition-transform duration-500 ease-out group-hover:scale-x-100" />
