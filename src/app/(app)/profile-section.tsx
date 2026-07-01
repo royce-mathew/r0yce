@@ -36,7 +36,7 @@ export function ProfileSection() {
     <section
       ref={sectionRef}
       data-section="profile"
-      className="relative flex min-h-[calc(100vh-5rem)] w-full items-center justify-center overflow-hidden"
+      className="relative flex min-h-[calc(100vh-5rem)] w-full items-center justify-center overflow-hidden pt-10 pb-28 md:py-0"
     >
       {/* Background gradient mesh */}
       <div className="absolute inset-0 -z-20">
@@ -58,23 +58,24 @@ export function ProfileSection() {
         style={{ opacity: heroOpacity, y: heroY }}
         className="relative z-10 w-full max-w-6xl px-6 md:px-8"
       >
-        <div className="flex flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-20">
+        <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:gap-20">
           {/* Left: Typography */}
-          <div className="flex flex-1 flex-col space-y-8 text-center lg:text-left">
+          <div className="flex flex-1 flex-col space-y-4 md:space-y-8 text-center lg:text-left max-w-sm sm:max-w-none mx-auto lg:mx-0">
             {/* Label */}
             <motion.div
+              className="hidden sm:block"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
             >
-              <span className="label-editorial text-gold">
+              <span className="label-editorial text-gold text-[9px] tracking-normal sm:text-[11px] sm:tracking-[0.15em]">
                 Software Developer · Data Scientist · Game Developer
               </span>
             </motion.div>
 
             {/* Name */}
             <motion.h1
-              className="font-display text-5xl leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+              className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.19, 1, 0.22, 1], delay: 0.4 }}
@@ -101,7 +102,7 @@ export function ProfileSection() {
 
             {/* Description */}
             <motion.p
-              className="max-w-md text-base leading-relaxed text-muted-foreground lg:text-lg"
+              className="max-w-md text-sm sm:text-base leading-relaxed text-muted-foreground lg:text-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1], delay: 0.9 }}
@@ -168,37 +169,37 @@ export function ProfileSection() {
 
           {/* Right: Profile Image */}
           <motion.div
-            className="relative shrink-0"
+            className="relative shrink-0 mt-6 lg:mt-0 w-full max-w-[280px] sm:w-auto sm:max-w-none"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.3 }}
           >
             {/* Decorative frame */}
             <motion.div
-              className="absolute -inset-3 rounded-sm border border-primary/10"
+              className="absolute -inset-2 sm:-inset-3 rounded-sm border border-primary/10"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.2 }}
             />
             <motion.div
-              className="absolute -inset-6 rounded-sm border border-primary/5"
+              className="absolute -inset-4 sm:-inset-6 rounded-sm border border-primary/5"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.4 }}
             />
 
             {/* Gold accent corner marks */}
-            <div className="absolute -top-3 -left-3 h-6 w-px bg-primary/30" />
-            <div className="absolute -top-3 -left-3 h-px w-6 bg-primary/30" />
-            <div className="absolute -bottom-3 -right-3 h-6 w-px bg-primary/30" />
-            <div className="absolute -bottom-3 -right-3 h-px w-6 bg-primary/30" />
+            <div className="absolute -top-2 sm:-top-3 -left-2 sm:-left-3 h-4 sm:h-6 w-px bg-primary/30" />
+            <div className="absolute -top-2 sm:-top-3 -left-2 sm:-left-3 h-px w-4 sm:w-6 bg-primary/30" />
+            <div className="absolute -bottom-2 sm:-bottom-3 -right-2 sm:-right-3 h-4 sm:h-6 w-px bg-primary/30" />
+            <div className="absolute -bottom-2 sm:-bottom-3 -right-2 sm:-right-3 h-px w-4 sm:w-6 bg-primary/30" />
 
             <motion.div
-              className="overflow-hidden rounded-sm"
+              className="overflow-hidden rounded-sm w-full aspect-square sm:w-auto sm:aspect-none sm:size-64 md:size-72 lg:size-80"
               style={{ scale: imageScale, y: imageY }}
             >
               <Image
-                className="size-56 object-cover sm:size-64 md:size-72 lg:size-80"
+                className="w-full h-full object-cover sm:size-64 md:size-72 lg:size-80"
                 fetchPriority="high"
                 loading="eager"
                 src="/images/ProfilePicture2.webp"
@@ -210,7 +211,7 @@ export function ProfileSection() {
 
             {/* Caption under image */}
             <motion.p
-              className="label-editorial mt-4 text-center"
+              className="label-editorial mt-3 sm:mt-4 text-center text-[10px] sm:text-xs"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}

@@ -1,45 +1,23 @@
 "use client"
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react"
+import { useEffect, useRef } from "react"
 import Lenis from "lenis"
-
-type LenisScrollState = {
-  scrollY: number
-  viewportHeight: number
-}
-
-const LenisScrollContext = createContext<LenisScrollState | null>(null)
-
-export function useLenisScroll() {
-  const context = useContext(LenisScrollContext)
-
-  if (!context) {
-    return { scrollY: 0, viewportHeight: 0 }
-  }
-
-  return context
-}
 
 export function LenisProvider({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null)
-  const [scrollState, setScrollState] = useState<LenisScrollState>({
-    scrollY: 0,
-    viewportHeight: 0,
-  })
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches
 
-    if (prefersReducedMotion) {
+    // Disable Lenis on mobile/touch devices for better native scrolling performance
+    const isMobileOrTouch =
+      window.matchMedia("(max-width: 768px)").matches ||
+      ("ontouchstart" in window) ||
+      (navigator.maxTouchPoints > 0)
+
+    if (prefersReducedMotion || isMobileOrTouch) {
       return
     }
 
@@ -55,16 +33,6 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
 
     lenisRef.current = lenis
 
-    const updateScrollState = () => {
-      setScrollState({
-        scrollY: lenis.scroll,
-        viewportHeight: window.innerHeight,
-      })
-    }
-
-    lenis.on("scroll", updateScrollState)
-    updateScrollState()
-
     function raf(time: number) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -73,17 +41,10 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     requestAnimationFrame(raf)
 
     return () => {
-      lenis.off("scroll", updateScrollState)
       lenis.destroy()
       lenisRef.current = null
     }
   }, [])
 
-  const contextValue = useMemo(() => scrollState, [scrollState])
-
-  return (
-    <LenisScrollContext.Provider value={contextValue}>
-      {children}
-    </LenisScrollContext.Provider>
-  )
+  return children
 }

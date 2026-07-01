@@ -5,7 +5,7 @@ import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { IconBatteryCharging, IconWifi } from "@tabler/icons-react"
-import { motion, useInView } from "motion/react"
+import { motion, useInView, useScroll, useTransform, useSpring } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Typewriter } from "@/components/custom/typewriter"
@@ -21,8 +21,6 @@ const zoomIn = {
 }
 
 const FloatingPhone = ({ className }: { className?: string }) => {
-  const [scrollX, setScrollX] = useState(0)
-  const [targetScrollX, setTargetScrollX] = useState(0)
   const [backgroundWidth, setBackgroundWidth] = useState(0)
 
   useEffect(() => {
@@ -41,52 +39,24 @@ const FloatingPhone = ({ className }: { className?: string }) => {
     return () => window.removeEventListener("resize", updateBackgroundWidth)
   }, [])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY
-      const maxScroll = 300
-      const normalizedScroll = Math.min(scrollPosition / maxScroll, 1)
-      setTargetScrollX(normalizedScroll * (backgroundWidth - 200))
-    }
-
-    handleScroll()
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [backgroundWidth])
-
-  useEffect(() => {
-    let animationId: number | null = null
-
-    const animateScroll = () => {
-      const diff = targetScrollX - scrollX
-      const easing = 0.015
-
-      if (Math.abs(diff) > 0.1) {
-        setScrollX((prev) => prev + diff * easing)
-        animationId = requestAnimationFrame(animateScroll)
-      } else {
-        setScrollX(targetScrollX)
-      }
-    }
-
-    animationId = requestAnimationFrame(animateScroll)
-
-    return () => {
-      if (animationId !== null) {
-        cancelAnimationFrame(animationId)
-      }
-    }
-  }, [targetScrollX, scrollX])
+  const { scrollY } = useScroll()
+  const targetX = useTransform(scrollY, [0, 300], [0, Math.max(0, backgroundWidth - 200)])
+  const smoothX = useSpring(targetX, {
+    damping: 30,
+    stiffness: 60,
+    mass: 1,
+  })
 
   return (
     <div className={`relative ${className} `}>
       <div className="-z-10 h-[250px] w-full bg-gradient-to-br from-primary to-violet-700" />
 
-      <div
+      <motion.div
         style={{
           transformStyle: "preserve-3d",
-          transform: `translateX(${scrollX}px) rotateY(-20deg) rotateX(10deg)`,
+          x: smoothX,
+          rotateY: -20,
+          rotateX: 10,
         }}
         className="absolute top-1/2 -left-10 h-[28rem] w-fit -translate-y-1/2 rounded-[20px] bg-background p-3"
       >
@@ -104,7 +74,7 @@ const FloatingPhone = ({ className }: { className?: string }) => {
           <HeaderBar />
           <Screen />
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   )
 }
