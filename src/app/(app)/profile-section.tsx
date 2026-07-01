@@ -215,7 +215,7 @@ export function ProfileSection() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
             >
-              HBSc Student · Canada
+              Analyst @ TD Asset Management
             </motion.p>
           </motion.div>
         </div>
