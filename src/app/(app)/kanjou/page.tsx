@@ -1,350 +1,292 @@
-"use client"
+/* Hallmark · genre: editorial · macrostructure: Workbench · theme: r0yce house system
+ * (warm dark paper · champagne gold accent · Instrument Serif display + DM Sans + JetBrains Mono)
+ * sections: H2 Split diptych → F5 Annotated screenshot → F3 Tabular spec sheet
+ *           → F4 Step sequence → C1 Outlined chip close
+ * section heads: S2 Hanging (no eyebrows below the fold, no tag-left/header-right)
+ * motion: one orchestrated hero entrance only — nothing below the fold animates
+ * nav / footer: owned globally by (app)/layout.tsx — preserved, not redesigned
+ * pre-emit critique: P5 H5 E4 S5 R5 V5
+ */
 
-import { useEffect, useRef, useState } from "react"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
-import { IconBatteryCharging, IconWifi } from "@tabler/icons-react"
-import { motion, useInView, useScroll, useTransform, useSpring } from "motion/react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Typewriter } from "@/components/custom/typewriter"
+import { KanjouHero } from "./kanjou-hero"
 
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+export const metadata: Metadata = {
+  title: "Kanjou — Collaborative Editor",
+  description:
+    "Kanjou is a realtime collaborative writing app. Edits merge instead of queueing — two people can type in the same paragraph and both keep their words.",
+  keywords: [
+    "kanjou",
+    "collaborative editor",
+    "realtime",
+    "crdt",
+    "yjs",
+    "tiptap",
+    "firebase",
+    "markdown",
+    "latex",
+    "royce mathew",
+  ],
+  openGraph: {
+    url: "https://r0yce.com/kanjou",
+    type: "website",
+    title: "Kanjou — Collaborative Editor",
+    description:
+      "A realtime collaborative writing app. Edits merge instead of queueing — two people can type in the same paragraph and both keep their words.",
+    images: [
+      {
+        url: "https://r0yce.com/images/KanjouDocuments.png",
+        width: 1388,
+        height: 753,
+        alt: "The Kanjou document index",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kanjou — Collaborative Editor",
+    description:
+      "A realtime collaborative writing app. Edits merge instead of queueing.",
+    images: ["https://r0yce.com/images/KanjouDocuments.png"],
+  },
+  alternates: {
+    canonical: "https://r0yce.com/kanjou",
+  },
 }
 
-const zoomIn = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1 },
-}
+/* Every row below is a real input rule or shortcut registered in
+   src/components/tiptap/utils/extensions.ts — nothing aspirational. */
+const inputRules: { type: string; gives: string; note?: string }[] = [
+  {
+    type: "# ",
+    gives: "Heading",
+    note: "Four levels, h1 through h4",
+  },
+  {
+    type: "**bold**",
+    gives: "Bold",
+    note: "*italic*, ~~strike~~ and `code` behave the same way",
+  },
+  {
+    type: "- ",
+    gives: "Bulleted list",
+    note: "Tab nests the item, Shift-Tab lifts it back out",
+  },
+  {
+    type: "1. ",
+    gives: "Numbered list",
+  },
+  {
+    type: "> ",
+    gives: "Blockquote",
+  },
+  {
+    type: "```",
+    gives: "Code block",
+    note: "Shiki highlights it; Tab indents by two spaces",
+  },
+  {
+    type: "$x^2$",
+    gives: "Inline maths",
+    note: "Rendered with KaTeX — click an expression to evaluate it",
+  },
+  {
+    type: "---",
+    gives: "Horizontal rule",
+  },
+  {
+    type: "-- and ...",
+    gives: "– and …",
+    note: "Dashes, ellipses and quotes are corrected as you type",
+  },
+  {
+    type: "⌘P",
+    gives: "Print the document",
+    note: "Ctrl P on Windows — prints the document view, not the page",
+  },
+]
 
-const FloatingPhone = ({ className }: { className?: string }) => {
-  const [backgroundWidth, setBackgroundWidth] = useState(0)
-
-  useEffect(() => {
-    const updateBackgroundWidth = () => {
-      const backgroundElement = document.querySelector(
-        ".bg-gradient-to-br.from-primary.to-violet-700"
-      )
-      if (backgroundElement) {
-        setBackgroundWidth(backgroundElement.getBoundingClientRect().width)
-      }
-    }
-
-    updateBackgroundWidth()
-    window.addEventListener("resize", updateBackgroundWidth)
-
-    return () => window.removeEventListener("resize", updateBackgroundWidth)
-  }, [])
-
-  const { scrollY } = useScroll()
-  const targetX = useTransform(scrollY, [0, 300], [0, Math.max(0, backgroundWidth - 200)])
-  const smoothX = useSpring(targetX, {
-    damping: 30,
-    stiffness: 60,
-    mass: 1,
-  })
-
-  return (
-    <div className={`relative ${className} `}>
-      <div className="-z-10 h-[250px] w-full bg-gradient-to-br from-primary to-violet-700" />
-
-      <motion.div
-        style={{
-          transformStyle: "preserve-3d",
-          x: smoothX,
-          rotateY: -20,
-          rotateX: 10,
-        }}
-        className="absolute top-1/2 -left-10 h-[28rem] w-fit -translate-y-1/2 rounded-[20px] bg-background p-3"
-      >
-        <motion.div
-          initial={{ transform: "translateZ(16px) translateY(-4px)" }}
-          animate={{ transform: "translateZ(48px) translateY(-12px)" }}
-          transition={{
-            repeat: Infinity,
-            repeatType: "mirror",
-            duration: 3,
-            ease: "easeInOut",
-          }}
-          className="relative h-full w-64 rounded-[20px] border-[1.5px] border-foreground/15 bg-gradient-to-b from-neutral-900 to-neutral-800 p-[6px]"
-        >
-          <HeaderBar />
-          <Screen />
-        </motion.div>
-      </motion.div>
-    </div>
-  )
-}
-
-const HeaderBar = () => {
-  return (
-    <>
-      <div className="absolute top-3 left-1/2 z-10 h-2 w-16 -translate-x-1/2 rounded-full bg-neutral-700/80" />
-      <div className="absolute top-2.5 right-3 z-10 flex gap-2">
-        <IconWifi className="text-neutral-500" />
-        <IconBatteryCharging className="text-neutral-500" />
-      </div>
-    </>
-  )
-}
-
-const Screen = () => {
-  return (
-    <div className="relative z-0 flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-[20px] bg-gradient-to-br from-background/10 to-background/5 shadow-inner backdrop-blur-md">
-      <svg
-        width="100"
-        height="100"
-        viewBox="0 0 64 64"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-      >
-        <path
-          d="M16 8H40L48 16V56C48 57.1 47.1 58 46 58H18C16.9 58 16 57.1 16 56V8Z"
-          fill="white"
-        />
-
-        <path d="M40 8V16H48" fill="#ccc" />
-
-        <g transform="translate(22, 22) scale(0.03)">
-          <path
-            d="M576 64L448 64 192 288 192 64 64 64 64 448 192 448 192 320 448 576 576 576 320 320z"
-            fill="black"
-          />
-        </g>
-      </svg>
-
-      <Link href="/kanjou/docs">
-        <Button
-          className="outline-outline backdrop-blur-smpx-7 p y-5 absolute right-4 bottom-5 left-4 z-10 rounded-lg border border-white/20 bg-foreground text-background shadow-lg hover:bg-background/60 hover:shadow-xl"
-          size="lg"
-          variant="ghost"
-        >
-          Get Started
-        </Button>
-      </Link>
-
-      <div className="absolute -bottom-60 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-violet-500/50 blur-2xl" />
-    </div>
-  )
-}
+const pipeline: { stage: string; title: string; body: string }[] = [
+  {
+    stage: "1.0",
+    title: "The keystroke lands locally.",
+    body: "Tiptap applies the edit to your copy of the document straight away. Nothing waits on a round trip, so there is no gap between pressing a key and seeing the letter.",
+  },
+  {
+    stage: "2.0",
+    title: "Yjs turns it into an operation.",
+    body: "Not “paragraph three now reads this”, but a small position-independent change that stays correct no matter what order it arrives in.",
+  },
+  {
+    stage: "3.0",
+    title: "Every open copy applies it.",
+    body: "Order-independence is what makes two people in one paragraph safe. Both edits survive, and every screen converges on the same text without anyone taking a lock.",
+  },
+  {
+    stage: "4.0",
+    title: "Firestore keeps the record.",
+    body: "The provider writes the merged state back to the database. Close the tab, reopen it next week, and the document picks up exactly where it was left.",
+  },
+]
 
 export default function KanjouIntroduction() {
-  const documentsStoredRef = useRef(null)
-  const featuresGridRef = useRef(null)
-
-  const isDocumentsStoredInView = useInView(documentsStoredRef, {
-    amount: 0.3,
-  })
-  const isFeaturesGridInView = useInView(featuresGridRef, {
-    amount: 0.3,
-  })
-
   return (
-    <div className="min-h-screen bg-gradient-to-br p-6">
-      <div className="container mx-auto px-4">
-        <motion.header
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 0.5 }}
-          className="mb-10 text-center"
-        >
-          <motion.h1
-            variants={fadeIn}
-            transition={{ duration: 0.5 }}
-            className="mt-30 mb-4 flex flex-wrap items-center justify-center text-4xl font-bold drop-shadow-lg sm:text-5xl md:text-6xl"
-          >
-            Welcome to
-            <Typewriter
-              text="Kanjou"
-              className="ml-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text py-2 whitespace-nowrap text-transparent"
-            />
-          </motion.h1>
-          <motion.p
-            variants={fadeIn}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mx-auto mt-5 max-w-3xl text-base text-muted-foreground sm:text-lg"
-          >
-            Kanjou is your modern and intuitive document management platform.{" "}
-            <b className="font-semibold text-foreground">
-              Create, organize, and collaborate
-            </b>{" "}
-            on your projects with powerful tools that make document management a
-            breeze.
-          </motion.p>
-        </motion.header>
+    <main className="flex min-h-screen flex-col">
+      <KanjouHero />
 
-        <FloatingPhone className="my-30" />
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={fadeIn}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-10 flex flex-row items-center justify-center space-x-3"
-        >
-          <Link href="/kanjou/docs">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                className="outline-outline rounded-lg border bg-foreground px-7 py-6 text-background shadow-lg hover:bg-background hover:shadow-xl"
-                size="lg"
-                variant="ghost"
-              >
-                Get Started
-              </Button>
-            </motion.div>
-          </Link>
-          <Link href="/projects/kanjou">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                className="rounded-lg border px-7 py-6 shadow-lg hover:shadow-xl"
-                size="lg"
-                variant="outline"
-              >
-                Learn More
-              </Button>
-            </motion.div>
-          </Link>
-        </motion.div>
+      {/* ─── The workspace ─── */}
+      <section className="container mx-auto max-w-7xl px-6 pt-8 pb-20 md:px-8 md:pt-12 md:pb-28">
+        <div className="h-px w-full bg-border/30" />
 
-        <motion.div
-          ref={featuresGridRef}
-          initial="hidden"
-          animate={isFeaturesGridInView ? "visible" : "hidden"}
-          variants={fadeIn}
-          transition={{ duration: 0.5 }}
-          className="mt-20 text-left"
-        >
-          <h2 className="mb-6 text-3xl font-bold sm:text-4xl md:text-5xl">
-            Key Features
-          </h2>
-          <p className="mb-10 text-base text-muted-foreground sm:text-lg">
-            Explore the powerful features that make Kanjou the perfect solution
-            for your document management needs
-          </p>
+        <div className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,17rem)] lg:gap-14">
+          <figure className="order-2 lg:order-1">
+            {/* Cropped to the top of the capture — the empty half below the
+                document list carries nothing. */}
+            <div className="aspect-[1388/470] overflow-hidden rounded-sm border border-border/60 bg-surface">
+              <Image
+                src="/images/KanjouDocuments.png"
+                alt="The Kanjou document index: a row of templates above a list of documents, each showing when it was last opened."
+                width={1388}
+                height={753}
+                loading="lazy"
+                className="h-full w-full object-cover object-top"
+                sizes="(min-width: 1024px) 60rem, 100vw"
+              />
+            </div>
+            <figcaption className="mt-4 text-sm text-muted-foreground/70">
+              Everything you own, most recently opened first.
+            </figcaption>
+          </figure>
 
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-            <motion.div
-              className="w-full"
-              initial="hidden"
-              animate={isFeaturesGridInView ? "visible" : "hidden"}
-              variants={zoomIn}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <Card className="w-full">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-semibold">
-                    Easy Document Management
-                  </CardTitle>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Organize and share your documents seamlessly.
-                  </p>
-                </CardHeader>
-                <CardContent className="flex flex-col items-center">
-                  <Image
-                    src="/images/KanjouDocuments.png"
-                    alt="Document Management"
-                    width={1920}
-                    height={1080}
-                    className="max-h-[300px] w-full rounded-xl object-cover shadow-md"
-                  />
-                </CardContent>
-              </Card>
-            </motion.div>
-            <motion.div
-              className="w-full"
-              initial="hidden"
-              animate={isFeaturesGridInView ? "visible" : "hidden"}
-              variants={zoomIn}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <Card className="w-full">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-semibold">
-                    Collaboration
-                  </CardTitle>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Work together in real time to boost productivity.
-                  </p>
-                </CardHeader>
-                <CardContent className="flex flex-col items-center">
-                  <Image
-                    src="/images/KanjouShare.png"
-                    alt="Collaboration"
-                    width={1920}
-                    height={1080}
-                    className="max-h-[300px] w-full rounded-xl object-cover shadow-md"
-                  />
-                </CardContent>
-              </Card>
-            </motion.div>
+          <div className="order-1 space-y-8 lg:order-2 lg:pt-2">
+            <h2 className="font-display text-3xl leading-tight md:text-4xl">
+              You start from a blank page or a maths preset.
+            </h2>
+            <div className="space-y-6 text-sm leading-relaxed text-muted-foreground md:text-base">
+              <p>
+                Templates sit across the top of the index. The blank one is
+                empty; the maths preset arrives with LaTeX examples already in
+                it, which is the fastest way to see the editor doing something
+                interesting.
+              </p>
+              <p>
+                Below that is every document you own, sorted by when you last
+                opened it. Rename or delete from the row itself — there is no
+                settings screen to go and find.
+              </p>
+              <p>
+                Send someone the link to a document and they land in the same
+                file you are in. Their cursor shows up in your paragraph,
+                labelled with their name, and moves while they type.
+              </p>
+            </div>
           </div>
-        </motion.div>
-        <motion.div
-          ref={documentsStoredRef}
-          initial="hidden"
-          animate={isDocumentsStoredInView ? "visible" : "hidden"}
-          variants={fadeIn}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-40 mb-20 text-left"
-        >
-          <h2 className="text-3xl font-bold sm:text-4xl md:text-5xl">
-            How Documents Are Stored
+        </div>
+      </section>
+
+      {/* ─── What you type / what you get ─── */}
+      <section className="border-y border-border/30 bg-surface">
+        <div className="container mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28">
+          <h2 className="max-w-2xl font-display text-3xl leading-tight md:text-4xl">
+            The keyboard is the whole interface.
           </h2>
-          <p className="mt-4 text-base text-muted-foreground sm:text-lg">
-            Kanjou leverages the power of Firebase to store your documents
-            securely and save changes in real time. Here&apos;s how it works:
+          <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            There is a toolbar, and you can ignore it. Markdown syntax is
+            rewritten into formatting the moment you finish typing it.
           </p>
-          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle className="text-xl font-semibold">
-                  Secure Cloud Storage
-                </CardTitle>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Your documents are stored in Firebase&apos;s secure and
-                  scalable cloud infrastructure, ensuring data safety and
-                  availability.
+
+          <dl className="mt-12 max-w-4xl border-t border-border/40">
+            {inputRules.map((rule) => (
+              <div
+                key={rule.type}
+                className="grid grid-cols-1 gap-1 border-b border-border/40 py-4 md:grid-cols-[minmax(0,8rem)_minmax(0,11rem)_minmax(0,1fr)] md:items-baseline md:gap-6"
+              >
+                <dt className="text-gold-ink font-mono text-sm tabular-nums">
+                  {rule.type}
+                </dt>
+                <dd className="text-sm text-foreground md:text-base">
+                  {rule.gives}
+                </dd>
+                <dd className="text-xs leading-relaxed text-muted-foreground md:text-sm">
+                  {rule.note ?? ""}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* ─── What happens to a keystroke ─── */}
+      <section className="container mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28">
+        <h2 className="max-w-2xl font-display text-3xl leading-tight md:text-4xl">
+          What happens to a keystroke.
+        </h2>
+        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          The interesting part of Kanjou is not the editor, it is what sits
+          underneath it. Four steps, in order, every time you press a key.
+        </p>
+
+        <ol className="mt-14 max-w-3xl">
+          {pipeline.map((step, index) => (
+            <li
+              key={step.stage}
+              className="grid grid-cols-1 gap-2 border-t border-border/40 py-8 md:grid-cols-[minmax(0,5rem)_minmax(0,1fr)] md:gap-8"
+            >
+              <span className="text-gold-ink font-mono text-sm tabular-nums">
+                {step.stage}
+              </span>
+              <div>
+                <h3 className="font-display text-xl md:text-2xl">
+                  {step.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+                  {step.body}
                 </p>
-              </CardHeader>
-            </Card>
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle className="text-xl font-semibold">
-                  Real-Time Updates
-                </CardTitle>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Every change you make is instantly saved and synchronized
-                  across all your devices, thanks to Firebase&apos;s real-time
-                  database.
-                </p>
-              </CardHeader>
-            </Card>
+              </div>
+              {index === pipeline.length - 1 && (
+                <span className="sr-only">End of sequence.</span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* ─── Close ─── */}
+      <section className="container mx-auto max-w-7xl px-6 pb-24 md:px-8 md:pb-32">
+        <div className="border-t border-border/30 pt-14">
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-xl">
+              <h2 className="font-display text-3xl leading-tight md:text-4xl">
+                It is running right now.
+              </h2>
+              <p className="mt-5 text-sm leading-relaxed text-muted-foreground md:text-base">
+                Kanjou is one of my own projects, not a product. Signing in
+                creates your document list; nothing else is asked for. The
+                source, including the parts I got wrong first, is on GitHub.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                href="/kanjou/docs"
+                className="inline-flex min-h-11 items-center rounded-sm bg-primary px-6 text-sm font-medium whitespace-nowrap text-primary-foreground transition-colors duration-200 hover:bg-primary/85 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-hidden"
+              >
+                Open the editor
+              </Link>
+              <Link
+                href="https://github.com/royce-mathew/r0yce"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline inline-flex min-h-11 items-center rounded-sm border border-border px-6 text-sm font-medium whitespace-nowrap text-foreground transition-colors duration-200 hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-hidden"
+              >
+                View the source
+              </Link>
+            </div>
           </div>
-
-          <p className="mt-4 text-base text-muted-foreground sm:text-lg">
-            To learn more about how Kanjou works, check out the{" "}
-            <Link
-              href="/projects/kanjou"
-              className="text-primary hover:underline"
-            >
-              Kanjou documentation
-            </Link>
-          </p>
-
-          <p className="mt-4 text-base text-muted-foreground sm:text-lg">
-            If you have any questions or feedback, feel free to reach out on the{" "}
-            <Link
-              href="https://github.com/royce-mathew/r0yce"
-              className="text-primary hover:underline"
-            >
-              GitHub repository
-            </Link>
-            . We&apos;d love to hear from you!
-          </p>
-        </motion.div>
-      </div>
-    </div>
+        </div>
+      </section>
+    </main>
   )
 }

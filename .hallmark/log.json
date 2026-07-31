@@ -1,0 +1,21 @@
+[
+  {
+    "date": "2026-07-31",
+    "scope": "page",
+    "target": "src/app/(app)/kanjou/page.tsx",
+    "genre": "editorial",
+    "macrostructure": "Workbench",
+    "theme": "r0yce house system (warm dark paper · champagne gold accent · Instrument Serif + DM Sans + JetBrains Mono)",
+    "theme_axes": "dark paper / roman-serif display / warm accent",
+    "archetypes": {
+      "hero": "H2 Split diptych (7/5, right = live document surface, hairline divider)",
+      "sectionHead": "S2 Hanging",
+      "features": ["F5 Annotated screenshot", "F3 Tabular spec sheet", "F4 Step sequence"],
+      "cta": "C1 Outlined chip",
+      "nav": "owned globally by (app)/layout.tsx — not redesigned",
+      "footer": "owned globally by (app)/layout.tsx — not redesigned"
+    },
+    "enrichment": "Tier-A CSS/JS document surface + one real product screenshot",
+    "brief": "Kanjou — redesign the marketing page for the realtime collaborative editor"
+  }
+]
