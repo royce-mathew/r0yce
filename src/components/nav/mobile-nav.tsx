@@ -77,10 +77,22 @@ export function MobileNav() {
         hideCloseButton
       >
         <div className="flex items-center justify-between px-2 pb-6">
-          <div className="flex items-center space-x-3">
-            <Image src="/favicon.png" width={20} height={20} alt="Logo" />
-            <span className="font-display text-lg text-foreground">r0yce</span>
-          </div>
+          <MobileLink
+            href="/"
+            className="group flex items-center space-x-3"
+            onOpenChange={setOpen}
+          >
+            <Image
+              src="/favicon.png"
+              width={20}
+              height={20}
+              alt="Logo"
+              className="opacity-80 transition-opacity group-hover:opacity-100"
+            />
+            <span className="font-display text-lg text-foreground/90 transition-colors group-hover:text-foreground">
+              r0yce
+            </span>
+          </MobileLink>
           <SheetClose asChild>
             <Button variant="icon" className="size-8">
               <IconX className="size-4" />
