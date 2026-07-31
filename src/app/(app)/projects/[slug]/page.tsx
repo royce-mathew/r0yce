@@ -113,7 +113,7 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
   return (
     <main className="relative">
       {/* Project Hero */}
-      <section className="container mx-auto max-w-5xl px-6 pt-12 pb-8 md:px-8 md:pt-20 md:pb-12">
+      <section className="mx-auto w-full max-w-5xl pt-12 pb-8 md:px-8 md:pt-20 md:pb-12">
         {/* Back link */}
         <Link
           href="/projects"
@@ -135,7 +135,7 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
         </div>
 
         {/* Meta bar */}
-        <div className="mt-8 flex flex-wrap items-center gap-6 border-y border-border/20 py-4">
+        <div className="mt-8 flex flex-wrap items-center gap-6 border-t border-border/20 pt-4">
           {/* Tags */}
           <div className="flex max-w-full flex-wrap gap-2 md:max-w-[380px]">
             {project.tags.map((tag: string) => (
@@ -208,7 +208,7 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
 
       {/* Content */}
       <section className="relative lg:grid lg:grid-cols-[1fr_220px] lg:gap-10">
-        <div className="container mx-auto max-w-5xl px-6 pb-16 md:px-8">
+        <div className="mx-auto w-full max-w-5xl pb-16 md:px-8">
           <article>
             <div className="pb-12">
               <Mdx code={project.code} className="mdx-shell-project" />
