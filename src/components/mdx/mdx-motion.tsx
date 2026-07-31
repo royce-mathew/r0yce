@@ -11,7 +11,24 @@ interface MdxMotionBlockProps {
   scale?: number
 }
 
-interface MdxMotionImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+/**
+ * React's drag/animation handler and `style` types collide with Motion's
+ * equivalents, so plain `ImgHTMLAttributes` is not assignable to the props of
+ * `motion.img`. MDX-rendered images never supply any of them — the animated
+ * style is owned by this component — so drop them from the accepted props.
+ */
+export type MdxImgAttributes = Omit<
+  React.ImgHTMLAttributes<HTMLImageElement>,
+  | "style"
+  | "onDrag"
+  | "onDragStart"
+  | "onDragEnd"
+  | "onAnimationStart"
+  | "onAnimationEnd"
+  | "onAnimationIteration"
+>
+
+interface MdxMotionImageProps extends MdxImgAttributes {
   intensity?: number
   scale?: number
 }

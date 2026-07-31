@@ -18,7 +18,12 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Callout } from "@/components/mdx/callout"
 import { CodeBlockWrapper } from "@/components/mdx/code-block-wrapper"
 import { CopyButton } from "@/components/mdx/copy-button"
-import { MdxMotionBlock, MdxMotionImage, StepsContext } from "@/components/mdx/mdx-motion"
+import {
+  MdxImgAttributes,
+  MdxMotionBlock,
+  MdxMotionImage,
+  StepsContext,
+} from "@/components/mdx/mdx-motion"
 import { NumberFlowComponent } from "../ui/number"
 
 const sharedComponents = {
@@ -147,11 +152,7 @@ const sharedComponents = {
       />
     </MdxMotionBlock>
   ),
-  img: ({
-    className,
-    alt,
-    ...props
-  }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+  img: ({ className, alt, ...props }: MdxImgAttributes) => (
     <MdxMotionImage className={cn("my-8", className)} alt={alt} {...props} />
   ),
   hr: ({ className, ...props }: React.HTMLAttributes<HTMLHRElement>) => (
