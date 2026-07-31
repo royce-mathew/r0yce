@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link, { LinkProps } from "next/link"
 import Image from "next/image"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { IconMenu2, IconX } from "@tabler/icons-react"
 import { motion, AnimatePresence } from "motion/react"
 import { siteConfig } from "@/config/docs"
@@ -153,15 +153,11 @@ function MobileLink({
   children,
   ...props
 }: MobileLinkProps) {
-  const router = useRouter()
   return (
     <Link
       href={href}
-      onClick={() => {
-        router.push(href.toString())
-        onOpenChange?.(false)
-      }}
-      className={cn(className)}
+      onClick={() => onOpenChange?.(false)}
+      className={className}
       {...props}
     >
       {children}
