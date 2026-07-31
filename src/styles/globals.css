@@ -182,6 +182,17 @@
   }
 }
 
+/* Compact variant for labels that should recede on phones, where the screen
+   is better spent on the content they annotate. No effect from `sm` up.
+   Declared after `.label-editorial` so it wins — both rules are unlayered,
+   which also means Tailwind's size utilities cannot override either one. */
+@media (max-width: 39.999rem) {
+  .label-editorial-compact {
+    font-size: 0.5625rem;
+    letter-spacing: 0.08em;
+  }
+}
+
 /* ─── Link hover underline reveal ─── */
 .link-underline {
   position: relative;
