@@ -164,32 +164,25 @@
 }
 
 /* ─── Label / caption typography ─── */
-/* Tighter on phones: 0.15em tracking on uppercase labels overflows narrow
-   viewports. Scales back up from the `sm` breakpoint. */
-.label-editorial {
-  font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: hsl(var(--muted-foreground));
-}
-
-@media (min-width: 40rem) {
+/* Declared in the `components` layer so per-instance Tailwind utilities win:
+   unlayered rules outrank every layered one, so as a plain rule this class
+   silently beat any `text-gold` / `text-*` / `tracking-*` set alongside it.
+   Tighter on phones, where 0.15em tracking overflows narrow viewports. */
+@layer components {
   .label-editorial {
-    font-size: 0.6875rem;
-    letter-spacing: 0.15em;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
   }
-}
 
-/* Compact variant for labels that should recede on phones, where the screen
-   is better spent on the content they annotate. No effect from `sm` up.
-   Declared after `.label-editorial` so it wins — both rules are unlayered,
-   which also means Tailwind's size utilities cannot override either one. */
-@media (max-width: 39.999rem) {
-  .label-editorial-compact {
-    font-size: 0.5625rem;
-    letter-spacing: 0.08em;
+  @media (min-width: 40rem) {
+    .label-editorial {
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+    }
   }
 }
 
