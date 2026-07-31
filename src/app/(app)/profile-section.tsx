@@ -67,7 +67,7 @@ export function ProfileSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
             >
-              <span className="label-editorial text-gold block text-balance">
+              <span className="label-editorial label-editorial-compact text-gold block text-balance">
                 Software Developer · Data Scientist · Game Developer
               </span>
             </motion.div>
