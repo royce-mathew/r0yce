@@ -19,21 +19,6 @@ pre code[data-theme] span {
   --mdx-max-width: 74ch;
 }
 
-.mdx-shell::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    hsl(var(--gold) / 0.22),
-    transparent
-  );
-  opacity: 0.85;
-}
-
 .mdx {
   margin: 0 auto;
   max-width: var(--mdx-max-width);
