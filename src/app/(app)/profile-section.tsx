@@ -36,7 +36,7 @@ export function ProfileSection() {
     <section
       ref={sectionRef}
       data-section="profile"
-      className="relative flex min-h-[calc(100vh-5rem)] w-full items-center justify-center overflow-hidden pt-10 pb-28 md:py-0"
+      className="relative flex min-h-[calc(100svh-4rem)] w-full items-center justify-center overflow-hidden pt-12 pb-24 md:min-h-[calc(100svh-5rem)] md:pt-16 md:pb-28 lg:py-0"
     >
       {/* Background gradient mesh */}
       <div className="absolute inset-0 -z-20">
@@ -60,15 +60,14 @@ export function ProfileSection() {
       >
         <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:gap-20">
           {/* Left: Typography */}
-          <div className="flex flex-1 flex-col space-y-4 md:space-y-8 text-center lg:text-left max-w-sm sm:max-w-none mx-auto lg:mx-0">
+          <div className="flex flex-1 flex-col space-y-5 md:space-y-8 text-center lg:text-left max-w-sm sm:max-w-none mx-auto lg:mx-0">
             {/* Label */}
             <motion.div
-              className="hidden sm:block"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
             >
-              <span className="label-editorial text-gold text-[9px] tracking-normal sm:text-[11px] sm:tracking-[0.15em]">
+              <span className="label-editorial text-gold block text-balance">
                 Software Developer · Data Scientist · Game Developer
               </span>
             </motion.div>
@@ -88,16 +87,16 @@ export function ProfileSection() {
 
             {/* Horizontal rule with accent */}
             <motion.div
-              className="flex items-center gap-4"
+              className="flex origin-center items-center gap-3 sm:gap-4 lg:origin-left"
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
               transition={{ duration: 1, ease: [0.19, 1, 0.22, 1], delay: 0.7 }}
-              style={{ transformOrigin: "left" }}
             >
-              <div className="h-px flex-1 bg-linear-to-r from-primary/40 to-transparent" />
-              <span className="label-editorial text-muted-foreground">
+              <div className="h-px flex-1 bg-linear-to-l from-primary/40 to-transparent lg:bg-linear-to-r" />
+              <span className="label-editorial shrink-0 text-muted-foreground">
                 Based in Canada
               </span>
+              <div className="h-px flex-1 bg-linear-to-r from-primary/40 to-transparent lg:hidden" />
             </motion.div>
 
             {/* Description */}
@@ -169,49 +168,53 @@ export function ProfileSection() {
 
           {/* Right: Profile Image */}
           <motion.div
-            className="relative shrink-0 mt-6 lg:mt-0 w-full max-w-[280px] sm:w-auto sm:max-w-none"
+            className="mt-4 w-full max-w-[240px] shrink-0 sm:mt-6 sm:w-auto sm:max-w-none lg:mt-0"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1], delay: 0.3 }}
           >
-            {/* Decorative frame */}
-            <motion.div
-              className="absolute -inset-2 sm:-inset-3 rounded-sm border border-primary/10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.2 }}
-            />
-            <motion.div
-              className="absolute -inset-4 sm:-inset-6 rounded-sm border border-primary/5"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.4 }}
-            />
-
-            {/* Gold accent corner marks */}
-            <div className="absolute -top-2 sm:-top-3 -left-2 sm:-left-3 h-4 sm:h-6 w-px bg-primary/30" />
-            <div className="absolute -top-2 sm:-top-3 -left-2 sm:-left-3 h-px w-4 sm:w-6 bg-primary/30" />
-            <div className="absolute -bottom-2 sm:-bottom-3 -right-2 sm:-right-3 h-4 sm:h-6 w-px bg-primary/30" />
-            <div className="absolute -bottom-2 sm:-bottom-3 -right-2 sm:-right-3 h-px w-4 sm:w-6 bg-primary/30" />
-
-            <motion.div
-              className="overflow-hidden rounded-sm w-full aspect-square sm:w-auto sm:aspect-none sm:size-64 md:size-72 lg:size-80"
-              style={{ scale: imageScale, y: imageY }}
-            >
-              <Image
-                className="w-full h-full object-cover sm:size-64 md:size-72 lg:size-80"
-                fetchPriority="high"
-                loading="eager"
-                src="/images/ProfilePicture2.webp"
-                width={600}
-                height={600}
-                alt="Royce Mathew"
+            {/* Framed image — the frames and corner marks are anchored to this
+                wrapper so they hug the portrait rather than the caption. */}
+            <div className="relative">
+              {/* Decorative frame */}
+              <motion.div
+                className="pointer-events-none absolute -inset-2 rounded-sm border border-primary/10 sm:-inset-3"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 1.2 }}
               />
-            </motion.div>
+              <motion.div
+                className="pointer-events-none absolute -inset-4 rounded-sm border border-primary/5 sm:-inset-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 1.4 }}
+              />
+
+              {/* Gold accent corner marks */}
+              <div className="pointer-events-none absolute -top-2 -left-2 h-4 w-px bg-primary/30 sm:-top-3 sm:-left-3 sm:h-6" />
+              <div className="pointer-events-none absolute -top-2 -left-2 h-px w-4 bg-primary/30 sm:-top-3 sm:-left-3 sm:w-6" />
+              <div className="pointer-events-none absolute -right-2 -bottom-2 h-4 w-px bg-primary/30 sm:-right-3 sm:-bottom-3 sm:h-6" />
+              <div className="pointer-events-none absolute -right-2 -bottom-2 h-px w-4 bg-primary/30 sm:-right-3 sm:-bottom-3 sm:w-6" />
+
+              <motion.div
+                className="aspect-square w-full overflow-hidden rounded-sm sm:aspect-auto sm:size-64 md:size-72 lg:size-80"
+                style={{ scale: imageScale, y: imageY }}
+              >
+                <Image
+                  className="h-full w-full object-cover"
+                  fetchPriority="high"
+                  loading="eager"
+                  src="/images/ProfilePicture2.webp"
+                  width={600}
+                  height={600}
+                  alt="Royce Mathew"
+                />
+              </motion.div>
+            </div>
 
             {/* Caption under image */}
             <motion.p
-              className="label-editorial mt-3 sm:mt-4 text-center text-[10px] sm:text-xs"
+              className="label-editorial mt-5 text-center sm:mt-7"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
