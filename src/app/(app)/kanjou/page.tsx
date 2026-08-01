@@ -38,8 +38,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://r0yce.com/images/KanjouDocuments.png",
-        width: 1388,
-        height: 753,
+        width: 2048,
+        height: 1410,
         alt: "The Kanjou document index",
       },
     ],
@@ -142,16 +142,15 @@ export default function KanjouIntroduction() {
 
         <div className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,17rem)] lg:gap-14">
           <figure className="order-2 lg:order-1">
-            {/* Cropped to the top of the capture — the empty half below the
-                document list carries nothing. */}
-            <div className="aspect-[1388/470] overflow-hidden rounded-sm border border-border/60 bg-surface">
+            {/* Shot to frame, so no crop is needed here. */}
+            <div className="overflow-hidden rounded-sm border border-border/60 bg-surface">
               <Image
                 src="/images/KanjouDocuments.png"
-                alt="The Kanjou document index: a row of templates above a list of documents, each showing when it was last opened."
-                width={1388}
-                height={753}
+                alt="The Kanjou document index: two starting points above a ruled list of documents, each showing when it was last opened."
+                width={2048}
+                height={1410}
                 loading="lazy"
-                className="h-full w-full object-cover object-top"
+                className="h-auto w-full"
                 sizes="(min-width: 1024px) 60rem, 100vw"
               />
             </div>
