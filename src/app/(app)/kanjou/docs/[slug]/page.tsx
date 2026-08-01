@@ -2,32 +2,35 @@
 
 import { use, useEffect, useRef, useState } from "react"
 import dynamic from "next/dynamic"
-import { IconCheck, IconPointFilled, IconSend } from "@tabler/icons-react"
+import Link from "next/link"
+import {
+  IconArrowLeft,
+  IconCheck,
+  IconLink,
+  IconPointFilled,
+} from "@tabler/icons-react"
 import Collaboration from "@tiptap/extension-collaboration"
 import CollaborationCaret from "@tiptap/extension-collaboration-caret"
-import { getDoc, updateDoc } from "firebase/firestore"
 import { useSession } from "next-auth/react"
 import objectHash from "object-hash"
 import { toast } from "sonner"
 import * as Y from "yjs"
 import { DocumentMetadata } from "@/types/document"
-import { documentRef } from "@/lib/converters/document"
 import { firebaseApp } from "@/lib/firebase/client"
 import { timeAgo } from "@/lib/utils"
 import { FireProvider } from "@/lib/y-fire"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Skeleton } from "@/components/ui/skeleton"
 import { ErrorBoundary } from "@/components/nav/error"
 import { yProvider } from "@/components/tiptap/providers/firebase-sync"
 
@@ -35,7 +38,19 @@ const TipTap = dynamic(() => import("@/components/tiptap/tiptap"), {
   ssr: false,
 })
 
-export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
+function DocumentSkeleton() {
+  return (
+    <div className="space-y-6">
+      <Skeleton className="h-10 w-2/3 bg-foreground/5" />
+      <Skeleton className="h-4 w-40 bg-foreground/5" />
+      <Skeleton className="h-[60vh] w-full bg-foreground/5" />
+    </div>
+  )
+}
+
+export default function KanjouDocument(props: {
+  params: Promise<{ slug: string }>
+}) {
   const params = use(props.params)
   const { data: session } = useSession()
   const provider = useRef<FireProvider | undefined>(undefined)
@@ -46,14 +61,28 @@ export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
   >()
   const yDoc = useRef<Y.Doc | undefined>(undefined)
   const hash = useRef<Y.Map<unknown> | undefined>(undefined)
+  // The provider lives in a ref, so its arrival has to be mirrored into state —
+  // otherwise the first render after the effect has no reason to re-run.
+  const [providerReady, setProviderReady] = useState(false)
+  const [shareUrl, setShareUrl] = useState("")
 
-  const [sharingEmail, setSharingEmail] = useState<string>("")
+  // Keyed on the slug: navigating between documents is client-side now, so a
+  // URL captured once on mount would go stale and Share would copy the link to
+  // whichever document was open first.
+  useEffect(() => {
+    setShareUrl(window.location.href)
+  }, [params.slug])
 
   // Fetch the document
   useEffect(() => {
     // Validate Slug and User
     if (params.slug === undefined) return
     if (session?.user.id === undefined || session?.user.id === null) return
+
+    // Nothing below belongs to the document we are leaving.
+    setAccess(undefined)
+    setMetadata(undefined)
+    setSaving(false)
 
     // Get the initial Document Metadata and merge it with the unsavedMetadata
     yDoc.current = new Y.Doc()
@@ -68,14 +97,6 @@ export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
       ydoc: yDoc.current,
     })
 
-    console.log("Provider: ", provider.current)
-
-    // setMetadata(provider.current.metadata)
-
-    provider.current.onReady = () => {
-      toast("Document Loaded")
-    }
-
     provider.current.onSaving = (status: boolean) => {
       setSaving(status)
     }
@@ -86,16 +107,22 @@ export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
 
     // User does not have access to the document
     provider.current.onDeleted = () => {
-      // Check if the user has readAccess with firebase
-      // try {
-      //   if (firebaseDoc.data()?.readAccess.includes(session?.user.id)) {
-      //     setAccess(true)
-      //   } else {
-      //     setAccess(false)
-      //   }
-      // } catch (error) {
-      //   setAccess(false)
-      // }
+      setAccess(false)
+    }
+
+    setProviderReady(true)
+
+    // The provider holds Firestore listeners, WebRTC peers and a beforeunload
+    // handler. Without this, moving between documents leaves the previous one
+    // listening and writing in the background — it only went unnoticed while
+    // opening a document was a full page load.
+    return () => {
+      provider.current?.destroy()
+      provider.current = undefined
+      yDoc.current?.destroy()
+      yDoc.current = undefined
+      hash.current = undefined
+      setProviderReady(false)
     }
   }, [params.slug, session?.user.id])
 
@@ -116,18 +143,18 @@ export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
     provider.current.metadata = metadata
   }, [metadata])
 
-  if (!provider.current) return null
-  if (!session?.user.id) return null
   if (access === false) {
     return (
       <main className="container flex min-h-screen items-center justify-center">
         <ErrorBoundary
           error={new Error("You do not have access to this document")}
-          rerouteUrl="/kanjou"
+          rerouteUrl="/kanjou/docs"
         />
       </main>
     )
   }
+
+  const ready = providerReady && Boolean(provider.current && session?.user.id)
 
   function updateTitle(e: React.ChangeEvent<HTMLInputElement>) {
     setMetadata({
@@ -136,108 +163,125 @@ export default function Kanjou(props: { params: Promise<{ slug: string }> }) {
     })
   }
 
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(shareUrl || window.location.href)
+      toast("Link copied. Anyone signed in can open this document.")
+    } catch {
+      toast("Couldn’t reach the clipboard — copy the address bar instead.")
+    }
+  }
+
   return (
-    <main className="container flex min-h-screen flex-col">
-      <div className="flex items-center">
-        <Input
-          className="my-4 border-none bg-transparent py-6 text-3xl font-bold outline-hidden"
-          value={metadata?.title ?? ""}
-          onChange={updateTitle}
-          placeholder="Document Name"
-        />
+    <main className="container mx-auto flex min-h-screen max-w-4xl flex-col px-6 pt-8 pb-32 md:px-8 md:pt-10">
+      {!ready ? (
+        <DocumentSkeleton />
+      ) : (
+        <>
+          {/* ─── Document chrome ─── */}
+          <div className="mb-6">
+            <Link
+              href="/kanjou/docs"
+              className="link-underline inline-flex min-h-8 items-center gap-1.5 text-xs text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-hidden"
+            >
+              <IconArrowLeft className="size-3.5" />
+              <span className="whitespace-nowrap">All documents</span>
+            </Link>
 
-        <div className="flex pl-4">
-          {/* Saving State */}
-          {saving ? (
-            <>
-              Unsaved <IconPointFilled className="ml-2 size-5" />
-            </>
-          ) : (
-            <>
-              Saved <IconCheck className="ml-2 size-5" />
-            </>
-          )}
-        </div>
-      </div>
-      <div className="flex w-full items-center justify-between px-2 pb-2">
-        <p className="text-sm text-muted-foreground">
-          Last Updated: {timeAgo(provider.current?.metadata.lastUpdated)}
-        </p>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" size="sm">
-              Share
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle className="text-2xl">
-                Share &quot;<span className="font-thin">{metadata?.title}</span>
-                &quot;
-              </DialogTitle>
-              <DialogDescription>
-                Share this document with others by inputting their email address
-              </DialogDescription>
-            </DialogHeader>
-            <div className="flex flex-col">
-              <div className="text-lg font-bold">People with Access</div>
-              <div className="flex flex-col">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className="h-4 w-4 rounded-full bg-primary" />
-                    <div className="pl-2">John Doe</div>
-                  </div>
-                  <Button variant="outline" size="sm">
-                    Remove
-                  </Button>
-                </div>
+            <Label htmlFor="document-title" className="sr-only">
+              Document title
+            </Label>
+            <Input
+              id="document-title"
+              className="mt-3 h-auto border-none bg-transparent px-0 py-1 font-display text-3xl leading-tight shadow-none md:text-4xl"
+              value={metadata?.title ?? ""}
+              onChange={updateTitle}
+              placeholder="Untitled document"
+            />
+
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.7rem] text-muted-foreground">
+                {/* Saving state. The old label read "Unsaved" while a save was
+                    in flight, which said the opposite of what was happening. */}
+                <span className="flex items-center gap-1">
+                  {saving ? (
+                    <>
+                      <IconPointFilled className="text-gold-ink size-3" />
+                      Saving…
+                    </>
+                  ) : (
+                    <>
+                      <IconCheck className="size-3" />
+                      Saved
+                    </>
+                  )}
+                </span>
+                <span aria-hidden className="text-border">
+                  /
+                </span>
+                <span className="tabular-nums">
+                  Edited {timeAgo(provider.current?.metadata?.lastUpdated)}
+                </span>
               </div>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="sm" className="min-h-9">
+                    <IconLink className="mr-1.5 size-3.5" />
+                    Share
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle className="font-display text-2xl">
+                      Share this document
+                    </DialogTitle>
+                    <DialogDescription>
+                      Anyone signed in who has the link can open and edit this
+                      document. You will see their cursor in the page while they
+                      type.
+                    </DialogDescription>
+                  </DialogHeader>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="document-link" className="label-editorial">
+                      Document link
+                    </Label>
+                    <div className="flex items-center gap-2">
+                      <Input
+                        id="document-link"
+                        readOnly
+                        value={shareUrl}
+                        className="h-10 font-mono text-xs"
+                        onFocus={(e) => e.currentTarget.select()}
+                      />
+                      <Button className="h-10 shrink-0" onClick={copyLink}>
+                        Copy link
+                      </Button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
-            <DialogFooter className="mt-3 flex flex-row items-center space-x-2">
-              <Input
-                id="link"
-                type="email"
-                value={sharingEmail}
-                onChange={(e) => setSharingEmail(e.target.value)}
-                placeholder="Email Address"
-                className="h-10"
-              />
-              <DialogClose asChild>
-                <Button
-                  type="submit"
-                  className="h-10"
-                  onClick={() => {
-                    console.log("Share the document with: ", sharingEmail)
-                    // Close the dialog
 
-                    // Add the user to the readAccess array
-                    // firebaseDoc.ref.update({
-                    //   readAccess: firebase.firestore.FieldValue.arrayUnion(email),
-                    // })
-                  }}
-                >
-                  <IconSend className="size-5" />
-                </Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </div>
+            <div className="mt-5 h-px w-full bg-border/30" />
+          </div>
 
-      <TipTap
-        // initialContent={document?.content}
-        passedExtensions={[
-          Collaboration.configure({
-            document: provider.current?.doc ?? new Y.Doc(),
-          }),
-          CollaborationCaret.configure({
-            provider: provider.current,
-            user: {
-              name: session?.user.name ?? "Unknown",
-            },
-          }),
-        ]}
-      />
+          <TipTap
+            passedExtensions={[
+              Collaboration.configure({
+                document: provider.current!.doc ?? new Y.Doc(),
+              }),
+              CollaborationCaret.configure({
+                provider: provider.current!,
+                user: {
+                  name: session?.user.name ?? "Unknown",
+                },
+              }),
+            ]}
+          />
+        </>
+      )}
     </main>
   )
 }

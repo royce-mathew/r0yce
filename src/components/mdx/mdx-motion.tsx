@@ -50,9 +50,22 @@ export function MdxMotionBlock({
     offset: ["start end", "end start"],
   })
 
+  // The parallax drift stays monotonic — it should track the scroll direction.
+  // Opacity and scale peak while the block sits mid-viewport and ease off at
+  // both ends, with a plateau through the middle so the top of the peak isn't
+  // a single instant. Mapping them 0 → 1 put full brightness at the moment the
+  // block left the top of the screen.
   const y = useTransform(scrollYProgress, [0, 1], [intensity, -intensity])
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.68, 1])
-  const animatedScale = useTransform(scrollYProgress, [0, 1], [scale, 1])
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.6, 1],
+    [0.68, 1, 1, 0.68]
+  )
+  const animatedScale = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.6, 1],
+    [scale, 1, 1, scale]
+  )
   const transformOrigin = isInsideSteps ? "left center" : "50% 50%"
 
   return (
@@ -90,9 +103,18 @@ export function MdxMotionImage({
     offset: ["start end", "end start"],
   })
 
+  // Same curve as MdxMotionBlock: brightest through the middle of the pass.
   const y = useTransform(scrollYProgress, [0, 1], [intensity, -intensity])
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.68, 1])
-  const animatedScale = useTransform(scrollYProgress, [0, 1], [scale, 1])
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.6, 1],
+    [0.68, 1, 1, 0.68]
+  )
+  const animatedScale = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.6, 1],
+    [scale, 1, 1, scale]
+  )
 
   return (
     <motion.img

@@ -23,7 +23,8 @@ const Tiptap = ({ passedExtensions }: TiptapProps) => {
   const editor = useEditor({
     editorProps: {
       attributes: {
-        class: `prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-lg prose-ul:list-[revert] ${proseCode} focus:outline-hidden p-3 max-w-full min-h-[1400px]`,
+        // The sheet supplies the padding now, so the editor only owns its measure.
+        class: `prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-lg prose-ul:list-[revert] ${proseCode} focus:outline-hidden max-w-full min-h-[60vh]`,
       },
     },
     extensions: [...extensions, ...(passedExtensions ?? [])],
@@ -43,9 +44,15 @@ const Tiptap = ({ passedExtensions }: TiptapProps) => {
   }
 
   return (
-    <div className="rounded border-2 bg-foreground/3">
+    <div>
+      {/* Chrome rail — sticky, hairline-ruled, no drop shadow. */}
       <Toolbar editor={editor} />
-      <EditorContent className="whitespace-pre-line" editor={editor} />
+
+      {/* The sheet. Content sits on a surface a shade off the page so the
+          document reads as a page rather than as the app background. */}
+      <div className="rounded-sm border border-border/60 bg-surface px-4 py-8 sm:px-10 sm:py-14">
+        <EditorContent className="whitespace-pre-line" editor={editor} />
+      </div>
     </div>
   )
 }

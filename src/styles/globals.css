@@ -42,7 +42,8 @@
     --secondary: 35 8% 90%;
     --secondary-foreground: 30 8% 15%;
     --muted: 35 6% 90%;
-    --muted-foreground: 30 5% 45%;
+    /* 45% lightness measured 4.3:1 on the light paper — under AA for body copy. */
+    --muted-foreground: 30 5% 40%;
     --accent: 35 8% 90%;
     --accent-foreground: 30 8% 15%;
     --destructive: 0 72% 51%;
@@ -55,6 +56,9 @@
     /* Editorial tokens */
     --gold: 32 38% 64%;
     --gold-dim: 32 25% 45%;
+    /* Gold used as *text*. The champagne fill is only 2.1:1 on light paper, so
+       the ink variant darkens; on dark paper the fill already clears AA. */
+    --gold-ink: 32 26% 37%;
     --surface: 40 6% 93%;
     --grain-opacity: 0.03;
   }
@@ -67,7 +71,10 @@
     --popover: 30 8% 7%;
     --popover-foreground: 35 15% 90%;
     --primary: 32 38% 64%;
-    --primary-foreground: 35 15% 90%;
+    /* Ink that sits *on* the gold fill. The gold is identical in both themes,
+       so this has to stay dark in dark mode too — a light value here dropped
+       every filled primary button to 1.8:1. */
+    --primary-foreground: 30 8% 8%;
     --secondary: 30 6% 12%;
     --secondary-foreground: 35 15% 90%;
     --muted: 30 6% 12%;
@@ -83,6 +90,7 @@
     /* Editorial tokens — dark */
     --gold: 32 38% 64%;
     --gold-dim: 32 20% 35%;
+    --gold-ink: 32 38% 64%;
     --surface: 30 6% 8%;
     --grain-opacity: 0.04;
   }
@@ -157,6 +165,12 @@
 
 .text-gold-dim {
   color: hsl(var(--gold-dim));
+}
+
+/* Accent text that clears AA in both themes — prefer this over .text-gold
+   whenever the gold is carrying words rather than filling a shape. */
+.text-gold-ink {
+  color: hsl(var(--gold-ink));
 }
 
 .bg-surface {
