@@ -1,5 +1,28 @@
 [
   {
+    "date": "2026-08-01",
+    "scope": "app",
+    "targets": [
+      "src/app/(app)/kanjou/docs/page.tsx",
+      "src/app/(app)/kanjou/docs/[slug]/page.tsx",
+      "src/components/tiptap/toolbar.tsx",
+      "src/components/tiptap/tiptap.tsx"
+    ],
+    "genre": "editorial",
+    "designSystem": "design.md",
+    "macrostructure": "Index-First (list surface) + Long Document (writing surface)",
+    "theme": "r0yce house system — unchanged, per the multi-page consistency rule",
+    "archetypes": {
+      "sectionHead": "S2 Hanging",
+      "rows": "F3 Tabular",
+      "actions": "C1 Outlined chip",
+      "nav": "owned globally by (app)/layout.tsx",
+      "footer": "owned globally by (app)/layout.tsx"
+    },
+    "enrichment": "none — app pages carry no enrichment",
+    "brief": "Kanjou app pages: fix the sticky toolbar, redesign the document index and the editor"
+  },
+  {
     "date": "2026-07-31",
     "scope": "page",
     "target": "src/app/(app)/kanjou/page.tsx",
@@ -10,7 +33,11 @@
     "archetypes": {
       "hero": "H2 Split diptych (7/5, right = live document surface, hairline divider)",
       "sectionHead": "S2 Hanging",
-      "features": ["F5 Annotated screenshot", "F3 Tabular spec sheet", "F4 Step sequence"],
+      "features": [
+        "F5 Annotated screenshot",
+        "F3 Tabular spec sheet",
+        "F4 Step sequence"
+      ],
       "cta": "C1 Outlined chip",
       "nav": "owned globally by (app)/layout.tsx — not redesigned",
       "footer": "owned globally by (app)/layout.tsx — not redesigned"
