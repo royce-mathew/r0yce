@@ -1,34 +1,20 @@
-# Design — r0yce.com
+# Design notes — r0yce.com
 
-The locked design system for this site. Page redesigns read this file before
-emitting code. It is not regenerated per page — extend or amend it when the
-system needs to grow.
+Conventions the site already follows, written down so they stop being implicit.
+The palette, type, and spacing live in `src/styles/globals.css` and
+`tailwind.config.ts`; this file explains the parts that aren't obvious from the
+token names, and records a few rules that were learned the hard way.
 
-Nothing here is new. The palette, type, and spacing were established by the UI
-overhaul and live in `src/styles/globals.css` and `tailwind.config.ts`; this
-file writes down the decisions that were only implicit, and adds the rules the
-Kanjou app pages needed.
+## Character
 
-## Genre
+Architectural and warm. Serif display against a plain sans body, one accent,
+hairline rules instead of card borders, generous whitespace, asymmetric layout.
+No glassmorphism, no gradient headlines, no three-column icon-tile grids.
 
-**Editorial.** Architectural, warm, hairline-ruled. Serif display against a
-plain sans body, one accent, generous whitespace, asymmetric layout. Not
-"modern SaaS" — no glassmorphism, no gradient headlines, no icon-tile grids.
+## Colour
 
-## Macrostructure families
-
-Pages in a family share the family's shape; they vary by component archetype,
-not by theme.
-
-- **Marketing / content pages** — Workbench (`/kanjou`), Portfolio Grid
-  (`/projects`), Long Document (project MDX pages).
-- **App pages** — Index-First for list surfaces (`/kanjou/docs`), Long Document
-  for the writing surface (`/kanjou/docs/[slug]`).
-
-## Theme
-
-Tokens are HSL triples in `src/styles/globals.css`; Tailwind reads them through
-`hsl(var(--token))`. Use the named token, never a raw colour.
+Tokens are HSL triples; Tailwind reads them through `hsl(var(--token))`. Use the
+named token, never a raw value.
 
 | Token                  | Light        | Dark         |
 | ---------------------- | ------------ | ------------ |
@@ -41,82 +27,76 @@ Tokens are HSL triples in `src/styles/globals.css`; Tailwind reads them through
 | `--primary-foreground` | `30 8% 8%`   | `30 8% 8%`   |
 | `--gold-ink`           | `32 26% 37%` | `32 38% 64%` |
 
-Three accent rules, all of them load-bearing:
+Three rules about the gold, all of them load-bearing:
 
-1. The champagne gold is the only accent. Keep it under ~5 % of any viewport.
+1. It is the only accent. Keep it under roughly 5 % of any viewport.
 2. **Gold as a fill** (`bg-primary`) always takes `--primary-foreground` as its
-   ink. That token is dark in _both_ themes because the gold itself is
-   identical in both — a light value here reads at 1.8:1.
+   ink. That token is dark in _both_ themes because the gold itself is identical
+   in both — a light value there puts every filled button at 1.8:1.
 3. **Gold as text** uses `.text-gold-ink`, not `.text-gold`. The champagne fill
    measures 2.1:1 on the light paper; `--gold-ink` darkens in light mode and
-   passes AA in both.
+   clears AA in both.
 
-Every text/background pair ships at WCAG AA or better. Verify, don't assume.
+Every text/background pair should measure at WCAG AA or better. Measure it —
+the two failures above both looked fine by eye.
 
 ## Typography
 
-- **Display** — Instrument Serif 400, roman. `.font-display`.
-  Headings are never italic; emphasis comes from weight, accent, or a rule.
-- **Body** — DM Sans 300–700. `.font-body` / default.
-- **Mono** — JetBrains Mono 400–500. Timestamps, input rules, counts, step
+- **Display** — Instrument Serif 400, roman. `.font-display`. Headings are never
+  italic; emphasis comes from weight, accent, or a rule.
+- **Body** — DM Sans 300–700.
+- **Mono** — JetBrains Mono 400–500. Timestamps, keyboard syntax, counts, step
   numbers. Anything columnar also takes `tabular-nums`.
-- **Label** — `.label-editorial`: 10–11 px, uppercase, tracked. At most one or
-  two per page; never as a decorative eyebrow on every section, and never in a
-  left column with the heading beside it.
+- **Label** — `.label-editorial`: 10–11 px, uppercase, tracked. One or two per
+  page at most. It is an ordinal device, not decoration, and the heading goes
+  directly underneath it rather than beside it.
 
 ## Spacing
 
-Tailwind's 4-point scale. Sections vary their rhythm deliberately — the page
-should not have identical padding on every band.
+Tailwind's 4-point scale. Vary the rhythm between sections deliberately; a page
+where every band has identical padding reads as a template.
 
 ## Motion
 
-- Easing: `cubic-bezier(0.19, 1, 0.22, 1)`, the house curve, everywhere.
-- One orchestrated entrance per page. Content below the fold is simply there;
-  no scroll-triggered fade on every section.
+- Easing: `cubic-bezier(0.19, 1, 0.22, 1)` everywhere.
+- One orchestrated entrance per page. Content below the fold is simply there.
 - `transform` and `opacity` only.
 - `prefers-reduced-motion: reduce` lands on the finished state.
-- **App pages carry no entrance motion at all.** A list or a writing surface
-  that animates under the user is a defect, not a flourish.
+- Scroll-linked opacity or scale peaks with the element **mid-viewport**, not at
+  the end of its range. Mapping it `0 → 1` makes things brightest as they leave
+  the top of the screen, which is backwards.
+- App pages carry no entrance motion at all. A list or a writing surface that
+  animates under the user is a defect.
 
-## Microinteraction stance
+## Interaction
 
-- Silent success. Toasts only for failures and for async effects the user
-  cannot see (a copied link qualifies; a saved document does not).
-- Confirmations only for irreversible actions — deleting a Firestore document
-  earns one; renaming does not.
+- Silent success. Toasts are for failures and for async effects the user cannot
+  see — a copied link qualifies, a saved document does not.
+- Confirm only irreversible actions. Deleting a Firestore document earns a
+  dialog; renaming does not.
 - Focus rings appear instantly and are never transitioned.
-- Hit targets ≥ 44 px on coarse pointers. Clickable labels never wrap.
+- Hit targets ≥ 44 px on coarse pointers. Clickable labels never wrap to two
+  lines.
 
-## CTA voice
+## Buttons
 
-- **Primary** — `bg-primary`, `rounded-sm`, `min-h-11`, `whitespace-nowrap`.
-  The label is the verb: "Open the editor", "Create document", "Copy link".
+- **Primary** — `bg-primary`, `rounded-sm`, `min-h-11`, `whitespace-nowrap`. The
+  label is the verb: "Open the editor", "Create document", "Copy link".
 - **Secondary** — hairline border, transparent fill, same geometry, plus
   `.link-underline` where it reads as a link.
-- Never a gradient fill, never a pill with a gradient.
+- No gradient fills.
 
 ## Sticky offsets
 
 The site header is `sticky top-0 z-50`, `h-16` / `md:h-20`. Anything else that
-sticks parks beneath it: `top-16 md:top-20`, and a z-index below 50. Getting
-this wrong slides the element under the header — which is exactly what the
-editor toolbar did at `top-14 z-10`.
+sticks parks beneath it — `top-16 md:top-20`, z-index below 50. Getting this
+wrong slides the element under the header, which is what the editor toolbar did
+at `top-14 z-10`.
 
-## Per-page allowances
+## Imagery
 
-- Marketing pages may use enrichment (Tier-A CSS/JS, hand-built SVG, real
-  product screenshots in a `<figure>`).
-- App pages must not. Function carries the page.
-- No page re-draws UI chrome: no fake browser bars, phone frames, or window
-  chrome around a screenshot or a code block.
-
-## What pages must share
-
-The wordmark, the accent and its restraint, the display + body pairing, the
-CTA geometry, and hairline rules instead of card borders.
-
-## What pages may differ on
-
-Macrostructure within their family, component archetypes, and section rhythm.
-Not the theme — variety lives in structure here, not in colour.
+- Screenshots go in a `<figure>` with at most a hairline border, shot to frame
+  so the page doesn't have to crop them.
+- Never re-draw UI chrome — no fake browser bars, phone frames, or window
+  chrome around a screenshot or a code block. The reader already has chrome.
+- App pages don't use decorative imagery. Function carries them.

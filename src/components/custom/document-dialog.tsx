@@ -34,7 +34,6 @@ const DocumentDialog: React.FC<DocumentDialogProps> = ({
   children,
 }) => {
   const [title, setTitle] = useState<string>("")
-  const [creating, setCreating] = useState(false)
 
   return (
     <Dialog>
@@ -82,18 +81,14 @@ const DocumentDialog: React.FC<DocumentDialogProps> = ({
 
         <DialogFooter>
           <DialogClose asChild>
+            {/* DialogClose closes on click, so this button cannot show a
+                pending state — creation routes to the new document anyway. */}
             <Button
-              disabled={creating}
-              onClick={async () => {
-                setCreating(true)
-                try {
-                  await onDialogClose(title.trim() || documentName)
-                } finally {
-                  setCreating(false)
-                }
-              }}
+              onClick={async () =>
+                await onDialogClose(title.trim() || documentName)
+              }
             >
-              {creating ? "Creating…" : "Create document"}
+              Create document
             </Button>
           </DialogClose>
         </DialogFooter>

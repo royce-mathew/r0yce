@@ -1,11 +1,5 @@
 "use client"
 
-/* Hallmark · genre: editorial · macrostructure: Index-First · design-system: design.md · designed-as-app
- * The page IS the list. Hairline-ruled rows, no cards, no icon tiles.
- * section head: S2 Hanging · rows: F3 Tabular · new-document actions: C1 Outlined chip
- * motion: none — an index should be still
- * pre-emit critique: P5 H5 E4 S5 R5 V4
- */
 import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"

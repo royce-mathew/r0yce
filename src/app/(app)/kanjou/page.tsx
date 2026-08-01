@@ -1,13 +1,3 @@
-/* Hallmark · genre: editorial · macrostructure: Workbench · theme: r0yce house system
- * (warm dark paper · champagne gold accent · Instrument Serif display + DM Sans + JetBrains Mono)
- * sections: H2 Split diptych → F5 Annotated screenshot → F3 Tabular spec sheet
- *           → F4 Step sequence → C1 Outlined chip close
- * section heads: S2 Hanging (no eyebrows below the fold, no tag-left/header-right)
- * motion: one orchestrated hero entrance only — nothing below the fold animates
- * nav / footer: owned globally by (app)/layout.tsx — preserved, not redesigned
- * pre-emit critique: P5 H5 E4 S5 R5 V5
- */
-
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"

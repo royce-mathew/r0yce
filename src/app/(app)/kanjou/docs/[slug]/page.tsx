@@ -1,11 +1,5 @@
 "use client"
 
-/* Hallmark · genre: editorial · macrostructure: Long Document · design-system: design.md · designed-as-app
- * The document is the page. A quiet chrome band (back · title · state · share)
- * sits above a sheet; the formatting rail sticks beneath the site header.
- * motion: none — a writing surface should not move under the writer
- * pre-emit critique: P5 H5 E4 S5 R5 V4
- */
 import { use, useEffect, useRef, useState } from "react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
@@ -72,15 +66,23 @@ export default function KanjouDocument(props: {
   const [providerReady, setProviderReady] = useState(false)
   const [shareUrl, setShareUrl] = useState("")
 
+  // Keyed on the slug: navigating between documents is client-side now, so a
+  // URL captured once on mount would go stale and Share would copy the link to
+  // whichever document was open first.
   useEffect(() => {
     setShareUrl(window.location.href)
-  }, [])
+  }, [params.slug])
 
   // Fetch the document
   useEffect(() => {
     // Validate Slug and User
     if (params.slug === undefined) return
     if (session?.user.id === undefined || session?.user.id === null) return
+
+    // Nothing below belongs to the document we are leaving.
+    setAccess(undefined)
+    setMetadata(undefined)
+    setSaving(false)
 
     // Get the initial Document Metadata and merge it with the unsavedMetadata
     yDoc.current = new Y.Doc()
@@ -109,6 +111,19 @@ export default function KanjouDocument(props: {
     }
 
     setProviderReady(true)
+
+    // The provider holds Firestore listeners, WebRTC peers and a beforeunload
+    // handler. Without this, moving between documents leaves the previous one
+    // listening and writing in the background — it only went unnoticed while
+    // opening a document was a full page load.
+    return () => {
+      provider.current?.destroy()
+      provider.current = undefined
+      yDoc.current?.destroy()
+      yDoc.current = undefined
+      hash.current = undefined
+      setProviderReady(false)
+    }
   }, [params.slug, session?.user.id])
 
   useEffect(() => {

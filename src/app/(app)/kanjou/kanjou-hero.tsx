@@ -1,12 +1,5 @@
 "use client"
 
-/* Hallmark · genre: editorial · macrostructure: Workbench · theme: r0yce house system
- * (warm dark paper · champagne gold accent · Instrument Serif display)
- * hero: H2 Split diptych · knobs: ratio=7/5, right=live document surface, divider=hairline
- * enrichment: Tier-A CSS/JS document surface (no re-drawn browser or device chrome)
- * nav / footer: owned globally by (app)/layout.tsx — untouched by this redesign
- * pre-emit critique: P5 H5 E4 S5 R4 V5
- */
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
