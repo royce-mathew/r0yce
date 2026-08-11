@@ -105,7 +105,7 @@
     "eslint-config-next": "^15.5.19",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
-    "postcss": "^8.5.16",
+    "postcss": "^8.5.23",
     "prettier": "^3.9.4",
     "prettier-eslint": "^16.4.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
