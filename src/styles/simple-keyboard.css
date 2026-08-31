@@ -174,3 +174,14 @@
   border-color: #444;
   color: #777;
 }
+
+@media (max-height: 760px) {
+  .hg-theme-default {
+    padding: 6px;
+  }
+
+  .hg-theme-dark .hg-button {
+    margin: 1px 3px;
+    padding: 6px 12px;
+  }
+}
