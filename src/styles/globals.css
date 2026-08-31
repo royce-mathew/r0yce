@@ -48,6 +48,8 @@
     --accent-foreground: 30 8% 15%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
+    --market-positive: 145 55% 29%;
+    --market-negative: 0 68% 42%;
     --border: 32 15% 85%;
     --input: 32 10% 85%;
     --ring: 32 38% 64%;
@@ -83,6 +85,8 @@
     --accent-foreground: 35 15% 90%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
+    --market-positive: 145 48% 62%;
+    --market-negative: 0 72% 65%;
     --border: 32 12% 16%;
     --input: 30 6% 14%;
     --ring: 32 38% 64%;

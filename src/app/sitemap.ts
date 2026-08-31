@@ -22,6 +22,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: "https://r0yce.com/market-state",
+      lastModified: new Date("2026-08-30"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
     // other pages
   ]
 

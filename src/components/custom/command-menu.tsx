@@ -28,6 +28,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 
 const menuPages: NavItem[] = [
   ...siteConfig.mainNav.filter((navItem) => !navItem.external),
+  { title: "Market State", href: "/market-state" },
   { title: "Wordle", href: "/misc/wordle" },
 ]
 

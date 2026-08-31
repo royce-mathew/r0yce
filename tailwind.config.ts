@@ -58,6 +58,8 @@ const config = {
           dim: "hsl(var(--gold-dim))",
         },
         surface: "hsl(var(--surface))",
+        "market-positive": "hsl(var(--market-positive))",
+        "market-negative": "hsl(var(--market-negative))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -67,7 +69,11 @@ const config = {
       fontFamily: {
         default: "var(--font-sans)",
         sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
-        display: ["var(--font-display)", "Georgia", ...defaultTheme.fontFamily.serif],
+        display: [
+          "var(--font-display)",
+          "Georgia",
+          ...defaultTheme.fontFamily.serif,
+        ],
         cal: ["var(--font-cal)", ...defaultTheme.fontFamily.sans],
         title: ["var(--font-title)", ...defaultTheme.fontFamily.sans],
         mono: ["var(--font-mono)", "Consolas", ...defaultTheme.fontFamily.mono],
@@ -127,7 +133,8 @@ const config = {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         "fade-in-up": "fade-in-up 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards",
         "fade-in": "fade-in 0.6s ease-out forwards",
-        "slide-in-right": "slide-in-right 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards",
+        "slide-in-right":
+          "slide-in-right 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards",
         "line-reveal": "line-reveal 1s cubic-bezier(0.19, 1, 0.22, 1) forwards",
       },
     },
