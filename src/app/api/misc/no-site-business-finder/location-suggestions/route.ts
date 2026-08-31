@@ -104,8 +104,7 @@ export async function GET(request: Request) {
     )
   }
 
-  const payload =
-    (await response.json()) as GooglePlacesAutocompleteResponse
+  const payload = (await response.json()) as GooglePlacesAutocompleteResponse
 
   if (
     payload.status &&

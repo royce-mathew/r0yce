@@ -164,7 +164,9 @@ function parseGeminiClassifications(
 ): Classification[] {
   const candidateItems = Array.isArray(payload)
     ? payload
-    : Array.isArray((payload as { classifications?: unknown[] })?.classifications)
+    : Array.isArray(
+          (payload as { classifications?: unknown[] })?.classifications
+        )
       ? ((payload as { classifications: unknown[] }).classifications ?? [])
       : Array.isArray((payload as { results?: unknown[] })?.results)
         ? ((payload as { results: unknown[] }).results ?? [])
@@ -180,7 +182,8 @@ function parseGeminiClassifications(
 
       let index = parseClassificationIndex(shape.index)
       const status = normalizeClassificationStatus(shape.status)
-      const reason = sanitizeText(shape.reason).trim() || "No reason provided by AI."
+      const reason =
+        sanitizeText(shape.reason).trim() || "No reason provided by AI."
 
       if (index === null || status === null) {
         return null
@@ -432,7 +435,9 @@ async function appendTextSearchResults(
     : `${params.businessType || "business"} in ${params.location}`
 
   while (businessesByPlaceId.size < params.maxResults * 3) {
-    const url = new URL("https://maps.googleapis.com/maps/api/place/textsearch/json")
+    const url = new URL(
+      "https://maps.googleapis.com/maps/api/place/textsearch/json"
+    )
     url.searchParams.set("query", query)
     url.searchParams.set("key", params.placesApiKey)
 
@@ -598,7 +603,9 @@ async function getBusinessDetailedInfo(
     name: business.name,
     mapsUrl: business.maps_url,
     links,
-    phones: result.formatted_phone_number ? [result.formatted_phone_number] : [],
+    phones: result.formatted_phone_number
+      ? [result.formatted_phone_number]
+      : [],
     textSnippet: result.editorial_summary?.overview ?? "",
   }
 }
@@ -632,7 +639,10 @@ async function getDetailedBusinessesWithConcurrency(
       cursor += 1
 
       const business = businesses[currentIndex]
-      details[currentIndex] = await getBusinessDetailedInfo(business, placesApiKey)
+      details[currentIndex] = await getBusinessDetailedInfo(
+        business,
+        placesApiKey
+      )
 
       completed += 1
       progress({
@@ -673,8 +683,8 @@ async function classifyBusinessesWithGemini(
     "Use 1-based index values and include exactly one classification for every business in the batch.\n\n" +
     "Respond strictly in JSON with this shape:\n" +
     "{\n" +
-    "  \"classifications\": [\n" +
-    "    {\"index\": 1, \"status\": \"NO_WEBSITE\", \"reason\": \"Brief explanation\"}\n" +
+    '  "classifications": [\n' +
+    '    {"index": 1, "status": "NO_WEBSITE", "reason": "Brief explanation"}\n' +
     "  ]\n" +
     "}\n\n"
 
@@ -752,7 +762,8 @@ async function classifyBusinessesWithGemini(
 
       return { classifications }
     } catch (error) {
-      lastError = error instanceof Error ? error.message : "Gemini request failed"
+      lastError =
+        error instanceof Error ? error.message : "Gemini request failed"
 
       if (attempt === 3) {
         return { classifications: [], error: lastError }
@@ -858,7 +869,8 @@ async function runAnalysis(
     if (business.links.length === 0) {
       businessesWithoutWebsites.push({
         ...business,
-        reason: "No official website was found in Google Places details for this listing.",
+        reason:
+          "No official website was found in Google Places details for this listing.",
       })
     }
   }
@@ -880,10 +892,8 @@ async function runAnalysis(
       message: `Classifying batch ${batchNumber}/${totalBatches}`,
     })
 
-    const {
-      classifications,
-      error: classificationError,
-    } = await classifyBusinessesWithGemini(batch, geminiApiKey)
+    const { classifications, error: classificationError } =
+      await classifyBusinessesWithGemini(batch, geminiApiKey)
     const classificationsByIndex = new Map<number, Classification>()
     for (const classification of classifications) {
       classificationsByIndex.set(classification.index, classification)
@@ -916,17 +926,15 @@ async function runAnalysis(
       if (!classification) {
         if (business.links.length > 0) {
           existingDecision.status = "HAS_WEBSITE"
-          existingDecision.reason =
-            classificationError
-              ? `AI unavailable (${classificationError}). Google Places includes an official website for this listing.`
-              : "AI classification was unavailable, but Google Places includes an official website for this listing."
+          existingDecision.reason = classificationError
+            ? `AI unavailable (${classificationError}). Google Places includes an official website for this listing.`
+            : "AI classification was unavailable, but Google Places includes an official website for this listing."
           businessesWithoutWebsitesByPlaceId.delete(business.placeId)
         } else {
           existingDecision.status = "NO_WEBSITE"
-          existingDecision.reason =
-            classificationError
-              ? `AI unavailable (${classificationError}). No official website was found in Google Places details for this listing.`
-              : "AI classification was unavailable, and no official website was found in Google Places details for this listing."
+          existingDecision.reason = classificationError
+            ? `AI unavailable (${classificationError}). No official website was found in Google Places details for this listing.`
+            : "AI classification was unavailable, and no official website was found in Google Places details for this listing."
           businessesWithoutWebsitesByPlaceId.set(business.placeId, {
             ...business,
             reason: existingDecision.reason,

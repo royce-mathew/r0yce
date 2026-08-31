@@ -1,8 +1,8 @@
 "use client"
 
 import React from "react"
-import Link from "next/link"
 import Image from "next/image"
+import Link from "next/link"
 
 export default function NotFound() {
   return (
@@ -15,13 +15,11 @@ export default function NotFound() {
         className="rounded-sm opacity-80"
         src="/images/404.webp"
       />
-      <div className="text-center space-y-3">
+      <div className="space-y-3 text-center">
         <h1 className="font-display text-7xl tracking-tight text-foreground/20">
           404
         </h1>
-        <p className="label-editorial text-muted-foreground">
-          Page not found
-        </p>
+        <p className="label-editorial text-muted-foreground">Page not found</p>
       </div>
       <Link
         href="/"

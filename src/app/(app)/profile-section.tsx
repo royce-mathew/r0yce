@@ -1,5 +1,6 @@
 "use client"
 
+import { useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -9,7 +10,6 @@ import {
   IconMailFilled,
 } from "@tabler/icons-react"
 import { motion, useScroll, useTransform } from "motion/react"
-import { useRef } from "react"
 import { Icons } from "@/config/icons"
 import { MagneticButton } from "@/components/ui/magnetic-button"
 
@@ -42,15 +42,16 @@ export function ProfileSection() {
       <div className="absolute inset-0 -z-20">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background" />
         <div className="absolute top-0 left-1/4 h-[500px] w-[500px] rounded-full bg-primary/[0.03] blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-primary/[0.05] blur-[100px]" />
+        <div className="absolute right-1/4 bottom-0 h-[400px] w-[400px] rounded-full bg-primary/[0.05] blur-[100px]" />
       </div>
 
       {/* Subtle grid */}
-      <div className="absolute inset-0 -z-10 opacity-[0.03]"
+      <div
+        className="absolute inset-0 -z-10 opacity-[0.03]"
         style={{
           backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
                            linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-          backgroundSize: '80px 80px',
+          backgroundSize: "80px 80px",
         }}
       />
 
@@ -60,27 +61,31 @@ export function ProfileSection() {
       >
         <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:gap-20">
           {/* Left: Typography */}
-          <div className="flex flex-1 flex-col space-y-5 md:space-y-8 text-center lg:text-left max-w-sm sm:max-w-none mx-auto lg:mx-0">
+          <div className="mx-auto flex max-w-sm flex-1 flex-col space-y-5 text-center sm:max-w-none md:space-y-8 lg:mx-0 lg:text-left">
             {/* Label */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
+              transition={{
+                duration: 0.8,
+                ease: [0.19, 1, 0.22, 1],
+                delay: 0.2,
+              }}
             >
-              <span className="label-editorial text-gold block text-balance text-[9px] tracking-[0.08em] sm:text-[11px] sm:tracking-[0.15em]">
+              <span className="label-editorial block text-[9px] tracking-[0.08em] text-balance text-gold sm:text-[11px] sm:tracking-[0.15em]">
                 Software Developer · Data Scientist · Game Developer
               </span>
             </motion.div>
 
             {/* Name */}
             <motion.h1
-              className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight"
+              className="font-display text-4xl leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.19, 1, 0.22, 1], delay: 0.4 }}
             >
               <span className="block text-foreground">Royce</span>
-              <span className="block font-display italic text-gold">
+              <span className="block font-display text-gold italic">
                 Mathew
               </span>
             </motion.h1>
@@ -101,13 +106,17 @@ export function ProfileSection() {
 
             {/* Description */}
             <motion.p
-              className="max-w-md text-sm sm:text-base leading-relaxed text-muted-foreground lg:text-lg"
+              className="max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base lg:text-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1], delay: 0.9 }}
+              transition={{
+                duration: 0.8,
+                ease: [0.19, 1, 0.22, 1],
+                delay: 0.9,
+              }}
             >
-              Building at the intersection of cloud infrastructure, data science,
-              and creative engineering. Crafting solutions that scale.
+              Building at the intersection of cloud infrastructure, data
+              science, and creative engineering. Crafting solutions that scale.
             </motion.p>
 
             {/* Social links + Resume */}
@@ -115,7 +124,11 @@ export function ProfileSection() {
               className="flex flex-wrap items-center justify-center gap-3 lg:justify-start"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1], delay: 1.1 }}
+              transition={{
+                duration: 0.8,
+                ease: [0.19, 1, 0.22, 1],
+                delay: 1.1,
+              }}
             >
               <MagneticButton>
                 <Link
@@ -123,7 +136,7 @@ export function ProfileSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
-                  className="flex size-11 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-foreground hover:bg-primary/5"
+                  className="flex size-11 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 hover:text-foreground"
                 >
                   <IconBrandGithubFilled className="size-[18px]" />
                 </Link>
@@ -134,7 +147,7 @@ export function ProfileSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="flex size-11 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-foreground hover:bg-primary/5"
+                  className="flex size-11 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 hover:text-foreground"
                 >
                   <Icons.LinkedIn className="size-[18px]" />
                 </Link>
@@ -143,7 +156,7 @@ export function ProfileSection() {
                 <Link
                   href="mailto:royce1mathew@gmail.com"
                   aria-label="Email"
-                  className="flex size-11 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-foreground hover:bg-primary/5"
+                  className="flex size-11 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 hover:text-foreground"
                 >
                   <IconMailFilled className="size-[18px]" />
                 </Link>
@@ -157,7 +170,7 @@ export function ProfileSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Resume"
-                  className="flex items-center gap-2 rounded-full border border-border/50 px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-foreground hover:bg-primary/5"
+                  className="flex items-center gap-2 rounded-full border border-border/50 px-5 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:bg-primary/5 hover:text-foreground"
                 >
                   <IconFileFilled className="size-3.5" />
                   <span className="tracking-wide">Resume</span>
@@ -237,7 +250,7 @@ export function ProfileSection() {
           aria-label="Scroll to About section"
           className="group flex flex-col items-center gap-2"
         >
-          <span className="label-editorial text-muted-foreground/60 group-hover:text-muted-foreground transition-colors">
+          <span className="label-editorial text-muted-foreground/60 transition-colors group-hover:text-muted-foreground">
             Scroll
           </span>
           <motion.div
@@ -248,7 +261,7 @@ export function ProfileSection() {
               ease: "easeInOut",
             }}
           >
-            <IconArrowDown className="size-4 text-muted-foreground/40 group-hover:text-primary transition-colors" />
+            <IconArrowDown className="size-4 text-muted-foreground/40 transition-colors group-hover:text-primary" />
           </motion.div>
         </button>
       </motion.div>

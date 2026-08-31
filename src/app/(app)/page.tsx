@@ -1,8 +1,8 @@
 import { Metadata } from "next"
 import { mainContents } from "#site/content"
 import { Mdx } from "@/components/mdx/mdx-components"
-import { ProfileSection } from "./profile-section"
 import { AboutSection } from "./about-section"
+import { ProfileSection } from "./profile-section"
 
 export const metadata: Metadata = {
   title: "Royce Mathew — Developer & Data Scientist",
