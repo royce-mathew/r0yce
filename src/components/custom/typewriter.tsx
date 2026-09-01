@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "motion/react"
 
 interface TypewriterProps {
@@ -11,6 +11,8 @@ interface TypewriterProps {
   cursorClassName?: string
 }
 
+type TypewriterAnimationProps = Required<TypewriterProps>
+
 export function Typewriter({
   text,
   className = "",
@@ -18,47 +20,49 @@ export function Typewriter({
   startDelay = 200,
   cursorClassName = "text-foreground",
 }: TypewriterProps) {
+  // A changed script or timing should start from an empty line, not resume the old one.
+  return (
+    <TypewriterAnimation
+      key={`${text}:${typingSpeed}:${startDelay}`}
+      text={text}
+      className={className}
+      typingSpeed={typingSpeed}
+      startDelay={startDelay}
+      cursorClassName={cursorClassName}
+    />
+  )
+}
+
+function TypewriterAnimation({
+  text,
+  className,
+  typingSpeed,
+  startDelay,
+  cursorClassName,
+}: TypewriterAnimationProps) {
   const [displayText, setDisplayText] = useState("")
-  const [isTypingComplete, setIsTypingComplete] = useState(false)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const indexRef = useRef(0) // Store the current index in a ref to avoid closure issues
 
   useEffect(() => {
-    // Reset state
-    setDisplayText("")
-    setIsTypingComplete(false)
-    indexRef.current = 0 // Reset index when text changes
+    let index = 0
+    let intervalId: number | undefined
+    const timeoutId = window.setTimeout(() => {
+      intervalId = window.setInterval(() => {
+        index += 1
+        setDisplayText(text.slice(0, index))
 
-    // Use interval for more reliable typing
-    timeoutRef.current = setTimeout(() => {
-      intervalRef.current = setInterval(() => {
-        if (indexRef.current < text.length) {
-          // Use functional update to ensure we're working with the latest state
-          setDisplayText(text.substring(0, indexRef.current + 1))
-          indexRef.current += 1
-
-          // Check if this is the last character
-          if (indexRef.current === text.length) {
-            setIsTypingComplete(true)
-            if (intervalRef.current) {
-              clearInterval(intervalRef.current)
-            }
-          }
+        if (index >= text.length && intervalId !== undefined) {
+          window.clearInterval(intervalId)
         }
       }, typingSpeed)
     }, startDelay)
 
-    // Clean up on unmount or when dependencies change
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
+      window.clearTimeout(timeoutId)
+      if (intervalId !== undefined) {
+        window.clearInterval(intervalId)
       }
     }
-  }, [text, typingSpeed, startDelay])
+  }, [startDelay, text, typingSpeed])
 
   return (
     <span className={className}>

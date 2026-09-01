@@ -2,7 +2,8 @@
  * r0yce.com — Architectural Editorial Design System
  * Warm dark palette with champagne gold accent
  */
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "..";
 
 @config '../../tailwind.config.ts';
 

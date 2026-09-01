@@ -1,5 +1,5 @@
 "use client"
- 
+
 import * as React from "react"
 import * as runtime from "react/jsx-runtime"
 import Image from "next/image"
@@ -260,7 +260,7 @@ const sharedComponents = {
       <StepsContext.Provider value={true}>
         <div
           className={cn(
-            "steps mb-12 ml-4 [counter-reset:step] text-foreground/80 [&>div>h1]:step [&>div>h2]:step [&>div>h3]:step [&>div>h4]:step [&>div>div>h1]:step [&>div>div>h2]:step [&>div>div>h3]:step [&>div>div>h4]:step",
+            "steps mb-12 ml-4 text-foreground/80 [counter-reset:step] [&>div>div>h1]:step [&>div>div>h2]:step [&>div>div>h3]:step [&>div>div>h4]:step [&>div>h1]:step [&>div>h2]:step [&>div>h3]:step [&>div>h4]:step",
             className
           )}
         >
@@ -268,7 +268,7 @@ const sharedComponents = {
             <div
               key={idx}
               className={cn(
-                "step-group relative pl-8 pb-10 last:pb-0 isolate",
+                "step-group relative isolate pb-10 pl-8 last:pb-0",
                 idx < steps.length - 1 && "step-line"
               )}
             >
@@ -286,7 +286,7 @@ const sharedComponents = {
       <StepsContext.Provider value={true}>
         <div
           className={cn(
-            "unordered-steps mb-12 ml-4 [counter-reset:unordered-step] text-foreground/80 [&>div>h1]:unordered-step [&>div>h2]:unordered-step [&>div>h3]:unordered-step [&>div>h4]:unordered-step [&>div>div>h1]:unordered-step [&>div>div>h2]:unordered-step [&>div>div>h3]:unordered-step [&>div>div>h4]:unordered-step",
+            "unordered-steps mb-12 ml-4 text-foreground/80 [counter-reset:unordered-step] [&>div>div>h1]:unordered-step [&>div>div>h2]:unordered-step [&>div>div>h3]:unordered-step [&>div>div>h4]:unordered-step [&>div>h1]:unordered-step [&>div>h2]:unordered-step [&>div>h3]:unordered-step [&>div>h4]:unordered-step",
             className
           )}
         >
@@ -294,7 +294,7 @@ const sharedComponents = {
             <div
               key={idx}
               className={cn(
-                "step-group relative pl-8 pb-10 last:pb-0 isolate",
+                "step-group relative isolate pb-10 pl-8 last:pb-0",
                 idx < steps.length - 1 && "step-line"
               )}
             >
@@ -366,8 +366,8 @@ function groupChildrenIntoSteps(children: React.ReactNode) {
 
   return steps
 }
-// parse the Velite generated MDX code into a React component function
-const useMDXComponent = (code: string) => {
+// Parse Velite-generated MDX into a component function.
+function compileMDXComponent(code: string): React.ComponentType<any> {
   const fn = new Function(code)
   return fn({ ...runtime }).default
 }
@@ -380,14 +380,19 @@ interface MDXProps {
 }
 
 export const Mdx = ({ code, components, className, ...props }: MDXProps) => {
-  const Component = useMDXComponent(code)
+  const component = React.useMemo(() => compileMDXComponent(code), [code])
+  const mdxComponents = React.useMemo(
+    () => ({ ...sharedComponents, ...components }),
+    [components]
+  )
+
   return (
     <div className={cn("mdx-shell", className)}>
       <div className="mdx">
-        <Component
-          components={{ ...sharedComponents, ...components }}
-          {...props}
-        />
+        {React.createElement(component, {
+          components: mdxComponents,
+          ...props,
+        })}
       </div>
     </div>
   )

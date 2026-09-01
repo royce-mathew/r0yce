@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import {
   IconAbc,
   IconBold,
@@ -87,36 +86,6 @@ const TooltipHandler = ({
 }
 
 const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
-  const [selectStyle, setSelectStyle] = useState("")
-  const [style, setStyle] = useState("p")
-
-  // Set the style of the current block based on select value
-  useEffect(() => {
-    if (selectStyle === "") return
-    const headingLevel =
-      selectStyle === "h1"
-        ? 1
-        : selectStyle === "h2"
-          ? 2
-          : selectStyle === "h3"
-            ? 3
-            : null
-
-    if (!headingLevel) {
-      // If the selectStyle is a paragraph, set the block to a paragraph
-      editor.chain().focus().setParagraph().run()
-    } else {
-      // Set the block to a heading based on the level
-      editor
-        .chain()
-        .focus()
-        .toggleHeading({
-          level: headingLevel as Level,
-        })
-        .run()
-    }
-  }, [selectStyle, editor])
-
   const editorState = useEditorState({
     editor,
     // This function will be called every time the editor content changes
@@ -131,6 +100,38 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
       isH3: editor.isActive("heading", { level: 3 }),
     }),
   })
+  // Read the current block directly. A second style state lags behind editor changes.
+  const style = editorState.isH1
+    ? "h1"
+    : editorState.isH2
+      ? "h2"
+      : editorState.isH3
+        ? "h3"
+        : "p"
+
+  function handleStyleSelection(nextStyle: string) {
+    const headingLevel =
+      nextStyle === "h1"
+        ? 1
+        : nextStyle === "h2"
+          ? 2
+          : nextStyle === "h3"
+            ? 3
+            : null
+
+    if (!headingLevel) {
+      editor.chain().focus().setParagraph().run()
+      return
+    }
+
+    editor
+      .chain()
+      .focus()
+      .toggleHeading({
+        level: headingLevel as Level,
+      })
+      .run()
+  }
 
   // Undo/redo are supplied by the Collaboration extension's Yjs undo manager,
   // not by the base extension list — the v3 UndoRedo extension is deliberately
@@ -141,20 +142,6 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
     typeof editor.can().undo === "function" ? editor.can().undo() : false
   const canRedo =
     typeof editor.can().redo === "function" ? editor.can().redo() : false
-
-  // Set the style of the current block based on the current selection
-  useEffect(() => {
-    if (!editor) return
-    if (editorState.isH1) {
-      setStyle("h1")
-    } else if (editorState.isH2) {
-      setStyle("h2")
-    } else if (editorState.isH3) {
-      setStyle("h3")
-    } else {
-      setStyle("p")
-    }
-  }, [editor, style, editorState])
 
   return (
     /* Parks directly beneath the site header, which is `sticky top-0 z-50` and
@@ -263,7 +250,7 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
-      <Select value={style} onValueChange={setSelectStyle}>
+      <Select value={style} onValueChange={handleStyleSelection}>
         <TooltipHandler content="Change Style">
           <SelectTrigger className="w-[150px]">
             <SelectValue aria-label={style}>

@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -10,7 +14,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "baseUrl": ".",
     "plugins": [
@@ -19,12 +23,24 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/components/ui/*": ["./src/components/ui/*"],
-      "@/styles/*": ["./src/styles/*"],
-      "#site/content": ["./.velite"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/components/ui/*": [
+        "./src/components/ui/*"
+      ],
+      "@/styles/*": [
+        "./src/styles/*"
+      ],
+      "#site/content": [
+        "./.velite"
+      ]
     },
     "target": "ES2017"
   },
@@ -34,7 +50,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "./.velite",
-    "next.config.ts"
+    "next.config.ts",
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

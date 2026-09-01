@@ -3,7 +3,7 @@ import { getToken } from "@auth/core/jwt"
 
 const secure = process.env.NODE_ENV === "production"
 
-export default async function middleware(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
   // Retrieve the user data from the JWT token
   const userData = await getToken({
     secureCookie: secure,
@@ -29,10 +29,7 @@ export default async function middleware(req: NextRequest) {
   }
 }
 
-// Don't invoke Middleware on certain paths
+// Apply the proxy only to collaborative document routes.
 export const config = {
-  matcher: [
-    // Only invoke the middleware on the following paths
-    "/kanjou/docs/:path*",
-  ],
+  matcher: ["/kanjou/docs/:path*"],
 }
