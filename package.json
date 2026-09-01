@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@aarkue/tiptap-math-extension": "^1.4.0",
-    "@auth/core": "^0.40.0",
+    "@auth/core": "^0.41.3",
     "@auth/firebase-adapter": "^2.11.3",
     "@next/third-parties": "16.3.4",
     "@number-flow/react": "^0.5.14",

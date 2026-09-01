@@ -16,8 +16,8 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0(@tiptap/core@3.30.5(@tiptap/pm@3.30.5))(@tiptap/pm@3.30.5)
       '@auth/core':
-        specifier: ^0.40.0
-        version: 0.40.0
+        specifier: ^0.41.3
+        version: 0.41.3
       '@auth/firebase-adapter':
         specifier: ^2.11.3
         version: 2.11.3(firebase-admin@13.10.0(@firebase/app-compat@0.5.17)(@firebase/app@0.16.1)(supports-color@7.2.0))
