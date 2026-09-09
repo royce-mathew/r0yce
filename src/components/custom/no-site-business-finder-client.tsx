@@ -32,7 +32,11 @@ import {
 } from "@/components/ui/command"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -198,6 +202,7 @@ export default function NoSiteBusinessFinderClient() {
   const [recentActivity, setRecentActivity] = useState<string[]>([])
   const requestAbortRef = useRef<AbortController | null>(null)
   const locationSuggestionsAbortRef = useRef<AbortController | null>(null)
+  const hasLocationSuggestionQuery = locationQuery.trim().length >= 2
 
   const canSubmit = useMemo(() => {
     return !isLoading && location.trim().length > 0
@@ -224,10 +229,8 @@ export default function NoSiteBusinessFinderClient() {
 
     const trimmedQuery = locationQuery.trim()
 
-    if (trimmedQuery.length < 2) {
+    if (!hasLocationSuggestionQuery) {
       locationSuggestionsAbortRef.current?.abort()
-      setLocationSuggestions([])
-      setIsLoadingLocationSuggestions(false)
       return
     }
 
@@ -274,7 +277,7 @@ export default function NoSiteBusinessFinderClient() {
     return () => {
       clearTimeout(timeoutId)
     }
-  }, [isLocationPickerOpen, locationQuery])
+  }, [hasLocationSuggestionQuery, isLocationPickerOpen, locationQuery])
 
   function handleMaxResultsChange(event: ChangeEvent<HTMLInputElement>) {
     setMaxResults(
@@ -397,7 +400,9 @@ export default function NoSiteBusinessFinderClient() {
           ? requestError.message
           : "Unknown error while running analysis."
       setError(message)
-      setRecentActivity((current) => [...current, `Error: ${message}`].slice(-8))
+      setRecentActivity((current) =>
+        [...current, `Error: ${message}`].slice(-8)
+      )
     } finally {
       if (requestAbortRef.current === requestAbortController) {
         requestAbortRef.current = null
@@ -417,7 +422,7 @@ export default function NoSiteBusinessFinderClient() {
             <CardHeader className="gap-4">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <IconSparkles className="text-primary size-5" />
+                  <IconSparkles className="size-5 text-primary" />
                   <CardTitle className="font-cal text-3xl md:text-4xl">
                     No Site Business Finder
                   </CardTitle>
@@ -425,8 +430,9 @@ export default function NoSiteBusinessFinderClient() {
                 <Badge variant="outline">AI-Assisted Lead Discovery</Badge>
               </div>
               <CardDescription className="max-w-3xl text-sm md:text-base">
-                Discover local businesses that may need a website, review AI-assisted
-                decisions, and export qualified opportunities in one flow.
+                Discover local businesses that may need a website, review
+                AI-assisted decisions, and export qualified opportunities in one
+                flow.
               </CardDescription>
               <div className="flex flex-wrap gap-2">
                 <Badge variant="secondary">
@@ -484,9 +490,11 @@ export default function NoSiteBusinessFinderClient() {
                           />
                           <CommandList>
                             <CommandEmpty>
-                              {isLoadingLocationSuggestions
-                                ? "Loading suggestions..."
-                                : "No locations found."}
+                              {!hasLocationSuggestionQuery
+                                ? "Enter at least two characters."
+                                : isLoadingLocationSuggestions
+                                  ? "Loading suggestions..."
+                                  : "No locations found."}
                             </CommandEmpty>
                             {locationQuery.trim().length > 0 ? (
                               <CommandItem
@@ -496,15 +504,17 @@ export default function NoSiteBusinessFinderClient() {
                                 Use “{locationQuery}”
                               </CommandItem>
                             ) : null}
-                            {locationSuggestions.map((suggestion) => (
-                              <CommandItem
-                                key={suggestion}
-                                value={suggestion}
-                                onSelect={() => selectLocation(suggestion)}
-                              >
-                                {suggestion}
-                              </CommandItem>
-                            ))}
+                            {hasLocationSuggestionQuery
+                              ? locationSuggestions.map((suggestion) => (
+                                  <CommandItem
+                                    key={suggestion}
+                                    value={suggestion}
+                                    onSelect={() => selectLocation(suggestion)}
+                                  >
+                                    {suggestion}
+                                  </CommandItem>
+                                ))
+                              : null}
                           </CommandList>
                         </Command>
                       </PopoverContent>
@@ -534,7 +544,7 @@ export default function NoSiteBusinessFinderClient() {
                         help="When enabled, common chain brands are filtered and local candidates are prioritized."
                       />
                       <div className="flex items-center justify-between">
-                        <p className="text-muted-foreground text-sm">
+                        <p className="text-sm text-muted-foreground">
                           Prioritize local and independent listings.
                         </p>
                         <Switch
@@ -580,10 +590,15 @@ export default function NoSiteBusinessFinderClient() {
                   </div>
 
                   <div className="flex flex-col gap-3 border-t pt-4 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-muted-foreground text-sm">
-                      Run analysis to generate categorized website opportunities.
+                    <p className="text-sm text-muted-foreground">
+                      Run analysis to generate categorized website
+                      opportunities.
                     </p>
-                    <Button disabled={!canSubmit} type="submit" className="sm:min-w-52">
+                    <Button
+                      disabled={!canSubmit}
+                      type="submit"
+                      className="sm:min-w-52"
+                    >
                       {isLoading ? "Analyzing..." : "Run Analysis"}
                     </Button>
                   </div>
@@ -601,12 +616,14 @@ export default function NoSiteBusinessFinderClient() {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-muted-foreground">Pipeline Progress</span>
+                    <span className="text-muted-foreground">
+                      Pipeline Progress
+                    </span>
                     <span className="font-medium">{currentProgress}%</span>
                   </div>
-                  <div className="bg-muted h-2 w-full rounded-full">
+                  <div className="h-2 w-full rounded-full bg-muted">
                     <div
-                      className="bg-primary h-2 rounded-full transition-all duration-300"
+                      className="h-2 rounded-full bg-primary transition-all duration-300"
                       style={{ width: `${currentProgress}%` }}
                     />
                   </div>
@@ -614,25 +631,26 @@ export default function NoSiteBusinessFinderClient() {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-md border p-3">
-                    <p className="text-muted-foreground text-xs">Stage</p>
+                    <p className="text-xs text-muted-foreground">Stage</p>
                     <p className="text-sm font-semibold capitalize">
                       {progress?.stage ?? "idle"}
                     </p>
                   </div>
                   <div className="rounded-md border p-3">
-                    <p className="text-muted-foreground text-xs">Candidates</p>
+                    <p className="text-xs text-muted-foreground">Candidates</p>
                     <p className="text-sm font-semibold">
                       {progress?.searchedCount ?? result?.totalAnalyzed ?? 0}
                     </p>
                   </div>
                   <div className="rounded-md border p-3">
-                    <p className="text-muted-foreground text-xs">Details</p>
+                    <p className="text-xs text-muted-foreground">Details</p>
                     <p className="text-sm font-semibold">
-                      {progress?.detailsCompleted ?? 0}/{progress?.detailsTotal ?? 0}
+                      {progress?.detailsCompleted ?? 0}/
+                      {progress?.detailsTotal ?? 0}
                     </p>
                   </div>
                   <div className="rounded-md border p-3">
-                    <p className="text-muted-foreground text-xs">No Website</p>
+                    <p className="text-xs text-muted-foreground">No Website</p>
                     <p className="text-sm font-semibold">
                       {progress?.noWebsiteCount ?? result?.noWebsiteCount ?? 0}
                     </p>
@@ -642,19 +660,24 @@ export default function NoSiteBusinessFinderClient() {
                 <Separator />
 
                 <div className="space-y-2">
-                  <p className="text-muted-foreground text-xs">Recent Activity</p>
+                  <p className="text-xs text-muted-foreground">
+                    Recent Activity
+                  </p>
                   <div className="space-y-2">
                     {recentActivity.length === 0 ? (
                       <Badge variant="outline">Waiting to start analysis</Badge>
                     ) : (
-                      recentActivity.slice().reverse().map((activity, index) => (
-                        <div
-                          key={`${activity}-${index}`}
-                          className="text-muted-foreground rounded-md border px-3 py-2 text-xs"
-                        >
-                          {activity}
-                        </div>
-                      ))
+                      recentActivity
+                        .slice()
+                        .reverse()
+                        .map((activity, index) => (
+                          <div
+                            key={`${activity}-${index}`}
+                            className="rounded-md border px-3 py-2 text-xs text-muted-foreground"
+                          >
+                            {activity}
+                          </div>
+                        ))
                     )}
                   </div>
                 </div>
@@ -679,22 +702,38 @@ export default function NoSiteBusinessFinderClient() {
               </CardHeader>
               <CardContent className="space-y-5">
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                  <div className="bg-primary/5 rounded-lg border p-4">
-                    <p className="text-muted-foreground text-xs">Opportunities</p>
-                    <p className="text-primary text-2xl font-semibold">
+                  <div className="rounded-lg border bg-primary/5 p-4">
+                    <p className="text-xs text-muted-foreground">
+                      Opportunities
+                    </p>
+                    <p className="text-2xl font-semibold text-primary">
                       {result.noWebsiteCount}
                     </p>
-                    <p className="text-muted-foreground mt-1 text-xs">No website found</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      No website found
+                    </p>
                   </div>
                   <div className="rounded-lg border p-4">
-                    <p className="text-muted-foreground text-xs">Reviewed Positive</p>
-                    <p className="text-2xl font-semibold">{result.hasWebsiteCount}</p>
-                    <p className="text-muted-foreground mt-1 text-xs">Official website present</p>
+                    <p className="text-xs text-muted-foreground">
+                      Reviewed Positive
+                    </p>
+                    <p className="text-2xl font-semibold">
+                      {result.hasWebsiteCount}
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Official website present
+                    </p>
                   </div>
                   <div className="rounded-lg border p-4">
-                    <p className="text-muted-foreground text-xs">Total Analyzed</p>
-                    <p className="text-2xl font-semibold">{result.totalAnalyzed}</p>
-                    <p className="text-muted-foreground mt-1 text-xs">Listings processed</p>
+                    <p className="text-xs text-muted-foreground">
+                      Total Analyzed
+                    </p>
+                    <p className="text-2xl font-semibold">
+                      {result.totalAnalyzed}
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Listings processed
+                    </p>
                   </div>
                 </div>
 
@@ -712,7 +751,10 @@ export default function NoSiteBusinessFinderClient() {
                   <TabsContent value="opportunities" className="space-y-3">
                     {noWebsiteDecisions?.length ? (
                       noWebsiteDecisions.map((business) => (
-                        <div key={business.placeId} className="rounded-lg border p-4 text-sm">
+                        <div
+                          key={business.placeId}
+                          className="rounded-lg border p-4 text-sm"
+                        >
                           <div className="flex items-start justify-between gap-3">
                             <div>
                               <Badge className="mb-2" variant="secondary">
@@ -728,15 +770,15 @@ export default function NoSiteBusinessFinderClient() {
                                 Open Google Maps Listing
                               </a>
                             </div>
-                            <IconBuildingStore className="text-muted-foreground size-4" />
+                            <IconBuildingStore className="size-4 text-muted-foreground" />
                           </div>
-                          <p className="text-muted-foreground mt-3 rounded-md bg-muted/60 p-3">
+                          <p className="mt-3 rounded-md bg-muted/60 p-3 text-muted-foreground">
                             {business.reason || "AI marked as no-website."}
                           </p>
                         </div>
                       ))
                     ) : (
-                      <div className="text-muted-foreground rounded-lg border border-dashed p-6 text-center text-sm">
+                      <div className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
                         No businesses were classified as NO_WEBSITE in this run.
                       </div>
                     )}
@@ -745,7 +787,10 @@ export default function NoSiteBusinessFinderClient() {
                   <TabsContent value="rejected" className="space-y-3">
                     {hasWebsiteDecisions?.length ? (
                       hasWebsiteDecisions.map((business) => (
-                        <div key={business.placeId} className="rounded-lg border p-4 text-sm">
+                        <div
+                          key={business.placeId}
+                          className="rounded-lg border p-4 text-sm"
+                        >
                           <Badge className="mb-2" variant="outline">
                             Has Website
                           </Badge>
@@ -758,14 +803,14 @@ export default function NoSiteBusinessFinderClient() {
                           >
                             Open Google Maps Listing
                           </a>
-                          <p className="text-muted-foreground mt-3 rounded-md bg-muted/60 p-3">
+                          <p className="mt-3 rounded-md bg-muted/60 p-3 text-muted-foreground">
                             {business.reason ||
                               "AI found enough signal that an official website exists."}
                           </p>
                         </div>
                       ))
                     ) : (
-                      <div className="text-muted-foreground rounded-lg border border-dashed p-6 text-center text-sm">
+                      <div className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
                         No businesses were classified as HAS_WEBSITE.
                       </div>
                     )}
@@ -773,8 +818,9 @@ export default function NoSiteBusinessFinderClient() {
 
                   <TabsContent value="export">
                     <div className="space-y-4">
-                      <p className="text-muted-foreground text-sm">
-                        Download no-website opportunities in your preferred format.
+                      <p className="text-sm text-muted-foreground">
+                        Download no-website opportunities in your preferred
+                        format.
                       </p>
                       <div className="flex flex-wrap gap-2">
                         <Button

@@ -25,6 +25,9 @@ const SCRIPT = [
 ] as const
 
 const TOTAL = SCRIPT.reduce((sum, line) => sum + line.text.length, 0)
+const SCRIPT_OFFSETS = SCRIPT.map((_, index) =>
+  SCRIPT.slice(0, index).reduce((sum, line) => sum + line.text.length, 0)
+)
 
 const EASE = [0.19, 1, 0.22, 1] as const
 
@@ -50,10 +53,7 @@ function DocumentSurface() {
   const [typed, setTyped] = useState(0)
 
   useEffect(() => {
-    if (reduceMotion) {
-      setTyped(TOTAL)
-      return
-    }
+    if (reduceMotion) return
 
     let frame = 0
     const start = window.setTimeout(() => {
@@ -75,10 +75,12 @@ function DocumentSurface() {
   }, [reduceMotion])
 
   // Split the running character count across the scripted lines.
-  let budget = typed
-  const lines = SCRIPT.map((line) => {
-    const shown = Math.max(0, Math.min(line.text.length, budget))
-    budget -= line.text.length
+  const visibleCharacters = reduceMotion ? TOTAL : typed
+  const lines = SCRIPT.map((line, index) => {
+    const shown = Math.max(
+      0,
+      Math.min(line.text.length, visibleCharacters - SCRIPT_OFFSETS[index])
+    )
     return { ...line, shown }
   })
 

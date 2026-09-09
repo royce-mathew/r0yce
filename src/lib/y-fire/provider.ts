@@ -13,7 +13,6 @@ import {
 import { ObservableV2 } from "lib0/observable"
 import * as awarenessProtocol from "y-protocols/awareness"
 import * as Y from "yjs"
-
 import { auth } from "../firebase/client"
 import { createGraph } from "./graph"
 import { deleteInstance, initiateInstance, refreshPeers } from "./utils"
@@ -146,12 +145,10 @@ export class FireProvider extends ObservableV2<any> {
               this.consoleHandler("Error applying update", error)
             }
           }
-          if (!this.ready) {
-            if (this.onReady) {
-              this.onReady()
-              this.ready = true
-            }
-          }
+        }
+        if (!this.ready && this.onReady) {
+          this.ready = true
+          this.onReady()
         }
       },
       (error) => {
