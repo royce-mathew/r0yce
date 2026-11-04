@@ -5,19 +5,27 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-const variants = ["A", "B", "C", "D", "E"] as const
-const names = { A: "Baseline / Hero lab", B: "Monolith", C: "Contact Sheet", D: "Signal", E: "Afterimage" }
+const portraitNames: Record<string, string> = { A: "Baseline / Hero lab", B: "Monolith", C: "Contact Sheet", D: "Signal", E: "Afterimage" }
+const scrollNames: Record<string, string> = { A: "Spatial Archive", B: "Ink Cinema", C: "Kinetic Type", D: "Quiet Surrealism" }
 
 export function MangaPrototypeController() {
   const params = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
   const selected = params.get("variant")
-  const variant = selected === "B" || selected === "C" || selected === "D" || selected === "E" ? selected : "A"
+  const scrollStudy = params.get("study") === "scroll"
+  const names = scrollStudy ? scrollNames : portraitNames
+  const variants = Object.keys(names)
+  const variant = selected && variants.includes(selected) ? selected : "A"
 
   useLayoutEffect(() => {
-    document.documentElement.dataset.mangaVariant = variant
-    document.documentElement.dataset.mangaMotion = "running"
+    document.documentElement.dataset.mangaVariant = scrollStudy ? "A" : variant
+    document.documentElement.dataset.scrollStudy = String(scrollStudy)
+    document.documentElement.dataset.mangaMotion = scrollStudy ? "scroll" : "running"
+    if (scrollStudy) {
+      console.info("Scroll prototype state", { variant, name: names[variant], pathname, viewport: { width: innerWidth, height: innerHeight }, reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches, theme: document.documentElement.className })
+      return
+    }
     gsap.registerPlugin(ScrollTrigger)
     const media = gsap.matchMedia()
     media.add({ desktop: "(min-width: 761px)", mobile: "(max-width: 760px)", reduced: "(prefers-reduced-motion: reduce)" }, (context) => {
@@ -35,11 +43,12 @@ export function MangaPrototypeController() {
       }
     })
     return () => media.revert()
-  }, [variant, pathname])
+  }, [variant, pathname, scrollStudy, names])
 
-  function choose(next: typeof variants[number]) {
+  function choose(next: string) {
     const query = new URLSearchParams(params.toString())
     query.set("variant", next)
+    if (scrollStudy) window.scrollTo({ top: 0, behavior: "instant" })
     router.replace(`${pathname}?${query}`, { scroll: false })
   }
 
@@ -62,5 +71,5 @@ export function MangaPrototypeController() {
   })
 
   if (process.env.NODE_ENV === "production") return null
-  return <nav className="manga-prototype-switcher" aria-label="Prototype variants"><button type="button" onClick={() => cycle(-1)} aria-label="Previous design variant">←</button><label className="sr-only" htmlFor="hero-prototype-choice">Hero prototype</label><select id="hero-prototype-choice" value={variant} onChange={(event) => choose(event.target.value as typeof variants[number])}>{variants.map((key) => <option value={key} key={key}>{key} — {names[key]}</option>)}</select><button type="button" onClick={() => cycle(1)} aria-label="Next design variant">→</button></nav>
+  return <nav className="manga-prototype-switcher" aria-label="Prototype variants"><button type="button" onClick={() => cycle(-1)} aria-label="Previous design variant">←</button><label className="sr-only" htmlFor="hero-prototype-choice">Hero prototype</label><select id="hero-prototype-choice" value={variant} onChange={(event) => choose(event.target.value)}>{variants.map((key) => <option value={key} key={key}>{key} — {names[key]}</option>)}</select><button type="button" onClick={() => cycle(1)} aria-label="Next design variant">→</button></nav>
 }

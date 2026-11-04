@@ -14,9 +14,25 @@ The `royce.sh` website leverages Next.js to serve MDX content in a flexible envi
 
 It also includes a realtime text editor for collaborative editing, built with Firebase. To access the editor, visit the `src/app/(app)/kanjou` route on the website.
 
-## Manga design prototype — throwaway branch
+## Hero and scroll prototypes — throwaway branch
 
-Question: how far can the approved manga portrait go across genuinely different, professionally typeset hero compositions and GSAP choreography?
+Question: how can the approved portrait and logo become a distinctive portfolio experience, through both opening composition and sustained scroll choreography?
+
+### Scroll studies
+
+Four new dark-first sequences on the existing homepage, selected with `?study=scroll&variant=A-D`. These are independent of the earlier five portrait studies; the bottom comparison bar switches within the active family.
+
+- `http://localhost:3000/?study=scroll&variant=A` — **Spatial Archive**: a real Three.js portrait-and-project gallery; vertical scrolling moves the camera through the actual featured work.
+- `http://localhost:3000/?study=scroll&variant=B` — **Ink Cinema**: oversized opening titles recede while a narrow portrait aperture unfolds into an editorial contact print.
+- `http://localhost:3000/?study=scroll&variant=C` — **Kinetic Type**: opposing discipline typography, an expanding portrait strip, and an acid-lime transition into work.
+- `http://localhost:3000/?study=scroll&variant=D` — **Quiet Surrealism**: a portrait suspended in metallic Three.js orbits; scroll changes the viewing angle and hands off to quieter project spreads.
+
+`scroll-home-prototype.tsx` owns one Lenis instance, synchronized with GSAP's ticker and ScrollTrigger. The two Three.js scenes render on scroll, resize, and texture arrival, not an idle animation loop. Essential identity, project links, and the real About/experience MDX remain in the DOM. Reduced motion removes smooth scrolling, sticky tracks, and WebGL, leaving the portrait and content in normal flow. The cinema panel's clipped links stay inert until revealed. Anchor spacing uses CSS scroll margins, which the installed Lenis version already honors.
+
+Exercised in Chromium: actual wheel-driven transformations at 320, 390, 768, and 1440px; no document overflow; real WebGL rendering on A/D; all four reduced-motion layouts at 390px; all four work anchors and Fotoland project links at desktop; new-series wrapping, reload, and return-to-top; original five-way comparison retained. This is viewport emulation, not a physical-device GPU or production-performance benchmark.
+
+### Portrait studies
+
 
 Five homepage prototypes on the existing `/` route, switchable with the development-only bottom selector, arrow buttons, or keyboard arrows:
 

@@ -1,0 +1,575 @@
+.ink-cinema {
+  --ic-paper: #eee9df;
+  --ic-ink: #151513;
+  --ic-red: #ee4b35;
+  background: var(--ic-ink);
+  color: var(--ic-paper);
+  font-family: var(--font-sans), sans-serif;
+  overflow: clip;
+}
+.ink-cinema * {
+  box-sizing: border-box;
+}
+.ink-cinema a {
+  color: inherit;
+  text-decoration: none;
+}
+.ink-cinema a:focus-visible {
+  outline: 2px solid var(--ic-red);
+  outline-offset: 6px;
+}
+.ic-track {
+  height: 230svh;
+  position: relative;
+}
+.ic-stage {
+  position: sticky;
+  top: 90px;
+  height: calc(100svh - 90px);
+  min-height: 530px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.ic-opening-meta {
+  position: absolute;
+  inset: 28px 4% auto;
+  display: flex;
+  justify-content: space-between;
+  font:
+    10px var(--font-mono),
+    monospace;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  z-index: 5;
+}
+.ic-name {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  font-size: clamp(110px, 17vw, 265px);
+  font-weight: 500;
+  letter-spacing: -0.09em;
+  line-height: 0.8;
+  z-index: 3;
+  pointer-events: none;
+}
+.ic-name > span {
+  position: absolute;
+  display: block;
+  will-change: transform, opacity;
+}
+.ic-name-first {
+  left: 5%;
+  top: 16%;
+}
+.ic-name-last {
+  right: 6%;
+  bottom: 11%;
+}
+.ic-dot {
+  color: var(--ic-red);
+}
+.ic-portrait {
+  position: absolute;
+  left: 36%;
+  top: 10%;
+  width: 28%;
+  height: 77%;
+  margin: 0;
+  padding: 9px 9px 30px;
+  background: var(--ic-paper);
+  z-index: 2;
+  box-shadow: 0 12px 40px #0004;
+  will-change: width, left, transform;
+}
+.ic-portrait img {
+  position: absolute !important;
+  inset: 9px 9px 30px !important;
+  width: calc(100% - 18px) !important;
+  height: calc(100% - 39px) !important;
+  object-fit: cover;
+  object-position: center 42%;
+  transform: scale(1.06);
+  filter: contrast(1.05);
+}
+.ic-portrait figcaption {
+  position: absolute;
+  bottom: 8px;
+  left: 11px;
+  right: 11px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--ic-ink);
+  font:
+    8px var(--font-mono),
+    monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.ic-contact {
+  position: absolute;
+  right: 4%;
+  top: 13%;
+  width: 43%;
+  height: 71%;
+  padding: clamp(20px, 3vw, 50px);
+  background: var(--ic-paper);
+  color: var(--ic-ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  clip-path: inset(0 100% 0 0);
+  z-index: 1;
+}
+.ic-contact-mark {
+  font-weight: 700;
+  font-size: 25px;
+  letter-spacing: -0.08em;
+}
+.ic-contact-mark > span {
+  font:
+    14px Georgia,
+    serif;
+  vertical-align: top;
+  margin-left: 4px;
+  color: var(--ic-red);
+}
+.ic-small {
+  font:
+    10px var(--font-mono),
+    monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.ic-contact-content > .ic-small {
+  margin: 0 0 15px;
+}
+.ic-practice {
+  font-size: clamp(22px, 3.1vw, 49px);
+  line-height: 1.12;
+  letter-spacing: -0.06em;
+  font-weight: 500;
+  margin: 0;
+}
+.ic-slash {
+  color: var(--ic-red);
+}
+.ic-italic {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.055em;
+}
+.ic-contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+  margin-top: 12px;
+}
+.ic-contact-links a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  font-size: 11px;
+  border-bottom: 1px solid #15151340;
+}
+.ic-contact-links a:last-child {
+  color: #a72e20;
+}
+.ic-endnote {
+  position: absolute;
+  bottom: 75px;
+  left: 4%;
+  right: 4%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 44px;
+  border-top: 1px solid #eee9df35;
+  font:
+    10px var(--font-mono),
+    monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+.ic-endnote span {
+  color: var(--ic-red);
+  font-size: 24px;
+}
+.ic-works {
+  padding: 95px 5% 65px;
+  scroll-margin-top: 120px;
+}
+.ic-work-heading {
+  position: relative;
+  margin-bottom: 100px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: start;
+  border-top: 1px solid #eee9df40;
+  padding-top: 24px;
+}
+.ic-work-heading .ic-small {
+  margin-top: 10px;
+  color: #b3ada3;
+}
+.ic-work-heading h2 {
+  font-size: clamp(70px, 10vw, 150px);
+  line-height: 0.86;
+  font-weight: 400;
+  letter-spacing: -0.075em;
+  margin: 0;
+}
+.ic-work-heading h2 em {
+  font-family: Georgia, serif;
+  color: var(--ic-red);
+  font-weight: 400;
+  letter-spacing: -0.08em;
+}
+.ic-work-heading > span {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  font-size: 50px;
+  color: var(--ic-red);
+}
+.ic-work-list {
+  display: flex;
+  flex-direction: column;
+  gap: 110px;
+}
+.ic-project {
+  width: 88%;
+}
+.ic-project-1 {
+  width: 70%;
+  align-self: flex-end;
+}
+.ic-project-2 {
+  width: 82%;
+  align-self: flex-start;
+}
+.ic-project-image {
+  position: relative;
+  aspect-ratio: 1.6;
+  overflow: hidden;
+  background: #272724;
+}
+.ic-project-1 .ic-project-image {
+  aspect-ratio: 1.14;
+}
+.ic-project-image img {
+  object-fit: cover;
+  transition:
+    transform 0.7s cubic-bezier(0.2, 0.65, 0.3, 1),
+    filter 0.7s;
+  filter: saturate(0.8);
+}
+.ic-project-link:hover .ic-project-image img {
+  transform: scale(1.035);
+  filter: saturate(1);
+}
+.ic-project-open {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--ic-paper);
+  color: var(--ic-ink);
+  font-size: 25px;
+}
+.ic-project-caption {
+  display: grid;
+  grid-template-columns: 45px 1fr auto;
+  gap: 12px;
+  border-top: 1px solid #eee9df40;
+  margin-top: 18px;
+  padding-top: 15px;
+}
+.ic-project-number {
+  font:
+    10px var(--font-mono),
+    monospace;
+  color: var(--ic-red);
+  padding-top: 6px;
+}
+.ic-project-caption h3 {
+  font-weight: 400;
+  font-size: clamp(23px, 3vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  margin: 0;
+}
+.ic-project-caption p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #aaa69f;
+  max-width: 520px;
+  margin: 12px 0 0;
+}
+.ic-project-view {
+  padding-top: 7px;
+  white-space: nowrap;
+}
+.ic-work-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 90px;
+  padding-top: 20px;
+  border-top: 1px solid #eee9df40;
+}
+.ic-work-footer a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  font-size: 15px;
+}
+.ic-work-footer a span {
+  color: var(--ic-red);
+}
+@media (min-width: 1500px) {
+  .ic-stage {
+    max-height: 1100px;
+  }
+  .ic-contact {
+    padding: 45px;
+  }
+  .ic-practice {
+    font-size: 52px;
+  }
+}
+@media (max-width: 760px) {
+  .ic-stage {
+    top: 76px;
+    height: calc(100svh - 76px);
+    min-height: 490px;
+  }
+  .ic-opening-meta {
+    inset: 22px 5% auto;
+    font-size: 8px;
+    letter-spacing: 0.06em;
+  }
+  .ic-name {
+    font-size: 22vw;
+    letter-spacing: -0.08em;
+  }
+  .ic-name-first {
+    left: 5%;
+    top: 21%;
+  }
+  .ic-name-last {
+    right: 7%;
+    bottom: 14%;
+  }
+  .ic-portrait {
+    left: 29%;
+    width: 42%;
+    top: 14%;
+    height: 68%;
+    padding: 6px 6px 26px;
+  }
+  .ic-portrait img {
+    inset: 6px 6px 26px !important;
+    width: calc(100% - 12px) !important;
+    height: calc(100% - 32px) !important;
+  }
+  .ic-portrait figcaption {
+    font-size: 6px;
+    left: 7px;
+    right: 7px;
+  }
+  .ic-contact {
+    right: 3%;
+    top: 18%;
+    width: 45%;
+    height: 60%;
+    padding: 15px 12px;
+  }
+  .ic-contact-mark {
+    font-size: 20px;
+  }
+  .ic-contact-content > .ic-small {
+    font-size: 7px;
+    letter-spacing: 0.03em;
+    margin-bottom: 13px;
+  }
+  .ic-practice {
+    font-size: clamp(17px, 3.75vw, 28px);
+    letter-spacing: -0.055em;
+    line-height: 1.22;
+  }
+  .ic-contact-links {
+    gap: 0;
+    display: block;
+    margin-top: 10px;
+  }
+  .ic-contact-links a {
+    justify-content: space-between;
+    font-size: 9px;
+    min-height: 44px;
+    gap: 4px;
+  }
+  .ic-contact-links a:last-child {
+    display: none;
+  }
+  .ic-endnote {
+    bottom: 75px;
+  }
+  .ic-works {
+    padding: 60px 5% 45px;
+  }
+  .ic-work-heading {
+    display: block;
+    margin-bottom: 55px;
+    padding-top: 14px;
+  }
+  .ic-work-heading .ic-small {
+    font-size: 8px;
+    margin-bottom: 27px;
+  }
+  .ic-work-heading h2 {
+    font-size: 21vw;
+  }
+  .ic-work-heading > span {
+    top: 70px;
+    font-size: 40px;
+  }
+  .ic-work-list {
+    gap: 65px;
+  }
+  .ic-project,
+  .ic-project-1,
+  .ic-project-2 {
+    width: 100%;
+  }
+  .ic-project-1 {
+    width: 89%;
+  }
+  .ic-project-image {
+    aspect-ratio: 1.17;
+  }
+  .ic-project-caption {
+    grid-template-columns: 25px 1fr;
+    gap: 9px;
+  }
+  .ic-project-caption h3 {
+    font-size: 26px;
+  }
+  .ic-project-caption p {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .ic-project-view {
+    display: none;
+  }
+  .ic-project-open {
+    width: 44px;
+    height: 44px;
+    bottom: 12px;
+    right: 12px;
+  }
+  .ic-work-footer {
+    margin-top: 60px;
+  }
+  .ic-work-footer a {
+    font-size: 13px;
+    gap: 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ic-track {
+    height: auto;
+  }
+  .ic-stage {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 28px 5% 40px;
+  }
+  .ic-opening-meta {
+    position: static;
+    grid-column: 1/-1;
+    font-size: 8px;
+  }
+  .ic-name {
+    position: static;
+    grid-column: 1/-1;
+    font-size: 15vw;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15em;
+    line-height: 1;
+  }
+  .ic-name > span {
+    position: static;
+  }
+  .ic-portrait {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    transform: none;
+  }
+  .ic-contact {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    clip-path: none;
+    padding: 22px;
+  }
+  .ic-contact-content {
+    margin: 25px 0;
+  }
+  .ic-practice {
+    font-size: clamp(20px, 3vw, 45px);
+  }
+  .ic-endnote {
+    position: static;
+    grid-column: 1/-1;
+    opacity: 1;
+  }
+  .ic-project-image img {
+    transition: none;
+  }
+  .ic-project-link:hover .ic-project-image img {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 600px) {
+  .ic-stage {
+    grid-template-columns: 1fr;
+  }
+  .ic-portrait {
+    height: 105vw;
+    min-height: 0;
+    max-height: 550px;
+  }
+  .ic-contact {
+    min-height: 350px;
+    padding: 25px;
+  }
+  .ic-practice {
+    font-size: 32px;
+  }
+  .ic-contact-links a {
+    font-size: 12px;
+  }
+  .ic-contact-links a:last-child {
+    display: flex;
+  }
+}

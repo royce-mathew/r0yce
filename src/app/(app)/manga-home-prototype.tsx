@@ -11,6 +11,7 @@ import { MonolithHero } from "./hero-monolith-prototype"
 import { ContactSheetHero } from "./hero-contact-sheet-prototype"
 import { SignalHero } from "./hero-signal-prototype"
 import { AfterimageHero } from "./hero-afterimage-prototype"
+import { ScrollHomePrototype } from "./scroll-home-prototype"
 
 type Work = { title: string; description: string; imageSrc: string; slug: string }
 type Props = { code: string; works: Work[] }
@@ -36,9 +37,11 @@ export function VariantA() {
 }
 
 export function MangaHomePrototype({code, works}: Props) {
-  const query = useSearchParams().get("variant")
+  const params = useSearchParams()
+  const query = params.get("variant")
   const variant = query === "B" || query === "C" || query === "D" || query === "E" ? query : "A"
   const { settings, style } = useHeroSettings()
+  if (params.get("study") === "scroll") return <ScrollHomePrototype code={code} works={works} variant={variant === "E" ? "A" : variant}/>
   return <main className={`manga-home manga-home-${variant}`} style={style} data-hero-layout={settings.layout} data-hero-type={settings.type}>
     {variant === "A" ? <><VariantA/><HeroLab settings={settings}/></> : variant === "B" ? <MonolithHero/> : variant === "C" ? <ContactSheetHero/> : variant === "D" ? <SignalHero/> : <AfterimageHero/>}
     <section className="manga-work-preview" aria-labelledby="manga-work-title"><div className="manga-chapter"><span>01 / Portfolio</span><Link href={`/projects?variant=${variant}`}>All projects ↗</Link></div><h2 id="manga-work-title">Selected work<span className="manga-period">.</span></h2><div className="manga-preview-grid">{works.map((work,index)=><Link href={`/${work.slug}?variant=${variant}`} key={work.slug} className="manga-work-panel"><div className="manga-work-image"><Image src={work.imageSrc} alt="" width={700} height={440} sizes="(max-width:760px) 90vw, 45vw"/></div><div className="manga-work-caption"><span className="manga-work-number">0{index+1}</span><div><h3>{work.title}</h3><p>{work.description}</p></div><span aria-hidden="true">↗</span></div></Link>)}</div></section>
