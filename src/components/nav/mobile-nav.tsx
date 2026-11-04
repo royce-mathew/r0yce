@@ -91,7 +91,7 @@ export function MobileNav() {
           </SheetClose>
         </div>
 
-        <div className="manga-mobile-scroll overflow-y-auto pb-10">
+        <div className="manga-mobile-scroll overflow-y-auto pb-10" data-lenis-prevent>
           <nav aria-label="Mobile navigation" className="flex flex-col space-y-1">
             {siteConfig.mainNav.map((item, index) => (
               <div key={index}>

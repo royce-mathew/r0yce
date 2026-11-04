@@ -18,11 +18,18 @@ export function ScrollHomePrototype({ code, works, variant }: { code: string; wo
     gsap.registerPlugin(ScrollTrigger)
     const media = gsap.matchMedia()
     media.add("(prefers-reduced-motion: no-preference)", () => {
-      const lenis = new Lenis({ duration: 1.05, anchors: true, autoToggle: true })
+      const lenis = new Lenis({ duration: 1.05, anchors: true })
+      const syncDialogScrollLock = () => {
+        if (document.body.hasAttribute("data-scroll-locked")) lenis.stop()
+        else lenis.start()
+      }
+      const dialogLock = new MutationObserver(syncDialogScrollLock)
+      dialogLock.observe(document.body, { attributes: true, attributeFilter: ["data-scroll-locked"] })
+      syncDialogScrollLock()
       const tick = (time: number) => lenis.raf(time * 1000)
       lenis.on("scroll", ScrollTrigger.update)
       gsap.ticker.add(tick)
-      return () => { gsap.ticker.remove(tick); lenis.off("scroll", ScrollTrigger.update); lenis.destroy() }
+      return () => { dialogLock.disconnect(); gsap.ticker.remove(tick); lenis.off("scroll", ScrollTrigger.update); lenis.destroy() }
     })
     return () => media.revert()
   }, [variant])
