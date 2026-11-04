@@ -28,6 +28,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: "https://r0yce.com/misc/image-to-comic",
+      lastModified: new Date("2026-11-03"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
     // other pages
   ]
 

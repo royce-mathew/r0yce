@@ -37,6 +37,18 @@ Common commands are defined in the `package.json` file. You can run these comman
 • `lint:fix`: Attempts to automatically fix lint issues.  
 • `format`: Formats the code with Prettier.
 
+## Image to comic
+
+Open `/misc/image-to-comic` to convert photos into comic-style ink and screentone
+locally in the browser. Compare the result with the original and download a PNG.
+Images are not uploaded. Output preserves aspect ratio, caps the longest edge at
+1600 pixels, and does not upscale smaller images.
+The bundled example is the Ameyoko street photo from
+[DataChef's sample](https://tech-lagoon.com/imagechef/en/image-to-comic.html).
+
+The renderer uses smoothed luminance, multiscale outlines, solid shadows, and
+rotated screen dots. It is deterministic image processing, not generative AI.
+
 ## Development Environment
 
 To set up the development environment, follow these steps:
