@@ -22,13 +22,15 @@ Five homepage prototypes on the existing `/` route, switchable with the developm
 
 - `http://localhost:3000/?variant=A` — **Baseline / Hero lab**: restrained split hero with shareable layout, typography, and texture controls.
 - `http://localhost:3000/?variant=B` — **Monolith**: dark typographic poster, acid-lime surname, inset portrait; GSAP glyph/depth/rule sequence.
-- `http://localhost:3000/?variant=C` — **Contact Sheet**: pale editorial contact print with central portrait and bottom-spanning name; GSAP grid and print assembly.
+- `http://localhost:3000/?variant=C` — **Contact Sheet**: editorial contact print with central portrait and bottom-spanning name; GSAP grid and print assembly.
 - `http://localhost:3000/?variant=D` — **Signal**: centered portrait on a technical field, oversized outlined disciplines; GSAP scan and reveal.
 - `http://localhost:3000/?variant=E` — **Afterimage**: vermilion disc, layered portrait planes, sans/italic-serif name; GSAP depth assembly.
 
 Run `pnpm prototype` from `/home/royce/royce-manga-prototype`. The work is isolated on `prototype/manga-redesign`; the original worktree and `master` are unchanged. The homepage source is `src/app/(app)/manga-home-prototype.tsx`. Project index/detail and Kanjou retain their existing routes and content.
 
-The arrow bar wraps in either direction, supports keyboard arrows outside text fields and interactive widgets, and updates a reload-stable URL. The browser console prints the current variant, route, viewport, motion preference, and theme. Settings live in the URL, with no database or local-storage persistence.
+The prototype branch defaults to dark mode. Existing explicit theme choices are respected, and the settings menu still offers light, system, and dark modes. Contact Sheet uses the shared theme tokens rather than a fixed light-paper palette. All five desktop heroes were captured in dark mode after their GSAP entrances finished; fresh-session dark default, light/dark switching, and the mobile Contact Sheet palette were exercised in the browser.
+
+The arrow bar wraps in either direction, supports keyboard arrows outside text fields and interactive widgets, and updates a reload-stable URL. The browser console prints the current variant, route, viewport, motion preference, and theme. Hero experiment settings live in the URL, with no database or local-storage persistence.
 
 The local `.env.local` contains only the deployed site's public Firebase client configuration, not private credentials, and is not committed. Authenticated editing and OAuth require the real private settings documented below; the prototype does not mock or mutate production data.
 
