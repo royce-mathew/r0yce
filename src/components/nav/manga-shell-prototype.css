@@ -60,10 +60,8 @@
 .manga-back-top { display: inline-flex; align-items: center; gap: 12px; padding: 0 14px; border: 1px solid currentColor; font-size: 14px; font-weight: 650; }
 html[data-manga-variant="B"] .manga-site-header { border-bottom-width: 1px; border-bottom-color: hsl(var(--primary)); background: hsl(var(--background)); color: hsl(var(--foreground)); }
 html[data-manga-variant="B"] .manga-site-footer { background: hsl(var(--background)); color: hsl(var(--foreground)); border-top-width: 1px; border-top-color: hsl(var(--primary)); }
-html[data-manga-variant="B"] .manga-wordmark { letter-spacing: -1px; }
 html[data-manga-variant="C"] .manga-site-header { border-bottom-width: 1px; }
 html[data-manga-variant="C"] .manga-header-inner { min-height: 96px; }
-html[data-manga-variant="C"] .manga-wordmark { font-family: Georgia, serif; font-style: italic; font-size: 34px; font-weight: 700; }
 html[data-manga-variant="C"] .manga-nav-link { font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 16px; border-bottom-width: 1px; }
 html[data-manga-variant="C"] .manga-site-footer { border-top-width: 1px; }
 @media (min-width: 768px) {

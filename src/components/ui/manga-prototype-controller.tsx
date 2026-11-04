@@ -5,15 +5,15 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-const variants = ["A", "B", "C"] as const
-const names = { A: "Ink / Signal", B: "Midnight Serial", C: "Field Notes" }
+const variants = ["A", "B", "C", "D", "E"] as const
+const names = { A: "Baseline / Hero lab", B: "Monolith", C: "Contact Sheet", D: "Signal", E: "Afterimage" }
 
 export function MangaPrototypeController() {
   const params = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
   const selected = params.get("variant")
-  const variant = selected === "B" || selected === "C" ? selected : "A"
+  const variant = selected === "B" || selected === "C" || selected === "D" || selected === "E" ? selected : "A"
 
   useLayoutEffect(() => {
     document.documentElement.dataset.mangaVariant = variant
@@ -37,11 +37,14 @@ export function MangaPrototypeController() {
     return () => media.revert()
   }, [variant, pathname])
 
-  function cycle(direction: number) {
-    const next = variants[(variants.indexOf(variant) + direction + variants.length) % variants.length]
+  function choose(next: typeof variants[number]) {
     const query = new URLSearchParams(params.toString())
     query.set("variant", next)
     router.replace(`${pathname}?${query}`, { scroll: false })
+  }
+
+  function cycle(direction: number) {
+    choose(variants[(variants.indexOf(variant) + direction + variants.length) % variants.length])
   }
 
   useEffect(() => {
@@ -59,5 +62,5 @@ export function MangaPrototypeController() {
   })
 
   if (process.env.NODE_ENV === "production") return null
-  return <nav className="manga-prototype-switcher" aria-label="Prototype variants"><button type="button" onClick={() => cycle(-1)} aria-label="Previous design variant">←</button><output aria-live="polite"><small>DESIGN PROTOTYPE</small><strong>{variant} — {names[variant]}</strong></output><button type="button" onClick={() => cycle(1)} aria-label="Next design variant">→</button></nav>
+  return <nav className="manga-prototype-switcher" aria-label="Prototype variants"><button type="button" onClick={() => cycle(-1)} aria-label="Previous design variant">←</button><label className="sr-only" htmlFor="hero-prototype-choice">Hero prototype</label><select id="hero-prototype-choice" value={variant} onChange={(event) => choose(event.target.value as typeof variants[number])}>{variants.map((key) => <option value={key} key={key}>{key} — {names[key]}</option>)}</select><button type="button" onClick={() => cycle(1)} aria-label="Next design variant">→</button></nav>
 }

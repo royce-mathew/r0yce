@@ -54,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head><script dangerouslySetInnerHTML={{ __html: 'document.documentElement.dataset.mangaVariant = ["B","C"].includes(new URLSearchParams(location.search).get("variant")) ? new URLSearchParams(location.search).get("variant") : "A";' }} /></head>
+      <head><script dangerouslySetInnerHTML={{ __html: 'document.documentElement.dataset.mangaVariant = ["B","C","D","E"].includes(new URLSearchParams(location.search).get("variant")) ? new URLSearchParams(location.search).get("variant") : "A";' }} /></head>
       <body
         className={cn(
           "min-h-screen bg-background antialiased",

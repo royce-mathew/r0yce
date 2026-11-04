@@ -16,29 +16,37 @@ It also includes a realtime text editor for collaborative editing, built with Fi
 
 ## Manga design prototype — throwaway branch
 
-Question: which manga reading rhythm best serves this portfolio without changing its content or visitor tasks?
+Question: how far can the approved manga portrait go across genuinely different, professionally typeset hero compositions and GSAP choreography?
 
-Three structurally different homepage variants on the existing `/` route, switchable via `?variant=` and the floating development-only arrow bar:
+Five homepage prototypes on the existing `/` route, switchable with the development-only bottom selector, arrow buttons, or keyboard arrows:
 
-- `http://localhost:3000/?variant=A` — **Ink / Signal**: asymmetric ink-panel spread.
-- `http://localhost:3000/?variant=B` — **Midnight Serial**: oversized cover and horizontal story strips.
-- `http://localhost:3000/?variant=C` — **Field Notes**: journal column and marginalia.
+- `http://localhost:3000/?variant=A` — **Baseline / Hero lab**: restrained split hero with shareable layout, typography, and texture controls.
+- `http://localhost:3000/?variant=B` — **Monolith**: dark typographic poster, acid-lime surname, inset portrait; GSAP glyph/depth/rule sequence.
+- `http://localhost:3000/?variant=C` — **Contact Sheet**: pale editorial contact print with central portrait and bottom-spanning name; GSAP grid and print assembly.
+- `http://localhost:3000/?variant=D` — **Signal**: centered portrait on a technical field, oversized outlined disciplines; GSAP scan and reveal.
+- `http://localhost:3000/?variant=E` — **Afterimage**: vermilion disc, layered portrait planes, sans/italic-serif name; GSAP depth assembly.
 
 Run `pnpm prototype` from `/home/royce/royce-manga-prototype`. The work is isolated on `prototype/manga-redesign`; the original worktree and `master` are unchanged. The homepage source is `src/app/(app)/manga-home-prototype.tsx`. Project index/detail and Kanjou retain their existing routes and content.
 
-The arrow bar wraps in either direction, supports keyboard arrows outside text fields and interactive widgets, and updates a reload-stable URL. The browser console prints the current variant, route, viewport, motion preference, and theme. No prototype state is persisted.
+The arrow bar wraps in either direction, supports keyboard arrows outside text fields and interactive widgets, and updates a reload-stable URL. The browser console prints the current variant, route, viewport, motion preference, and theme. Settings live in the URL, with no database or local-storage persistence.
 
 The local `.env.local` contains only the deployed site's public Firebase client configuration, not private credentials, and is not committed. Authenticated editing and OAuth require the real private settings documented below; the prototype does not mock or mutate production data.
 
-The three variants are captured on this throwaway branch for comparison. No winner has been approved or promoted to `master`, and no implementation issue was supplied for a branch pointer.
+All five prototypes are captured on this throwaway branch. The old Midnight Serial and Field Notes hero implementations were replaced; their earlier source remains in commit `150deef`. No full homepage winner has been approved or promoted to `master`, and no implementation issue was supplied for a branch pointer.
 
 ### Direction and browser verification
 
-Ink / Signal is the selected working direction for royce.sh: asymmetric panels put identity, portrait, résumé/contact, and experience into one reading spread. Bangers supplies expressive display lettering; Comic Neue supplies dialogue lettering; DM Sans stays on long-form content. Fonts are self-hosted through `next/font`. The original SVG laptop/terminal vignette, portrait impact lines, and shell-prompt favicon are drawn for this site. Reference study included the actual cover and interior pages in [VIZ's Ping Pong preview](https://www.viz.com/manga-books/manga/ping-pong-volume-1/product/6271/digital), not copied artwork.
+The portrait treatment and royce.sh logo were approved; the surrounding comic lettering and decorations were rejected. The baseline name, navigation, project headings, and body now use restrained sans typography. Bangers remains on the logo and the baseline portrait's vertical lettering; Comic Neue remains only in that portrait caption. The speech bubble, laptop vignette, tilted section headings, and hard card shadows were removed. New B–E prototypes use the exact user-provided portrait, including its frame, screentone, impact lines, and caption. The logo stays consistent across all five. Fonts are self-hosted through `next/font`.
+
+Open **Hero lab** on variant A to compare Split, Portrait lead, and Wide cover compositions. Choose DM Sans, Cal Sans, or Instrument Serif; adjust name size, desktop portrait width, screentone, and impact-line strength. Zero removes the respective texture or lines. Portrait width is hidden on mobile and disabled for the full-width cover. Controls are development-only. Changes update the current URL without navigation or replaying the entrance; **Copy link** shares it and **Reset** restores defaults while preserving unrelated query parameters and the fragment.
+
+Baseline hero controls were exercised in Chromium, including all nine layout/typeface combinations at 1440, 768, 390, and 320px with maximum name size: no page or name overflow. Range keyboard input did not change the page variant. Portrait sizing, zero-strength effects, reload restoration, reset, native clipboard copying with permission, clipboard-denied feedback, dark mode, and reduced motion were exercised. The mobile controls fit the viewport.
+
+New B–E prototypes were exercised at desktop 1440px, mobile 390px, tablet 768px, and narrow 320px widths. Observed each GSAP sequence running to completion and sampled changing portrait transforms/opacity during active animation. All four also reached their complete reduced-motion states. Checked loaded portraits, one h1, the unchanged logo, no page/name overflow, selector fit, reload restoration, E↔A wrap, keyboard switching, baseline slider keyboard isolation, and work navigation clearing the sticky header. Signal and Afterimage add bounded pointer depth only on fine-pointer devices; this headless browser reports no fine pointer, so hardware pointer response is not verified. These are local browser checks, not physical-device or production-build checks.
 
 The rebranded direction was checked in Chromium at 1440×1000, 390×844, and 320×780. Verified loaded font families, unclipped mobile identity, no horizontal overflow, project index/detail navigation, command-search keyboard selection, skip link, mobile sheet navigation, dark mode, and reduced motion. Home, projects, project details, Kanjou, and Market State returned 200 with royce.sh canonical URLs and Open Graph site names; robots and sitemap use royce.sh. The historical `/projects/r0yce` URL and real GitHub repository links remain valid. DNS, hosting, and OAuth provider domains were not changed.
 
-Updated artwork performance smoke: one 180-frame foreground sample at desktop and mobile widths, with native wheel scrolling and the GSAP entrance observed running. Each sample had one isolated frame around 67 ms and one 55 ms long task; no repeated long-frame sequence was observed. Buffered layout-shift totals stayed below 0.00002, and no horizontal overflow occurred. These local development observations are not a production or physical-phone benchmark.
+Previous artwork performance smoke (before the restrained hero revision): one 180-frame foreground sample at desktop and mobile widths, with native wheel scrolling and the GSAP entrance observed running. Each sample had one isolated frame around 67 ms and one 55 ms long task; no repeated long-frame sequence was observed. Buffered layout-shift totals stayed below 0.00002, and no horizontal overflow occurred. These local development observations are not a production or physical-phone benchmark.
 
 Authenticated editing is not verified. The editor entry redirects to `/api/auth/signin`; missing private auth configuration prevents completing sign-in and can surface Auth.js fetch errors. No production data was changed. Changed-source lint reported no errors and one existing MDX `<img>` optimization warning. No production build or physical-device check was performed.
 
