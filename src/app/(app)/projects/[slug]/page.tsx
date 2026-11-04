@@ -1,3 +1,4 @@
+import "../projects-prototype.css"
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -111,9 +112,9 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
     )
 
   return (
-    <main className="relative">
+    <main className="project-detail-prototype relative">
       {/* Project Hero */}
-      <section className="mx-auto w-full max-w-5xl pt-12 pb-8 md:px-8 md:pt-20 md:pb-12">
+      <section className="project-detail-cover mx-auto w-full max-w-5xl pt-12 pb-8 md:px-8 md:pt-20 md:pb-12">
         {/* Back link */}
         <Link
           href="/projects"
@@ -182,7 +183,7 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <IconBrandGithubFilled className="size-4" />
+                <IconBrandGithubFilled className="size-4" aria-label="GitHub repository" />
               </Link>
             </Button>
           )}
@@ -199,7 +200,7 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <IconLink className="size-4" />
+                <IconLink className="size-4" aria-label="Project website" />
               </Link>
             </Button>
           )}

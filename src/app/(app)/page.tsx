@@ -1,8 +1,7 @@
+import { Suspense } from "react"
 import { Metadata } from "next"
-import { mainContents } from "#site/content"
-import { Mdx } from "@/components/mdx/mdx-components"
-import { AboutSection } from "./about-section"
-import { ProfileSection } from "./profile-section"
+import { mainContents, projects } from "#site/content"
+import { MangaHomePrototype } from "./manga-home-prototype"
 
 export const metadata: Metadata = {
   title: "Royce Mathew — Developer & Data Scientist",
@@ -58,13 +57,10 @@ export default function Home() {
     throw new Error("About base not found")
   }
 
+  const works = [...projects].filter(project => project.featured).sort((a, b) => b.modifiedDate.localeCompare(a.modifiedDate)).slice(0, 2).map(({ title, description, imageSrc, slug }) => ({ title, description, imageSrc, slug }))
   return (
-    <main className="flex min-h-screen flex-col">
-      {/* Hero */}
-      <ProfileSection />
-
-      {/* About Me */}
-      <AboutSection code={about.code} />
-    </main>
+    <Suspense>
+      <MangaHomePrototype code={about.code} works={works} />
+    </Suspense>
   )
 }

@@ -2,14 +2,11 @@
 
 import * as React from "react"
 import Link, { LinkProps } from "next/link"
-import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { IconMenu2, IconX } from "@tabler/icons-react"
-import { motion, AnimatePresence } from "motion/react"
 import { siteConfig } from "@/config/docs"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   Sheet,
   SheetClose,
@@ -41,7 +38,7 @@ export function SubNav({
           key={subIndex}
           href={subItem.href as string}
           className={cn(
-            "flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors",
+            "manga-mobile-sublink flex min-h-11 items-center justify-between px-3 py-2 text-base transition-colors",
             pathname === subItem.href
               ? "bg-primary/10 text-primary"
               : "text-muted-foreground hover:bg-accent hover:text-foreground"
@@ -65,58 +62,52 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="icon" className="mr-2 px-0 md:hidden">
+        <Button variant="icon" className="manga-mobile-trigger mr-2 min-h-11 min-w-11 px-0 md:hidden">
           <IconMenu2 className="size-5" />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+      <Link href="/" className="manga-wordmark manga-mobile-wordmark md:hidden" aria-label="Royce home">r0yce<span className="manga-wordmark-dot" aria-hidden="true">.</span></Link>
       <SheetContent
         side="left"
-        className="w-full max-w-sm border-r border-border/30 bg-background/95 backdrop-blur-xl pr-0"
+        className="manga-mobile-sheet w-[min(100vw,24rem)] max-w-full overflow-hidden border-r-2 bg-background p-5"
         hideCloseButton
       >
+        <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
         <div className="flex items-center justify-between px-2 pb-6">
           <MobileLink
             href="/"
-            className="group flex items-center space-x-3"
+            className="manga-wordmark"
             onOpenChange={setOpen}
           >
-            <Image
-              src="/favicon.png"
-              width={20}
-              height={20}
-              alt="Logo"
-              className="opacity-80 transition-opacity group-hover:opacity-100"
-            />
-            <span className="font-display text-lg text-foreground/90 transition-colors group-hover:text-foreground">
+            <span>
               r0yce
             </span>
           </MobileLink>
           <SheetClose asChild>
-            <Button variant="icon" className="size-8">
+            <Button variant="icon" className="min-h-11 min-w-11">
               <IconX className="size-4" />
               <span className="sr-only">Close menu</span>
             </Button>
           </SheetClose>
         </div>
 
-        <ScrollArea className="h-[calc(100vh-8rem)] px-2 pb-10">
-          <div className="flex flex-col space-y-1">
+        <div className="manga-mobile-scroll overflow-y-auto pb-10">
+          <nav aria-label="Mobile navigation" className="flex flex-col space-y-1">
             {siteConfig.mainNav.map((item, index) => (
               <div key={index}>
                 <MobileLink
                   href={item.href as string}
                   aria-label={item.title}
                   className={cn(
-                    "flex items-center justify-between rounded-md px-3 py-3 text-base font-medium transition-colors",
+                    "manga-mobile-link flex min-h-11 items-center justify-between border-b px-3 py-3 text-base font-medium transition-colors",
                     firstPath === `${item.href?.slice(1)}`
                       ? "bg-primary/10 text-primary"
                       : "text-foreground/70 hover:bg-accent hover:text-foreground"
                   )}
                   onOpenChange={setOpen}
                 >
-                  <span className="font-display text-xl">{item.title}</span>
+                  <span className="font-display text-2xl">{item.title}</span>
                   <IconLink className="size-4 opacity-30" />
                 </MobileLink>
                 <SubNav
@@ -126,15 +117,14 @@ export function MobileNav() {
                 />
               </div>
             ))}
-          </div>
+          </nav>
 
-          {/* Divider */}
           <div className="my-6 h-px bg-border/30" />
 
-          <p className="label-editorial px-3">
+          <p className="px-3 text-sm">
             © {new Date().getFullYear()} Royce Mathew
           </p>
-        </ScrollArea>
+        </div>
       </SheetContent>
     </Sheet>
   )

@@ -1,14 +1,17 @@
 import "@/styles/globals.css"
 import "@/styles/mdx.css"
+import "@/styles/manga-prototype.css"
 import type { Metadata, Viewport } from "next"
+import { Barlow_Condensed } from "next/font/google"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
-import { LenisProvider } from "@/components/providers/lenis-provider"
 import { AuthProvider } from "@/components/providers/session"
 import { ThemeProvider } from "@/components/providers/theme"
 import { cal, dmSans, instrumentSerif, jetbrainsMono } from "@/styles/fonts"
+
+const mangaDisplay = Barlow_Condensed({ subsets: ["latin"], weight: "800", variable: "--font-manga", display: "swap" })
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -76,31 +79,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head><script dangerouslySetInnerHTML={{ __html: 'document.documentElement.dataset.mangaVariant = ["B","C"].includes(new URLSearchParams(location.search).get("variant")) ? new URLSearchParams(location.search).get("variant") : "A";' }} /></head>
       <body
         className={cn(
           "min-h-screen bg-background antialiased",
           dmSans.variable,
           instrumentSerif.variable,
           jetbrainsMono.variable,
+          mangaDisplay.variable,
           cal.variable
         )}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
-          <LenisProvider>
             <AuthProvider>
               <TooltipProvider>{children}</TooltipProvider>
             </AuthProvider>
-          </LenisProvider>
           <Toaster />
         </ThemeProvider>
-        {/* Grain overlay for atmospheric texture */}
-        <div className="grain-overlay" aria-hidden="true" />
       </body>
       {/* Google Analytics */}
       {process.env.NODE_ENV === "production" &&

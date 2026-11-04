@@ -1,8 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useSyncExternalStore } from "react"
 import Link from "next/link"
-import { motion, useReducedMotion } from "motion/react"
 
 /* Two writers, one paragraph — the claim the page opens on, demonstrated
    rather than asserted. Types itself once on load, then settles. */
@@ -29,8 +28,6 @@ const SCRIPT_OFFSETS = SCRIPT.map((_, index) =>
   SCRIPT.slice(0, index).reduce((sum, line) => sum + line.text.length, 0)
 )
 
-const EASE = [0.19, 1, 0.22, 1] as const
-
 function Caret({ author }: { author: 0 | 1 }) {
   const { name, caret, flag } = AUTHORS[author]
   return (
@@ -48,8 +45,22 @@ function Caret({ author }: { author: 0 | 1 }) {
   )
 }
 
+function subscribeMotionPreference(callback: () => void) {
+  const query = window.matchMedia("(prefers-reduced-motion: reduce)")
+  query.addEventListener("change", callback)
+  return () => query.removeEventListener("change", callback)
+}
+
+function getMotionPreference() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+}
+
+function getServerMotionPreference() {
+  return false
+}
+
 function DocumentSurface() {
-  const reduceMotion = useReducedMotion()
+  const reduceMotion = useSyncExternalStore(subscribeMotionPreference, getMotionPreference, getServerMotionPreference)
   const [typed, setTyped] = useState(0)
 
   useEffect(() => {
@@ -105,17 +116,20 @@ function DocumentSurface() {
 
         <div className="mt-6 space-y-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
           {lines.map((line, index) => (
-            <p key={line.text} className="min-h-[1.5em]">
-              {line.text.slice(0, line.shown)}
+            <p key={line.text} className="relative min-h-[1.5em]">
+              <span className="invisible" aria-hidden="true">{line.text}</span>
+              <span className="sr-only">{line.text}</span>
+              <span className="absolute inset-0" aria-hidden="true">{line.text.slice(0, line.shown)}
               {(finished || index === writingIndex) && (
                 <Caret author={line.author as 0 | 1} />
               )}
+              </span>
             </p>
           ))}
         </div>
 
         <div className="mt-8 flex items-center justify-between border-t border-border/40 pt-4 font-mono text-[0.7rem] text-muted-foreground/70">
-          <span className="tabular-nums">{typed} characters</span>
+          <span className="tabular-nums">{visibleCharacters} characters</span>
           <span>2 people here</span>
         </div>
 
@@ -130,47 +144,27 @@ function DocumentSurface() {
 
 export function KanjouHero() {
   return (
-    <section className="container mx-auto max-w-7xl px-6 pt-16 pb-16 md:px-8 md:pt-24 md:pb-24">
-      <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
+    <section className="kanjou-manga-cover container mx-auto max-w-7xl px-6 pt-16 pb-16 md:px-8 md:pt-24 md:pb-24">
+      <div className="kanjou-manga-grid grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
         {/* Left — the argument */}
         <div>
-          <motion.span
-            className="label-editorial text-gold-ink block"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
-          >
+          <span className="label-editorial text-gold-ink block">
             Kanjou · Collaborative Editor
-          </motion.span>
+          </span>
 
-          <motion.h1
-            className="mt-5 font-display text-5xl leading-[0.95] tracking-tight [overflow-wrap:anywhere] sm:text-6xl md:text-7xl"
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: EASE, delay: 0.25 }}
-          >
+          <h1 className="mt-5 font-display text-5xl leading-[0.95] tracking-tight [overflow-wrap:anywhere] sm:text-6xl md:text-7xl">
             <span className="block">Two cursors.</span>
             <span className="text-gold-ink block">One document.</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.45 }}
-          >
+          <p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
             Kanjou is a writing app where edits merge instead of queueing. Two
             people can sit in the same paragraph, type over each other, and both
             keep their words — the document is a CRDT, so there is no lock to
             wait for and no last-write-wins.
-          </motion.p>
+          </p>
 
-          <motion.div
-            className="mt-9 flex flex-wrap items-center gap-3"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.6 }}
-          >
+          <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link
               href="/kanjou/docs"
               className="inline-flex min-h-11 items-center rounded-sm bg-primary px-6 text-sm font-medium whitespace-nowrap text-primary-foreground transition-colors duration-200 hover:bg-primary/85 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-hidden"
@@ -183,14 +177,9 @@ export function KanjouHero() {
             >
               Read the build notes
             </Link>
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[0.7rem] tracking-wide text-muted-foreground/70"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.75 }}
-          >
+          <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[0.7rem] tracking-wide text-muted-foreground/70">
             <span>Tiptap</span>
             <span aria-hidden className="text-border">
               /
@@ -204,17 +193,13 @@ export function KanjouHero() {
               /
             </span>
             <span>Next.js</span>
-          </motion.div>
+          </div>
         </div>
 
         {/* Right — the claim, running */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: EASE, delay: 0.35 }}
-        >
+        <div className="kanjou-manga-demo">
           <DocumentSurface />
-        </motion.div>
+        </div>
       </div>
     </section>
   )

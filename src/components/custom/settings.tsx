@@ -16,7 +16,7 @@ const Settings = async () => {
     <div>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="icon" className="ml-2 px-0">
+          <Button variant="icon" aria-label="Open settings" className="ml-2 px-0">
             <Icons.Settings className="size-6 " />
           </Button>
         </PopoverTrigger>

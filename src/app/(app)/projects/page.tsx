@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import { Project, projects } from "#site/content"
+import "./projects-prototype.css"
 import { cn } from "@/lib/utils"
-import { NumberFlowComponent } from "@/components/ui/number"
 import ProjectButton from "@/components/custom/project-button"
 
 export const metadata: Metadata = {
@@ -56,18 +56,15 @@ function ProjectGrid({
   label?: string
 }) {
   return (
-    <section className="w-full py-16 md:py-24">
-      {/* Section header */}
-      <div className="container mx-auto mb-12 flex max-w-7xl items-end justify-between px-6 md:px-8">
-        <div className="space-y-2">
-          {label && <span className="label-editorial text-gold">{label}</span>}
-          <h2 className="font-display text-3xl md:text-4xl">{title}</h2>
+    <section className={cn("project-chapter", label === "Highlighted Work" ? "project-chapter-featured" : "project-chapter-archive")}>
+      <div className="project-chapter-heading">
+        <div>
+          {label && <span className="label-editorial">{label}</span>}
+          <h2 className="font-display">{title}</h2>
         </div>
-        <div className="mb-2 ml-8 hidden h-px max-w-32 flex-1 bg-border/30 md:block" />
+        <span className="project-chapter-count">{String(projects.length).padStart(2, "0")} entries</span>
       </div>
-
-      {/* Grid */}
-      <div className="container mx-auto grid max-w-7xl auto-rows-fr grid-cols-1 gap-5 px-6 md:grid-cols-2 md:px-8 lg:grid-cols-3">
+      <div className="project-panel-grid">
         {projects.map((project, index) => (
           <ProjectButton
             key={project.slug}
@@ -83,29 +80,24 @@ function ProjectGrid({
 
 export default function AllProjects() {
   return (
-    <main className="flex min-h-screen flex-col">
-      {/* Hero header */}
-      <section className="container mx-auto max-w-7xl px-6 pt-20 pb-8 md:px-8 md:pt-28 md:pb-12">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="space-y-4">
-            <span className="label-editorial text-gold">Portfolio</span>
-            <h1 className="font-display text-5xl leading-[0.95] md:text-6xl lg:text-7xl">
+    <main className="projects-prototype">
+      <section className="project-index-hero">
+        <div className="project-index-heading">
+          <div>
+            <span className="label-editorial">Portfolio / Collected works</span>
+            <h1 className="font-display">
               Selected
               <br />
-              <span className="text-gold italic">Works</span>
+              <span>Works</span>
             </h1>
           </div>
-          <div className="flex items-center gap-3 text-muted-foreground md:pb-2">
-            <NumberFlowComponent
-              className="font-display text-2xl text-primary"
-              value={projects.length}
-            />
+          <div className="project-index-total">
+            <span className="font-display text-primary">{projects.length}</span>
             <span className="label-editorial">Total Projects</span>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="mt-8 h-px w-full bg-border/30" />
+        <div className="project-index-rule" />
       </section>
 
       {/* Featured */}
