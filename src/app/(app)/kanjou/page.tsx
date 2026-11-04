@@ -20,14 +20,15 @@ export const metadata: Metadata = {
     "royce mathew",
   ],
   openGraph: {
-    url: "https://r0yce.com/kanjou",
+    siteName: "royce.sh",
+    url: "https://royce.sh/kanjou",
     type: "website",
     title: "Kanjou — Collaborative Editor",
     description:
       "A realtime collaborative writing app. Edits merge instead of queueing — two people can type in the same paragraph and both keep their words.",
     images: [
       {
-        url: "https://r0yce.com/images/KanjouDocuments.png",
+        url: "https://royce.sh/images/KanjouDocuments.png",
         width: 2048,
         height: 1410,
         alt: "The Kanjou document index",
@@ -39,10 +40,10 @@ export const metadata: Metadata = {
     title: "Kanjou — Collaborative Editor",
     description:
       "A realtime collaborative writing app. Edits merge instead of queueing.",
-    images: ["https://r0yce.com/images/KanjouDocuments.png"],
+    images: ["https://royce.sh/images/KanjouDocuments.png"],
   },
   alternates: {
-    canonical: "https://r0yce.com/kanjou",
+    canonical: "https://royce.sh/kanjou",
   },
 }
 

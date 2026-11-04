@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator"
 import SignInButton from "@/components/custom/signin-button"
 
 export const metadata: Metadata = {
-  title: "Sign in | r0yce",
+  title: "Sign in | royce.sh",
   description:
     "Sign in to access your account and continue where you left off.",
 }

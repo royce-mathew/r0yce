@@ -1,7 +1,7 @@
 # Overview
 
  <a href="https://github.com/royce-mathew/r0yce">
-      <img src="./public/favicon.png" alt="Spyder" height="100" />
+     <img src="./public/icon.svg" alt="royce.sh" height="100" />
   </a>
 
 > A Personal Website Built with Next.js and Firebase. This repository contains the source code for my personal website.
@@ -10,7 +10,7 @@
 
 ![image](https://github.com/user-attachments/assets/f64c2265-3201-41a4-9312-151803339b7d)
 
-The `r0yce.com` website leverages Next.js to serve MDX content in a flexible environment, supporting both static site generation and on-demand server rendering. The application tracks content for each page, including projects, blog posts, and other resources, using MDX files to store metadata and content.
+The `royce.sh` website leverages Next.js to serve MDX content in a flexible environment, supporting both static site generation and on-demand server rendering. The application tracks content for each page, including projects, blog posts, and other resources, using MDX files to store metadata and content.
 
 It also includes a realtime text editor for collaborative editing, built with Firebase. To access the editor, visit the `src/app/(app)/kanjou` route on the website.
 
@@ -34,11 +34,11 @@ The three variants are captured on this throwaway branch for comparison. No winn
 
 ### Direction and browser verification
 
-Ink / Signal is the recommended starting point: asymmetric panels put identity, portrait, résumé/contact, and experience into one reading spread. Midnight Serial prioritizes cover impact; Field Notes prioritizes long-form reading. Reference study included the actual cover and interior pages in [VIZ's Ping Pong preview](https://www.viz.com/manga-books/manga/ping-pong-volume-1/product/6271/digital). The prototype uses original layout, rules, gutters, and screentone treatment with the existing photographs—not manga artwork.
+Ink / Signal is the selected working direction for royce.sh: asymmetric panels put identity, portrait, résumé/contact, and experience into one reading spread. Bangers supplies expressive display lettering; Comic Neue supplies dialogue lettering; DM Sans stays on long-form content. Fonts are self-hosted through `next/font`. The original SVG laptop/terminal vignette, portrait impact lines, and shell-prompt favicon are drawn for this site. Reference study included the actual cover and interior pages in [VIZ's Ping Pong preview](https://www.viz.com/manga-books/manga/ping-pong-volume-1/product/6271/digital), not copied artwork.
 
-Verified in Chromium at 1440×1000 and 390×844: all three homepage variants, project index/detail navigation, command-search keyboard selection, skip link, résumé PDF response, biography accordion, mobile sheet navigation and Escape focus restoration, settings/theme switching, back-to-top, URL/reload-stable variant controls, and reduced-motion preference changes. Kanjou's typewriter now reserves its text dimensions and hydrates consistently in both motion modes.
+The rebranded direction was checked in Chromium at 1440×1000, 390×844, and 320×780. Verified loaded font families, unclipped mobile identity, no horizontal overflow, project index/detail navigation, command-search keyboard selection, skip link, mobile sheet navigation, dark mode, and reduced motion. Home, projects, project details, Kanjou, and Market State returned 200 with royce.sh canonical URLs and Open Graph site names; robots and sitemap use royce.sh. The historical `/projects/r0yce` URL and real GitHub repository links remain valid. DNS, hosting, and OAuth provider domains were not changed.
 
-Local development performance smoke: one 180-frame foreground sample per variant at each viewport, with native wheel scrolling. All six samples had no frames above 50 ms and no long tasks during the sample. Frame p95 ranged from 17.1 to 17.5 ms; this is refresh-cadence-limited desktop Chromium with a mobile viewport, not a physical-phone or production benchmark. Buffered layout-shift totals were below 0.00002; a separate 90-frame entrance capture confirmed the GSAP animation ran with no layout-shift entries. No horizontal document overflow was observed.
+Updated artwork performance smoke: one 180-frame foreground sample at desktop and mobile widths, with native wheel scrolling and the GSAP entrance observed running. Each sample had one isolated frame around 67 ms and one 55 ms long task; no repeated long-frame sequence was observed. Buffered layout-shift totals stayed below 0.00002, and no horizontal overflow occurred. These local development observations are not a production or physical-phone benchmark.
 
 Authenticated editing is not verified. The editor entry redirects to `/api/auth/signin`; missing private auth configuration prevents completing sign-in and can surface Auth.js fetch errors. No production data was changed. Changed-source lint reported no errors and one existing MDX `<img>` optimization warning. No production build or physical-device check was performed.
 

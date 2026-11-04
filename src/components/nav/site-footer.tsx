@@ -19,7 +19,7 @@ export function SiteFooter() {
     <footer className="manga-site-footer">
       <div className="manga-footer-inner container mx-auto">
         <div className="manga-footer-brand">
-          <Link href="/" className="manga-wordmark" aria-label="Royce home">r0yce<span className="manga-wordmark-dot" aria-hidden="true">.</span></Link>
+          <Link href="/" className="manga-wordmark" aria-label="royce.sh home">royce<span className="manga-wordmark-dot" aria-hidden="true">.sh</span></Link>
           <p>© {currentYear} Royce Mathew. All rights reserved.</p>
         </div>
         <nav aria-label="Social links" className="manga-footer-social">

@@ -1,4 +1,4 @@
-# Design notes — r0yce.com
+# Design notes — royce.sh
 
 Conventions the site already follows, written down so they stop being implicit.
 The palette, type, and spacing live in `src/styles/globals.css` and

@@ -2,16 +2,13 @@ import "@/styles/globals.css"
 import "@/styles/mdx.css"
 import "@/styles/manga-prototype.css"
 import type { Metadata, Viewport } from "next"
-import { Barlow_Condensed } from "next/font/google"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { AuthProvider } from "@/components/providers/session"
 import { ThemeProvider } from "@/components/providers/theme"
-import { cal, dmSans, instrumentSerif, jetbrainsMono } from "@/styles/fonts"
-
-const mangaDisplay = Barlow_Condensed({ subsets: ["latin"], weight: "800", variable: "--font-manga", display: "swap" })
+import { cal, dmSans, instrumentSerif, jetbrainsMono, mangaDisplay, mangaDialogue } from "@/styles/fonts"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -23,9 +20,9 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://r0yce.com"),
+  metadataBase: new URL("https://royce.sh"),
   openGraph: {
-    siteName: "r0yce",
+    siteName: "royce.sh",
     type: "website",
     locale: "en_US",
   },
@@ -37,38 +34,16 @@ export const metadata: Metadata = {
     "max-video-preview": -1,
     googleBot: "index, follow",
   },
-  applicationName: "r0yce",
+  applicationName: "royce.sh",
   appleWebApp: {
-    title: "r0yce",
+    title: "royce.sh",
     statusBarStyle: "default",
     capable: true,
   },
   icons: {
-    icon: [
-      {
-        url: "/favicon.ico",
-        type: "image/x-icon",
-      },
-    ],
-    shortcut: [
-      {
-        url: "/favicon.ico",
-        type: "image/x-icon",
-      },
-    ],
-    apple: [
-      {
-        url: "/apple-icon-57x57.png",
-        sizes: "57x57",
-        type: "image/png",
-      },
-      {
-        url: "/apple-icon-60x60.png",
-        sizes: "60x60",
-        type: "image/png",
-      },
-      // add apple-icon-72x72.png, apple-icon-76x76.png, apple-icon-114x114.png, apple-icon-120x120.png, apple-icon-144x144.png, apple-icon-152x152.png, apple-icon-180x180.png
-    ],
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-icon.png", type: "image/png" }],
   },
 }
 
@@ -87,6 +62,7 @@ export default function RootLayout({
           instrumentSerif.variable,
           jetbrainsMono.variable,
           mangaDisplay.variable,
+          mangaDialogue.variable,
           cal.variable
         )}
       >

@@ -4,7 +4,7 @@ import { mainContents, projects } from "#site/content"
 import { MangaHomePrototype } from "./manga-home-prototype"
 
 export const metadata: Metadata = {
-  title: "Royce Mathew — Developer & Data Scientist",
+  title: "royce.sh — Royce Mathew, Developer & Data Scientist",
   description:
     "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
   keywords: [
@@ -18,14 +18,15 @@ export const metadata: Metadata = {
     "royce mathew",
   ],
   openGraph: {
-    url: "https://r0yce.com",
+    siteName: "royce.sh",
+    url: "https://royce.sh",
     type: "website",
-    title: "Royce Mathew — Developer & Data Scientist",
+    title: "royce.sh — Royce Mathew, Developer & Data Scientist",
     description:
       "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
     images: [
       {
-        url: "https://r0yce.com/images/ProfilePicture2.webp",
+        url: "https://royce.sh/images/ProfilePicture2.webp",
         width: 1200,
         height: 630,
         alt: "Royce Mathew",
@@ -34,12 +35,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Royce Mathew — Developer & Data Scientist",
+    title: "royce.sh — Royce Mathew, Developer & Data Scientist",
     description:
       "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
     images: [
       {
-        url: "https://r0yce.com/images/ProfilePicture2.webp",
+        url: "https://royce.sh/images/ProfilePicture2.webp",
         width: 1200,
         height: 630,
         alt: "Royce Mathew",
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://r0yce.com",
+    canonical: "https://royce.sh",
   },
 }
 

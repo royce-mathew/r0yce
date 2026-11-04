@@ -10,8 +10,8 @@ export function MainNav() {
 
   return (
     <div className="manga-desktop-nav hidden md:flex">
-      <Link href="/" className="manga-wordmark" aria-label="Royce home">
-        r0yce<span aria-hidden="true" className="manga-wordmark-dot">.</span>
+      <Link href="/" className="manga-wordmark" aria-label="royce.sh home">
+        royce<span aria-hidden="true" className="manga-wordmark-dot">.sh</span>
       </Link>
       <nav aria-label="Main navigation" className="manga-main-links flex items-center">
         {siteConfig.mainNav.map((item, index) => (

@@ -1,4 +1,6 @@
 import {
+  Bangers,
+  Comic_Neue,
   DM_Sans,
   Instrument_Serif,
   JetBrains_Mono,
@@ -6,6 +8,20 @@ import {
   Work_Sans,
 } from "next/font/google"
 import localFont from "next/font/local"
+
+export const mangaDisplay = Bangers({
+  variable: "--font-manga",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+})
+
+export const mangaDialogue = Comic_Neue({
+  variable: "--font-dialogue",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+})
 
 export const dmSans = DM_Sans({
   variable: "--font-sans",

@@ -5,13 +5,14 @@ import { cn } from "@/lib/utils"
 import ProjectButton from "@/components/custom/project-button"
 
 export const metadata: Metadata = {
-  title: "Projects — r0yce",
+  title: "Projects — royce.sh",
   description: "Selected works and projects by Royce Mathew.",
   keywords: [...projects.map((project) => project.title)],
   openGraph: {
-    url: "https://r0yce.com/projects",
+    siteName: "royce.sh",
+    url: "https://royce.sh/projects",
     type: "website",
-    title: "Projects — r0yce",
+    title: "Projects — royce.sh",
     description: "Selected works and projects by Royce Mathew.",
     images: [
       ...projects.map((project) => ({
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Projects — r0yce",
+    title: "Projects — royce.sh",
     description: "Selected works and projects by Royce Mathew.",
     images: [
       ...projects.map((project) => ({
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://r0yce.com/projects",
+    canonical: "https://royce.sh/projects",
   },
 }
 

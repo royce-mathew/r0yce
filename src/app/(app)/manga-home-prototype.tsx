@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { Mdx } from "@/components/mdx/mdx-components"
+import { MangaImpactLines, MangaInkDrawing } from "./manga-ink-drawing"
 
 type Work = { title: string; description: string; imageSrc: string; slug: string }
 type Props = { code: string; works: Work[] }
@@ -25,7 +26,7 @@ function Intro() {
 }
 
 export function VariantA() {
-  return <section className="manga-cover manga-cover-a" aria-label="Introduction"><div className="manga-edition"><span>Royce Mathew / Portfolio</span><span>Based in Canada</span></div><div className="manga-cover-grid"><div className="manga-title-panel" data-manga-enter><Identity/><div className="manga-title-foot"><span aria-hidden="true">↘</span><Intro/></div></div><div className="manga-photo-panel" data-manga-enter><Portrait/><span className="manga-side-note" aria-hidden="true">CODE / DATA / PLAY</span></div><div className="manga-action-panel" data-manga-enter><Contact/></div><a href="#about" className="manga-next-panel">About & experience <span aria-hidden="true">↓</span></a></div></section>
+  return <section className="manga-cover manga-cover-a" aria-label="Introduction"><div className="manga-edition"><span>royce.sh / Royce Mathew</span><span>Based in Canada</span></div><div className="manga-cover-grid"><div className="manga-title-panel" data-manga-enter><Identity/><div className="manga-title-foot"><Intro/></div><MangaInkDrawing/></div><div className="manga-photo-panel" data-manga-enter><Portrait/><MangaImpactLines/><span className="manga-side-note" aria-hidden="true">CODE / DATA / PLAY</span></div><div className="manga-action-panel" data-manga-enter><Contact/></div><a href="#about" className="manga-next-panel">About & experience <span aria-hidden="true">↓</span></a></div></section>
 }
 
 export function VariantB() {

@@ -1,6 +1,6 @@
 .projects-prototype { max-width: 1440px; margin: auto; padding: 45px 48px 90px; }
 .project-index-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; }
-.project-index-heading h1 { font-size: clamp(72px, 10vw, 150px); line-height: .85; text-transform: uppercase; margin: 24px 0 35px; }
+.project-index-heading h1 { font-size: clamp(72px, 10vw, 150px); line-height: 1; text-transform: uppercase; margin: 24px 0 35px; }
 .project-index-heading h1 span { color: var(--manga-red); }
 .project-index-total { display: flex; align-items: baseline; gap: 15px; padding-bottom: 35px; }
 .project-index-total > span:first-child { font-size: 45px; }
@@ -35,7 +35,7 @@
 .project-detail-cover h1 { font-size: clamp(50px,7vw,100px); text-transform: uppercase; line-height: 1; }
 .project-detail-cover > div:last-child { border-top: 2px solid var(--manga-ink); }
 .project-detail-cover a { min-height: 44px; }
-.project-detail-prototype .mdx-shell-project h1, .project-detail-prototype .mdx-shell-project h2 { font-family: var(--font-manga), 'Arial Narrow', sans-serif; font-weight: 800; font-style: normal; }
+.project-detail-prototype .mdx-shell-project h1, .project-detail-prototype .mdx-shell-project h2 { font-family: var(--font-manga), 'Arial Narrow', sans-serif; font-weight: 400; font-style: normal; font-synthesis: none; letter-spacing: .02em; }
 .project-detail-prototype .mdx-shell-project h2 { border-bottom: 2px solid var(--manga-ink); padding-bottom: 14px; }
 .project-detail-prototype .mdx-shell-project img { border: 2px solid var(--manga-ink); }
 html[data-manga-variant="B"] .project-index-heading h1 { display: flex; gap: 24px; font-size: clamp(60px,9vw,130px); }

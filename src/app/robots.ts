@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: ["/"],
       disallow: ["/auth"],
     },
-    sitemap: ["https://r0yce.com/sitemap.xml"],
+    sitemap: ["https://royce.sh/sitemap.xml"],
   }
 }

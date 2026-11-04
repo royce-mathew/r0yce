@@ -67,7 +67,7 @@ export function MobileNav() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <Link href="/" className="manga-wordmark manga-mobile-wordmark md:hidden" aria-label="Royce home">r0yce<span className="manga-wordmark-dot" aria-hidden="true">.</span></Link>
+      <Link href="/" className="manga-wordmark manga-mobile-wordmark shrink-0 whitespace-nowrap md:hidden" aria-label="royce.sh home">royce<span className="manga-wordmark-dot" aria-hidden="true">.sh</span></Link>
       <SheetContent
         side="left"
         className="manga-mobile-sheet w-[min(100vw,24rem)] max-w-full overflow-hidden border-r-2 bg-background p-5"
@@ -78,11 +78,10 @@ export function MobileNav() {
           <MobileLink
             href="/"
             className="manga-wordmark"
+            aria-label="royce.sh home"
             onOpenChange={setOpen}
           >
-            <span>
-              r0yce
-            </span>
+            royce<span className="manga-wordmark-dot" aria-hidden="true">.sh</span>
           </MobileLink>
           <SheetClose asChild>
             <Button variant="icon" className="min-h-11 min-w-11">
