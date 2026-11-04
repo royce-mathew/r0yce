@@ -30,6 +30,7 @@ const menuPages: NavItem[] = [
   ...siteConfig.mainNav.filter((navItem) => !navItem.external),
   { title: "Market State", href: "/market-state" },
   { title: "Wordle", href: "/misc/wordle" },
+  { title: "Image to comic", href: "/misc/image-to-comic" },
 ]
 
 export function CommandMenu({ ...props }: AlertDialogProps) {
