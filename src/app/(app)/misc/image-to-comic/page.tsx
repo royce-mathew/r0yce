@@ -51,7 +51,7 @@ const methodology = [
   },
   {
     title: "Find the outlines",
-    text: "The renderer converts pixels to luminance and smooths them at several scales. Sobel gradients detect edges, while local contrast selects their darker side. Fine emphasizes narrow details; Dip adds broader marks; Mixed combines both.",
+    text: "The renderer converts pixels to luminance and smooths them at several scales. Sobel gradients detect edges, while local contrast selects their darker side. Fine emphasizes narrow details and skips the broad-stroke analysis used by Dip and Mixed. Dip adds broader marks; Mixed combines both.",
   },
   {
     title: "Build ink and screentone",

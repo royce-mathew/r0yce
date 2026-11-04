@@ -97,7 +97,7 @@ export function renderComic(
   const luminance = new Float32Array(count)
   const smooth = new Float32Array(count)
   const local = new Float32Array(count)
-  const broad = new Float32Array(count)
+  const broad = settings.pen === "fine" ? null : new Float32Array(count)
   const scratch = new Float32Array(count)
   const strokes = new Float32Array(count)
   const brightness = (clamp(settings.brightness, 0, 100) - 50) / 100
@@ -133,14 +133,16 @@ export function renderComic(
     height,
     Math.max(2, Math.round(scale * 3))
   )
-  blur(
-    smooth,
-    broad,
-    scratch,
-    width,
-    height,
-    Math.max(4, Math.round(scale * 9))
-  )
+  if (broad) {
+    blur(
+      smooth,
+      broad,
+      scratch,
+      width,
+      height,
+      Math.max(4, Math.round(scale * 9))
+    )
+  }
 
   const fineThreshold = 0.033 - pressure * 0.018
   const broadThreshold = 0.045 - pressure * 0.024
@@ -171,19 +173,21 @@ export function renderComic(
       const gradient = Math.sqrt(gx * gx + gy * gy)
       // Dark-side contrast keeps pale skin and paper free of doubled outlines.
       const fineContrast = Math.max(0, local[i] - smooth[i])
-      const broadContrast = Math.max(0, broad[i] - smooth[i])
       const fine =
         ramp(fineThreshold, fineThreshold + 0.06, gradient) *
         ramp(0.001, 0.018, fineContrast)
-      const dip =
-        ramp(broadThreshold, broadThreshold + 0.075, broadContrast) *
-        ramp(0.008, 0.045, gradient + fineContrast)
-      strokes[i] =
-        settings.pen === "fine"
-          ? fine
-          : settings.pen === "dip"
+      if (broad) {
+        const broadContrast = Math.max(0, broad[i] - smooth[i])
+        const dip =
+          ramp(broadThreshold, broadThreshold + 0.075, broadContrast) *
+          ramp(0.008, 0.045, gradient + fineContrast)
+        strokes[i] =
+          settings.pen === "dip"
             ? Math.max(dip, fine * 0.48)
             : Math.max(fine, dip * 0.95)
+      } else {
+        strokes[i] = fine
+      }
     }
   }
 
