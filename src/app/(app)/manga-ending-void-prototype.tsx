@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { CreationHandsPrototype } from "./creation-hands-prototype"
+import { CreationHandsPrototype, creationGap } from "./creation-hands-prototype"
 import "./manga-ending-void-prototype.css"
 
 export function VoidEndingPrototype() {
@@ -25,9 +25,26 @@ export function VoidEndingPrototype() {
         return release
       }
       const mobile = context.conditions?.mobile
-      const stage = element.querySelector<HTMLElement>(".me-void-stage")!
       const portrait = element.querySelector<HTMLElement>(".me-void-portrait")!
+      const spread = element.querySelector<HTMLElement>(".me-void-spread")!
+      const name = element.querySelector<HTMLElement>(".me-void-name")!
+      const first = element.querySelector<HTMLElement>(".me-void-name-first")!
+      const last = element.querySelector<HTMLElement>(".me-void-name-last")!
+      // Opening frame is a title card: "Royce", a narrow slit of the portrait, "Mathew", all centred
+      // in the space above the variant switcher. The words grow as large as the stage width allows
+      // so nothing bleeds off-screen at any viewport.
+      const apertureShare = .28
+      const apertureScale = 1.2
+      const aperture = () => portrait.offsetWidth * apertureShare * apertureScale
+      const lockupGap = () => Math.max(14, aperture() * .16)
+      const lockupScale = () => Math.min(mobile ? 1.6 : 1.9, (name.clientWidth * .96 - aperture() - lockupGap() * 2) / (first.offsetWidth + last.offsetWidth))
+      // "Mathew" is wider than "Royce", so the slit sits off-centre for the whole lockup to balance.
+      const slitCenter = () => name.clientWidth / 2 + (first.offsetWidth - last.offsetWidth) * lockupScale() / 2
+      const centerOn = (target: HTMLElement, offsetTop = 0) => (name.offsetTop + spread.offsetTop + spread.offsetHeight) / 2 - offsetTop - target.offsetTop - target.offsetHeight / 2
       navigation.forEach(panel => { panel.inert = true })
+      // A staggered fromTo only paints its first target's start state before the first scroll, which
+      // left the Projects and link panels showing over the opening title card.
+      gsap.set(".me-void-reveal", { autoAlpha: 0, y: 35, rotationX: -12 })
       const timeline = gsap.timeline({
         defaults: { ease: "power2.inOut" },
         scrollTrigger: {
@@ -43,20 +60,16 @@ export function VoidEndingPrototype() {
         },
       })
       timeline
-        .fromTo(".me-void-name", { y: () => stage.clientHeight * .25, scale: mobile ? 1.65 : 1.85 }, { y: 0, scale: 1, duration: .72 }, 0)
-        .fromTo(".me-void-name-first", { xPercent: -8 }, { xPercent: -23, duration: .28 }, 0)
-        .to(".me-void-name-first", { xPercent: 0, duration: .44 }, .28)
-        .fromTo(".me-void-name-last", { xPercent: 8 }, { xPercent: 23, duration: .28 }, 0)
-        .to(".me-void-name-last", { xPercent: 0, duration: .44 }, .28)
-        .fromTo(portrait, { x: () => (stage.clientWidth - portrait.offsetWidth) / 2 - portrait.offsetLeft, y: () => -stage.clientHeight * .12, clipPath: "inset(0 36% 0 36%)", scale: 1.2 }, { x: 0, y: 0, clipPath: "inset(0 0% 0 0%)", scale: 1, duration: .8 }, .04)
+        .fromTo(name, { y: () => centerOn(name) }, { y: 0, duration: .72 }, 0)
+        .fromTo(first, { scale: lockupScale, transformOrigin: "100% 50%", x: () => slitCenter() - aperture() / 2 - lockupGap() - first.offsetLeft - first.offsetWidth }, { scale: 1, x: 0, duration: .72 }, 0)
+        .fromTo(last, { scale: lockupScale, transformOrigin: "0% 50%", x: () => slitCenter() + aperture() / 2 + lockupGap() - last.offsetLeft }, { scale: 1, x: 0, duration: .72 }, 0)
+        .fromTo(portrait, { x: () => name.offsetLeft + slitCenter() - spread.offsetLeft - portrait.offsetLeft - portrait.offsetWidth / 2, y: () => centerOn(portrait, spread.offsetTop), clipPath: `inset(0 ${(1 - apertureShare) * 50}% 0 ${(1 - apertureShare) * 50}%)`, scale: apertureScale }, { x: 0, y: 0, clipPath: "inset(0 0% 0 0%)", scale: 1, duration: .8 }, .04)
         .fromTo(".me-void-art-panel", { autoAlpha: 0, rotationX: -45, y: 80 }, { autoAlpha: 1, rotationX: 0, y: 0, duration: .55 }, .25)
-        .fromTo(".me-creation-adam", { x: -170, y: 40, rotation: -9, svgOrigin: "160 210" }, { x: 0, y: 0, rotation: 0, duration: .85 }, .32)
-        .fromTo(".me-creation-creator", { x: 170, y: -30, rotation: 8, svgOrigin: "1080 190" }, { x: 0, y: 0, rotation: 0, duration: .85 }, .32)
-        .fromTo(".me-creation-adam-index", { rotation: 12, svgOrigin: "477 161" }, { rotation: 0, duration: .55 }, .6)
-        .fromTo(".me-creation-creator-index", { rotation: -8, svgOrigin: "801 196" }, { rotation: 0, duration: .55 }, .6)
-        .fromTo(".me-creation-ink", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: .6 }, .5)
-        .fromTo(".me-creation-speed", { autoAlpha: 0, scale: 1.08, transformOrigin: "50% 50%" }, { autoAlpha: .22, scale: 1, duration: .5 }, .5)
-        .fromTo(".me-creation-spark", { autoAlpha: 0, scale: .5, svgOrigin: "600 222" }, { autoAlpha: 1, scale: 1, duration: .25 }, .95)
+        .fromTo(".me-creation-adam", { x: -190, y: 26, rotation: -4, svgOrigin: "0 300" }, { x: 0, y: 0, rotation: 0, duration: .85 }, .32)
+        .fromTo(".me-creation-creator", { x: 190, y: -18, rotation: 3, svgOrigin: "1215 160" }, { x: 0, y: 0, rotation: 0, duration: .85 }, .32)
+        .fromTo(".me-creation-tone", { autoAlpha: 0 }, { autoAlpha: 1, duration: .4 }, .55)
+        .fromTo(".me-creation-focus", { autoAlpha: 0, scale: 1.15, svgOrigin: `${creationGap.x} ${creationGap.y}` }, { autoAlpha: .28, scale: 1, duration: .5 }, .6)
+        .fromTo(".me-creation-spark", { autoAlpha: 0, scale: .5, svgOrigin: `${creationGap.x} ${creationGap.y}` }, { autoAlpha: 1, scale: 1, duration: .25 }, .95)
         .fromTo(".me-void-reveal", { autoAlpha: 0, y: 35, rotationX: -12 }, { autoAlpha: 1, y: 0, rotationX: 0, duration: .4, stagger: .07 }, .5)
         .fromTo(".me-void-roles p", { x: -35, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: .35, stagger: .08 }, .65)
         .fromTo(".me-void-orbit", { rotation: -65, scale: .7 }, { rotation: 0, scale: 1, duration: .8 }, .45)

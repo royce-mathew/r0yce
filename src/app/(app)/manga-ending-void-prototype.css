@@ -28,7 +28,6 @@
   line-height: .85;
   letter-spacing: -.065em;
   font-weight: 600;
-  transform-origin: center top;
   pointer-events: none;
 }
 .me-void-name span { display: block; }
