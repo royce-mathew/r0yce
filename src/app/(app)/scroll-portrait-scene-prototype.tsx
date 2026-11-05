@@ -3,120 +3,111 @@
 import Image from "next/image"
 import { forwardRef, useImperativeHandle, useLayoutEffect, useRef } from "react"
 import * as THREE from "three"
-import type { ScrollWork } from "./scroll-study-types"
 
 export type ScrollSceneHandle = { setProgress: (progress: number) => void }
+type Props = { mode: "archive" | "sculpture" }
 
-type Props = { mode: "archive" | "sculpture"; works: ScrollWork[] }
-
-export const ScrollPortraitScene = forwardRef<ScrollSceneHandle, Props>(function ScrollPortraitScene({ mode, works }, ref) {
+export const ScrollPortraitScene = forwardRef<ScrollSceneHandle, Props>(function ScrollPortraitScene({ mode }, ref) {
   const host = useRef<HTMLDivElement>(null)
   const update = useRef<(progress: number) => void>(() => {})
   const progress = useRef(0)
-
   useImperativeHandle(ref, () => ({ setProgress(value) { progress.current = value; update.current(value) } }), [])
 
   useLayoutEffect(() => {
     const element = host.current!
     const media = matchMedia("(prefers-reduced-motion: reduce)")
     let dispose: (() => void) | undefined
-    let cancelled = false
     function mount() {
       if (media.matches) return
       const canvas = document.createElement("canvas")
       canvas.setAttribute("aria-hidden", "true")
-      const context = canvas.getContext("webgl2", { alpha: true, antialias: true })
-      if (!context) { element.dataset.webgl = "unavailable"; return }
-      const renderer = new THREE.WebGLRenderer({ canvas, context, alpha: true, antialias: true, powerPreference: "low-power" })
+      let renderer: THREE.WebGLRenderer
+      try {
+        const context = canvas.getContext("webgl2", { alpha: true, antialias: true })
+        if (!context) { element.dataset.webgl = "unavailable"; return }
+        renderer = new THREE.WebGLRenderer({ canvas, context, alpha: true, antialias: true, powerPreference: "low-power" })
+      } catch { element.dataset.webgl = "unavailable"; return }
       renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5))
       renderer.setClearColor(0x000000, 0)
       renderer.outputColorSpace = THREE.SRGBColorSpace
       element.append(canvas)
       const scene = new THREE.Scene()
       const camera = new THREE.PerspectiveCamera(35, 1, .1, 100)
-      const gallery = new THREE.Group()
-      scene.add(gallery)
-      scene.add(new THREE.AmbientLight(0xffffff, 2.2))
-      const key = new THREE.DirectionalLight(0xffeee0, 5)
-      key.position.set(-3, 5, 5)
-      scene.add(key)
-      const rim = new THREE.DirectionalLight(mode === "archive" ? 0x819dff : 0xe9aa79, 5)
-      rim.position.set(4, 1, -2)
-      scene.add(rim)
-      const textures: THREE.Texture[] = []
+      const panels = new THREE.Group()
+      scene.add(panels)
       const geometries: THREE.BufferGeometry[] = []
-      const materials: THREE.Material[] = []
-      const loader = new THREE.TextureLoader()
-      function panel(src: string, width: number, height: number, x: number, y: number, z: number, angle: number) {
+      const frameGeometry = new THREE.BoxGeometry(1, 1, 1)
+      geometries.push(frameGeometry)
+      const frameMaterial = new THREE.MeshBasicMaterial({ color: mode === "archive" ? 0xf1f0eb : 0xdfd7c7 })
+      const inkMaterial = new THREE.MeshBasicMaterial({ color: mode === "archive" ? 0x101116 : 0x151411 })
+      let active = true
+      let loaded = false
+      let lost = false
+      let renders = 0
+      const texture = new THREE.TextureLoader().load("/images/hero-manga-portrait.png", () => {
+        if (!active) { texture.dispose(); return }
+        loaded = true
+        render(progress.current)
+      }, undefined, () => { if (active) element.dataset.webgl = "unavailable" })
+      texture.colorSpace = THREE.SRGBColorSpace
+      texture.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy())
+      const imageMaterial = new THREE.MeshBasicMaterial({ map: texture })
+      function panel(width: number, height: number, x: number, y: number, z: number, angle: number, crop: [number, number, number, number]) {
         const group = new THREE.Group()
         group.position.set(x, y, z)
-        group.rotation.y = angle
-        const frameGeometry = new THREE.BoxGeometry(width + .1, height + .1, .08)
-        const frameMaterial = new THREE.MeshStandardMaterial({ color: mode === "archive" ? 0xd2d5dc : 0x85705b, metalness: .65, roughness: .28 })
-        geometries.push(frameGeometry)
-        materials.push(frameMaterial)
-        group.add(new THREE.Mesh(frameGeometry, frameMaterial))
-        const texture = loader.load(src, () => update.current(progress.current))
-        texture.colorSpace = THREE.SRGBColorSpace
-        texture.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy())
-        textures.push(texture)
-        const imageGeometry = new THREE.PlaneGeometry(width, height)
-        const imageMaterial = new THREE.MeshBasicMaterial({ map: texture })
-        geometries.push(imageGeometry)
-        materials.push(imageMaterial)
-        const image = new THREE.Mesh(imageGeometry, imageMaterial)
-        image.position.z = .046
+        group.rotation.set(0, angle, mode === "archive" ? 0 : angle * .15)
+        const frame = new THREE.Mesh(frameGeometry, frameMaterial)
+        frame.scale.set(width + .08, height + .08, .07)
+        group.add(frame)
+        const ink = new THREE.Mesh(frameGeometry, inkMaterial)
+        ink.scale.set(width + .025, height + .025, .075)
+        group.add(ink)
+        const geometry = new THREE.PlaneGeometry(width, height)
+        const uv = geometry.getAttribute("uv")
+        for (let index = 0; index < uv.count; index++) uv.setXY(index, crop[0] + uv.getX(index) * crop[2], crop[1] + uv.getY(index) * crop[3])
+        geometries.push(geometry)
+        const image = new THREE.Mesh(geometry, imageMaterial)
+        image.position.z = .04
         group.add(image)
-        gallery.add(group)
+        panels.add(group)
         return group
       }
-      const portrait = panel("/images/hero-manga-portrait.png", 2.45, 2.61, 0, 0, 0, -.12)
-      const orbit = new THREE.Group()
+      const portrait = panel(2.3, 2.45, mode === "archive" ? .6 : .15, 0, 0, -.08, [0, 0, 1, 1])
       if (mode === "archive") {
-        works.forEach((work, index) => panel(work.imageSrc, 3.15, 1.98, 3.8 + index * 3.9, -.1, -.8 - index * .55, -.14 + index * .07))
-        const lineGeometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-5, -1.65, 0), new THREE.Vector3(13, -1.65, -2)])
-        const lineMaterial = new THREE.LineBasicMaterial({ color: 0x4a5267 })
-        geometries.push(lineGeometry)
-        materials.push(lineMaterial)
-        gallery.add(new THREE.Line(lineGeometry, lineMaterial))
+        panel(2.65, .74, .45, 1.84, -.65, .08, [.12, .48, .76, .2])
+        panel(.8, 2.65, 2.38, -.03, -.85, -.18, [.35, .1, .3, .83])
+        panel(1.35, .65, -1.15, -1.53, .35, .12, [.45, .3, .45, .24])
       } else {
-        gallery.add(orbit)
-        const ringGeometry = new THREE.TorusGeometry(1.92, .065, 12, 128)
-        const ringMaterial = new THREE.MeshStandardMaterial({ color: 0xe1c6a2, metalness: .82, roughness: .22 })
-        geometries.push(ringGeometry)
-        materials.push(ringMaterial)
-        const ring = new THREE.Mesh(ringGeometry, ringMaterial)
-        ring.rotation.set(.32, .42, -.4)
-        orbit.add(ring)
-        const secondRing = new THREE.Mesh(ringGeometry, ringMaterial)
-        secondRing.scale.setScalar(1.13)
-        secondRing.rotation.set(-.5, -.55, .48)
-        orbit.add(secondRing)
-        portrait.scale.setScalar(.91)
+        panel(1.75, .55, -.64, 1.75, -.55, .12, [.17, .48, .64, .18])
+        panel(.55, 1.48, 1.87, -.5, -.65, -.18, [.42, .12, .22, .64])
       }
-      let renders = 0
       function render(value: number) {
-        if (cancelled) return
+        if (!active || lost) return
         const mobile = element.clientWidth < 600
         if (mode === "archive") {
-          const offset = mobile ? 0 : -1.6
-          const travel = offset + value * ((works.length ? 3.8 + (works.length - 1) * 3.9 : 0) - offset)
-          camera.position.set(travel, .15 + Math.sin(value * Math.PI) * .22, mobile ? 8.8 : 6.5)
-          camera.lookAt(travel, 0, -.3)
-          portrait.rotation.y = -.12 - value * .3
+          camera.position.set(-.2 + value * 1.05, .15 + value * .2, (mobile ? 10.2 : 9.1) - value * 1.05)
+          camera.lookAt(.65 + value * .25, .1, -.2)
+          panels.rotation.y = -.12 + value * .24
+          portrait.rotation.y = -.08 + value * .15
         } else {
-          camera.position.set(.2 + value * .75, .15 - value * .25, mobile ? 9.8 - value : 7.4 - value * 1.1)
-          camera.lookAt(0, 0, 0)
-          gallery.rotation.set(value * -.12, value * -.45, value * .09)
-          orbit.rotation.z = value * .65
-          portrait.rotation.y = -.12 + value * .26
+          camera.position.set(.1 + value * .35, .2 - value * .15, (mobile ? 9.8 : 8.3) - value * .45)
+          camera.lookAt(.4, .25, 0)
+          panels.rotation.set(value * -.04, value * -.16, value * .025)
         }
         renderer.render(scene, camera)
-        element.dataset.webgl = "ready"
+        if (loaded) element.dataset.webgl = "ready"
         element.dataset.renders = String(++renders)
       }
+      function contextLost(event: Event) {
+        event.preventDefault()
+        lost = true
+        element.dataset.webgl = "unavailable"
+      }
+      function contextRestored() { lost = false; render(progress.current) }
+      canvas.addEventListener("webglcontextlost", contextLost)
+      canvas.addEventListener("webglcontextrestored", contextRestored)
       const resize = new ResizeObserver(() => {
-        renderer.setSize(element.clientWidth, element.clientHeight)
+        renderer.setSize(element.clientWidth, Math.max(1, element.clientHeight))
         camera.aspect = element.clientWidth / Math.max(1, element.clientHeight)
         camera.updateProjectionMatrix()
         render(progress.current)
@@ -124,11 +115,16 @@ export const ScrollPortraitScene = forwardRef<ScrollSceneHandle, Props>(function
       resize.observe(element)
       update.current = render
       dispose = () => {
+        active = false
         resize.disconnect()
         update.current = () => {}
-        textures.forEach(texture => texture.dispose())
+        canvas.removeEventListener("webglcontextlost", contextLost)
+        canvas.removeEventListener("webglcontextrestored", contextRestored)
+        texture.dispose()
         geometries.forEach(geometry => geometry.dispose())
-        materials.forEach(material => material.dispose())
+        frameMaterial.dispose()
+        inkMaterial.dispose()
+        imageMaterial.dispose()
         renderer.dispose()
         renderer.forceContextLoss()
         canvas.remove()
@@ -138,14 +134,15 @@ export const ScrollPortraitScene = forwardRef<ScrollSceneHandle, Props>(function
     function reset() {
       dispose?.()
       dispose = undefined
-      if (!media.matches) void mount()
+      if (!media.matches) mount()
     }
     media.addEventListener("change", reset)
-    void mount()
-    return () => { cancelled = true; media.removeEventListener("change", reset); dispose?.() }
-  }, [mode, works])
+    mount()
+    return () => { media.removeEventListener("change", reset); dispose?.() }
+  }, [mode])
 
   return <div className={`scroll-portrait-scene scroll-portrait-scene-${mode}`} ref={host}>
-    <Image className="scroll-portrait-fallback" src="/images/hero-manga-portrait.png" width={495} height={527} priority alt="Royce Mathew" sizes="(max-width: 760px) 76vw, 38vw" />
+    <div className="scroll-portrait-paper" aria-hidden="true"/>
+    <Image className="scroll-portrait-fallback" src="/images/hero-manga-portrait.png" width={495} height={527} priority alt="Royce Mathew" sizes="(max-width: 760px) 65vw, 32vw" />
   </div>
 })

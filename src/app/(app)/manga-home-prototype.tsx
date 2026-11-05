@@ -17,7 +17,7 @@ type Work = { title: string; description: string; imageSrc: string; slug: string
 type Props = { code: string; works: Work[] }
 
 function Identity() {
-  return <><p className="manga-role">Software Developer · Data Scientist · Game Developer</p><h1 className="manga-name"><span>Royce</span><span>Mathew<span className="manga-period">.</span></span></h1></>
+  return <><p className="manga-role">Software Developer · AI Developer · Game Developer</p><h1 className="manga-name"><span>Royce</span><span>Mathew<span className="manga-period">.</span></span></h1></>
 }
 
 function Contact() {
@@ -29,11 +29,11 @@ function Portrait() {
 }
 
 function Intro() {
-  return <p className="manga-intro">Building at the intersection of cloud infrastructure, data science, and creative engineering. Crafting solutions that scale.</p>
+  return <p className="manga-intro">Building at the intersection of cloud infrastructure, AI, and creative engineering. Crafting solutions that scale.</p>
 }
 
 export function VariantA() {
-  return <section className="manga-cover manga-cover-a" aria-label="Introduction"><div className="manga-edition"><span>royce.sh / Royce Mathew</span><span>Based in Canada</span></div><div className="manga-cover-grid"><div className="manga-title-panel" data-manga-enter><Identity/><div className="manga-title-foot"><Intro/></div></div><div className="manga-photo-panel" data-manga-enter><Portrait/><MangaImpactLines/><span className="manga-side-note" aria-hidden="true">CODE / DATA / PLAY</span></div><div className="manga-action-panel" data-manga-enter><Contact/></div><a href="#about" className="manga-next-panel">About & experience <span aria-hidden="true">↓</span></a></div></section>
+  return <section className="manga-cover manga-cover-a" aria-label="Introduction"><div className="manga-edition"><span>royce.sh / Royce Mathew</span><span>Based in Canada</span></div><div className="manga-cover-grid"><div className="manga-title-panel" data-manga-enter><Identity/><div className="manga-title-foot"><Intro/></div></div><div className="manga-photo-panel" data-manga-enter><Portrait/><MangaImpactLines/><span className="manga-side-note" aria-hidden="true">CODE / AI / PLAY</span></div><div className="manga-action-panel" data-manga-enter><Contact/></div><a href="#about" className="manga-next-panel">About & experience <span aria-hidden="true">↓</span></a></div></section>
 }
 
 export function MangaHomePrototype({code, works}: Props) {
@@ -42,7 +42,7 @@ export function MangaHomePrototype({code, works}: Props) {
   const variant = query === "B" || query === "C" || query === "D" || query === "E" ? query : "A"
   const { settings, style } = useHeroSettings()
   const scrollStudy = params.get("study") === "scroll" || (!params.has("study") && !params.has("variant"))
-  if (scrollStudy) return <ScrollHomePrototype code={code} works={works} variant={variant === "E" ? "A" : variant}/>
+  if (scrollStudy) return <ScrollHomePrototype code={code} variant={variant === "E" ? "A" : variant}/>
   return <main className={`manga-home manga-home-${variant}`} style={style} data-hero-layout={settings.layout} data-hero-type={settings.type}>
     {variant === "A" ? <><VariantA/><HeroLab settings={settings}/></> : variant === "B" ? <MonolithHero/> : variant === "C" ? <ContactSheetHero/> : variant === "D" ? <SignalHero/> : <AfterimageHero/>}
     <section className="manga-work-preview" aria-labelledby="manga-work-title"><div className="manga-chapter"><span>01 / Portfolio</span><Link href={`/projects?variant=${variant}`}>All projects ↗</Link></div><h2 id="manga-work-title">Selected work<span className="manga-period">.</span></h2><div className="manga-preview-grid">{works.map((work,index)=><Link href={`/${work.slug}?variant=${variant}`} key={work.slug} className="manga-work-panel"><div className="manga-work-image"><Image src={work.imageSrc} alt="" width={700} height={440} sizes="(max-width:760px) 90vw, 45vw"/></div><div className="manga-work-caption"><span className="manga-work-number">0{index+1}</span><div><h3>{work.title}</h3><p>{work.description}</p></div><span aria-hidden="true">↗</span></div></Link>)}</div></section>

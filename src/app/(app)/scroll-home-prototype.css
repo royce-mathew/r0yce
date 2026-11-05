@@ -1,12 +1,7 @@
-html[data-scroll-study="true"] .manga-site-header,
-html[data-scroll-study="true"] .manga-site-footer {
-  border-width: 1px;
-  border-color: #36363b;
-}
 .scroll-study {
   font-family: var(--font-sans), sans-serif;
-  background: #101116;
-  color: #f1f0eb;
+  background: var(--scroll-ink);
+  color: var(--scroll-paper);
 }
 .scroll-study * {
   box-sizing: border-box;
@@ -20,9 +15,9 @@ html[data-scroll-study="true"] .manga-site-footer {
 }
 .scroll-study-about {
   padding: 100px 8% 130px;
-  border-top: 1px solid #555558;
+  border-top: 1px solid var(--scroll-rule);
   scroll-margin-top: 120px;
-  background: #131314;
+  background: var(--scroll-ink);
 }
 .scroll-study-about > h2 {
   font:
@@ -32,7 +27,7 @@ html[data-scroll-study="true"] .manga-site-footer {
   margin-bottom: 65px;
 }
 .scroll-study-about > h2 span {
-  color: #a5b3ee;
+  color: var(--scroll-accent);
 }
 .scroll-study-about > .prose-content {
   max-width: 850px;
@@ -42,7 +37,7 @@ html[data-scroll-study="true"] .manga-site-footer {
   color: #c3c2be;
 }
 .scroll-study-about .mdx-shell-about :is(h2, h3, h4) {
-  color: #f1f0eb;
+  color: var(--scroll-paper);
   font-family: var(--font-sans), sans-serif;
   font-weight: 450;
   letter-spacing: -0.035em;

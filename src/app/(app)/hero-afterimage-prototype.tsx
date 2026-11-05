@@ -58,7 +58,7 @@ export function AfterimageHero() {
         </div>
         <div className="afterimage-identity">
           <h1 aria-label="Royce Mathew"><span className="afterimage-line"><span>Royce</span></span><span className="afterimage-line"><span>Mathew<span className="afterimage-stop">.</span></span></span></h1>
-          <ul className="afterimage-role"><li>Software developer</li><li>Data scientist</li><li>Game developer</li></ul>
+          <ul className="afterimage-role"><li>Software developer</li><li>AI Developer</li><li>Game developer</li></ul>
         </div>
       </div>
       <footer className="afterimage-footer">

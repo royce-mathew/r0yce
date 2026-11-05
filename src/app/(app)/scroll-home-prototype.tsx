@@ -9,11 +9,11 @@ import { SpatialArchivePrototype } from "./scroll-spatial-archive-prototype"
 import { InkCinemaPrototype } from "./scroll-ink-cinema-prototype"
 import { KineticTypePrototype } from "./scroll-kinetic-type-prototype"
 import { QuietSurrealismPrototype } from "./scroll-quiet-surrealism-prototype"
-import type { ScrollVariant, ScrollWork } from "./scroll-study-types"
+import type { ScrollVariant } from "./scroll-study-types"
 import "lenis/dist/lenis.css"
 import "./scroll-home-prototype.css"
 
-export function ScrollHomePrototype({ code, works, variant }: { code: string; works: ScrollWork[]; variant: ScrollVariant }) {
+export function ScrollHomePrototype({ code, variant }: { code: string; variant: ScrollVariant }) {
   const previousVariant = useRef(variant)
   useLayoutEffect(() => {
     if (previousVariant.current !== variant) {
@@ -41,7 +41,7 @@ export function ScrollHomePrototype({ code, works, variant }: { code: string; wo
   }, [variant])
 
   return <main className={`scroll-study scroll-study-${variant}`}>
-    {variant === "A" ? <SpatialArchivePrototype works={works}/> : variant === "B" ? <InkCinemaPrototype works={works}/> : variant === "C" ? <KineticTypePrototype works={works}/> : <QuietSurrealismPrototype works={works}/>}
-    <section id="scroll-about" className="scroll-study-about" aria-labelledby="scroll-about-title"><h2 id="scroll-about-title">Behind the work<span>.</span></h2><div className="prose-content"><Mdx code={code} className="mdx-shell-about"/></div><a className="scroll-study-resume" href="/files/Royce%20Mathew%20Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé ↗</a></section>
+    {variant === "A" ? <SpatialArchivePrototype/> : variant === "B" ? <InkCinemaPrototype/> : variant === "C" ? <KineticTypePrototype/> : <QuietSurrealismPrototype/>}
+    <section id="scroll-about" className="scroll-study-about" aria-labelledby="scroll-about-title"><h2 id="scroll-about-title">About & experience<span>.</span></h2><div className="prose-content"><Mdx code={code} className="mdx-shell-about"/></div><a className="scroll-study-resume" href="/files/Royce%20Mathew%20Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé ↗</a></section>
   </main>
 }

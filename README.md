@@ -16,24 +16,26 @@ It also includes a realtime text editor for collaborative editing, built with Fi
 
 ## Hero and scroll prototypes — throwaway branch
 
-Question: how can the approved portrait and logo become a distinctive portfolio experience, through both opening composition and sustained scroll choreography?
+Question: how can manga-panel framing create a portrait-led introduction, with coordinated navigation and scroll choreography rather than a featured-work gallery?
 
 ### Scroll studies
 
-Four dark-first sequences on the existing homepage. The base URL `http://localhost:3000/` opens Spatial Archive; `?study=scroll&variant=A-D` selects a specific scroll study. Existing `?variant=A-E` links still select the earlier portrait studies. The bottom comparison bar stays within the active family.
+Four dark-first sequences on the existing homepage. The base URL `http://localhost:3000/` opens Spatial Panels; `?study=scroll&variant=A-D` selects a specific scroll study. Existing `?variant=A-E` links still select the earlier portrait studies. The bottom comparison bar stays within the active family.
 
-- `http://localhost:3000/?study=scroll&variant=A` — **Spatial Archive**: a real Three.js portrait-and-project gallery; vertical scrolling moves the camera through the actual featured work.
-- `http://localhost:3000/?study=scroll&variant=B` — **Ink Cinema**: oversized opening titles recede while a narrow portrait aperture unfolds into an editorial contact print.
-- `http://localhost:3000/?study=scroll&variant=C` — **Kinetic Type**: opposing discipline typography, an expanding portrait strip, and an acid-lime transition into work.
-- `http://localhost:3000/?study=scroll&variant=D` — **Quiet Surrealism**: a portrait suspended in metallic Three.js orbits; scroll changes the viewing angle and hands off to quieter project spreads.
+- `http://localhost:3000/?study=scroll&variant=A` — **Spatial Panels**: a Three.js portrait page with close-up crops, ink frames, and scroll-driven camera/panel depth.
+- `http://localhost:3000/?study=scroll&variant=B` — **Ink Cinema**: the preferred oversized-title recession and expanding portrait aperture, refined into asymmetric black/ivory identity panels.
+- `http://localhost:3000/?study=scroll&variant=C` — **Kinetic Panels**: opposing Software / AI / Play typography and angular portrait motion reveal an AI Developer identity panel against acid lime.
+- `http://localhost:3000/?study=scroll&variant=D` — **Quiet Fragments**: a centered, warm-ink dimensional portrait composition above a broad sans/italic-serif name.
 
-`scroll-home-prototype.tsx` owns one Lenis instance, synchronized with GSAP's ticker and ScrollTrigger. The two Three.js scenes render on scroll, resize, and texture arrival, not an idle animation loop. Essential identity, project links, and the real About/experience MDX remain in the DOM. Reduced motion removes smooth scrolling, sticky tracks, and WebGL, leaving the portrait and content in normal flow. The cinema panel's clipped links stay inert until revealed. Anchor spacing uses CSS scroll margins, which the installed Lenis version already honors.
+These four homepage studies contain no project showcases. Projects remain on their dedicated route, reached through variant-preserving hero links. Role branding reads Software Developer / AI Developer / Game Developer across both prototype families and homepage metadata; career and project content are unchanged. Each new study has a matching masthead, navigation treatment, and `royce.sh` wordmark, also applied to its mobile menu and footer. Header heights remain 90px desktop and 76px mobile so sticky tracks align across variants.
+
+`scroll-home-prototype.tsx` owns one Lenis instance, synchronized with GSAP's ticker and ScrollTrigger. The two Three.js scenes share one portrait texture across their cropped panels and render on scroll, resize, and texture arrival, not an idle animation loop. Essential identity, Projects links, and the real About/experience MDX remain in the DOM. Reduced motion removes smooth scrolling, sticky tracks, and WebGL, leaving the portrait and content in normal flow. B/C's reveal links stay inert until visible and retain 44px touch targets. Anchor spacing uses CSS scroll margins, which the installed Lenis version already honors.
 
 Lenis follows Radix's `body[data-scroll-locked]` lifecycle so dialogs stop both new wheel input and ongoing page inertia. The mobile menu's own scroll area uses `data-lenis-prevent` to retain native scrolling while the portfolio is locked. Browser checks exercised search-dialog lock/unlock and a scrollable mobile menu at 390×600: the menu moved while the background stayed fixed.
 
 Changing designs resets scroll in the Lenis owner's layout effect, after the previous instance is destroyed. Resetting in the comparison button's click handler is too early: active Lenis motion can restore the old scroll position before the next hero mounts. Browser checks cover opening `/`, returning through Home, advancing all four timelines, and switching while scroll is still moving; each newly selected study starts at scroll position and timeline progress zero.
 
-Exercised in Chromium: actual wheel-driven transformations at 320, 390, 768, and 1440px; no document overflow; real WebGL rendering on A/D; all four reduced-motion layouts at 390px; all four work anchors and Fotoland project links at desktop; new-series wrapping, reload, and return-to-top; original five-way comparison retained. This is viewport emulation, not a physical-device GPU or production-performance benchmark.
+Exercised in local Chromium: wheel-driven motion at 320, 390, 768, and 1440px; no document overflow or wordmark/tool collisions; real WebGL on A/D; complete B/C mobile reveals; all four static reduced-motion layouts at 390×844 and 320×600; live preference disable/restore for every sequence; About anchors and real Projects navigation from all four heroes; and A→B→C→D→A switching during inertia with scroll/progress reset and matching mastheads. Short-screen checks caught and corrected D's role/footer overlap. The mobile menu and command-search controls were opened and closed with the new chrome. TypeScript and prototype-source lint passed. Earlier five-way comparisons remain available. This is viewport emulation, not a physical-device GPU or production-performance benchmark.
 
 ### Portrait studies
 

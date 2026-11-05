@@ -4,16 +4,16 @@ import { mainContents, projects } from "#site/content"
 import { MangaHomePrototype } from "./manga-home-prototype"
 
 export const metadata: Metadata = {
-  title: "royce.sh — Royce Mathew, Developer & Data Scientist",
+  title: "royce.sh — Royce Mathew, Software & AI Developer",
   description:
-    "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
+    "Portfolio of Royce Mathew — Software Developer, AI Developer, and Game Developer based in Canada.",
   keywords: [
     "developer",
     "python",
     "javascript",
     "react",
     "computer science",
-    "data science",
+    "AI developer",
     "portfolio",
     "royce mathew",
   ],
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     siteName: "royce.sh",
     url: "https://royce.sh",
     type: "website",
-    title: "royce.sh — Royce Mathew, Developer & Data Scientist",
+    title: "royce.sh — Royce Mathew, Software & AI Developer",
     description:
-      "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
+      "Portfolio of Royce Mathew — Software Developer, AI Developer, and Game Developer based in Canada.",
     images: [
       {
         url: "https://royce.sh/images/ProfilePicture2.webp",
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "royce.sh — Royce Mathew, Developer & Data Scientist",
+    title: "royce.sh — Royce Mathew, Software & AI Developer",
     description:
-      "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
+      "Portfolio of Royce Mathew — Software Developer, AI Developer, and Game Developer based in Canada.",
     images: [
       {
         url: "https://royce.sh/images/ProfilePicture2.webp",

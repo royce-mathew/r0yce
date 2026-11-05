@@ -51,7 +51,7 @@ export function SignalHero() {
       <div className="signal-field">
         <div className="signal-axis signal-axis-left" aria-hidden="true"/>
         <div className="signal-axis signal-axis-right" aria-hidden="true"/>
-        <div className="signal-words" aria-hidden="true"><span className="signal-word">CODE</span><span className="signal-word">DATA</span><span className="signal-word">PLAY</span></div>
+        <div className="signal-words" aria-hidden="true"><span className="signal-word">CODE</span><span className="signal-word">AI</span><span className="signal-word">PLAY</span></div>
         <div className="signal-portrait-motion">
           <figure className="signal-portrait-window">
             <Image src="/images/hero-manga-portrait.png" alt="Royce Mathew, Analyst at TD Asset Management" width={495} height={527} priority sizes="(max-width: 760px) 72vw, 340px"/>
@@ -61,7 +61,7 @@ export function SignalHero() {
         <div className="signal-scan" aria-hidden="true"/>
       </div>
       <footer className="signal-footer">
-        <ul className="signal-disciplines"><li>Software developer</li><li>Data scientist</li><li>Game developer</li></ul>
+        <ul className="signal-disciplines"><li>Software developer</li><li>AI Developer</li><li>Game developer</li></ul>
         <div className="signal-actions"><a href="#manga-work-title">Explore work <span aria-hidden="true">↗</span></a><a href="/files/Royce%20Mathew%20Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé <span aria-hidden="true">↗</span></a></div>
       </footer>
     </section>

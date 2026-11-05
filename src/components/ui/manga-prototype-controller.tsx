@@ -6,7 +6,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 const portraitNames: Record<string, string> = { A: "Baseline / Hero lab", B: "Monolith", C: "Contact Sheet", D: "Signal", E: "Afterimage" }
-const scrollNames: Record<string, string> = { A: "Spatial Archive", B: "Ink Cinema", C: "Kinetic Type", D: "Quiet Surrealism" }
+const scrollNames: Record<string, string> = { A: "Spatial Panels", B: "Ink Cinema", C: "Kinetic Panels", D: "Quiet Fragments" }
 
 export function MangaPrototypeController() {
   const params = useSearchParams()
@@ -21,6 +21,7 @@ export function MangaPrototypeController() {
   useLayoutEffect(() => {
     document.documentElement.dataset.mangaVariant = scrollStudy ? "A" : variant
     document.documentElement.dataset.scrollStudy = String(scrollStudy)
+    document.documentElement.dataset.scrollVariant = scrollStudy ? variant : ""
     document.documentElement.dataset.mangaMotion = scrollStudy ? "scroll" : "running"
     if (scrollStudy) {
       console.info("Scroll prototype state", { variant, name: names[variant], pathname, viewport: { width: innerWidth, height: innerHeight }, reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches, theme: document.documentElement.className })
