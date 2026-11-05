@@ -13,7 +13,7 @@ export function MangaPrototypeController() {
   const router = useRouter()
   const pathname = usePathname()
   const selected = params.get("variant")
-  const scrollStudy = params.get("study") === "scroll"
+  const scrollStudy = params.get("study") === "scroll" || (!params.has("study") && !params.has("variant"))
   const names = scrollStudy ? scrollNames : portraitNames
   const variants = Object.keys(names)
   const variant = selected && variants.includes(selected) ? selected : "A"
@@ -48,7 +48,7 @@ export function MangaPrototypeController() {
   function choose(next: string) {
     const query = new URLSearchParams(params.toString())
     query.set("variant", next)
-    if (scrollStudy) window.scrollTo({ top: 0, behavior: "instant" })
+    if (scrollStudy) query.set("study", "scroll")
     router.replace(`${pathname}?${query}`, { scroll: false })
   }
 

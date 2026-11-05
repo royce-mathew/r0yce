@@ -20,7 +20,7 @@ Question: how can the approved portrait and logo become a distinctive portfolio 
 
 ### Scroll studies
 
-Four new dark-first sequences on the existing homepage, selected with `?study=scroll&variant=A-D`. These are independent of the earlier five portrait studies; the bottom comparison bar switches within the active family.
+Four dark-first sequences on the existing homepage. The base URL `http://localhost:3000/` opens Spatial Archive; `?study=scroll&variant=A-D` selects a specific scroll study. Existing `?variant=A-E` links still select the earlier portrait studies. The bottom comparison bar stays within the active family.
 
 - `http://localhost:3000/?study=scroll&variant=A` — **Spatial Archive**: a real Three.js portrait-and-project gallery; vertical scrolling moves the camera through the actual featured work.
 - `http://localhost:3000/?study=scroll&variant=B` — **Ink Cinema**: oversized opening titles recede while a narrow portrait aperture unfolds into an editorial contact print.
@@ -30,6 +30,8 @@ Four new dark-first sequences on the existing homepage, selected with `?study=sc
 `scroll-home-prototype.tsx` owns one Lenis instance, synchronized with GSAP's ticker and ScrollTrigger. The two Three.js scenes render on scroll, resize, and texture arrival, not an idle animation loop. Essential identity, project links, and the real About/experience MDX remain in the DOM. Reduced motion removes smooth scrolling, sticky tracks, and WebGL, leaving the portrait and content in normal flow. The cinema panel's clipped links stay inert until revealed. Anchor spacing uses CSS scroll margins, which the installed Lenis version already honors.
 
 Lenis follows Radix's `body[data-scroll-locked]` lifecycle so dialogs stop both new wheel input and ongoing page inertia. The mobile menu's own scroll area uses `data-lenis-prevent` to retain native scrolling while the portfolio is locked. Browser checks exercised search-dialog lock/unlock and a scrollable mobile menu at 390×600: the menu moved while the background stayed fixed.
+
+Changing designs resets scroll in the Lenis owner's layout effect, after the previous instance is destroyed. Resetting in the comparison button's click handler is too early: active Lenis motion can restore the old scroll position before the next hero mounts. Browser checks cover opening `/`, returning through Home, advancing all four timelines, and switching while scroll is still moving; each newly selected study starts at scroll position and timeline progress zero.
 
 Exercised in Chromium: actual wheel-driven transformations at 320, 390, 768, and 1440px; no document overflow; real WebGL rendering on A/D; all four reduced-motion layouts at 390px; all four work anchors and Fotoland project links at desktop; new-series wrapping, reload, and return-to-top; original five-way comparison retained. This is viewport emulation, not a physical-device GPU or production-performance benchmark.
 

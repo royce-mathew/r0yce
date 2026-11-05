@@ -54,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head><script dangerouslySetInnerHTML={{ __html: 'const prototypeQuery = new URLSearchParams(location.search); document.documentElement.dataset.scrollStudy = String(prototypeQuery.get("study") === "scroll"); document.documentElement.dataset.mangaVariant = prototypeQuery.get("study") === "scroll" ? "A" : ["B","C","D","E"].includes(prototypeQuery.get("variant")) ? prototypeQuery.get("variant") : "A";' }} /></head>
+      <head><script dangerouslySetInnerHTML={{ __html: 'const prototypeQuery = new URLSearchParams(location.search); const scrollStudy = prototypeQuery.get("study") === "scroll" || (!prototypeQuery.has("study") && !prototypeQuery.has("variant")); document.documentElement.dataset.scrollStudy = String(scrollStudy); document.documentElement.dataset.mangaVariant = scrollStudy ? "A" : ["B","C","D","E"].includes(prototypeQuery.get("variant")) ? prototypeQuery.get("variant") : "A";' }} /></head>
       <body
         className={cn(
           "min-h-screen bg-background antialiased",

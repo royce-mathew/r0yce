@@ -1,6 +1,6 @@
 "use client"
 
-import { useLayoutEffect } from "react"
+import { useLayoutEffect, useRef } from "react"
 import Lenis from "lenis"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -14,7 +14,13 @@ import "lenis/dist/lenis.css"
 import "./scroll-home-prototype.css"
 
 export function ScrollHomePrototype({ code, works, variant }: { code: string; works: ScrollWork[]; variant: ScrollVariant }) {
+  const previousVariant = useRef(variant)
   useLayoutEffect(() => {
+    if (previousVariant.current !== variant) {
+      // Reset after Lenis cleanup so its remaining motion cannot move the next hero.
+      window.scrollTo({ top: 0, behavior: "instant" })
+      previousVariant.current = variant
+    }
     gsap.registerPlugin(ScrollTrigger)
     const media = gsap.matchMedia()
     media.add("(prefers-reduced-motion: no-preference)", () => {
