@@ -36,6 +36,10 @@ Creation’s hands are traced from the public-domain [Creation of Adam fresco](h
 
 At the top of the scroll, the name and a narrow slit of the portrait form one centred lockup sized to the stage width, so neither word is cropped; the reveal panels start hidden before the first scroll.
 
+Creation uses damped spring easing (`elastic.out`) for the title, portrait movement, panel entrances, hands, and energy burst. Hand travel and overshoot are restrained to preserve the fingertip gap; the portrait clip opens without overshoot. A graphite crosshatched sky with loose contour strokes sits behind the ivory hands. A gold halo, fractured white rays, and a bright core concentrate the contrast at the gap. All effects remain scroll-scrubbed and resolve to a static composition for reduced motion or short screens.
+
+The spring/background revision was exercised with native wheel input in Chromium at 1298×937 and 390×844. Rendered hand and energy transforms overshot their resting positions and settled; mobile reduced-motion enable/restore released and restored link inertness. TypeScript and changed-source ESLint passed.
+
 This revision was exercised in Chromium at 1298×937, 1440×1000, 1920×1080, and 390×844 (opening, middle, final) plus reduced motion. TypeScript and changed-source ESLint passed.
 
 Local Chromium checks exercised native wheel completion at 1440×1000, 768×1000, 390×844, and 320×780; all five final compositions loaded their images, retained one h1, avoided horizontal homepage overflow and logo/search collisions, and exposed links with at least 44px targets. All five 320×600 layouts used normal flow. Live reduced-motion changes removed Lenis/sticky positioning and released links; restoring motion resumed each timeline, and reverse scrolling made hidden links inert again. Real About and Projects links worked for every ending; Projects navigation removed Lenis. Root loading, A→B→C→D→E→A switching during inertia, and Creation’s mobile menu/search were exercised. TypeScript and changed-source ESLint passed.

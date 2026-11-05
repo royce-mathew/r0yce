@@ -42,16 +42,15 @@ export function VoidEndingPrototype() {
       const slitCenter = () => name.clientWidth / 2 + (first.offsetWidth - last.offsetWidth) * lockupScale() / 2
       const centerOn = (target: HTMLElement, offsetTop = 0) => (name.offsetTop + spread.offsetTop + spread.offsetHeight) / 2 - offsetTop - target.offsetTop - target.offsetHeight / 2
       navigation.forEach(panel => { panel.inert = true })
-      // A staggered fromTo only paints its first target's start state before the first scroll, which
-      // left the Projects and link panels showing over the opening title card.
+      // All staggered panels start hidden, including those whose tweens begin after the first frame.
       gsap.set(".me-void-reveal", { autoAlpha: 0, y: 35, rotationX: -12 })
       const timeline = gsap.timeline({
-        defaults: { ease: "power2.inOut" },
+        defaults: { ease: "elastic.out(1, .85)" },
         scrollTrigger: {
           trigger: element.querySelector(".me-void-track"),
           start: `top ${mobile ? 76 : 90}px`,
           end: "bottom bottom",
-          scrub: .7,
+          scrub: .35,
           invalidateOnRefresh: true,
         },
         onUpdate: () => {
@@ -63,13 +62,18 @@ export function VoidEndingPrototype() {
         .fromTo(name, { y: () => centerOn(name) }, { y: 0, duration: .72 }, 0)
         .fromTo(first, { scale: lockupScale, transformOrigin: "100% 50%", x: () => slitCenter() - aperture() / 2 - lockupGap() - first.offsetLeft - first.offsetWidth }, { scale: 1, x: 0, duration: .72 }, 0)
         .fromTo(last, { scale: lockupScale, transformOrigin: "0% 50%", x: () => slitCenter() + aperture() / 2 + lockupGap() - last.offsetLeft }, { scale: 1, x: 0, duration: .72 }, 0)
-        .fromTo(portrait, { x: () => name.offsetLeft + slitCenter() - spread.offsetLeft - portrait.offsetLeft - portrait.offsetWidth / 2, y: () => centerOn(portrait, spread.offsetTop), clipPath: `inset(0 ${(1 - apertureShare) * 50}% 0 ${(1 - apertureShare) * 50}%)`, scale: apertureScale }, { x: 0, y: 0, clipPath: "inset(0 0% 0 0%)", scale: 1, duration: .8 }, .04)
-        .fromTo(".me-void-art-panel", { autoAlpha: 0, rotationX: -45, y: 80 }, { autoAlpha: 1, rotationX: 0, y: 0, duration: .55 }, .25)
-        .fromTo(".me-creation-adam", { x: -190, y: 26, rotation: -4, svgOrigin: "0 300" }, { x: 0, y: 0, rotation: 0, duration: .85 }, .32)
-        .fromTo(".me-creation-creator", { x: 190, y: -18, rotation: 3, svgOrigin: "1215 160" }, { x: 0, y: 0, rotation: 0, duration: .85 }, .32)
-        .fromTo(".me-creation-tone", { autoAlpha: 0 }, { autoAlpha: 1, duration: .4 }, .55)
-        .fromTo(".me-creation-focus", { autoAlpha: 0, scale: 1.15, svgOrigin: `${creationGap.x} ${creationGap.y}` }, { autoAlpha: .28, scale: 1, duration: .5 }, .6)
-        .fromTo(".me-creation-spark", { autoAlpha: 0, scale: .5, svgOrigin: `${creationGap.x} ${creationGap.y}` }, { autoAlpha: 1, scale: 1, duration: .25 }, .95)
+        .fromTo(portrait, { x: () => name.offsetLeft + slitCenter() - spread.offsetLeft - portrait.offsetLeft - portrait.offsetWidth / 2, y: () => centerOn(portrait, spread.offsetTop), scale: apertureScale }, { x: 0, y: 0, scale: 1, duration: .9 }, .04)
+        // The slit opens without overshoot so its inset never crosses outside the portrait.
+        .fromTo(portrait, { clipPath: `inset(0 ${(1 - apertureShare) * 50}% 0 ${(1 - apertureShare) * 50}%)` }, { clipPath: "inset(0 0% 0 0%)", ease: "power2.out", duration: .7 }, .04)
+        .fromTo(".me-void-art-panel", { autoAlpha: 0, rotationX: -30, y: 65 }, { autoAlpha: 1, rotationX: 0, y: 0, duration: .8 }, .2)
+        // Slow damping and shorter travel keep the fingertip gap open at the spring's closest approach.
+        .fromTo(".me-creation-adam", { x: -100, y: 16, rotation: -2, svgOrigin: "0 300" }, { x: 0, y: 0, rotation: 0, ease: "elastic.out(1, 1)", duration: 1.05 }, .32)
+        .fromTo(".me-creation-creator", { x: 100, y: -12, rotation: 1.5, svgOrigin: "1215 160" }, { x: 0, y: 0, rotation: 0, ease: "elastic.out(1, 1)", duration: 1.05 }, .32)
+        .fromTo(".me-creation-tone", { autoAlpha: 0 }, { autoAlpha: 1, ease: "power1.out", duration: .4 }, .55)
+        .fromTo(".me-creation-backdrop", { autoAlpha: .35 }, { autoAlpha: 1, ease: "power1.inOut", duration: .6 }, .32)
+        .fromTo(".me-creation-focus", { autoAlpha: 0, scale: 1.3, svgOrigin: `${creationGap.x} ${creationGap.y}` }, { autoAlpha: .5, scale: 1, duration: .75 }, .6)
+        .fromTo(".me-creation-energy", { autoAlpha: 0, scale: .2, svgOrigin: `${creationGap.x} ${creationGap.y}` }, { autoAlpha: 1, scale: 1, ease: "elastic.out(1, .55)", duration: .85 }, .7)
+        .fromTo(".me-creation-spark", { autoAlpha: 0, scale: .15, svgOrigin: `${creationGap.x} ${creationGap.y}` }, { autoAlpha: 1, scale: 1, ease: "elastic.out(1, .5)", duration: .7 }, .8)
         .fromTo(".me-void-reveal", { autoAlpha: 0, y: 35, rotationX: -12 }, { autoAlpha: 1, y: 0, rotationX: 0, duration: .4, stagger: .07 }, .5)
         .fromTo(".me-void-roles p", { x: -35, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: .35, stagger: .08 }, .65)
         .fromTo(".me-void-orbit", { rotation: -65, scale: .7 }, { rotation: 0, scale: 1, duration: .8 }, .45)
