@@ -18,9 +18,29 @@ It also includes a realtime text editor for collaborative editing, built with Fi
 
 Question: how can manga-panel framing create a portrait-led introduction, with coordinated navigation and scroll choreography rather than a featured-work gallery?
 
+### B-derived manga endings
+
+Five throwaway homepage compositions keep the preferred receding title / expanding portrait opening, then resolve into different manga pages. `/` now opens **Impact**. Use `?study=panels&variant=A-E`, or the existing bottom selector, to compare:
+
+- `http://localhost:3000/?study=panels&variant=A` — **Impact**: diagonal portrait, panoramic eye panel, vermilion role ribbon, oversized split-color name.
+- `http://localhost:3000/?study=panels&variant=B` — **Neo Tokyo**: architectural portrait column, blue detail crop, Japanese sign rails, industrial navigation.
+- `http://localhost:3000/?study=panels&variant=C` — **Quiet Volume**: warm-paper editorial spread, serif identity, vertical Japanese typography, restrained brass accents.
+- `http://localhost:3000/?study=panels&variant=D` — **Panel Cascade**: six unequal panels hinge into a complete page, with stepped roles and a yellow Projects panel.
+- `http://localhost:3000/?study=panels&variant=E` — **Creation**: Michelangelo’s almost-touching hands unfold across nested frames above a serif name and receding portrait fragments.
+
+Each has matching desktop/mobile navigation, footer, and `royce.sh` branding. New endings and the earlier Ink Cinema study use a caption-free crop of the supplied portrait; the original image and historical portrait studies remain unchanged. No featured-work section was added. About/experience still uses the real MDX; Projects links retain the active family and variant.
+
+The shared scroll owner retains one Lenis instance. Each ending owns its scoped GSAP timeline, reveal-link inertness, and static reduced-motion layout. Short viewports use complete normal-flow compositions instead of squeezing a sticky page into the available height. Japanese glyphs use local regular/bold Noto Sans JP subsets; their OFL license is included beside the font files.
+
+The decorative hands asset is a panoramic crop of Michelangelo’s *The Creation of Adam*, from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Michelangelo_-_Creation_of_Adam_%28hand_crop%29.jpg), marked public domain. The two animated halves preserve the original gap between the fingertips.
+
+Local Chromium checks exercised native wheel completion at 1440×1000, 768×1000, 390×844, and 320×780; all five final compositions loaded their images, retained one h1, avoided horizontal homepage overflow and logo/search collisions, and exposed links with at least 44px targets. All five 320×600 layouts used normal flow. Live reduced-motion changes removed Lenis/sticky positioning and released links; restoring motion resumed each timeline, and reverse scrolling made hidden links inert again. Real About and Projects links worked for every ending; Projects navigation removed Lenis. Root loading, A→B→C→D→E→A switching during inertia, and Creation’s mobile menu/search were exercised. TypeScript and changed-source ESLint passed.
+
+Known unrelated limits: missing private auth configuration still produces Auth.js client-fetch errors. The existing mobile Projects heading overflows at 390px in both the previous scroll family and the new panel family; it was not changed by this hero experiment. No production build or physical-device check was performed. No ending has been selected for promotion.
+
 ### Scroll studies
 
-Four dark-first sequences on the existing homepage. The base URL `http://localhost:3000/` opens Spatial Panels; `?study=scroll&variant=A-D` selects a specific scroll study. Existing `?variant=A-E` links still select the earlier portrait studies. The bottom comparison bar stays within the active family.
+Four earlier dark-first sequences remain available at `?study=scroll&variant=A-D`. Existing `?variant=A-E` links still select the first portrait studies. The bottom comparison bar stays within the active family.
 
 - `http://localhost:3000/?study=scroll&variant=A` — **Spatial Panels**: a Three.js portrait page with close-up crops, ink frames, and scroll-driven camera/panel depth.
 - `http://localhost:3000/?study=scroll&variant=B` — **Ink Cinema**: the preferred oversized-title recession and expanding portrait aperture, refined into asymmetric black/ivory identity panels.

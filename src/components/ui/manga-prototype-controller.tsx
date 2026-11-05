@@ -7,24 +7,29 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 const portraitNames: Record<string, string> = { A: "Baseline / Hero lab", B: "Monolith", C: "Contact Sheet", D: "Signal", E: "Afterimage" }
 const scrollNames: Record<string, string> = { A: "Spatial Panels", B: "Ink Cinema", C: "Kinetic Panels", D: "Quiet Fragments" }
+const panelNames: Record<string, string> = { A: "Impact", B: "Neo Tokyo", C: "Quiet Volume", D: "Panel Cascade", E: "Creation" }
 
 export function MangaPrototypeController() {
   const params = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
   const selected = params.get("variant")
-  const scrollStudy = params.get("study") === "scroll" || (!params.has("study") && !params.has("variant"))
-  const names = scrollStudy ? scrollNames : portraitNames
+  const panelStudy = params.get("study") === "panels" || (!params.has("study") && !params.has("variant"))
+  const scrollStudy = params.get("study") === "scroll"
+  const animatedStudy = panelStudy || scrollStudy
+  const names = panelStudy ? panelNames : scrollStudy ? scrollNames : portraitNames
   const variants = Object.keys(names)
   const variant = selected && variants.includes(selected) ? selected : "A"
 
   useLayoutEffect(() => {
-    document.documentElement.dataset.mangaVariant = scrollStudy ? "A" : variant
-    document.documentElement.dataset.scrollStudy = String(scrollStudy)
+    document.documentElement.dataset.mangaVariant = animatedStudy ? "A" : variant
+    document.documentElement.dataset.scrollStudy = String(animatedStudy)
     document.documentElement.dataset.scrollVariant = scrollStudy ? variant : ""
-    document.documentElement.dataset.mangaMotion = scrollStudy ? "scroll" : "running"
-    if (scrollStudy) {
-      console.info("Scroll prototype state", { variant, name: names[variant], pathname, viewport: { width: innerWidth, height: innerHeight }, reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches, theme: document.documentElement.className })
+    document.documentElement.dataset.panelStudy = String(panelStudy)
+    document.documentElement.dataset.panelVariant = panelStudy ? variant : ""
+    document.documentElement.dataset.mangaMotion = animatedStudy ? "scroll" : "running"
+    if (animatedStudy) {
+      console.info("Scroll prototype state", { study: panelStudy ? "panels" : "scroll", variant, name: names[variant], pathname, viewport: { width: innerWidth, height: innerHeight }, reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches, theme: document.documentElement.className })
       return
     }
     gsap.registerPlugin(ScrollTrigger)
@@ -44,12 +49,13 @@ export function MangaPrototypeController() {
       }
     })
     return () => media.revert()
-  }, [variant, pathname, scrollStudy, names])
+  }, [variant, pathname, panelStudy, scrollStudy, animatedStudy, names])
 
   function choose(next: string) {
     const query = new URLSearchParams(params.toString())
     query.set("variant", next)
-    if (scrollStudy) query.set("study", "scroll")
+    if (panelStudy) query.set("study", "panels")
+    else if (scrollStudy) query.set("study", "scroll")
     router.replace(`${pathname}?${query}`, { scroll: false })
   }
 

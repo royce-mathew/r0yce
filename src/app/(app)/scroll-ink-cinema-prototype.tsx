@@ -54,9 +54,9 @@ export function InkCinemaPrototype() {
         <div className="ic-stage">
           <h1 id="ic-name" className="ic-name" aria-label="Royce Mathew"><span className="ic-name-first" aria-hidden="true">Royce</span><span className="ic-name-last" aria-hidden="true">Mathew<span className="ic-dot">.</span></span></h1>
           <figure className="ic-portrait">
-            <Image src="/images/hero-manga-portrait.png" alt="Black-and-white ink portrait of Royce Mathew" fill priority sizes="(max-width: 760px) 64vw, 47vw" />
+            <Image src="/images/hero-manga-portrait-clean.webp" alt="Black-and-white ink portrait of Royce Mathew" fill priority sizes="(max-width: 760px) 64vw, 47vw" />
           </figure>
-          <div className="ic-detail" aria-hidden="true"><Image src="/images/hero-manga-portrait.png" alt="" fill sizes="(max-width: 760px) 25vw, 12vw" /></div>
+          <div className="ic-detail" aria-hidden="true"><Image src="/images/hero-manga-portrait-clean.webp" alt="" fill sizes="(max-width: 760px) 25vw, 12vw" /></div>
           <div className="ic-contact">
             <div className="ic-contact-heading"><span>Royce Mathew</span><span>Canada ↗</span></div>
             <p className="ic-practice"><span>Software Developer</span><span>AI Developer</span><span>Game Developer</span></p>

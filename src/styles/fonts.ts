@@ -9,6 +9,16 @@ import {
 } from "next/font/google"
 import localFont from "next/font/local"
 
+export const mangaJapanese = localFont({
+  src: [
+    { path: "./noto-manga-jp-400.ttf", weight: "400", style: "normal" },
+    { path: "./noto-manga-jp-700.ttf", weight: "700", style: "normal" },
+  ],
+  variable: "--font-japanese",
+  display: "swap",
+  preload: false,
+})
+
 export const mangaDisplay = Bangers({
   variable: "--font-manga",
   subsets: ["latin"],

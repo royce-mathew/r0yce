@@ -9,17 +9,25 @@ import { SpatialArchivePrototype } from "./scroll-spatial-archive-prototype"
 import { InkCinemaPrototype } from "./scroll-ink-cinema-prototype"
 import { KineticTypePrototype } from "./scroll-kinetic-type-prototype"
 import { QuietSurrealismPrototype } from "./scroll-quiet-surrealism-prototype"
-import type { ScrollVariant } from "./scroll-study-types"
+import { ImpactEndingPrototype } from "./manga-ending-impact-prototype"
+import { TokyoEndingPrototype } from "./manga-ending-tokyo-prototype"
+import { VolumeEndingPrototype } from "./manga-ending-volume-prototype"
+import { CascadeEndingPrototype } from "./manga-ending-cascade-prototype"
+import { VoidEndingPrototype } from "./manga-ending-void-prototype"
+import type { PanelVariant, ScrollVariant } from "./scroll-study-types"
 import "lenis/dist/lenis.css"
 import "./scroll-home-prototype.css"
 
-export function ScrollHomePrototype({ code, variant }: { code: string; variant: ScrollVariant }) {
-  const previousVariant = useRef(variant)
+type Props = { code: string } & ({ study: "scroll"; variant: ScrollVariant } | { study: "panels"; variant: PanelVariant })
+
+export function ScrollHomePrototype({ code, study, variant }: Props) {
+  const selection = `${study}:${variant}`
+  const previousSelection = useRef(selection)
   useLayoutEffect(() => {
-    if (previousVariant.current !== variant) {
+    if (previousSelection.current !== selection) {
       // Reset after Lenis cleanup so its remaining motion cannot move the next hero.
       window.scrollTo({ top: 0, behavior: "instant" })
-      previousVariant.current = variant
+      previousSelection.current = selection
     }
     gsap.registerPlugin(ScrollTrigger)
     const media = gsap.matchMedia()
@@ -38,10 +46,12 @@ export function ScrollHomePrototype({ code, variant }: { code: string; variant: 
       return () => { dialogLock.disconnect(); gsap.ticker.remove(tick); lenis.off("scroll", ScrollTrigger.update); lenis.destroy() }
     })
     return () => media.revert()
-  }, [variant])
+  }, [selection])
 
-  return <main className={`scroll-study scroll-study-${variant}`}>
-    {variant === "A" ? <SpatialArchivePrototype/> : variant === "B" ? <InkCinemaPrototype/> : variant === "C" ? <KineticTypePrototype/> : <QuietSurrealismPrototype/>}
+  return <main className={`scroll-study scroll-study-${variant}${study === "panels" ? ` manga-ending-study manga-ending-study-${variant}` : ""}`}>
+    {study === "panels"
+      ? variant === "A" ? <ImpactEndingPrototype/> : variant === "B" ? <TokyoEndingPrototype/> : variant === "C" ? <VolumeEndingPrototype/> : variant === "D" ? <CascadeEndingPrototype/> : <VoidEndingPrototype/>
+      : variant === "A" ? <SpatialArchivePrototype/> : variant === "B" ? <InkCinemaPrototype/> : variant === "C" ? <KineticTypePrototype/> : <QuietSurrealismPrototype/>}
     <section id="scroll-about" className="scroll-study-about" aria-labelledby="scroll-about-title"><h2 id="scroll-about-title">About & experience<span>.</span></h2><div className="prose-content"><Mdx code={code} className="mdx-shell-about"/></div><a className="scroll-study-resume" href="/files/Royce%20Mathew%20Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé ↗</a></section>
   </main>
 }

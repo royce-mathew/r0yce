@@ -8,7 +8,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { AuthProvider } from "@/components/providers/session"
 import { ThemeProvider } from "@/components/providers/theme"
-import { cal, dmSans, instrumentSerif, jetbrainsMono, mangaDisplay, mangaDialogue } from "@/styles/fonts"
+import { cal, dmSans, instrumentSerif, jetbrainsMono, mangaDisplay, mangaDialogue, mangaJapanese } from "@/styles/fonts"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -54,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head><script dangerouslySetInnerHTML={{ __html: 'const prototypeQuery = new URLSearchParams(location.search); const scrollStudy = prototypeQuery.get("study") === "scroll" || (!prototypeQuery.has("study") && !prototypeQuery.has("variant")); document.documentElement.dataset.scrollStudy = String(scrollStudy); document.documentElement.dataset.scrollVariant = scrollStudy ? (["B","C","D"].includes(prototypeQuery.get("variant")) ? prototypeQuery.get("variant") : "A") : ""; document.documentElement.dataset.mangaVariant = scrollStudy ? "A" : ["B","C","D","E"].includes(prototypeQuery.get("variant")) ? prototypeQuery.get("variant") : "A";' }} /></head>
+      <head><script dangerouslySetInnerHTML={{ __html: 'const prototypeQuery = new URLSearchParams(location.search); const panelStudy = prototypeQuery.get("study") === "panels" || (!prototypeQuery.has("study") && !prototypeQuery.has("variant")); const scrollStudy = prototypeQuery.get("study") === "scroll"; const animatedStudy = panelStudy || scrollStudy; document.documentElement.dataset.scrollStudy = String(animatedStudy); document.documentElement.dataset.scrollVariant = scrollStudy ? (["B","C","D"].includes(prototypeQuery.get("variant")) ? prototypeQuery.get("variant") : "A") : ""; document.documentElement.dataset.panelStudy = String(panelStudy); document.documentElement.dataset.panelVariant = panelStudy ? (["B","C","D","E"].includes(prototypeQuery.get("variant")) ? prototypeQuery.get("variant") : "A") : ""; document.documentElement.dataset.mangaVariant = animatedStudy ? "A" : ["B","C","D","E"].includes(prototypeQuery.get("variant")) ? prototypeQuery.get("variant") : "A";' }} /></head>
       <body
         className={cn(
           "min-h-screen bg-background antialiased",
@@ -63,6 +63,7 @@ export default function RootLayout({
           jetbrainsMono.variable,
           mangaDisplay.variable,
           mangaDialogue.variable,
+          mangaJapanese.variable,
           cal.variable
         )}
       >

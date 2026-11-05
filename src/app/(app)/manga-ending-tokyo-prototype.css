@@ -1,0 +1,64 @@
+.me-tokyo {
+  --me-tokyo-ink: #0d1015;
+  --me-tokyo-paper: #e8ecee;
+  --me-tokyo-red: #ff5043;
+  --me-tokyo-blue: #8aa8d6;
+  color: var(--me-tokyo-paper);
+  background: var(--me-tokyo-ink);
+  overflow: clip;
+}
+.me-tokyo-track { height: 260svh; position: relative; }
+.me-tokyo-stage { position: sticky; top: 90px; height: calc(100svh - 90px); padding: 20px 3.3vw 92px; box-sizing: border-box; overflow: hidden; }
+.me-tokyo-page { position: relative; display: grid; grid-template-columns: 0.65fr repeat(10, 1fr) 0.45fr; grid-template-rows: 0.96fr 1fr 1fr 1fr 1fr 64px; gap: 10px; width: 100%; height: 100%; max-width: 1600px; margin-inline: auto; }
+.me-tokyo-page::before { content: ""; position: absolute; inset: 0 -12px; pointer-events: none; border-inline: 1px solid #e8ecee44; background: linear-gradient(90deg, transparent 66.3%, #e8ecee25 66.3%, #e8ecee25 calc(66.3% + 1px), transparent calc(66.3% + 1px)); }
+.me-tokyo-title { grid-column: 1 / -1; grid-row: 1; position: relative; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 0.12em; margin: -0.09em 0 0; color: var(--me-tokyo-paper); font-family: var(--font-cal), sans-serif; font-size: clamp(64px, 10.6vw, 164px); font-weight: 600; line-height: 0.85; letter-spacing: -0.065em; transform-origin: center; text-transform: uppercase; pointer-events: none; }
+.me-tokyo-title span:last-child { color: var(--me-tokyo-red); }
+.me-tokyo-sign { grid-column: 1 / 3; grid-row: 2 / 6; display: flex; justify-content: space-around; align-items: flex-start; padding-top: 14px; border-block: 6px solid var(--me-tokyo-red); }
+.me-tokyo-sign span { writing-mode: vertical-rl; font-family: var(--font-japanese), sans-serif; font-weight: 700; font-size: clamp(25px, 3.7vw, 65px); line-height: 1.2; letter-spacing: 0.15em; }
+.me-tokyo-sign span:last-child { margin-top: 38px; color: var(--me-tokyo-blue); }
+.me-tokyo-portrait { grid-column: 3 / 8; grid-row: 2 / 6; position: relative; overflow: hidden; background: var(--me-tokyo-paper); border: 2px solid var(--me-tokyo-paper); }
+.me-tokyo-portrait img { object-fit: cover; object-position: 50% 38%; filter: contrast(1.12) grayscale(1); }
+.me-tokyo-portrait-edge { position: absolute; bottom: 0; left: 0; width: 14px; height: 32%; background: var(--me-tokyo-red); border-right: 4px solid var(--me-tokyo-ink); }
+.me-tokyo-detail { grid-column: 8 / 13; grid-row: 2 / 4; position: relative; overflow: hidden; background: var(--me-tokyo-blue); border-top: 7px solid var(--me-tokyo-blue); }
+.me-tokyo-detail img { object-fit: cover; object-position: 63% 27%; transform: scale(2.15); filter: grayscale(1) contrast(1.4); mix-blend-mode: multiply; }
+.me-tokyo-detail::after { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, #0d101524 3px, #0d101524 4px); }
+.me-tokyo-detail > span { position: absolute; z-index: 1; right: 9px; top: 8px; writing-mode: vertical-rl; font: 700 clamp(18px, 2.2vw, 30px)/1.2 var(--font-japanese), sans-serif; background: var(--me-tokyo-ink); color: var(--me-tokyo-blue); padding: 8px 5px; }
+.me-tokyo-identity { grid-column: 8 / 13; grid-row: 4 / 6; display: flex; align-items: stretch; border-block: 2px solid var(--me-tokyo-paper); min-width: 0; }
+.me-tokyo-developer { writing-mode: vertical-rl; padding: 12px 9px; background: var(--me-tokyo-red); color: var(--me-tokyo-ink); font: 700 clamp(24px, 3vw, 44px)/1.2 var(--font-japanese), sans-serif; letter-spacing: 0.12em; }
+.me-tokyo-roles { display: flex; flex-direction: column; justify-content: center; width: 100%; padding-left: clamp(12px, 2vw, 32px); }
+.me-tokyo-roles p { margin: 0; padding-block: 10px; font-family: var(--font-mono), monospace; font-size: clamp(12px, 1.3vw, 20px); font-weight: 500; line-height: 1.25; }
+.me-tokyo-roles p + p { border-top: 1px solid #e8ecee38; }
+.me-tokyo-navigation { grid-column: 1 / -1; grid-row: 6; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 10px; }
+.me-tokyo-navigation a { display: flex; align-items: center; justify-content: space-between; min-height: 44px; min-width: 0; padding: 0 16px; border: 1px solid #e8ecee77; color: var(--me-tokyo-paper); text-decoration: none; font: 500 14px/1 var(--font-mono), monospace; transition: color 160ms ease, background 160ms ease; }
+.me-tokyo-navigation a.me-tokyo-projects { color: var(--me-tokyo-ink); background: var(--me-tokyo-red); border-color: var(--me-tokyo-red); font-size: 20px; }
+.me-tokyo-navigation a:hover { color: var(--me-tokyo-ink); background: var(--me-tokyo-paper); }
+.me-tokyo-navigation a:focus-visible { outline: 3px solid var(--me-tokyo-blue); outline-offset: 3px; }
+@media (max-width: 767px) {
+  .me-tokyo-stage { top: 76px; height: calc(100svh - 76px); padding: 18px 16px 92px; }
+  .me-tokyo-page { grid-template-columns: 0.6fr repeat(4, 1fr) 0.65fr; grid-template-rows: clamp(100px, 22vw, 150px) 1fr 1fr 0.65fr 90px 108px; gap: 7px; }
+  .me-tokyo-title { flex-direction: column; align-items: flex-start; justify-content: center; font-size: clamp(57px, 15.6vw, 116px); line-height: 0.78; gap: 0; margin: 0; }
+  .me-tokyo-title span:last-child { align-self: flex-end; }
+  .me-tokyo-sign { grid-column: 1; grid-row: 2 / 5; flex-direction: column; justify-content: flex-start; gap: 16px; border-block-width: 4px; padding-top: 7px; }
+  .me-tokyo-sign span { font-size: clamp(17px, 5.1vw, 35px); }
+  .me-tokyo-sign span:last-child { margin: 0; }
+  .me-tokyo-portrait { grid-column: 2 / 6; grid-row: 2 / 5; }
+  .me-tokyo-portrait img { object-position: 50% 35%; }
+  .me-tokyo-detail { grid-column: 6; grid-row: 2 / 5; border-top-width: 4px; }
+  .me-tokyo-detail img { transform: scale(2.5); object-position: 54% 25%; }
+  .me-tokyo-detail > span { right: 0; top: auto; bottom: 5px; font-size: 18px; padding: 6px 2px; }
+  .me-tokyo-identity { grid-column: 1 / -1; grid-row: 5; }
+  .me-tokyo-developer { font-size: 19px; padding: 7px 10px; letter-spacing: 0; }
+  .me-tokyo-roles { padding-left: 14px; }
+  .me-tokyo-roles p { font-size: 12px; padding-block: 4px; }
+  .me-tokyo-navigation { grid-row: 6; grid-template-columns: repeat(3, 1fr); grid-template-rows: 52px 49px; gap: 7px; }
+  .me-tokyo-navigation a { font-size: 11px; padding-inline: 9px; }
+  .me-tokyo-navigation a.me-tokyo-projects { grid-column: 1 / -1; font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce), (max-height: 700px) {
+  .me-tokyo-track { height: auto; }
+  .me-tokyo-stage { position: relative; top: auto; height: max(720px, calc(100svh - 90px)); overflow: visible; }
+  .me-tokyo-navigation a { transition: none; }
+}
+@media (max-width: 767px) and (max-height: 700px) {
+  .me-tokyo-stage { height: 730px; }
+}
