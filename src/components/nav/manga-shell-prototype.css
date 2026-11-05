@@ -261,10 +261,10 @@ html[data-panel-variant="D"] {
   --scroll-accent: #f0ce53;
 }
 html[data-panel-variant="E"] {
-  --scroll-ink: #13120f;
-  --scroll-paper: #ece4d5;
-  --scroll-accent: #c4a274;
-  --scroll-rule: #4a4235;
+  --scroll-ink: #11110f;
+  --scroll-paper: #f3efe3;
+  --scroll-accent: #f0ce53;
+  --scroll-rule: #44413f;
   --scroll-header-rule: 1px;
 }
 html[data-panel-study="true"] [lang="ja"] { font-family: var(--font-japanese), sans-serif; }
