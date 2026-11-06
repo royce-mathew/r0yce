@@ -116,7 +116,7 @@ Stack the opening on mobile, then give the full article a quiet reading column
 with its table of contents.
 
 - Remove the “Project / Case study” and “Behind the project” eyebrows.
-  The image caption says **Preview**.
+  The image caption says **Preview**, without repeating the project title.
 - Preserve direct access to every other project. Use a compact current-project
   switcher and Previous / Next links instead of a tall permanent sidebar.
   Keep an All projects link for returning to the grid.
@@ -124,8 +124,9 @@ with its table of contents.
   pills, circular backplates, borders, or arbitrary theme recolouring. Preserve
   each brand's colours and use white inverse marks for monochrome brands on the
   dark canvas. Amazon SES uses AWS's mark; Turnstile uses Cloudflare's.
-  Topic labels and the grid's compact tags are text-only. Local asset provenance
-  and license notices live in `public/technology/LICENSES.txt`.
+  Project tags contain technologies only, not topics or categories; use the
+  same metadata for detail pages and the grid's text-only tags. Local asset
+  provenance and license notices live in `public/technology/LICENSES.txt`.
 - Keep the complete MDX articles, code blocks, steps, and working heading links.
   Do not carry the hero's heavy borders into the reading surface.
 - No comparison controls or variant query state in the selected implementation.

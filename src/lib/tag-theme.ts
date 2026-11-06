@@ -6,29 +6,18 @@ type TagTheme = {
 }
 
 const TAG_THEME_PRESETS: Record<string, TagTheme> = {
-  ai: { accent: "172 38% 36%", accentBorder: "172 28% 68%" },
-  "neural-networks": { accent: "172 38% 36%", accentBorder: "172 28% 68%" },
-  neat: { accent: "172 38% 36%", accentBorder: "172 28% 68%" },
-  api: { accent: "342 30% 46%", accentBorder: "342 25% 72%" },
-  scraping: { accent: "342 30% 46%", accentBorder: "342 25% 72%" },
   selenium: { accent: "342 30% 46%", accentBorder: "342 25% 72%" },
   yjs: { accent: "342 30% 46%", accentBorder: "342 25% 72%" },
-  "data-analysis": { accent: "85 24% 40%", accentBorder: "85 20% 66%" },
   numpy: { accent: "85 24% 40%", accentBorder: "85 20% 66%" },
   pandas: { accent: "85 24% 40%", accentBorder: "85 20% 66%" },
   discord: { accent: "268 28% 46%", accentBorder: "268 22% 70%" },
-  mobile: { accent: "268 28% 46%", accentBorder: "268 22% 70%" },
   dart: { accent: "200 45% 42%", accentBorder: "200 35% 68%" },
   flutter: { accent: "200 45% 42%", accentBorder: "200 35% 68%" },
   firebase: { accent: "18 55% 46%", accentBorder: "18 40% 70%" },
   flask: { accent: "215 32% 46%", accentBorder: "215 24% 70%" },
-  forex: { accent: "42 55% 42%", accentBorder: "42 40% 68%" },
-  game: { accent: "30 20% 44%", accentBorder: "30 15% 66%" },
   roblox: { accent: "30 20% 44%", accentBorder: "30 15% 66%" },
-  horror: { accent: "355 45% 40%", accentBorder: "355 35% 66%" },
   javascript: { accent: "48 60% 40%", accentBorder: "48 45% 68%" },
   "lua-u": { accent: "220 48% 44%", accentBorder: "220 38% 70%" },
-  medical: { accent: "145 28% 40%", accentBorder: "145 22% 66%" },
   nextjs: { accent: "220 8% 38%", accentBorder: "220 8% 64%" },
   nodejs: { accent: "155 35% 38%", accentBorder: "155 28% 66%" },
   supabase: { accent: "155 35% 38%", accentBorder: "155 28% 66%" },
@@ -40,7 +29,6 @@ const TAG_THEME_PRESETS: Record<string, TagTheme> = {
   sveltekit: { accent: "12 65% 46%", accentBorder: "12 50% 70%" },
   tailwindcss: { accent: "185 42% 40%", accentBorder: "185 32% 66%" },
   typescript: { accent: "210 40% 42%", accentBorder: "210 30% 68%" },
-  realtime: { accent: "110 22% 42%", accentBorder: "110 18% 66%" },
   pickle: { accent: "110 22% 42%", accentBorder: "110 18% 66%" },
 }
 
