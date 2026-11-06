@@ -1,0 +1,29 @@
+.topbar-index { display: flex; align-items: center; gap: 22px; height: 89px; max-width: 1600px; margin: auto; padding: 0 32px; background: #11110f; color: #f3efe3; }
+.topbar-index .manga-desktop-nav { display: flex; }
+.topbar-index .manga-main-links { display: none; }
+.topbar-index .manga-wordmark { text-transform: none; font-family: var(--font-cal), var(--font-sans), sans-serif; font-size: 34px; font-weight: 600; letter-spacing: -.065em; }
+.topbar-index .manga-wordmark-dot { color: #f0ce53; }
+.topbar-index-location { display: flex; gap: 22px; align-items: center; margin-left: 20px; padding-left: 24px; border-left: 1px solid #5a584f; font: 10px var(--font-mono), monospace; }
+.topbar-index-location > span { text-transform: uppercase; letter-spacing: .08em; color: #aaa79a; }
+.topbar-index-location strong { font-weight: 400; }
+.topbar-index-tools { margin-left: auto; }
+.topbar-index .manga-header-tools { display: flex; align-items: center; gap: 6px; }
+.topbar-index .manga-settings button { margin: 0; min-width: 44px; }
+.topbar-index .manga-search button { position: relative; width: 44px; min-width: 44px; height: 44px; min-height: 44px; padding: 0; border: 0; }
+.topbar-index .manga-search button > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.topbar-index .manga-search button kbd { display: none; }
+.topbar-index .manga-search button::before { content: ""; position: absolute; width: 13px; height: 13px; border: 1.5px solid currentColor; border-radius: 50%; left: 13px; top: 12px; }
+.topbar-index .manga-search button::after { content: ""; position: absolute; width: 7px; height: 1.5px; background: currentColor; transform: rotate(45deg); left: 25px; top: 26px; }
+.topbar-index-menu .manga-mobile-wordmark { display: none; }
+.topbar-index-menu .manga-mobile-trigger { display: inline-flex; align-items: center; gap: 12px; margin: 0; width: 110px; height: 44px; padding: 0 16px; border: 1px solid #f3efe3; border-radius: 0; background: #f3efe3; color: #11110f; }
+.topbar-index-menu .manga-mobile-trigger::after { content: "Index"; font: 12px var(--font-mono), monospace; }
+.topbar-index-menu .manga-mobile-trigger:hover { background: #f0ce53; border-color: #f0ce53; }
+.topbar-index :focus-visible { outline: 2px solid #f0ce53; outline-offset: 4px; }
+@media (max-width: 900px) { .topbar-index-location { display: none; } }
+@media (max-width: 767px) {
+  .topbar-index { height: 75px; padding: 0 14px; gap: 8px; }
+  .topbar-index .manga-wordmark { font-size: 27px; }
+  .topbar-index .manga-header-tools { gap: 0; }
+  .topbar-index-menu .manga-mobile-trigger { width: 44px; min-width: 44px; padding: 0; justify-content: center; }
+  .topbar-index-menu .manga-mobile-trigger::after { display: none; }
+}
