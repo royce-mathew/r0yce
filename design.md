@@ -133,6 +133,9 @@ with its table of contents.
   keep it after the project facts in the natural reading flow.
 - Keep the complete MDX articles, code blocks, steps, and working heading links.
   Do not carry the hero's heavy borders into the reading surface.
+- Code blocks use one spacing layer: 1rem vertical padding and 1.15rem
+  horizontal line insets. Filename headers sit flush with the frame, and
+  line-number/diff gutters stay aligned. Inline-code padding is separate.
 - No comparison controls or variant query state in the selected implementation.
   The three original studies are archived on
   `prototype/project-detail-directions`, commit `1e343cd`.
