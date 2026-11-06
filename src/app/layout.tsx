@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { AuthProvider } from "@/components/providers/session"
-import { cal, dmSans, instrumentSerif, jetbrainsMono, mangaDisplay, mangaDialogue, mangaJapanese } from "@/styles/fonts"
+import { cal, dmSans, instrumentSerif, jetbrainsMono, mangaJapanese } from "@/styles/fonts"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -56,8 +56,6 @@ export default function RootLayout({
           dmSans.variable,
           instrumentSerif.variable,
           jetbrainsMono.variable,
-          mangaDisplay.variable,
-          mangaDialogue.variable,
           mangaJapanese.variable,
           cal.variable
         )}

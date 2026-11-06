@@ -41,6 +41,7 @@ rather than copying the older base values into a new component.
 | Gold accent               | `--primary` / `--gold` / `--gold-ink`: `47.39 83.76% 63.33%` (approximately `#f0ce53`) |
 | Ink on gold               | `--primary-foreground`: `60 6.25% 6.27%`                                               |
 | Hero paper / ink / accent | Local `--me-void-*` variables: `#f3efe3` / `#11110f` / `#f0ce53`                       |
+| Icon accent              | Favicon and Apple icon folded corner: `#f0ce53`, matching the site gold                |
 | Plain white panels        | Japanese-text panel and About / Email / Résumé buttons: `#fff`                         |
 
 Use semantic tokens for shared UI and the existing local hero variables for
@@ -106,7 +107,7 @@ Editorial, Project ledger, and Contact sheet alternatives.
   selected page.
 
 The rejected projects studies are archived on `prototype/projects-layout-study`,
-commit `7fe8031`. The current decision is also recorded in `README.md`.
+commit `7fe8031`.
 
 ## Project detail: Visual case study
 

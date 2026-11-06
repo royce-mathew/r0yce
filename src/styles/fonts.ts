@@ -1,6 +1,4 @@
 import {
-  Bangers,
-  Comic_Neue,
   DM_Sans,
   Instrument_Serif,
   JetBrains_Mono,
@@ -17,20 +15,6 @@ export const mangaJapanese = localFont({
   variable: "--font-japanese",
   display: "swap",
   preload: false,
-})
-
-export const mangaDisplay = Bangers({
-  variable: "--font-manga",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-})
-
-export const mangaDialogue = Comic_Neue({
-  variable: "--font-dialogue",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
 })
 
 export const dmSans = DM_Sans({
