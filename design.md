@@ -116,7 +116,7 @@ Stack the opening on mobile, then give the full article a quiet reading column
 with its table of contents.
 
 - Remove the “Project / Case study” and “Behind the project” eyebrows.
-  The image caption says **Preview**, without repeating the project title.
+  Leave the project image uncaptioned.
 - Preserve direct access to every other project. Use a compact current-project
   switcher and Previous / Next links instead of a tall permanent sidebar.
   Keep an All projects link for returning to the grid.
@@ -128,7 +128,7 @@ with its table of contents.
   same metadata for detail pages and the grid's text-only tags. Local asset
   provenance and license notices live in `public/technology/LICENSES.txt`.
 - Put external project links below the technologies. Source code uses a filled
-  neutral button with a GitHub icon and a minimum 44px target.
+  neutral button with a solid white GitHub mark and a minimum 44px target.
 - Anchor **Read the story** at the bottom of the desktop intro; on mobile,
   keep it after the project facts in the natural reading flow.
 - Keep the complete MDX articles, code blocks, steps, and working heading links.
