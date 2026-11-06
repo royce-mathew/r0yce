@@ -13,6 +13,7 @@
       <feColorMatrix type="matrix" values="0 0 0 0 .28  0 0 0 0 .23  0 0 0 0 .14  .7 0 0 0 -.26"/>
     </filter>
   </defs>
+  <g opacity=".72">
   <path fill="#fff" opacity=".48" filter="url(#mottle)" d="M0 0h512v512H0z"/>
   <path fill="#fff" opacity=".5" filter="url(#fibers)" d="M0 0h512v512H0z"/>
   <path fill="#fff" filter="url(#grain)" d="M0 0h512v512H0z"/>
@@ -21,5 +22,6 @@
   </g>
   <g fill="none" stroke="#fffdf5" stroke-opacity=".5" stroke-width=".8" stroke-linecap="round">
     <path d="M45 70q9-3 19 0m87 64 13-2m116-70q7 2 15-1m99 96q6-2 14 0M20 255q8 2 17-1m109 46 12 1m92-71q7-2 14 1m140 50q8 2 17-1M48 380q7 2 14 0m112 77 13-1m80-58q8 3 16 0m119 49 14 2"/>
+  </g>
   </g>
 </svg>
