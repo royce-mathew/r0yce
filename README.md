@@ -64,27 +64,27 @@ Verified in local Chromium: a transparent, borderless opening with the paper gen
 
 ## Selected command menu
 
-The user selected A / Quick jump. The shared search dialog now uses its compact dark layout, inline paths, quiet gold selection marker, and underlined input focus. It renders on normal URLs, independently of prototype query parameters. Five page destinations and thirteen projects retain fuzzy matching, arrow/Enter navigation, Ctrl/Cmd+K and slash shortcuts, native result scrolling, focus trapping, and focus restoration. Closing and reopening clears the query.
+The user selected A / Quick jump. The shared search dialog uses its compact dark layout, inline paths, quiet gold selection marker, and underlined input focus. It renders on normal URLs, independently of prototype query parameters. Six page destinations and thirteen projects retain fuzzy matching, arrow/Enter navigation, Ctrl/Cmd+K and slash shortcuts, native result scrolling, focus trapping, and focus restoration. Closing and reopening clears the query.
 
-`command-menu.tsx` and `command-menu.css` own the selected implementation. The search variants, comparison host, query handling, and search-state logging are removed. The original study remains captured on `prototype/command-menu-study`, commit `1ea2b17`. The floating controls now belong only to the separate Index drawer study below.
+`command-menu.tsx` and `command-menu.css` own the selected implementation. The search variants, comparison host, query handling, and search-state logging are removed. The original study remains captured on `prototype/command-menu-study`, commit `1ea2b17`.
 
-Verified the selected search in local Chromium at 1440×1000, 390×844, and 320×600: all eighteen destinations, no-result feedback, filtering and real Fotoland navigation, normal-URL rendering regardless of `variant`, input cursor isolation, shortcuts, query reset, Escape focus restoration, reduced motion, and the quieter input outline.
+## Selected Index drawer
 
-## Index drawer study
+The user selected A / Quiet index. `mobile-nav.tsx` and `mobile-nav.css` own the compact dark drawer, numbered Home / Projects / Kanjou links, quieter thirteen-project list, exact-route current markers, native scrolling, and copyright footer. The temporary comparison-bar clearance is removed. Escape and the close button restore focus to Index; following a link closes the drawer.
 
-Question: should the navigation remain a compact drawer, become a paper directory, or expand into a full-screen atlas? All three use the same Home, Projects, and Kanjou links and thirteen projects. No drawer direction has been selected.
+The alternatives, query handling, floating comparison controls, keyboard listeners, state logging, and prototype types are removed. The complete original study remains captured on `prototype/index-drawer-study`, commit `d23f851`. Run `pnpm dev`, open `http://localhost:3000/projects`, and use Index; no prototype parameters are needed.
 
-Run `pnpm dev`, then open:
+## Easter eggs
 
-- A / Quiet index: `http://localhost:3000/projects?variant=A&drawer=1` — narrow dark drawer with a clear site/project hierarchy and quieter framing.
-- B / Paper directory: `http://localhost:3000/projects?variant=B&drawer=1` — ivory split directory, stacked on mobile.
-- C / Navigation atlas: `http://localhost:3000/projects?variant=C&drawer=1` — full-screen primary navigation above a responsive project catalog.
+Misc tools are search discoveries, not primary navigation. Open search with its header button, Ctrl/Cmd+K, or `/`, then type:
 
-The bottom gold bar cycles layouts, including keyboard arrows while the bar is focused. Existing query parameters and hashes survive changes; reloading preserves the layout. `drawer=1` opens the study automatically in development. Escape and the close button restore focus to Index; following a link closes the drawer. Navigation links do not intercept comparison arrow keys. The comparison bar and state logging are development-only.
+- `Wordle` → `/misc/wordle`
+- `Market State` → `/market-state`
+- `Image to comic` → `/misc/image-to-comic`
 
-The full study is captured on `prototype/index-drawer-study`. No implementation issue was supplied; this section records the question, pending verdict, and primary-source pointer. Do not merge the unselected drawer variants or comparison machinery into production.
+Wordle and Market State were already present in command search. Image to Comic lived on the separate `feat/image-to-comic` branch, rather than in this preview. Its existing route, editor, renderer, and bundled Ameyoko sample are now included, retaining the fine-pen optimization from `9918e47`. The converter uses local Canvas processing, needs no account, and exports PNGs; images are not uploaded. Metadata uses `royce.sh`, and the selected pen uses readable ink on the site's gold accent. No extra misc section, hidden gesture, or public link to the authenticated business finder is added.
 
-Verified all three drawers in local Chromium at 1440×1000, 800×1000, 390×844, and 320×600: sixteen unique destinations, exact-route current states, 44px link heights and close controls, final-project reachability through native scrolling, and no horizontal overflow. Also exercised Tab trapping, link-arrow isolation, real Fotoland navigation from every variant, comparison wraparound and keyboard control, query/hash preservation, reload stability, close/reopen and focus restoration, homepage scroll locking, and reduced motion. TypeScript and ESLint pass with the existing MDX image warning. No production build, authenticated editing, or physical-device check was performed.
+Verified in local Chromium: search-to-route navigation for all three eggs, Wordle keyboard entry, Market State with source values, the converter's real sample transformation, Fine adjustment, deterministic reset, comparison mode, file input, and an exported 1280×960 PNG. The selected drawer was exercised at 1440×1000, 800×1000, 390×844, and 320×600 for sixteen unique links, exact-route markers, 44px link heights, final-project native-scroll access, focus trapping/restoration, and no horizontal overflow. The converter also fits at 320px. TypeScript and ESLint pass with the existing MDX image warning. No production build, authenticated editing, or physical-device check was performed.
 
 ## Installation
 
