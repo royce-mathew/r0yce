@@ -12,9 +12,15 @@ import { TagPill } from "@/components/custom/tag-pill"
 import { DashboardTableOfContents } from "@/components/custom/toc"
 import { Mdx } from "@/components/mdx/mdx-components"
 import { ErrorBoundary } from "@/components/nav/error"
+import { VariantA } from "./project-detail-variant-a"
+import { VariantB } from "./project-detail-variant-b"
+import { VariantC } from "./project-detail-variant-c"
+import { ProjectPrototypeSwitcher } from "@/components/custom/project-prototype-switcher"
+import "./project-detail-prototype.css"
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>
+  searchParams: Promise<{ variant?: string | string[] }>
 }
 
 function getProjectFromParams(slug: string) {
@@ -75,7 +81,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
 export const generateStaticParams = async () =>
   projects.map((project) => ({ slug: project.slugAsParams }))
 
-const ProjectLayout = async ({ params }: ProjectPageProps) => {
+const ProjectLayout = async ({ params, searchParams }: ProjectPageProps) => {
   const { slug } = await params
   const project = getProjectFromParams(slug)
 
@@ -86,6 +92,17 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
         rerouteUrl="/projects"
       />
     )
+
+  const variant = (await searchParams).variant
+  if (variant === "A" || variant === "B" || variant === "C") {
+    const View = { A: VariantA, B: VariantB, C: VariantC }[variant]
+    return (
+      <main className="project-detail-experiment" data-prototype-variant={variant}>
+        <View project={project} />
+        <ProjectPrototypeSwitcher current={variant} />
+      </main>
+    )
+  }
 
   return (
     <main className="project-detail-prototype relative">
