@@ -199,32 +199,30 @@ const sharedComponents = {
     __raw__?: string
   }) => {
     return (
-      <div className="my-8">
-        <ScrollArea>
-          <div className="group relative max-h-[650px] max-w-full">
-            <pre
-              className={cn(
-                "grid w-full min-w-max bg-transparent px-3 py-4",
-                className
-              )}
-              {...props}
-            >
-              <div className="absolute top-4 right-4">
-                <CopyButton content={__raw__ ?? ""} />
-              </div>
-              {props.children}
-            </pre>
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </div>
+      <ScrollArea>
+        <div className="group relative max-h-[650px] max-w-full">
+          <pre
+            className={cn(
+              "grid w-full min-w-max bg-transparent py-4",
+              className
+            )}
+            {...props}
+          >
+            <div className="absolute top-4 right-4">
+              <CopyButton content={__raw__ ?? ""} />
+            </div>
+            {props.children}
+          </pre>
+        </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     )
   },
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
     return (
       <code
         className={cn(
-          "size-full rounded bg-white/5 p-1 font-mono text-sm text-primary",
+          "font-mono text-sm text-primary",
           className
         )}
         {...props}
