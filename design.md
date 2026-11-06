@@ -1,72 +1,158 @@
 # Design notes — royce.sh
 
-Conventions the site already follows, written down so they stop being implicit.
-The palette, type, and spacing live in `src/styles/globals.css` and
-`tailwind.config.ts`; this file explains the parts that aren't obvious from the
-token names, and records a few rules that were learned the hard way.
+Current design direction, updated from the November 2026 design conversations.
+Later explicit choices take precedence over earlier experiments. A prototype
+request is not approval to keep the result.
 
-## Character
+## Character and identity
 
-Architectural and warm. Serif display against a plain sans body, one accent,
-hairline rules instead of card borders, generous whitespace, asymmetric layout.
-No glassmorphism, no gradient headlines, no three-column icon-tile grids.
+An original manga-inspired portfolio, not a generic portfolio with comic
+decorations added. Use panel composition, gutters, ink weight, restrained
+screentones, Japanese lettering, and reading rhythm deliberately. Keep the
+presentation professional: manga, not a cartoon or a Western-comic pastiche.
 
-## Colour
+- Brand: **royce.sh**, including navigation and metadata.
+- Roles: **Software Developer, AI Developer, Game Developer**. Do not replace AI
+  Developer with Data Scientist.
+- Carry the same ink, ivory, and gold palette through the whole site. Cohesion
+  does not mean forcing every page into the hero's panel layout.
+- No glassmorphism, gradient headlines, or decorative icon-tile sections.
+- Preserve real content, routes, and visitor tasks. A visual redesign is not a
+  reason to invent services, statistics, or new product scope.
 
-Tokens are HSL triples; Tailwind reads them through `hsl(var(--token))`. Use the
-named token, never a raw value.
+## Colour and surfaces
 
-| Token                  | Light        | Dark         |
-| ---------------------- | ------------ | ------------ |
-| `--background`         | `40 6% 96%`  | `30 10% 5%`  |
-| `--foreground`         | `30 8% 12%`  | `35 15% 90%` |
-| `--surface`            | `40 6% 93%`  | `30 6% 8%`   |
-| `--muted-foreground`   | `30 5% 40%`  | `30 8% 55%`  |
-| `--border`             | `32 15% 85%` | `32 12% 16%` |
-| `--primary` / `--gold` | `32 38% 64%` | `32 38% 64%` |
-| `--primary-foreground` | `30 8% 8%`   | `30 8% 8%`   |
-| `--gold-ink`           | `32 26% 37%` | `32 38% 64%` |
+**Dark-only.** There is no light theme, system-theme selection, saved theme
+preference, theme provider, or theme switcher. White and ivory panels are
+intentional surfaces inside this one palette, not another mode.
 
-Three rules about the gold, all of them load-bearing:
+Semantic tokens are HSL triples consumed through `hsl(var(--token))`.
+`src/styles/globals.css` defines the base tokens; `src/styles/site-theme.css`
+provides the effective site palette and display-type overrides. Check both,
+rather than copying the older base values into a new component.
 
-1. It is the only accent. Keep it under roughly 5 % of any viewport.
-2. **Gold as a fill** (`bg-primary`) always takes `--primary-foreground` as its
-   ink. That token is dark in _both_ themes because the gold itself is identical
-   in both — a light value there puts every filled button at 1.8:1.
-3. **Gold as text** uses `.text-gold-ink`, not `.text-gold`. The champagne fill
-   measures 2.1:1 on the light paper; `--gold-ink` darkens in light mode and
-   clears AA in both.
+| Role                      | Current token / value                                                                  |
+| ------------------------- | -------------------------------------------------------------------------------------- |
+| Dark canvas               | `--background`: `60 6.25% 6.27%` (approximately `#11110f`)                             |
+| Light ink on dark         | `--foreground`: `45 40% 92.16%` (approximately `#f3efe3`)                              |
+| Card                      | `--card`: `60 5% 10%`                                                                  |
+| Raised surface            | `--surface`: `45 6% 13%`                                                               |
+| Muted text                | `--muted-foreground`: `45 13% 73%`                                                     |
+| Rules and inputs          | `--border` / `--input`: `45 10% 54%`                                                   |
+| Gold accent               | `--primary` / `--gold` / `--gold-ink`: `47.39 83.76% 63.33%` (approximately `#f0ce53`) |
+| Ink on gold               | `--primary-foreground`: `60 6.25% 6.27%`                                               |
+| Hero paper / ink / accent | Local `--me-void-*` variables: `#f3efe3` / `#11110f` / `#f0ce53`                       |
+| Plain white panels        | Japanese-text panel and About / Email / Résumé buttons: `#fff`                         |
 
-Every text/background pair should measure at WCAG AA or better. Measure it —
-the two failures above both looked fine by eye.
+Use semantic tokens for shared UI and the existing local hero variables for
+its illustrated spread. Gold is the main UI accent; use dark ink on gold fills.
+Do not apply a gold-on-dark text treatment unchanged to white paper. Check
+contrast on the actual surface; body text should meet WCAG AA. Status colours
+and real project screenshots may retain their functional colours.
 
 ## Typography
 
-- **Display** — Instrument Serif 400, roman. `.font-display`. Headings are never
-  italic; emphasis comes from weight, accent, or a rule.
-- **Body** — DM Sans 300–700.
-- **Mono** — JetBrains Mono 400–500. Timestamps, keyboard syntax, counts, step
-  numbers. Anything columnar also takes `tabular-nums`.
-- **Label** — `.label-editorial`: 10–11 px, uppercase, tracked. One or two per
-  page at most. It is an ordinal device, not decoration, and the heading goes
-  directly underneath it rather than beside it.
+- Use confident, legible headings rather than novelty comic lettering.
+- The current site `.font-display` is DM Sans, weight 600, upright, with tight
+  tracking. The older Instrument Serif font variable is not the effective
+  global heading style.
+- The Creation hero uses local Cal Sans for the name and Projects link, DM Sans
+  for supporting text, and local Noto Sans JP for Japanese lettering.
+- JetBrains Mono handles timestamps, keyboard syntax, counts, and columnar data;
+  use `tabular-nums` where alignment matters.
+- `.label-editorial` is a small uppercase, tracked label. Use it to establish
+  hierarchy, not to fill empty space.
 
-## Spacing
+## Homepage: Creation
 
-Tailwind's 4-point scale. Vary the rhythm between sections deliberately; a page
-where every band has identical padding reads as a template.
+Creation is the selected hero direction. Keep the face-framed opening and
+illustrated multi-panel spread, with the Creation of Adam hands as its central
+art reference. The hands need defined anatomy, separated fingers, sharp ink,
+and readable hatching; vague silhouettes were not acceptable. Preserve the
+dramatic space between the hands without losing their definition.
+
+- Use a soft paper-stock texture on the ivory hero background. The user asked
+  for more paper character, then reduced its strength. Keep grain, mottling,
+  and fibres subtle and behind the content, not as a heavy overlay on text.
+  The current asset is `public/images/hero-paper-grain.svg`.
+- Keep the Japanese-text panel and About / Email / Résumé buttons plain white.
+  The Projects panel remains gold.
+- Keep project browsing behind the Projects link; do not put featured work
+  into the hero.
+- About & Experience follows as the complete, static, single-column content.
+  Keep the résumé link in the hero only, not duplicated below About.
+- Do not restore the walking character or the Three.js / scroll-story
+  experiments. They were explored and dropped.
+
+If character artwork is proposed again, the earlier preference was a
+recognisable manga likeness with curly hair and glasses, with JoJo-like
+illustrative detail rather than a cartoon. That is context for a future
+proposal, **not approval to add a character now**. Use original artwork rather
+than copying a manga character.
+
+## Projects: master's layout
+
+The latest choice is the layout from `master`, not the manga-panel grid or the
+Editorial, Project ledger, and Contact sheet alternatives.
+
+- Selected Works header and total-project count.
+- Equal-width cards: three desktop columns, two tablet columns, one mobile
+  column. Keep cover images, subtle gradients, descriptions, and tag/date footers.
+- Keep master's Featured section, populated from the existing `featured` flags,
+  followed by the remaining projects. Sort each group by latest modification.
+  Every project appears once across the two sections; the total counts both.
+- Keep the current dark palette and `royce.sh` identity when reusing master's
+  layout; do not restore its old branding or theme plumbing.
+- No comparison bar, variant state, or prototype keyboard handlers in the
+  selected page.
+
+The rejected projects studies are archived on `prototype/projects-layout-study`,
+commit `7fe8031`. The current decision is also recorded in `README.md`.
+
+## Topbar: Index drawer
+
+The user selected C from the topbar study. Keep its minimal wordmark, search,
+settings, and Index drawer on desktop as well as mobile. Remove the
+“Portfolio Index” metadata block. Other pages should retain C's dark treatment.
+
+On the homepage, the opening header is genuinely transparent over the hero,
+with no divider or painted paper backing. A diagonal black ink wipe engages
+on the first scroll, then keeps C's dark treatment throughout the rest of the
+page and other routes. Returning to the top lifts the backing away again.
+Respect reduced motion with an immediate surface change. Keep the hero's
+artwork, choreography, and fixed header offsets; do not add a scroll owner.
+
+The comparison controls and alternate layouts are removed from the live site.
+The original study is archived on `prototype/topbar-study`, commit `d987a5c`.
+
+## Spacing and framing
+
+Use Tailwind's 4-point scale and vary section rhythm deliberately. Strong panel
+borders and gutters belong to the illustrated hero; restrained borders and
+whitespace belong to the chosen project cards. Do not impose either treatment
+on every surface.
+
+Keep the header rule, About heading dividers, and career timeline low-contrast.
+Do not let white or bright gold hairlines dominate those dark reading surfaces.
 
 ## Motion
 
-- Easing: `cubic-bezier(0.19, 1, 0.22, 1)` everywhere.
-- One orchestrated entrance per page. Content below the fold is simply there.
-- `transform` and `opacity` only.
-- `prefers-reduced-motion: reduce` lands on the finished state.
-- Scroll-linked opacity or scale peaks with the element **mid-viewport**, not at
-  the end of its range. Mapping it `0 → 1` makes things brightest as they leave
-  the top of the screen, which is backwards.
-- App pages carry no entrance motion at all. A list or a writing surface that
-  animates under the user is a defect.
+- Keep the purposeful GSAP / ScrollTrigger choreography in Creation, with Lenis
+  synchronized to the same scroll owner. Prefer spring-like movement where it
+  supports the hero; do not impose one easing on every interaction.
+- Animate hierarchy and the unfolding spread, not every element on the site.
+  About & Experience remains static; utility and editing surfaces should not
+  animate underneath the user.
+- Avoid scroll hijacking, excessive pinning, and effects that delay access to
+  content. Clean up timelines, triggers, and scroll ownership on navigation.
+- Use `gsap.matchMedia()` for responsive and reduced-motion behaviour.
+  Reduced motion and short viewports must show the finished content in normal
+  flow, without hidden text, inaccessible links, or a required animation.
+- Check the actual animation in a browser with motion enabled, then check the
+  reduced-motion path separately. A reduced-motion fallback is not proof that
+  the animation works.
+- Verify scrolling and navigation on desktop and mobile; avoid layout shifts
+  and sustained scrolling stutter.
 
 ## Interaction
 
@@ -75,8 +161,8 @@ where every band has identical padding reads as a template.
 - Confirm only irreversible actions. Deleting a Firestore document earns a
   dialog; renaming does not.
 - Focus rings appear instantly and are never transitioned.
-- Hit targets ≥ 44 px on coarse pointers. Clickable labels never wrap to two
-  lines.
+- Hit targets ≥ 44 px on coarse pointers. Keep short action labels on one line
+  where space permits, without clipping or creating horizontal overflow.
 
 ## Buttons
 
@@ -88,15 +174,17 @@ where every band has identical padding reads as a template.
 
 ## Sticky offsets
 
-The site header is `sticky top-0 z-50`, `h-16` / `md:h-20`. Anything else that
-sticks parks beneath it — `top-16 md:top-20`, z-index below 50. Getting this
-wrong slides the element under the header, which is what the editor toolbar did
-at `top-14 z-10`.
+Sticky toolbars and other surfaces sit below the actual site header, at a lower
+z-index. Check the current header height at each breakpoint rather than copying
+an old fixed offset that lets controls slide underneath it.
 
 ## Imagery
 
-- Screenshots go in a `<figure>` with at most a hairline border, shot to frame
-  so the page doesn't have to crop them.
-- Never re-draw UI chrome — no fake browser bars, phone frames, or window
-  chrome around a screenshot or a code block. The reader already has chrome.
-- App pages don't use decorative imagery. Function carries them.
+- Use real project screenshots. The chosen cards crop covers to a consistent
+  ratio; detailed screenshots in content should remain readable.
+- Do not add fake browser bars, phone frames, or window chrome around
+  screenshots and code blocks.
+- Keep manga illustration sharp and anatomically convincing. Avoid placeholder
+  cartoon characters and decorative imagery on functional app pages.
+- Japanese lettering should have reliable local glyph coverage, appropriate
+  language markup, and a clear role in the composition.

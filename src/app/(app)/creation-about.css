@@ -3,9 +3,10 @@
   --muted-foreground: 40 10% 73%;
   --gold: 47 84% 63%;
   --gold-dim: 47 84% 63%;
+  --border: 45 8% 22%;
   background: #11110f;
   color: #f3efe3;
-  border-top: 1px solid #f0ce53;
+  border-top: 1px solid rgb(243 239 227 / .08);
   padding: 100px 6% 130px;
   scroll-margin-top: 110px;
   font-family: var(--font-sans), sans-serif;
@@ -17,9 +18,10 @@
 .creation-about .mdx-shell-about { color: #f3efe3; overflow-wrap: anywhere; }
 .creation-about .mdx-shell-about :is(h2, h3, h4) { color: #f3efe3; font-family: var(--font-sans), sans-serif; font-weight: 450; letter-spacing: -.035em; }
 .creation-about .mdx-shell-about h2 { font-size: clamp(28px, 3.5vw, 46px); }
+.creation-about .mdx-shell-about .border-y > .absolute { opacity: .12; }
 .creation-about .mdx-shell-about :is(img, video, iframe) { max-width: 100%; }
 .creation-about .mdx-shell-about a { color: inherit; text-decoration-color: currentColor; }
-.creation-about .mdx-shell-about :is(code, pre, blockquote) { color: #f3efe3; border-color: #f3efe3; }
+.creation-about .mdx-shell-about :is(code, pre, blockquote) { color: #f3efe3; border-color: hsl(var(--border)); }
 .creation-about a:focus-visible { outline: 2px solid #f0ce53; outline-offset: 5px; }
 @media (max-width: 600px) {
   .creation-about { padding: 65px 6% 90px; }

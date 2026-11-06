@@ -4,7 +4,7 @@ import Settings from "@/components/custom/settings"
 import { MainNav } from "@/components/nav/main-nav"
 import { MobileNav } from "@/components/nav/mobile-nav"
 import { ClientHeaderWrapper } from "@/components/nav/client-header-wrapper"
-import { TopbarStudyPrototype } from "./topbar-study-prototype"
+import { IndexHeader } from "./index-header"
 import "./site-shell.css"
 
 export function SiteHeader() {
@@ -21,11 +21,15 @@ export function SiteHeader() {
     <ClientHeaderWrapper>
       <a className="manga-skip-link" href="#site-content">Skip to content</a>
       <Suspense fallback={
-        <div className="manga-header-inner container flex max-w-(--breakpoint-2xl) items-center">
-          {navigation}{mobileNavigation}{tools}
+        <div className="index-header" data-surface="dark">
+          <div className="index-header-inner">
+            <div className="index-header-brand">{navigation}</div>
+            <div className="index-header-tools">{tools}</div>
+            <div className="index-header-menu">{mobileNavigation}</div>
+          </div>
         </div>
       }>
-        <TopbarStudyPrototype navigation={navigation} mobileNavigation={mobileNavigation} tools={tools} />
+        <IndexHeader navigation={navigation} mobileNavigation={mobileNavigation} tools={tools} />
       </Suspense>
     </ClientHeaderWrapper>
   )
