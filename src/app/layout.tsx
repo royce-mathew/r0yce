@@ -7,16 +7,12 @@ import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { AuthProvider } from "@/components/providers/session"
-import { ThemeProvider } from "@/components/providers/theme"
 import { cal, dmSans, instrumentSerif, jetbrainsMono, mangaDisplay, mangaDialogue, mangaJapanese } from "@/styles/fonts"
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f3ef" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d0c0a" },
-  ],
+  themeColor: "#0d0c0a",
 }
 
 export const metadata: Metadata = {
@@ -53,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
         className={cn(
           "min-h-screen bg-background antialiased",
@@ -66,17 +62,10 @@ export default function RootLayout({
           cal.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-            <AuthProvider>
-              <TooltipProvider>{children}</TooltipProvider>
-            </AuthProvider>
-          <Toaster />
-        </ThemeProvider>
+        <AuthProvider>
+          <TooltipProvider>{children}</TooltipProvider>
+        </AuthProvider>
+        <Toaster />
       </body>
       {/* Google Analytics */}
       {process.env.NODE_ENV === "production" &&

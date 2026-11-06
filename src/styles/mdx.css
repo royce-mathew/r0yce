@@ -1,11 +1,5 @@
 @reference "./globals.css";
 
-pre code[data-theme],
-pre code[data-theme] span {
-  @apply bg-(--shiki-light-bg) text-(--shiki-light);
-  @apply dark:bg-(--shiki-dark-bg) dark:text-(--shiki-dark);
-}
-
 .mdx-shell {
   position: relative;
   --mdx-max-width: 70ch;
