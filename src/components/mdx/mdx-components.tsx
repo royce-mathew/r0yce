@@ -32,7 +32,7 @@ const sharedComponents = {
   NumberFlow: NumberFlowComponent,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <div className="mt-10 mb-8">
-      <div className="relative border-y border-border/60 py-5">
+      <div className="relative border-y border-border/15 py-5">
         <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[hsl(var(--gold))] to-transparent opacity-60" />
         <h2
           className={cn(
@@ -139,7 +139,7 @@ const sharedComponents = {
     <div className="my-8">
       <blockquote
         className={cn(
-          "relative overflow-hidden rounded-2xl border border-border/70 bg-card/70 px-6 py-5 text-foreground/88 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur-sm",
+          "relative overflow-hidden rounded-2xl border border-border/15 bg-card/70 px-6 py-5 text-foreground/88 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur-sm",
           className
         )}
         {...props}
@@ -152,14 +152,14 @@ const sharedComponents = {
   hr: ({ className, ...props }: React.HTMLAttributes<HTMLHRElement>) => (
     <div className="my-8">
       <hr
-        className={cn("border-border/70 opacity-100", className)}
+        className={cn("border-border/15 opacity-100", className)}
         {...props}
       />
     </div>
   ),
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
     <div className="my-8">
-      <div className="w-full overflow-x-auto rounded-2xl border border-border/70 bg-card/60 shadow-[0_18px_50px_rgba(0,0,0,0.08)]">
+      <div className="w-full overflow-x-auto rounded-2xl border border-border/15 bg-card/60 shadow-[0_18px_50px_rgba(0,0,0,0.08)]">
         <table
           className={cn("w-full border-separate border-spacing-0", className)}
           {...props}
@@ -169,14 +169,14 @@ const sharedComponents = {
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr
-      className={cn("m-0 border-t p-0 even:bg-muted/40", className)}
+      className={cn("m-0 border-t border-border/15 p-0 even:bg-muted/40", className)}
       {...props}
     />
   ),
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <th
       className={cn(
-        "border-b border-border/70 bg-background/60 px-4 py-3 text-left text-[0.7rem] font-semibold tracking-[0.16em] text-foreground/70 uppercase backdrop-blur [[align=center]]:text-center [[align=right]]:text-right",
+        "border-b border-border/15 bg-background/60 px-4 py-3 text-left text-[0.7rem] font-semibold tracking-[0.16em] text-foreground/70 uppercase backdrop-blur [[align=center]]:text-center [[align=right]]:text-right",
         className
       )}
       {...props}
@@ -185,7 +185,7 @@ const sharedComponents = {
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td
       className={cn(
-        "border-b border-border/50 px-4 py-3 text-left align-top text-foreground/80 [[align=center]]:text-center [[align=right]]:text-right",
+        "border-b border-border/15 px-4 py-3 text-left align-top text-foreground/80 [[align=center]]:text-center [[align=right]]:text-right",
         className
       )}
       {...props}
@@ -306,7 +306,7 @@ const sharedComponents = {
   LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
       className={cn(
-        "flex w-full flex-col items-center rounded-2xl border border-border/70 bg-card/80 p-6 text-card-foreground shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-1 hover:border-[hsl(var(--gold)/0.45)] sm:p-10",
+        "flex w-full flex-col items-center rounded-2xl border border-border/15 bg-card/80 p-6 text-card-foreground shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-1 hover:border-[hsl(var(--gold)/0.45)] sm:p-10",
         className
       )}
       {...props}

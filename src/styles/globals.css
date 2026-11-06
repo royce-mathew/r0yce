@@ -241,7 +241,7 @@ html.lenis.lenis-stopped:has(body[data-scroll-locked]) {
     top: 1.15rem;
     bottom: -1.15rem;
     width: 1px;
-    background: hsl(var(--border) / 0.85);
+    background: hsl(var(--border) / 0.15);
     z-index: -1;
   }
 }
