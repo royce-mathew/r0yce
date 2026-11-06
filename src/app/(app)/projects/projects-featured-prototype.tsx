@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import type { Project } from "#site/content"
+import { ProjectCardPreview, ProjectPreviewVideo } from "./project-card-preview"
 import "./projects-featured-prototype.css"
 
 function PortfolioCard({ project, emphasis = "regular", eager = false }: {
@@ -9,10 +10,8 @@ function PortfolioCard({ project, emphasis = "regular", eager = false }: {
   eager?: boolean
 }) {
   return (
-    <Link
-      href={`/${project.slug.replace(/^\/+/, "")}`}
-      className={`pfp-card pfp-card--${emphasis}`}
-    >
+    <ProjectCardPreview slug={project.slug} title={project.title} className={`pfp-card pfp-card--${emphasis}`}>
+      <Link href={`/${project.slug.replace(/^\/+/, "")}`} className="project-preview-link">
       {project.imageSrc && (
         <div className="pfp-image">
           <Image
@@ -27,6 +26,7 @@ function PortfolioCard({ project, emphasis = "regular", eager = false }: {
                 : "(max-width: 600px) 94vw, (max-width: 1000px) 46vw, 390px"}
             loading={eager ? "eager" : "lazy"}
           />
+          <ProjectPreviewVideo />
         </div>
       )}
       <div className="pfp-card-body">
@@ -39,7 +39,8 @@ function PortfolioCard({ project, emphasis = "regular", eager = false }: {
           {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
         </ul>
       </div>
-    </Link>
+      </Link>
+    </ProjectCardPreview>
   )
 }
 

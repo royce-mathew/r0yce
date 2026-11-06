@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import type { Project } from "#site/content"
+import { ProjectCardPreview, ProjectPreviewVideo } from "./project-card-preview"
 import "./projects-editorial-prototype.css"
 
 function EditorialProject({ project, emphasis = "regular", eager = false }: {
@@ -9,10 +10,8 @@ function EditorialProject({ project, emphasis = "regular", eager = false }: {
   eager?: boolean
 }) {
   return (
-    <Link
-      href={`/${project.slug.replace(/^\/+/, "")}`}
-      className={`pep-project pep-project--${emphasis}`}
-    >
+    <ProjectCardPreview slug={project.slug} title={project.title} className={`pep-project pep-project--${emphasis}`}>
+      <Link href={`/${project.slug.replace(/^\/+/, "")}`} className="project-preview-link">
       {project.imageSrc && (
         <div className="pep-image">
           <Image
@@ -27,6 +26,7 @@ function EditorialProject({ project, emphasis = "regular", eager = false }: {
                 : "(max-width: 760px) 94vw, (max-width: 1200px) 45vw, 580px"}
             loading={eager ? "eager" : "lazy"}
           />
+          <ProjectPreviewVideo />
         </div>
       )}
       <div className="pep-caption">
@@ -39,7 +39,8 @@ function EditorialProject({ project, emphasis = "regular", eager = false }: {
           {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
         </ul>
       </div>
-    </Link>
+      </Link>
+    </ProjectCardPreview>
   )
 }
 

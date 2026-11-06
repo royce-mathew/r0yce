@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import type { Project } from "#site/content"
+import { ProjectCardPreview, ProjectPreviewVideo } from "./project-card-preview"
 import "./projects-split-prototype.css"
 
 function SplitCard({ project, variant = "compact", eager = false }: {
@@ -9,10 +10,8 @@ function SplitCard({ project, variant = "compact", eager = false }: {
   eager?: boolean
 }) {
   return (
-    <Link
-      href={`/${project.slug.replace(/^\/+/, "")}`}
-      className={`psp-card psp-card--${variant}${project.imageSrc ? "" : " psp-card--text-only"}`}
-    >
+    <ProjectCardPreview slug={project.slug} title={project.title} className={`psp-card psp-card--${variant}${project.imageSrc ? "" : " psp-card--text-only"}`}>
+      <Link href={`/${project.slug.replace(/^\/+/, "")}`} className="project-preview-link">
       {project.imageSrc && (
         <div className="psp-preview">
           <Image
@@ -25,6 +24,7 @@ function SplitCard({ project, variant = "compact", eager = false }: {
               : "(max-width: 700px) 94vw, (max-width: 1000px) 40vw, 270px"}
             loading={eager ? "eager" : "lazy"}
           />
+          <ProjectPreviewVideo />
         </div>
       )}
       <div className="psp-copy">
@@ -37,7 +37,8 @@ function SplitCard({ project, variant = "compact", eager = false }: {
           {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
         </ul>
       </div>
-    </Link>
+      </Link>
+    </ProjectCardPreview>
   )
 }
 

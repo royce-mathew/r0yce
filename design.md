@@ -124,6 +124,19 @@ their real case-study links. The first-round layouts are archived on
 `prototype/projects-index-first-round`, commit `cc91bee`. Production keeps the
 baseline above until a card direction is selected.
 
+Cards with footage play a muted, inline loop on mouse hover or keyboard focus.
+An independent Preview/Pause button supports touch and deliberate playback.
+Reduced motion keeps covers static until Preview is explicitly activated.
+Video sources are attached only after interaction; leaving the card or viewport
+restores the still cover. Case-study links remain separate from playback controls.
+
+Local clips in `public/project-previews/` are recordings of the public pages at
+`https://www.fotoland.net/`, `https://www.axelot.io/`, `https://royce.sh/`, and
+`https://royce.sh/kanjou`. They use slow, continuous eased scrolling down and
+back to the opening view, rather than jump cuts. These are live-site tours, not
+recordings of authenticated editing sessions. Projects without footage keep
+their still covers.
+
 ## Project detail: Visual case study
 
 Option 2 / B is the selected direction: a large, uncropped project preview

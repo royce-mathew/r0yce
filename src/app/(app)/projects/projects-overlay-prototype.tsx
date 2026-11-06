@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import type { Project } from "#site/content"
+import { ProjectCardPreview, ProjectPreviewVideo } from "./project-card-preview"
 import "./projects-overlay-prototype.css"
 
 function OverlayCard({ project, featured = false, lead = false }: {
@@ -9,10 +10,8 @@ function OverlayCard({ project, featured = false, lead = false }: {
   lead?: boolean
 }) {
   return (
-    <Link
-      href={`/${project.slug.replace(/^\/+/, "")}`}
-      className={`pop-card${featured ? " pop-card--featured" : ""}${lead ? " pop-card--lead" : ""}`}
-    >
+    <ProjectCardPreview slug={project.slug} title={project.title} className={`pop-card${featured ? " pop-card--featured" : ""}${lead ? " pop-card--lead" : ""}`}>
+      <Link href={`/${project.slug.replace(/^\/+/, "")}`} className="project-preview-link">
       <div className="pop-scene">
         {project.imageSrc && (
           <Image
@@ -29,6 +28,7 @@ function OverlayCard({ project, featured = false, lead = false }: {
             loading={lead ? "eager" : "lazy"}
           />
         )}
+        <ProjectPreviewVideo />
         <div className="pop-caption">
           <div className="pop-title-row">
             <h2 className="font-display">{project.title}</h2>
@@ -40,7 +40,8 @@ function OverlayCard({ project, featured = false, lead = false }: {
       <ul className="pop-technologies" aria-label="Technologies">
         {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
       </ul>
-    </Link>
+      </Link>
+    </ProjectCardPreview>
   )
 }
 
