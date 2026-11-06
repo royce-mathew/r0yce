@@ -9,7 +9,7 @@
 .project-opening {
   display: grid;
   grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
-  align-items: center;
+  align-items: stretch;
   gap: clamp(1.75rem, 4vw, 4rem);
 }
 
@@ -31,7 +31,7 @@
   font-size: 0.75rem;
 }
 
-.project-intro { min-width: 0; padding-block: 1rem; }
+.project-intro { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
 .project-intro h1 {
   margin: 0 0 1.5rem;
   font-size: clamp(2.75rem, 4.5vw, 5rem);
@@ -42,12 +42,12 @@
 }
 .project-description {
   max-width: 36rem;
-  margin-bottom: 1.25rem;
+  margin: 0;
   color: hsl(var(--muted-foreground));
   font-size: 1rem;
   line-height: 1.85;
 }
-.project-actions { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.project-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; margin-top: 1.5rem; }
 .project-actions a, .project-read {
   display: inline-flex;
   align-items: center;
@@ -55,12 +55,12 @@
   min-height: 44px;
   font-size: 0.8125rem;
 }
-.project-actions a:hover, .project-read:hover { color: hsl(var(--gold)); }
+.project-actions a:not(.project-source-button):hover, .project-read:hover { color: hsl(var(--gold)); }
 .project-technologies { margin-top: 1.5rem; }
 .project-technology-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem 1.5rem;
+  gap: 1rem 1.25rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -68,22 +68,22 @@
 .project-technology-list li {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: 0.5rem;
   min-width: 0;
   font-size: 0.875rem;
   line-height: 1.5;
 }
-.project-technology-list img { width: 32px; height: 32px; flex-shrink: 0; object-fit: contain; }
+.project-technology-list img { width: 24px; height: 24px; flex-shrink: 0; object-fit: contain; }
 .project-facts {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem 1rem;
-  margin-top: 1rem;
+  margin: 1.25rem 0 1.5rem;
   color: hsl(var(--muted-foreground));
   font-size: 0.75rem;
   line-height: 1.8;
 }
-.project-read { gap: 0.75rem; margin-top: 1.5rem; color: hsl(var(--muted-foreground)); }
+.project-read { gap: 0.75rem; margin-top: auto; color: hsl(var(--muted-foreground)); }
 
 .project-reading-layout {
   display: grid;
@@ -124,7 +124,7 @@
 
 @media (max-width: 1023px) {
   .project-opening { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
-  .project-intro { max-width: 45rem; padding-block: 0; }
+  .project-intro { max-width: 45rem; }
   .project-intro h1 { font-size: clamp(2.75rem, 8vw, 5rem); }
   .project-reading-layout { display: flex; flex-direction: column; gap: 2.5rem; }
   .project-contents { order: -1; position: static; max-height: none; width: 100%; }

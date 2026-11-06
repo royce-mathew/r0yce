@@ -40,7 +40,7 @@ export function ProjectTechnologies({ tags }: { tags: string[] }) {
     if (technology) {
       technologies.push(
         <li key={tag}>
-          <Image src={`/technology/${technology.logo}.svg`} alt="" width={32} height={32} />
+          <Image src={`/technology/${technology.logo}.svg`} alt="" width={24} height={24} />
           <span>{technology.name}</span>
         </li>
       )

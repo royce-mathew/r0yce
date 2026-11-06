@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { IconArrowDown, IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react"
 import { DashboardTableOfContents } from "@/components/custom/toc"
+import { Button } from "@/components/ui/button"
 import { ProjectArticle } from "./project-article"
 import { ProjectNavigation } from "./project-navigation"
 import { ProjectTechnologies } from "./project-technologies"
@@ -28,6 +29,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         <header className="project-intro">
           <h1 id="project-title" className="font-display">{project.title}</h1>
           <p className="project-description">{project.description}</p>
+          <ProjectTechnologies tags={project.tags} />
           {(project.links?.website || project.links?.github) && (
             <div className="project-actions">
               {project.links.website && (
@@ -36,13 +38,14 @@ export function ProjectDetail({ project }: { project: Project }) {
                 </Link>
               )}
               {project.links.github && (
-                <Link href={project.links.github} target="_blank" rel="noopener noreferrer">
-                  <IconBrandGithub size={16} aria-hidden="true" /> Source code
-                </Link>
+                <Button asChild variant="secondary" className="project-source-button rounded-sm">
+                  <Link href={project.links.github} target="_blank" rel="noopener noreferrer">
+                    <IconBrandGithub size={16} aria-hidden="true" /> Source code
+                  </Link>
+                </Button>
               )}
             </div>
           )}
-          <ProjectTechnologies tags={project.tags} />
           <div className="project-facts">
             <time dateTime={project.publishedDate}>
               {new Date(project.publishedDate).toLocaleDateString("en-US", {
