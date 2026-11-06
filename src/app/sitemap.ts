@@ -1,7 +1,6 @@
 import { MetadataRoute } from "next"
 import { Project, projects } from "#site/content"
 
-//   The sitemap can be wrapped in a Promise as well
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const defaultPages = [
     {
@@ -28,7 +27,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.9,
     },
-    // other pages
+    {
+      url: "https://royce.sh/misc/image-to-comic",
+      lastModified: new Date("2026-11-03"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
   ]
 
   const sitemap = [

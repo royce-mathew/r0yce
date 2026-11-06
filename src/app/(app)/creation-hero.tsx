@@ -16,7 +16,7 @@ export function CreationHero() {
     if (!element) return
     gsap.registerPlugin(ScrollTrigger)
     const media = gsap.matchMedia()
-    media.add({ motion: "(prefers-reduced-motion: no-preference)", mobile: "(max-width: 767px)", reduced: "(prefers-reduced-motion: reduce)", short: "(max-height: 700px)" }, context => {
+    media.add({ motion: "(prefers-reduced-motion: no-preference)", mobile: "(max-width: 767px)", reduced: "(prefers-reduced-motion: reduce)", short: "(min-width: 768px) and (max-height: 929px), (max-width: 767px) and (max-height: 815px)" }, context => {
       const navigation = gsap.utils.toArray<HTMLElement>(".me-void-navigation", element)
       const release = () => navigation.forEach(panel => { panel.inert = false })
       if (context.conditions?.reduced || context.conditions?.short) {
@@ -46,7 +46,7 @@ export function CreationHero() {
         defaults: { ease: "elastic.out(1, .85)" },
         scrollTrigger: {
           trigger: element.querySelector(".me-void-track"),
-          start: `top ${mobile ? 76 : 90}px`,
+          start: () => `top ${getComputedStyle(element).getPropertyValue("--site-header-height").trim()}`,
           end: "bottom bottom",
           scrub: .35,
           invalidateOnRefresh: true,

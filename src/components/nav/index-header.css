@@ -30,7 +30,7 @@
 .index-header[data-surface="clear"]::before {
   clip-path: polygon(0 0, 100% 0, 100% -35%, 0 -5%);
 }
-.index-header-inner { display: flex; align-items: center; gap: 22px; height: 90px; max-width: 1600px; margin: auto; padding: 0 32px; }
+.index-header-inner { display: flex; align-items: center; gap: 22px; height: var(--site-header-height); max-width: 1600px; margin: auto; padding: 0 32px; }
 .index-header .manga-desktop-nav { display: flex; }
 .index-header .manga-main-links { display: none; }
 .index-header .manga-wordmark { text-transform: none; font-family: var(--font-cal), var(--font-sans), sans-serif; font-size: 34px; font-weight: 600; letter-spacing: -.065em; }
@@ -51,7 +51,7 @@
 .index-header-menu .manga-mobile-trigger:hover { background: #f0ce53; border-color: #f0ce53; color: #11110f; }
 .index-header :is(a, button):focus-visible { outline: 2px solid var(--header-focus); outline-offset: 4px; }
 @media (max-width: 767px) {
-  .index-header-inner { height: 76px; padding: 0 14px; gap: 8px; }
+  .index-header-inner { padding: 0 14px; gap: 8px; }
   .index-header .manga-wordmark { font-size: 27px; }
   .index-header .manga-header-tools { gap: 0; }
   .index-header-menu .manga-mobile-trigger { width: 44px; min-width: 44px; padding: 0; justify-content: center; }
