@@ -26,55 +26,48 @@ const ProjectButton: React.FC<ProjectButtonProps> = ({
   }
 
   return (
-    <div className="project-panel-wrap">
+    <div className="h-full min-w-0">
       <Link
-        href={project?.slug ?? "/"}
+        href={project.slug}
         className={cn(
-          "project-ink-panel group",
+          "group relative flex h-full flex-col overflow-hidden rounded-sm border border-border/30 bg-card transition-all duration-500 motion-reduce:transition-none",
+          "hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary",
           className
         )}
         {...props}
       >
-        {/* Image container */}
-        {project?.imageSrc && (
-          <div className="project-panel-image">
+        {project.imageSrc && (
+          <div className="relative aspect-16/10 w-full overflow-hidden">
             <Image
               src={project.imageSrc}
               alt=""
-              className="size-full object-cover"
+              className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
               width={600}
               height={375}
-              sizes="(max-width: 760px) 90vw, 45vw"
+              sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 30vw"
+              loading={index < 3 ? "eager" : undefined}
             />
+            <div className="absolute inset-0 bg-linear-to-t from-card via-card/20 to-transparent opacity-60" />
+            <div className="absolute bottom-0 h-[2px] w-full origin-left scale-x-0 bg-primary/60 transition-transform duration-500 ease-out group-hover:scale-x-100 motion-reduce:transition-none" />
           </div>
         )}
-
-        {/* Content */}
-        <div className="project-panel-copy">
+        <div className="flex flex-1 flex-col justify-between p-5 md:p-6">
           <div className="space-y-2">
-            <span className="project-panel-number" aria-hidden="true">{String(index + 1).padStart(2, "0")} ↗</span>
-            <h3 className="font-display">
-              {project.title}
-            </h3>
-            <p className="project-panel-description">
-              {project.description}
-            </p>
+            <h3 className="font-display text-xl leading-tight md:text-2xl">{project.title}</h3>
+            <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
           </div>
-
-          {/* Tags & Date */}
-          <div className="project-panel-meta">
-            <div className="project-panel-tags">
+          <div className="mt-4 flex items-center justify-between gap-3 border-t border-border/20 pt-4">
+            <div className="flex max-w-[65%] flex-wrap gap-2">
               {project.tags.slice(0, 3).map((tag: string) => (
                 <TagPill key={tag} tag={tag} className="scale-95" />
               ))}
             </div>
-            <time dateTime={project.publishedDate} className="project-panel-date">
-              {project?.publishedDate &&
-                new Date(project.publishedDate).toLocaleDateString("en-US", {
-                  month: "short",
-                  year: "numeric",
-                  timeZone: "UTC",
-                })}
+            <time dateTime={project.publishedDate} className="shrink-0 text-[0.65rem] font-medium tracking-[0.05em] text-muted-foreground/50 uppercase">
+              {new Date(project.publishedDate).toLocaleDateString("en-US", {
+                month: "short",
+                year: "numeric",
+                timeZone: "UTC",
+              })}
             </time>
           </div>
         </div>
