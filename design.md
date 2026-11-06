@@ -12,8 +12,7 @@ screentones, Japanese lettering, and reading rhythm deliberately. Keep the
 presentation professional: manga, not a cartoon or a Western-comic pastiche.
 
 - Brand: **royce.sh**, including navigation and metadata.
-- Roles: **Software Developer, AI Developer, Game Developer**. Do not replace AI
-  Developer with Data Scientist.
+- Roles: **Software Developer, AI Engineer, Game Developer**.
 - Carry the same ink, ivory, and gold palette through the whole site. Cohesion
   does not mean forcing every page into the hero's panel layout.
 - No glassmorphism, gradient headlines, or decorative icon-tile sections.

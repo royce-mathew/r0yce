@@ -131,7 +131,7 @@ export function CreationHero() {
             <div className="me-void-roles me-void-reveal">
               <div className="me-void-orbit" aria-hidden="true" />
               <p><span>Software</span> Developer</p>
-              <p><span>AI</span> Developer</p>
+              <p><span>AI</span> Engineer</p>
               <p><span>Game</span> Developer</p>
             </div>
             <div className="me-void-actions me-void-reveal">
