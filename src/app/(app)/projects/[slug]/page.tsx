@@ -17,6 +17,7 @@ import { VariantB } from "./project-detail-variant-b"
 import { VariantC } from "./project-detail-variant-c"
 import { ProjectPrototypeSwitcher } from "@/components/custom/project-prototype-switcher"
 import "./project-detail-prototype.css"
+import { ProjectPrototypeNavigation } from "./project-prototype-navigation"
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>
@@ -98,7 +99,8 @@ const ProjectLayout = async ({ params, searchParams }: ProjectPageProps) => {
     const View = { A: VariantA, B: VariantB, C: VariantC }[variant]
     return (
       <main className="project-detail-experiment" data-prototype-variant={variant}>
-        <View project={project} />
+        <ProjectPrototypeNavigation project={project} variant={variant} />
+        <div className="pd-direction"><View project={project} /></div>
         <ProjectPrototypeSwitcher current={variant} />
       </main>
     )

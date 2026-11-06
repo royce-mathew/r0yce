@@ -105,6 +105,8 @@ Editorial, Project ledger, and Contact sheet alternatives.
   layout; do not restore its old branding or theme plumbing.
 - No comparison bar, variant state, or prototype keyboard handlers in the
   selected page.
+- Project detail pages retain direct navigation to the other projects. Do not
+  force visitors back to the grid to choose another project.
 
 The rejected projects studies are archived on `prototype/projects-layout-study`,
 commit `7fe8031`. The current decision is also recorded in `README.md`.
