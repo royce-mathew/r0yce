@@ -1,0 +1,228 @@
+.topbar-panel {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.85fr) minmax(300px, 2fr) auto;
+  gap: 4px;
+  height: 89px;
+  padding: 12px 24px;
+  background: #11110f;
+  color: #f3efe3;
+  font-family: var(--font-sans), sans-serif;
+}
+
+.topbar-panel .topbar-panel-navigation,
+.topbar-panel .manga-desktop-nav {
+  display: contents;
+}
+
+.topbar-panel .topbar-panel-mobile {
+  display: none;
+}
+
+.topbar-panel .manga-wordmark {
+  justify-content: center;
+  min-width: 0;
+  height: 100%;
+  padding: 0 22px;
+  background: #f3efe3;
+  color: #11110f;
+  font-size: 29px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.065em;
+  text-transform: none;
+}
+
+.topbar-panel .manga-wordmark-dot {
+  color: inherit;
+}
+
+.topbar-panel .manga-main-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 4px;
+  min-width: 0;
+  counter-reset: panel-navigation;
+}
+
+.topbar-panel .manga-nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #777365;
+  background: #11110f;
+  color: #f3efe3;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0;
+  text-transform: none;
+  counter-increment: panel-navigation;
+}
+
+.topbar-panel .manga-nav-link::before {
+  content: "0" counter(panel-navigation);
+  align-self: flex-start;
+  margin-top: 10px;
+  font-size: 9px;
+  font-weight: 500;
+  opacity: 0.65;
+}
+
+.topbar-panel .manga-nav-link[aria-current="page"] {
+  border-color: #f0ce53;
+  background: #f0ce53;
+  color: #11110f;
+}
+
+.topbar-panel .manga-nav-link:hover {
+  border-color: #f3efe3;
+  background: #f3efe3;
+  color: #11110f;
+}
+
+.topbar-panel .topbar-panel-utilities {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  border: 1px solid #777365;
+}
+
+.topbar-panel .manga-header-tools {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+  margin: 0;
+}
+
+.topbar-panel .manga-search,
+.topbar-panel .manga-settings {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.topbar-panel .manga-header-tools button {
+  height: 100%;
+  min-height: 44px;
+  border: 0;
+  border-radius: 0;
+  background: #11110f;
+  color: #f3efe3;
+  box-shadow: none;
+}
+
+.topbar-panel .manga-search button {
+  justify-content: center;
+  width: 114px;
+  min-width: 0;
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+.topbar-panel .manga-search button > span:first-child,
+.topbar-panel .manga-search kbd {
+  display: none;
+}
+
+.topbar-panel .manga-search button > span:nth-child(2) {
+  display: inline-flex;
+}
+
+.topbar-panel .manga-settings {
+  border-left: 1px solid #777365;
+}
+
+.topbar-panel .manga-settings button {
+  width: 48px;
+  min-width: 44px;
+}
+
+.topbar-panel .manga-header-tools button:hover {
+  background: #f0ce53;
+  color: #11110f;
+}
+
+.topbar-panel :is(a, button):focus-visible {
+  z-index: 1;
+  outline: 3px solid #f0ce53;
+  outline-offset: -5px;
+}
+
+.topbar-panel :is(.manga-wordmark, .manga-nav-link[aria-current="page"]):focus-visible {
+  outline-color: #11110f;
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+  .topbar-panel {
+    padding-inline: 16px;
+  }
+
+  .topbar-panel .manga-nav-link {
+    gap: 7px;
+    padding-inline: 8px;
+  }
+
+  .topbar-panel .manga-search button {
+    width: 88px;
+  }
+}
+
+@media (max-width: 767px) {
+  .topbar-panel {
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    height: 75px;
+    gap: 3px;
+    padding: 10px 12px;
+  }
+
+  .topbar-panel .topbar-panel-navigation {
+    display: none;
+  }
+
+  .topbar-panel .topbar-panel-mobile {
+    display: contents;
+  }
+
+  .topbar-panel .manga-mobile-trigger {
+    display: inline-flex;
+    width: 44px;
+    height: 55px;
+    min-height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #777365;
+    border-radius: 0;
+    background: #11110f;
+    color: #f3efe3;
+  }
+
+  .topbar-panel .manga-mobile-trigger:hover {
+    background: #f0ce53;
+    color: #11110f;
+  }
+
+  .topbar-panel .manga-mobile-wordmark {
+    display: inline-flex;
+    height: 55px;
+    margin: 0;
+    padding: 0 9px;
+    font-size: 25px;
+  }
+
+  .topbar-panel .manga-search button {
+    width: 64px;
+    padding-inline: 4px;
+    font-size: 11px;
+  }
+
+  .topbar-panel .manga-settings button {
+    width: 44px;
+    padding-inline: 0;
+  }
+}

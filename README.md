@@ -46,7 +46,23 @@ Question: which information hierarchy suits the complete collection? The user ch
 
 The rejected Editorial / Project ledger / Contact sheet prototypes remain captured as primary source on branch `prototype/projects-layout-study`, commit `7fe8031`. No implementation issue was supplied; this section records the verdict and archive pointer.
 
-Run `pnpm dev`, then open `http://localhost:3000/projects`. Verified in local Chromium at 1440×1000, 800×1000, 390×844, and 320×600: the expected responsive column counts, all 13 unique project links in their existing order, decoded covers, no horizontal overflow, and opening Axelot then returning to the collection. Old `?variant=` URLs show the same chosen layout with no switcher or arrow-key interception. Narrow layouts were checked with reduced motion. TypeScript and ESLint pass with the existing MDX image warning. No production build, authenticated editing, or physical-device check.
+Run `pnpm dev`, then open `http://localhost:3000/projects`. Verified in local Chromium at 1440×1000, 800×1000, 390×844, and 320×600: the expected responsive column counts, all 13 unique project links in their existing order, decoded covers, no horizontal overflow, and opening Axelot then returning to the collection. The project collection renders only this selected layout; the topbar study below does not change its cards. Narrow layouts were checked with reduced motion. TypeScript and ESLint pass with the existing MDX image warning. No production build, authenticated editing, or physical-device check.
+
+## Topbar prototype
+
+Question: which of three topbar layouts best connects the Creation hero with the rest of the site? The shared header hosts three throwaway variants on the real routes:
+
+- `/?variant=A` — Panel strip: an ivory brand panel, exposed indexed navigation cells, and a bordered utility panel.
+- `/?variant=B` — Print masthead: a centred paper masthead above a separate navigation tier.
+- `/?variant=C` — Index drawer: a minimal wordmark and tools, with the complete navigation behind an Index button on desktop as well as mobile.
+
+Run `pnpm dev`, then open `http://localhost:3000/?variant=A`. Compare the same options above the existing project grid at `/projects?variant=A`, `B`, or `C`. The floating bar and left/right arrow keys update the URL, preserve unrelated query parameters and the hash, and survive reloads. Ordinary navigation links retain their normal URLs; an unqualified destination defaults to A. There is no stored selection. The comparison controls and relevant-state console output are development-only.
+
+All variants reuse the actual main navigation, mobile sheet, command search, account settings, and skip link. Their fixed 90px desktop / 76px mobile outer heights preserve the existing hero's sticky offsets. No hero artwork, animation, project layout, footer, or theme controls are changed.
+
+Verified in local Chromium: all three headers on the homepage and projects page at desktop and mobile widths, including 320px; unchanged header heights and no horizontal overflow on those pages; 44px minimum visible button targets; animated Creation alignment with motion enabled and normal-flow content with reduced motion; search opening in every variant; input arrow-key isolation; Login in the account popover; independently scrolling navigation with all 13 project links; drawer project navigation and direct Kanjou navigation; skip-link focus; URL wraparound, keyboard switching, and reload stability. TypeScript and ESLint pass with the existing MDX image warning. Private auth configuration still limits authenticated actions. No production build or physical-device check.
+
+Verdict: no topbar selected yet. The study is captured on `prototype/topbar-study`; it is not a production promotion.
 
 ## Installation
 
