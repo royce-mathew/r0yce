@@ -22,14 +22,6 @@
   background: hsl(var(--muted) / 0.24);
 }
 .project-image { object-fit: contain; }
-.project-cover figcaption {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  padding-top: 0.85rem;
-  color: hsl(var(--muted-foreground));
-  font-size: 0.75rem;
-}
 
 .project-intro { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
 .project-intro h1 {
@@ -133,5 +125,4 @@
 
 @media (max-width: 479px) {
   .project-description { font-size: 0.9375rem; }
-  .project-cover figcaption { font-size: 0.6875rem; }
 }

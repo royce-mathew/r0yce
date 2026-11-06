@@ -1,7 +1,7 @@
 import type { Project } from "#site/content"
 import Image from "next/image"
 import Link from "next/link"
-import { IconArrowDown, IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react"
+import { IconArrowDown, IconArrowUpRight, IconBrandGithubFilled } from "@tabler/icons-react"
 import { DashboardTableOfContents } from "@/components/custom/toc"
 import { Button } from "@/components/ui/button"
 import { ProjectArticle } from "./project-article"
@@ -24,7 +24,6 @@ export function ProjectDetail({ project }: { project: Project }) {
               className="project-image"
             />
           </div>
-          <figcaption>Preview</figcaption>
         </figure>
         <header className="project-intro">
           <h1 id="project-title" className="font-display">{project.title}</h1>
@@ -40,7 +39,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               {project.links.github && (
                 <Button asChild variant="secondary" className="project-source-button rounded-sm">
                   <Link href={project.links.github} target="_blank" rel="noopener noreferrer">
-                    <IconBrandGithub size={16} aria-hidden="true" /> Source code
+                    <IconBrandGithubFilled size={16} className="text-white" aria-hidden="true" /> Source code
                   </Link>
                 </Button>
               )}
