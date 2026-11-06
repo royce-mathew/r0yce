@@ -1,0 +1,8 @@
+.prototype-switcher { position: fixed; z-index: 90; left: 50%; bottom: max(18px, env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; align-items: center; gap: 12px; width: max-content; max-width: calc(100vw - 24px); padding: 6px; border: 1px solid #f0ce53; border-radius: 999px; background: #f0ce53; color: #11110f; box-shadow: 0 6px 30px #0008; }
+.prototype-switcher button { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 50%; font: 22px/1 sans-serif; background: #11110f; color: #f3efe3; }
+.prototype-switcher button:hover { background: #38362e; }
+.prototype-switcher button:focus-visible { outline: 2px solid #11110f; outline-offset: 2px; }
+.prototype-switcher-label { min-width: 160px; text-align: center; }
+.prototype-switcher-label > span { display: block; font: 8px/1.5 var(--font-mono), monospace; text-transform: uppercase; letter-spacing: .08em; }
+.prototype-switcher-label strong { display: block; font-size: 13px; font-weight: 650; line-height: 1.6; }
+@media (max-width: 360px) { .prototype-switcher { gap: 6px; } .prototype-switcher-label { min-width: 145px; } }

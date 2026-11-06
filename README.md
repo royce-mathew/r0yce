@@ -32,11 +32,25 @@ The ivory hero background uses a repeating local SVG texture at `public/images/h
 
 The abandoned Three.js story study is archived in commit `566e17a` on `prototype/manga-redesign`; the earlier character-layout study is archived in `d2a0e49`. Neither renders on the current homepage. No scroll-story direction was selected.
 
-The site uses one fixed dark palette, with intentional white/ivory manga surfaces and gold accents. Dark semantic tokens are unconditional root defaults; `color-scheme: dark` also keeps native controls dark. Theme providers, stored/system theme selection, theme controls in settings/footer/command search, conditional light/dark styles, and the `next-themes` dependency are removed. Toasts and syntax highlighting use fixed dark themes. `/projects` remains one chronological manga-panel collection with varied panel sizes, ink gutters, cropped images, and gold title bands.
+The site uses one fixed dark palette, with intentional white/ivory manga surfaces and gold accents. Dark semantic tokens are unconditional root defaults; `color-scheme: dark` also keeps native controls dark. Theme providers, stored/system theme selection, theme controls in settings/footer/command search, conditional light/dark styles, and the `next-themes` dependency are removed. Toasts and syntax highlighting use fixed dark themes. The chronological manga-panel projects baseline is captured in commit `ec9b3db`; the current projects comparison is described below.
 
 Exercised in local Chromium: white hero surfaces and the single hero résumé link at 1440×1000 and 390×844, fixed dark styling with both an OS light preference and an old saved light theme, settings and command-menu navigation, the project collection/footer, and single-theme code highlighting on `/projects/axelot`. The 320×600 reduced-motion About layout has no horizontal overflow or duplicate résumé link. Velite content compilation, TypeScript, and ESLint pass with the existing MDX `<img>` warning. No production build, authenticated editing, or physical-device check was performed.
 
 Authenticated editing requires the private configuration below. Missing local auth configuration can produce Auth.js client-fetch errors; no production data is mocked or modified.
+
+## Projects layout prototype
+
+Question: which information hierarchy suits the complete collection? Three throwaway variations of the existing `/projects` page, switchable via `?variant=`, are captured on branch `prototype/manga-redesign`:
+
+- `/projects?variant=A` — Editorial: oversized magazine masthead, one opening project spread, then a text-led index.
+- `/projects?variant=B` — Project ledger: compact numbered rows and a sticky desktop preview that follows hover or keyboard focus; mobile shows inline covers.
+- `/projects?variant=C` — Contact sheet: staggered image-first prints with captions.
+
+Run `pnpm dev`, then open `http://localhost:3000/projects?variant=A`. The floating comparison bar and left/right arrows cycle layouts, preserving other query parameters and the URL hash. Arrow keys leave search inputs, editable content, and other interactive controls alone. The bar and full project-state console output are development-only. Every variation uses the same real projects in latest-modified order, existing detail links, navigation, and footer; only rendering changes. No persistence or content mutation is introduced.
+
+Verdict: no direction selected yet; these are alternatives for visual comparison, not a production promotion. The question and this branch are the context pointer; no implementation issue was supplied.
+
+Verified in local Chromium at 1440×1000, 390×844, and 320×600: all 13 unique project links retain their order, all contact-sheet covers decode, no horizontal overflow, mobile covers are visible, hover/focus changes the ledger preview, wraparound and keyboard switching work, command search keeps its arrow keys, URL state survives reload, and opening Axelot then going back restores the selected layout. Narrow layouts were also checked with reduced motion. TypeScript and ESLint pass with the existing MDX image warning. No new tests, production build, authenticated editing, or physical-device check.
 
 ## Installation
 
