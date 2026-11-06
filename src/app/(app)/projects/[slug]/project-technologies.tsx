@@ -34,7 +34,6 @@ const TECHNOLOGIES: Record<string, Technology> = {
 
 export function ProjectTechnologies({ tags }: { tags: string[] }) {
   const technologies = []
-  const topics = []
 
   for (const tag of tags) {
     const technology = TECHNOLOGIES[tag.trim().toLowerCase().replace(/\s+/g, "-")]
@@ -45,15 +44,12 @@ export function ProjectTechnologies({ tags }: { tags: string[] }) {
           <span>{technology.name}</span>
         </li>
       )
-    } else {
-      topics.push(<li key={tag}>{tag}</li>)
     }
   }
 
   return (
     <div className="project-technologies">
       {technologies.length > 0 && <ul className="project-technology-list" aria-label="Technologies">{technologies}</ul>}
-      {topics.length > 0 && <ul className="project-topics" aria-label="Topics">{topics}</ul>}
     </div>
   )
 }

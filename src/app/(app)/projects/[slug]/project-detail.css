@@ -24,7 +24,7 @@
 .project-image { object-fit: contain; }
 .project-cover figcaption {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
   padding-top: 0.85rem;
   color: hsl(var(--muted-foreground));
@@ -74,16 +74,6 @@
   line-height: 1.5;
 }
 .project-technology-list img { width: 32px; height: 32px; flex-shrink: 0; object-fit: contain; }
-.project-topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  margin: 1rem 0 0;
-  padding: 0;
-  list-style: none;
-  color: hsl(var(--muted-foreground));
-  font-size: 0.75rem;
-}
 .project-facts {
   display: flex;
   flex-wrap: wrap;

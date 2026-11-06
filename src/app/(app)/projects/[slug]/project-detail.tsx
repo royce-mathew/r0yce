@@ -23,7 +23,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               className="project-image"
             />
           </div>
-          <figcaption><span>{project.title}</span><span>Preview</span></figcaption>
+          <figcaption>Preview</figcaption>
         </figure>
         <header className="project-intro">
           <h1 id="project-title" className="font-display">{project.title}</h1>
