@@ -2,6 +2,11 @@ import { Metadata } from "next"
 import { type Project, projects } from "#site/content"
 import { NumberFlowComponent } from "@/components/ui/number"
 import ProjectButton from "@/components/custom/project-button"
+import { LayoutPrototypeSwitcher } from "@/components/custom/layout-prototype-switcher"
+import { ProjectsCompactPrototype } from "./projects-compact-prototype"
+import { ProjectsFeaturedPrototype } from "./projects-featured-prototype"
+import { ProjectsExplorerPrototype } from "./projects-explorer-prototype"
+import "./projects-index-prototype.css"
 
 export const metadata: Metadata = {
   title: "Projects — royce.sh",
@@ -46,6 +51,12 @@ const sortedProjects = [...projects].sort((a, b) =>
 const featuredProjects = sortedProjects.filter((project) => project.featured)
 const regularProjects = sortedProjects.filter((project) => !project.featured)
 
+const prototypeDirections = [
+  { key: "A", name: "Compact grid" },
+  { key: "B", name: "Featured grid" },
+  { key: "C", name: "Project explorer" },
+]
+
 function ProjectGrid({ projects, title, label, id }: {
   projects: Project[]
   title: string
@@ -70,7 +81,26 @@ function ProjectGrid({ projects, title, label, id }: {
   )
 }
 
-export default function AllProjects() {
+export default async function ProjectsPage({ searchParams }: {
+  searchParams: Promise<{ variant?: string | string[] }>
+}) {
+  if (process.env.NODE_ENV === "production") return <AllProjects />
+
+  const { variant: requested } = await searchParams
+  const variant = requested === "B" || requested === "C" || requested === "current" ? requested : "A"
+
+  return (
+    <>
+      {variant === "current" ? <AllProjects /> :
+        variant === "B" ? <ProjectsFeaturedPrototype projects={sortedProjects} /> :
+        variant === "C" ? <ProjectsExplorerPrototype projects={sortedProjects} /> :
+        <ProjectsCompactPrototype projects={sortedProjects} />}
+      <LayoutPrototypeSwitcher current={variant} variants={prototypeDirections} pathname="/projects" />
+    </>
+  )
+}
+
+function AllProjects() {
   return (
     <main className="flex min-h-screen flex-col">
       <section className="container mx-auto max-w-7xl px-6 pt-20 pb-8 md:px-8 md:pt-28 md:pb-12">
