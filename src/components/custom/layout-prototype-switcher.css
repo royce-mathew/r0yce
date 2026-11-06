@@ -5,3 +5,4 @@
 .layout-prototype-switcher > label > span { display: block; padding-left: .5rem; color: hsl(var(--gold)); font-size: .625rem; line-height: 1.4; letter-spacing: .1em; text-transform: uppercase; }
 .layout-prototype-switcher select { width: 100%; min-height: 32px; padding: .25rem .5rem; background: hsl(var(--popover)); color: hsl(var(--foreground)); font-size: .8125rem; }
 .layout-prototype-switcher :is(button, select):focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
+@media (max-width: 600px) { .layout-prototype-switcher { bottom: calc(64px + env(safe-area-inset-bottom)); } }

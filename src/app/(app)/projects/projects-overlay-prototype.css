@@ -1,0 +1,185 @@
+.projects-overlay-prototype .pop-header {
+  margin-bottom: 1.75rem;
+}
+
+.projects-overlay-prototype .pop-featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+.projects-overlay-prototype .pop-highlights {
+  display: grid;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.projects-overlay-prototype .pop-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid hsl(var(--border) / 0.2);
+  border-radius: 4px;
+  background: #111312;
+  color: #f7f4ed;
+  text-decoration: none;
+  transition: border-color 180ms ease;
+}
+
+.projects-overlay-prototype .pop-card:hover {
+  border-color: hsl(var(--gold) / 0.75);
+}
+
+.projects-overlay-prototype .pop-card:focus-visible {
+  outline: 3px solid hsl(var(--gold));
+  outline-offset: 5px;
+}
+
+.projects-overlay-prototype .pop-scene {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 3px 3px 0 0;
+  isolation: isolate;
+  background: #202523;
+}
+
+.projects-overlay-prototype .pop-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.projects-overlay-prototype .pop-card--featured .pop-image {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.projects-overlay-prototype .pop-card--featured .pop-scene::before {
+  content: "";
+  display: block;
+  flex: 1;
+  min-height: 8rem;
+}
+
+.projects-overlay-prototype .pop-card--lead .pop-scene::before {
+  min-height: 20rem;
+}
+
+.projects-overlay-prototype .pop-caption {
+  padding: 1rem 1.125rem;
+  background: #111312;
+}
+
+.projects-overlay-prototype .pop-card--featured .pop-caption {
+  background: rgb(9 12 11 / 96%);
+  box-shadow: 0 -1.5rem 2rem rgb(9 12 11 / 24%);
+}
+
+.projects-overlay-prototype .pop-card--lead .pop-caption {
+  padding: 1.5rem 1.75rem;
+}
+
+.projects-overlay-prototype .pop-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.projects-overlay-prototype .pop-title-row h2 {
+  min-width: 0;
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.projects-overlay-prototype .pop-card--lead h2 {
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+}
+
+.projects-overlay-prototype .pop-arrow {
+  flex-shrink: 0;
+  color: hsl(var(--gold));
+  font-size: 1.25rem;
+}
+
+.projects-overlay-prototype .pop-caption p {
+  margin: 0.625rem 0 0;
+  max-width: 60ch;
+  color: #d0d4ce;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.projects-overlay-prototype .pop-card--lead .pop-caption p {
+  font-size: 0.9375rem;
+}
+
+.projects-overlay-prototype .pop-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem 0.875rem;
+  margin: 0;
+  padding: 0.75rem 1.125rem;
+  border-top: 1px solid rgb(255 255 255 / 9%);
+  list-style: none;
+}
+
+.projects-overlay-prototype .pop-technologies li {
+  min-width: 0;
+  color: hsl(var(--gold));
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.projects-overlay-prototype .pop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid hsl(var(--border) / 0.2);
+}
+
+@media (max-width: 1000px) {
+  .projects-overlay-prototype .pop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .projects-overlay-prototype .pop-featured,
+  .projects-overlay-prototype .pop-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .projects-overlay-prototype .pop-card--featured .pop-scene::before,
+  .projects-overlay-prototype .pop-card--lead .pop-scene::before {
+    min-height: clamp(9rem, 43vw, 17rem);
+  }
+
+  .projects-overlay-prototype .pop-card--lead .pop-caption {
+    padding: 1.125rem;
+  }
+
+  .projects-overlay-prototype .pop-card--lead h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects-overlay-prototype .pop-card {
+    transition: none;
+  }
+}

@@ -91,7 +91,7 @@ than copying a manga character.
 
 ## Projects: master's layout
 
-The latest choice is the layout from `master`, not the manga-panel grid or the
+The production baseline uses the layout from `master`, not the manga-panel grid or the
 Editorial, Project ledger, and Contact sheet alternatives.
 
 - Selected Works header and total-project count.
@@ -106,7 +106,23 @@ Editorial, Project ledger, and Contact sheet alternatives.
   selected page.
 
 The rejected projects studies are archived on `prototype/projects-layout-study`,
-commit `7fe8031`. The current decision is also recorded in `README.md`.
+commit `7fe8031`.
+
+### Featured-grid card study
+
+B / Featured grid is the preferred direction for the next projects-page revision.
+Keep its featured-project hierarchy and remove the visible attribution subtitle.
+The card treatment is still being explored on `prototype/projects-index-directions`:
+
+- `?variant=B`: the filled-card baseline.
+- `?variant=D`: borderless editorial images and captions.
+- `?variant=E`: cinematic previews with overlaid captions.
+- `?variant=F`: split image and text panels.
+
+Compare these on `/projects` using the floating switcher. All 13 projects retain
+their real case-study links. The first-round layouts are archived on
+`prototype/projects-index-first-round`, commit `cc91bee`. Production keeps the
+baseline above until a card direction is selected.
 
 ## Project detail: Visual case study
 

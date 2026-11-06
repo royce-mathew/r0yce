@@ -3,9 +3,10 @@ import { type Project, projects } from "#site/content"
 import { NumberFlowComponent } from "@/components/ui/number"
 import ProjectButton from "@/components/custom/project-button"
 import { LayoutPrototypeSwitcher } from "@/components/custom/layout-prototype-switcher"
-import { ProjectsCompactPrototype } from "./projects-compact-prototype"
 import { ProjectsFeaturedPrototype } from "./projects-featured-prototype"
-import { ProjectsExplorerPrototype } from "./projects-explorer-prototype"
+import { ProjectsEditorialPrototype } from "./projects-editorial-prototype"
+import { ProjectsOverlayPrototype } from "./projects-overlay-prototype"
+import { ProjectsSplitPrototype } from "./projects-split-prototype"
 import "./projects-index-prototype.css"
 
 export const metadata: Metadata = {
@@ -52,9 +53,10 @@ const featuredProjects = sortedProjects.filter((project) => project.featured)
 const regularProjects = sortedProjects.filter((project) => !project.featured)
 
 const prototypeDirections = [
-  { key: "A", name: "Compact grid" },
-  { key: "B", name: "Featured grid" },
-  { key: "C", name: "Project explorer" },
+  { key: "B", name: "Featured baseline" },
+  { key: "D", name: "Editorial gallery" },
+  { key: "E", name: "Cinematic cards" },
+  { key: "F", name: "Split panels" },
 ]
 
 function ProjectGrid({ projects, title, label, id }: {
@@ -87,14 +89,15 @@ export default async function ProjectsPage({ searchParams }: {
   if (process.env.NODE_ENV === "production") return <AllProjects />
 
   const { variant: requested } = await searchParams
-  const variant = requested === "B" || requested === "C" || requested === "current" ? requested : "A"
+  const variant = requested === "D" || requested === "E" || requested === "F" || requested === "current" ? requested : "B"
 
   return (
     <>
       {variant === "current" ? <AllProjects /> :
-        variant === "B" ? <ProjectsFeaturedPrototype projects={sortedProjects} /> :
-        variant === "C" ? <ProjectsExplorerPrototype projects={sortedProjects} /> :
-        <ProjectsCompactPrototype projects={sortedProjects} />}
+        variant === "D" ? <ProjectsEditorialPrototype projects={sortedProjects} /> :
+        variant === "E" ? <ProjectsOverlayPrototype projects={sortedProjects} /> :
+        variant === "F" ? <ProjectsSplitPrototype projects={sortedProjects} /> :
+        <ProjectsFeaturedPrototype projects={sortedProjects} />}
       <LayoutPrototypeSwitcher current={variant} variants={prototypeDirections} pathname="/projects" />
     </>
   )
