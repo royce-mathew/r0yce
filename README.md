@@ -18,6 +18,8 @@ It also includes a realtime text editor for collaborative editing, built with Fi
 
 Question: how can manga-panel framing create a portrait-led introduction, with coordinated navigation and scroll choreography rather than a featured-work gallery?
 
+The development server accepts both `localhost` and `127.0.0.1`; the latter is explicitly listed in `next.config.ts` under `allowedDevOrigins`. Next.js 16.3 blocks its development WebSocket without this entry, leaving client hydration and scroll animation uninitialized when opening the preview through `127.0.0.1`.
+
 ### B-derived manga endings
 
 Five throwaway homepage compositions keep the preferred receding title / expanding portrait opening, then resolve into different manga pages. `/` now opens **Impact**. Use `?study=panels&variant=A-E`, or the existing bottom selector, to compare:
