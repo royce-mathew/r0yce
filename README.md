@@ -26,21 +26,15 @@ The hands are traced from the public-domain [Creation of Adam fresco](https://co
 
 Run `pnpm dev` for local development. Both `localhost` and `127.0.0.1` are supported; `allowedDevOrigins` explicitly permits the latter so Next.js development WebSocket connections can initialize hydration and animation.
 
-### Character refinement prototype
+### Chapter Journey
 
-Question: which portrait-inspired manga treatment fits Creation without the cartoon proportions?
+Selected direction: **C — Chapter Journey**, an ivory illustrated gutter against an ink-black reading page. It is the default About composition; the comparison bar and losing layouts are removed. The three-way primary-source prototype remains captured in commit `d2a0e49` on `prototype/manga-redesign`.
 
-Three throwaway About compositions on the existing homepage, captured on `prototype/manga-redesign`:
-
-- `http://localhost:3000/?variant=A#scroll-about` — **Margin Walk**: an open ivory margin with a full-height walking character.
-- `http://localhost:3000/?variant=B#scroll-about` — **Cinema Panels**: a large framed portrait detail above the prose, with the walker in a right-hand strip.
-- `http://localhost:3000/?variant=C#scroll-about` — **Chapter Journey**: an ivory illustrated journey gutter against an ink-black reading page.
-
-Run `pnpm dev`. A development-only floating bar cycles the treatments, including keyboard arrows outside interactive controls. The URL is shareable and reload-stable; each switch logs the design, viewport, theme, and motion preference. No storage or backend mutations are involved. `creation-about-prototype.tsx`, `manga-character-prototype.tsx`, and the shared `PrototypeSwitcher` contain the experiment. Production hides the comparison and uses A; no refinement treatment has been selected yet.
+`creation-character.tsx` contains the original JoJo-inspired character: broader sculpted anatomy, angular facial planes, directional cross-hatching, a fitted high-collar jacket, and restrained gold hardware. Curly hair, glasses, and beard retain the portrait-inspired identity. The separate SVG arm, knee, leg, and head groups keep the character articulated during forward and reverse scrolling. Illustration is decorative; the actual About and Career content remains accessible HTML.
 
 The shared palette uses Creation ivory, ink, and gold across navigation, content, project details, and both themes. `/projects` is one chronological manga-panel collection: varied panel sizes, ink gutters, cropped images, and gold title bands. The separate Featured block is removed without dropping any projects.
 
-Exercised in local Chromium: all three treatments at 1440px and 390px, narrow 320×600 reduced-motion layouts, native-wheel gait changes, comparison wrap/keyboard/reload behavior, both theme palettes, and project-detail navigation. All 13 project links appear once, with no horizontal overflow on the checked homepage/project widths. TypeScript and ESLint pass with the existing MDX `<img>` warning. No production build or physical-device check was performed.
+Exercised in local Chromium: the selected chapter page at 1440×1000 and 390×844, forward/reverse arm and leg motion, no illustration/prose overlap, and the 320×600 reduced-motion layout with no horizontal overflow or Lenis instance. TypeScript and ESLint pass with the existing MDX `<img>` warning. No production build or physical-device check was performed.
 
 Authenticated editing requires the private configuration below. Missing local auth configuration can produce Auth.js client-fetch errors; no production data is mocked or modified.
 

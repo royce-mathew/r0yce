@@ -4,11 +4,10 @@ import { useLayoutEffect, useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Mdx } from "@/components/mdx/mdx-components"
-import { JourneyCharacter, MangaPortraitDetail } from "./manga-character-prototype"
+import { JourneyCharacter } from "./creation-character"
 import "./creation-about.css"
 
-
-export function CreationAbout({ code, variant = "A" }: { code: string; variant?: "A" | "B" | "C" }) {
+export function CreationAbout({ code }: { code: string }) {
   const root = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
@@ -26,9 +25,9 @@ export function CreationAbout({ code, variant = "A" }: { code: string; variant?:
       const backLeg = joint("leg-back", "140 320")
       const frontShin = joint("shin-front", "102 452")
       const backShin = joint("shin-back", "151 452")
-      const frontArm = joint("arm-front", "83 164")
-      const backArm = joint("arm-back", "149 166")
-      const forearm = joint("forearm-front", "67 281")
+      const frontArm = joint("arm-front", "73 164")
+      const backArm = joint("arm-back", "168 166")
+      const forearm = joint("forearm-front", "65 280")
       const head = joint("head", "114 132")
       const bob = gsap.quickSetter(section.querySelector(".creation-walker-body"), "y", "px")
       ScrollTrigger.create({
@@ -56,16 +55,15 @@ export function CreationAbout({ code, variant = "A" }: { code: string; variant?:
       cancelAnimationFrame(refresh)
       media.revert()
     }
-  }, [variant])
+  }, [])
 
   return (
-    <section ref={root} id="scroll-about" className={`creation-about creation-about--${variant}`} data-character-variant={variant} aria-labelledby="scroll-about-title">
-      {variant === "B" && <div className="creation-cinema" aria-hidden="true"><div className="creation-cinema-portrait"><MangaPortraitDetail /></div><div className="creation-cinema-lines" /></div>}
+    <section ref={root} id="scroll-about" className="creation-about" aria-labelledby="scroll-about-title">
       <div className="creation-about-layout">
         <aside className="creation-journey" aria-hidden="true">
           <div className="creation-journey-track" />
           <div className="creation-journey-steps">{Array.from({ length: 18 }, (_, i) => <i key={i} />)}</div>
-          {variant === "C" && <div className="creation-journey-scenes"><i /><i /><i /></div>}
+          <div className="creation-journey-scenes"><i /><i /><i /></div>
           <div className="creation-journey-sticky"><JourneyCharacter /></div>
         </aside>
         <div className="creation-about-copy">
