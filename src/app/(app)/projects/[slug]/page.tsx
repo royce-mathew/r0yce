@@ -13,28 +13,14 @@ import { DashboardTableOfContents } from "@/components/custom/toc"
 import { Mdx } from "@/components/mdx/mdx-components"
 import { ErrorBoundary } from "@/components/nav/error"
 
-/**
- * Props for the ProjectPage component.
- */
 interface ProjectPageProps {
   params: Promise<{ slug: string }>
 }
 
-/**
- * Retrieves the project based on the provided params.
- * @param params - The project page props.
- * @returns The project matching the slug, or null if not found.
- */
 function getProjectFromParams(slug: string) {
   return projects.find((project) => project.slugAsParams === slug)
 }
 
-/**
- * Generates metadata for the project page.
- * @param params - The project page props.
- * @returns The generated metadata.
- * @throws Error if the project is not found.
- */
 export async function generateMetadata({ params }: ProjectPageProps) {
   const { slug } = await params
   const project = getProjectFromParams(slug)
@@ -86,24 +72,13 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   }
 }
 
-/**
- * Generates static params for the project page.
- * @returns The generated static params.
- */
 export const generateStaticParams = async () =>
   projects.map((project) => ({ slug: project.slugAsParams }))
 
-/**
- * The layout component for the project page.
- * @param params - The layout component props.
- * @returns The rendered project page layout.
- * @throws Error if the project is not found.
- */
 const ProjectLayout = async ({ params }: ProjectPageProps) => {
   const { slug } = await params
   const project = getProjectFromParams(slug)
 
-  // If the project is not found, return an error boundary
   if (!project)
     return (
       <ErrorBoundary
@@ -177,7 +152,7 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
               asChild
               variant="outline"
               size="icon"
-              className="size-9 rounded-sm border-border/30 hover:border-primary/30 hover:bg-primary/5"
+              className="size-9 rounded-sm border-border/30 hover:border-primary/30 hover:bg-primary/5 hover:text-foreground"
             >
               <Link
                 href={project.links.github}
@@ -194,7 +169,7 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
               asChild
               variant="outline"
               size="icon"
-              className="size-9 rounded-sm border-border/30 hover:border-primary/30 hover:bg-primary/5"
+              className="size-9 rounded-sm border-border/30 hover:border-primary/30 hover:bg-primary/5 hover:text-foreground"
             >
               <Link
                 href={project.links.website}
@@ -220,8 +195,8 @@ const ProjectLayout = async ({ params }: ProjectPageProps) => {
 
         {project.hasToc && (
           <div className="hidden text-sm xl:block">
-            <div className="sticky top-20 -mt-10 pt-4">
-              <div className="h-[calc(100vh-3.5rem)] overflow-visible py-12">
+            <div className="sticky top-[var(--site-header-height)] -mt-10 pt-4">
+              <div className="h-[calc(100svh-var(--site-header-height))] overflow-visible py-12">
                 <DashboardTableOfContents toc={project.toc} />
               </div>
             </div>

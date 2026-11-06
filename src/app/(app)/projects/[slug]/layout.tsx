@@ -9,7 +9,7 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
   return (
     <div className="border-b border-border/20">
       <div className="container items-start md:grid md:grid-cols-[200px_minmax(0,1fr)] md:gap-8 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-10">
-        <aside className="hidden h-[calc(100vh-5rem)] w-full grow md:sticky md:top-20 md:block">
+        <aside className="hidden h-[calc(100svh-var(--site-header-height))] w-full grow md:sticky md:top-[var(--site-header-height)] md:block">
           <div className="size-full overflow-visible py-8">
             <div className="mb-4">
               <span className="label-editorial text-gold">Projects</span>
