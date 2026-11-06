@@ -8,6 +8,43 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { CreationHands, creationGap } from "./creation-hands"
 import "./creation-hero.css"
 
+function openingFrame(element: HTMLElement, paint = false) {
+  const mobile = matchMedia("(max-width: 767px)").matches
+  const portrait = element.querySelector<HTMLElement>(".me-void-portrait")!
+  const spread = element.querySelector<HTMLElement>(".me-void-spread")!
+  const name = element.querySelector<HTMLElement>(".me-void-name")!
+  const first = element.querySelector<HTMLElement>(".me-void-name-first")!
+  const last = element.querySelector<HTMLElement>(".me-void-name-last")!
+  const aperture = portrait.offsetWidth * .42
+  const gap = Math.max(14, aperture * .16)
+  const scale = Math.min(mobile ? 1.5 : 1.7, (name.clientWidth * .9 - aperture - gap * 2) / (first.offsetWidth + last.offsetWidth))
+  const center = name.clientWidth / 2 + (first.offsetWidth - last.offsetWidth) * scale / 2
+  const middle = (name.offsetTop + spread.offsetTop + spread.offsetHeight) / 2
+  const frame = {
+    nameY: middle - name.offsetTop - name.offsetHeight / 2,
+    firstX: center - aperture / 2 - gap - first.offsetLeft - first.offsetWidth,
+    lastX: center + aperture / 2 + gap - last.offsetLeft,
+    portraitX: name.offsetLeft + center - spread.offsetLeft - portrait.offsetLeft - portrait.offsetWidth / 2,
+    portraitY: middle - spread.offsetTop - portrait.offsetTop - portrait.offsetHeight / 2,
+    scale,
+  }
+  if (paint) document.getElementById("creation-opening-frame")?.remove()
+  if (paint && matchMedia("(prefers-reduced-motion: no-preference)").matches &&
+    matchMedia("(min-width: 768px) and (min-height: 930px), (max-width: 767px) and (min-height: 816px)").matches) {
+    const sheet = document.createElement("style")
+    sheet.id = "creation-opening-frame"
+    sheet.textContent = `
+      [data-creation-hero] .me-void-name { transform: translateY(${frame.nameY}px); }
+      [data-creation-hero] .me-void-name-first { transform: translateX(${frame.firstX}px) scale(${scale}); transform-origin: 100% 50%; }
+      [data-creation-hero] .me-void-name-last { transform: translateX(${frame.lastX}px) scale(${scale}); transform-origin: 0% 50%; }
+      [data-creation-hero] .me-void-portrait { transform: translate(${frame.portraitX}px, ${frame.portraitY}px); clip-path: inset(0 29% 0 29%); }
+      [data-creation-hero] .me-void-portrait img { transform: translateX(${mobile ? -18 : -12}%); }
+      [data-creation-hero] .me-void-reveal, [data-creation-hero] .me-void-art-panel { visibility: hidden; opacity: 0; }
+    `
+    document.head.appendChild(sheet)
+  }
+  return frame
+}
 export function CreationHero() {
   const root = useRef<HTMLDivElement>(null)
 
@@ -16,6 +53,7 @@ export function CreationHero() {
     if (!element) return
     gsap.registerPlugin(ScrollTrigger)
     const media = gsap.matchMedia()
+    document.getElementById("creation-opening-frame")?.remove()
     media.add({ motion: "(prefers-reduced-motion: no-preference)", mobile: "(max-width: 767px)", reduced: "(prefers-reduced-motion: reduce)", short: "(min-width: 768px) and (max-height: 929px), (max-width: 767px) and (max-height: 815px)" }, context => {
       const navigation = gsap.utils.toArray<HTMLElement>(".me-void-navigation", element)
       const release = () => navigation.forEach(panel => { panel.inert = false })
@@ -26,19 +64,11 @@ export function CreationHero() {
       }
       const mobile = context.conditions?.mobile
       const portrait = element.querySelector<HTMLElement>(".me-void-portrait")!
-      const spread = element.querySelector<HTMLElement>(".me-void-spread")!
       const name = element.querySelector<HTMLElement>(".me-void-name")!
       const first = element.querySelector<HTMLElement>(".me-void-name-first")!
       const last = element.querySelector<HTMLElement>(".me-void-name-last")!
-      // The opening crop frames the face rather than isolating the ear.
-      const apertureShare = .42
       const apertureScale = 1
-      const aperture = () => portrait.offsetWidth * apertureShare * apertureScale
-      const lockupGap = () => Math.max(14, aperture() * .16)
-      const lockupScale = () => Math.min(mobile ? 1.5 : 1.7, (name.clientWidth * .9 - aperture() - lockupGap() * 2) / (first.offsetWidth + last.offsetWidth))
-      // "Mathew" is wider than "Royce", so the slit sits off-centre for the whole lockup to balance.
-      const slitCenter = () => name.clientWidth / 2 + (first.offsetWidth - last.offsetWidth) * lockupScale() / 2
-      const centerOn = (target: HTMLElement, offsetTop = 0) => (name.offsetTop + spread.offsetTop + spread.offsetHeight) / 2 - offsetTop - target.offsetTop - target.offsetHeight / 2
+      let frame = openingFrame(element)
       navigation.forEach(panel => { panel.inert = true })
       // All staggered panels start hidden, including those whose tweens begin after the first frame.
       gsap.set(".me-void-reveal", { autoAlpha: 0, y: 35, rotationX: -12 })
@@ -50,6 +80,7 @@ export function CreationHero() {
           end: "bottom bottom",
           scrub: .35,
           invalidateOnRefresh: true,
+          onRefreshInit: () => { frame = openingFrame(element) },
         },
         onUpdate: () => {
           navigation.forEach(panel => { panel.inert = timeline.time() < 1.15 })
@@ -57,13 +88,13 @@ export function CreationHero() {
         },
       })
       timeline
-        .fromTo(name, { y: () => centerOn(name) }, { y: 0, duration: .72 }, 0)
-        .fromTo(first, { scale: lockupScale, transformOrigin: "100% 50%", x: () => slitCenter() - aperture() / 2 - lockupGap() - first.offsetLeft - first.offsetWidth }, { scale: 1, x: 0, duration: .72 }, 0)
-        .fromTo(last, { scale: lockupScale, transformOrigin: "0% 50%", x: () => slitCenter() + aperture() / 2 + lockupGap() - last.offsetLeft }, { scale: 1, x: 0, duration: .72 }, 0)
-        .fromTo(portrait, { x: () => name.offsetLeft + slitCenter() - spread.offsetLeft - portrait.offsetLeft - portrait.offsetWidth / 2, y: () => centerOn(portrait, spread.offsetTop), scale: apertureScale }, { x: 0, y: 0, scale: 1, duration: .9 }, .04)
+        .fromTo(name, { y: () => frame.nameY }, { y: 0, duration: .72 }, 0)
+        .fromTo(first, { scale: () => frame.scale, transformOrigin: "100% 50%", x: () => frame.firstX }, { scale: 1, x: 0, duration: .72 }, 0)
+        .fromTo(last, { scale: () => frame.scale, transformOrigin: "0% 50%", x: () => frame.lastX }, { scale: 1, x: 0, duration: .72 }, 0)
+        .fromTo(portrait, { x: () => frame.portraitX, y: () => frame.portraitY, scale: apertureScale }, { x: 0, y: 0, scale: 1, duration: .9 }, .04)
         .fromTo(".me-void-portrait img", { xPercent: mobile ? -18 : -12 }, { xPercent: 0, duration: .9 }, .04)
         // The slit opens without overshoot so its inset never crosses outside the portrait.
-        .fromTo(portrait, { clipPath: `inset(0 ${(1 - apertureShare) * 50}% 0 ${(1 - apertureShare) * 50}%)` }, { clipPath: "inset(0 0% 0 0%)", ease: "power2.out", duration: .7 }, .04)
+        .fromTo(portrait, { clipPath: "inset(0 29% 0 29%)" }, { clipPath: "inset(0 0% 0 0%)", ease: "power2.out", duration: .7 }, .04)
         .fromTo(".me-void-art-panel", { autoAlpha: 0, rotationX: -30, y: 65 }, { autoAlpha: 1, rotationX: 0, y: 0, duration: .8 }, .2)
         // Slow damping and shorter travel keep the fingertip gap open at the spring's closest approach.
         .fromTo(".me-creation-adam", { x: -100, y: 16, rotation: -2, svgOrigin: "0 300" }, { x: 0, y: 0, rotation: 0, ease: "elastic.out(1, 1)", duration: 1.05 }, .32)
@@ -79,7 +110,14 @@ export function CreationHero() {
         .to({}, { duration: .6 })
       return release
     }, element)
-    return () => media.revert()
+    let active = true
+    void document.fonts.ready.then(() => {
+      if (active) ScrollTrigger.refresh()
+    })
+    return () => {
+      active = false
+      media.revert()
+    }
   }, [])
 
   return (
@@ -108,6 +146,10 @@ export function CreationHero() {
           </div>
         </div>
       </section>
+      <span
+        hidden
+        dangerouslySetInnerHTML={{ __html: `<script>{const element=document.currentScript.parentElement.parentElement;const paint=${openingFrame.toString()};paint(element,true);document.fonts.ready.then(()=>{if(element.isConnected&&document.getElementById("creation-opening-frame"))paint(element,true)})}</script>` }}
+      />
     </div>
   )
 }

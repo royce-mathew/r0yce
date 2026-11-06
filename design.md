@@ -171,6 +171,8 @@ Do not let white or bright gold hairlines dominate those dark reading surfaces.
 - Use `gsap.matchMedia()` for responsive and reduced-motion behaviour.
   Reduced motion and short viewports must show the finished content in normal
   flow, without hidden text, inaccessible links, or a required animation.
+- The first paint matches the animated opening, without flashing the unfolded
+  spread before it. Without JavaScript, the complete content remains available.
 - Check the actual animation in a browser with motion enabled, then check the
   reduced-motion path separately. A reduced-motion fallback is not proof that
   the animation works.
@@ -186,6 +188,8 @@ Do not let white or bright gold hairlines dominate those dark reading surfaces.
 - Focus rings appear instantly and are never transitioned.
 - Hit targets ≥ 44 px on coarse pointers. Keep short action labels on one line
   where space permits, without clipping or creating horizontal overflow.
+- Search and Index preserve the visible page and scroll position while open.
+  Dismissing either restores focus without scrolling the page.
 
 ## Buttons
 
