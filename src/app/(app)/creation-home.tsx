@@ -1,12 +1,11 @@
 "use client"
 
-import { Suspense, useLayoutEffect } from "react"
+import { useLayoutEffect } from "react"
 import Lenis from "lenis"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { CreationHero } from "./creation-hero"
 import { CreationAbout } from "./creation-about"
-import { CreationAboutPrototype } from "./creation-about-prototype"
 import "lenis/dist/lenis.css"
 import "./creation-home.css"
 
@@ -36,5 +35,5 @@ export function CreationHome({ code }: { code: string }) {
     return () => media.revert()
   }, [])
 
-  return <main className="creation-home"><CreationHero /><Suspense fallback={<CreationAbout code={code} />}><CreationAboutPrototype code={code} /></Suspense></main>
+  return <main className="creation-home"><CreationHero /><CreationAbout code={code} /></main>
 }
