@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { IconBrandGithubFilled, IconMailFilled, IconArrowUp } from "@tabler/icons-react"
 import { Icons } from "@/config/icons"
-import LightSwitch from "../custom/lightswitch"
 import "./site-shell.css"
 
 export function SiteFooter() {
@@ -34,7 +33,6 @@ export function SiteFooter() {
           </Link>
         </nav>
         <div className="manga-footer-tools">
-          <LightSwitch />
           <button type="button" onClick={scrollToTop} className="manga-back-top">
             Back to top <IconArrowUp className="size-4" />
           </button>

@@ -24,7 +24,7 @@ const Tiptap = ({ passedExtensions }: TiptapProps) => {
     editorProps: {
       attributes: {
         // The sheet supplies the padding now, so the editor only owns its measure.
-        class: `prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-lg prose-ul:list-[revert] ${proseCode} focus:outline-hidden max-w-full min-h-[60vh]`,
+        class: `prose prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-lg prose-ul:list-[revert] ${proseCode} focus:outline-hidden max-w-full min-h-[60vh]`,
       },
     },
     extensions: [...extensions, ...(passedExtensions ?? [])],

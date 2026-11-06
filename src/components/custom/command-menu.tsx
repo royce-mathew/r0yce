@@ -6,13 +6,9 @@ import { AlertDialogProps } from "@radix-ui/react-alert-dialog"
 import {
   IconArrowUpRight,
   IconCode,
-  IconDevicesStar,
   IconLayoutGrid,
   IconLink,
-  IconMoonFilled,
-  IconSunFilled,
 } from "@tabler/icons-react"
-import { useTheme } from "next-themes"
 import { NavItem } from "@/types/nav"
 import { siteConfig } from "@/config/docs"
 import { Button } from "@/components/ui/button"
@@ -34,7 +30,6 @@ const menuPages: NavItem[] = [
 
 export function CommandMenu({ ...props }: AlertDialogProps) {
   const router = useRouter()
-  const { setTheme } = useTheme()
   const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
@@ -68,14 +63,6 @@ export function CommandMenu({ ...props }: AlertDialogProps) {
       router.push(href)
     },
     [router]
-  )
-
-  const selectTheme = React.useCallback(
-    (theme: "system" | "light" | "dark") => {
-      setOpen(false)
-      setTheme(theme)
-    },
-    [setTheme]
   )
 
   return (
@@ -118,8 +105,8 @@ export function CommandMenu({ ...props }: AlertDialogProps) {
               <CommandEmpty>
                 No matching destination. Try a broader term.
               </CommandEmpty>
-              <div className="grid md:grid-cols-[1.4fr_0.6fr]">
-                <div className="border-r border-border/70 p-3">
+              <div>
+                <div className="p-3">
                   <CommandGroup
                     className="p-0 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pb-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground"
                     heading="Pages"
@@ -170,43 +157,6 @@ export function CommandMenu({ ...props }: AlertDialogProps) {
                     )}
                   </CommandGroup>
                 </div>
-                <aside className="bg-muted/30 p-5">
-                  <p className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
-                    Quick actions
-                  </p>
-                  <div className="mt-3 space-y-1">
-                    <CommandGroup className="p-0">
-                      <CommandItem
-                        className="rounded-lg px-3 py-2.5"
-                        onSelect={() => selectTheme("system")}
-                      >
-                        <IconDevicesStar className="mr-2 size-4" /> Follow
-                        system theme
-                      </CommandItem>
-                      <CommandItem
-                        className="rounded-lg px-3 py-2.5"
-                        onSelect={() => selectTheme("light")}
-                      >
-                        <IconSunFilled className="mr-2 size-4" /> Use light
-                        theme
-                      </CommandItem>
-                      <CommandItem
-                        className="rounded-lg px-3 py-2.5"
-                        onSelect={() => selectTheme("dark")}
-                      >
-                        <IconMoonFilled className="mr-2 size-4" /> Use dark
-                        theme
-                      </CommandItem>
-                    </CommandGroup>
-                  </div>
-                  <div className="mt-6 border-t border-border/70 pt-5 text-xs leading-5 text-muted-foreground">
-                    <p className="font-medium text-foreground">Search first</p>
-                    <p className="mt-1">
-                      Type to narrow every page and documentation destination in
-                      one list.
-                    </p>
-                  </div>
-                </aside>
               </div>
             </CommandList>
           </Command>

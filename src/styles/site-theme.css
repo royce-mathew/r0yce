@@ -1,9 +1,7 @@
-html {
-  --background: 45 40% 92.16%; --foreground: 60 6.25% 6.27%; --card: 45 40% 95%; --card-foreground: 60 6.25% 6.27%; --popover: 45 40% 95%; --popover-foreground: 60 6.25% 6.27%; --primary: 44 78% 28%; --primary-foreground: 45 40% 96%; --secondary: 45 22% 85%; --secondary-foreground: 60 6.25% 6.27%; --muted: 45 22% 85%; --muted-foreground: 45 8% 32%; --accent: 47.39 83.76% 63.33%; --accent-foreground: 60 6.25% 6.27%; --border: 45 10% 30%; --input: 45 10% 42%; --ring: 44 78% 28%; --gold: 47.39 83.76% 63.33%; --gold-dim: 44 78% 28%; --gold-ink: 44 78% 28%; --surface: 45 24% 87%; --radius: 0;
-  --manga-paper: hsl(var(--background)); --manga-ink: hsl(var(--foreground)); --manga-red: hsl(var(--primary));
-}
-html.dark {
+:root {
   --background: 60 6.25% 6.27%; --foreground: 45 40% 92.16%; --card: 60 5% 10%; --card-foreground: 45 40% 92.16%; --popover: 60 5% 10%; --popover-foreground: 45 40% 92.16%; --primary: 47.39 83.76% 63.33%; --primary-foreground: 60 6.25% 6.27%; --secondary: 45 6% 17%; --secondary-foreground: 45 40% 92.16%; --muted: 45 6% 17%; --muted-foreground: 45 13% 73%; --accent: 47.39 83.76% 63.33%; --accent-foreground: 60 6.25% 6.27%; --border: 45 10% 54%; --input: 45 10% 54%; --ring: 47.39 83.76% 63.33%; --gold: 47.39 83.76% 63.33%; --gold-dim: 47.39 83.76% 63.33%; --gold-ink: 47.39 83.76% 63.33%; --surface: 45 6% 13%;
+  --radius: 0;
+  --manga-paper: hsl(var(--background)); --manga-ink: hsl(var(--foreground)); --manga-red: hsl(var(--primary));
 }
 body { background: var(--manga-paper); color: var(--manga-ink); }
 .font-display { font-family: var(--font-sans), sans-serif; font-weight: 600; font-style: normal; font-synthesis: none; letter-spacing: -.045em; }

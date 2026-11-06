@@ -22,7 +22,7 @@ It also includes a realtime text editor for collaborative editing, built with Fi
 
 The hands are traced from the public-domain [Creation of Adam fresco](https://commons.wikimedia.org/wiki/File:Michelangelo_-_Creation_of_Adam_%28cropped%29.jpg). Regenerate `creation-hands-paths.ts` with `uv run scripts/trace-creation-hands.py`. The tracing separates silhouette, light, dense shading, shadow, and anatomical ink. `creation-hands.tsx` renders shadows as diagonal hatching rather than solid black, retaining finger separation and heavier outlines. Japanese lettering uses local Noto Sans JP subsets; their OFL license is beside the font files.
 
-`creation-about.tsx` follows the hero with the complete About & Experience MDX and résumé in a static, single-column reading layout. The scroll-story experiments, comparison controls, and walking character are removed.
+`creation-about.tsx` follows the hero with the complete About & Experience MDX in a static, single-column reading layout. The résumé link lives in the hero's personal links only; the duplicate below About is removed. The Japanese-text panel and personal-link buttons use plain white backgrounds, separate from the textured ivory hero. The scroll-story experiments, comparison controls, and walking character are removed.
 
 Run `pnpm dev` for local development. Both `localhost` and `127.0.0.1` are supported; `allowedDevOrigins` explicitly permits the latter so Next.js development WebSocket connections can initialize hydration and animation.
 
@@ -32,9 +32,9 @@ The ivory hero background uses a repeating local SVG texture at `public/images/h
 
 The abandoned Three.js story study is archived in commit `566e17a` on `prototype/manga-redesign`; the earlier character-layout study is archived in `d2a0e49`. Neither renders on the current homepage. No scroll-story direction was selected.
 
-The shared palette uses Creation ivory, ink, and gold across navigation, content, project details, and both themes. `/projects` is one chronological manga-panel collection: varied panel sizes, ink gutters, cropped images, and gold title bands. The separate Featured block is removed without dropping any projects.
+The site uses one fixed dark palette, with intentional white/ivory manga surfaces and gold accents. Dark semantic tokens are unconditional root defaults; `color-scheme: dark` also keeps native controls dark. Theme providers, stored/system theme selection, theme controls in settings/footer/command search, conditional light/dark styles, and the `next-themes` dependency are removed. Toasts and syntax highlighting use fixed dark themes. `/projects` remains one chronological manga-panel collection with varied panel sizes, ink gutters, cropped images, and gold title bands.
 
-Exercised in local Chromium: the textured hero's opening and completed spread at 1440×1000, the static About anchor and full MDX content, the 390×844 mobile layout, and the 320×600 reduced-motion layout. The texture loads successfully; mobile layouts have no horizontal overflow, and no story canvas, comparison controls, or walking character remain. TypeScript and ESLint pass with the existing MDX `<img>` warning. No production build or physical-device check was performed.
+Exercised in local Chromium: white hero surfaces and the single hero résumé link at 1440×1000 and 390×844, fixed dark styling with both an OS light preference and an old saved light theme, settings and command-menu navigation, the project collection/footer, and single-theme code highlighting on `/projects/axelot`. The 320×600 reduced-motion About layout has no horizontal overflow or duplicate résumé link. Velite content compilation, TypeScript, and ESLint pass with the existing MDX `<img>` warning. No production build, authenticated editing, or physical-device check was performed.
 
 Authenticated editing requires the private configuration below. Missing local auth configuration can produce Auth.js client-fetch errors; no production data is mocked or modified.
 

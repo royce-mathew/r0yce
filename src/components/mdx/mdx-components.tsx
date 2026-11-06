@@ -224,7 +224,7 @@ const sharedComponents = {
     return (
       <code
         className={cn(
-          "size-full rounded bg-black/5 p-1 font-mono text-sm text-primary dark:bg-white/5",
+          "size-full rounded bg-white/5 p-1 font-mono text-sm text-primary",
           className
         )}
         {...props}

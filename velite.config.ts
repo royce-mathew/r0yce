@@ -76,10 +76,7 @@ export default defineConfig({
       [
         rehypePrettyCode,
         {
-          theme: {
-            dark: "github-dark-dimmed",
-            light: "github-light",
-          },
+          theme: "github-dark-dimmed",
           keepBackground: false,
           grid: true,
           onVisitLine(node: LineElement) {

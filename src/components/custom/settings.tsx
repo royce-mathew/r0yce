@@ -7,8 +7,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Separator } from "@/components/ui/separator"
-import LightSwitch from "@/components/custom/lightswitch"
 import { UserData } from "@/components/custom/session-data"
 
 const Settings = async () => {
@@ -22,12 +20,6 @@ const Settings = async () => {
         </PopoverTrigger>
         <PopoverContent align="end" collisionPadding={10}>
           <UserData />
-          <Separator className="my-3" />
-
-          <div className="flex items-center justify-between">
-            Toggle Theme
-            <LightSwitch />
-          </div>
         </PopoverContent>
       </Popover>
     </div>
