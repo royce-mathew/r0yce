@@ -5,7 +5,7 @@ import Lenis from "lenis"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { CreationHero } from "./creation-hero"
-import { ScrollStoriesPrototype } from "./scroll-stories-prototype"
+import { CreationAbout } from "./creation-about"
 import "lenis/dist/lenis.css"
 import "./creation-home.css"
 
@@ -35,5 +35,5 @@ export function CreationHome({ code }: { code: string }) {
     return () => media.revert()
   }, [])
 
-  return <main className="creation-home"><CreationHero /><ScrollStoriesPrototype code={code} /></main>
+  return <main className="creation-home"><CreationHero /><CreationAbout code={code} /></main>
 }

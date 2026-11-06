@@ -2,7 +2,7 @@
   --me-void-paper: #f3efe3;
   --me-void-ink: #11110f;
   --me-void-accent: #f0ce53;
-  background: var(--me-void-paper);
+  background: var(--me-void-paper) url("/images/hero-paper-grain.svg") repeat;
   color: var(--me-void-ink);
   overflow: clip;
   font-family: var(--font-sans), sans-serif;

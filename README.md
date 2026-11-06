@@ -22,29 +22,19 @@ It also includes a realtime text editor for collaborative editing, built with Fi
 
 The hands are traced from the public-domain [Creation of Adam fresco](https://commons.wikimedia.org/wiki/File:Michelangelo_-_Creation_of_Adam_%28cropped%29.jpg). Regenerate `creation-hands-paths.ts` with `uv run scripts/trace-creation-hands.py`. The tracing separates silhouette, light, dense shading, shadow, and anatomical ink. `creation-hands.tsx` renders shadows as diagonal hatching rather than solid black, retaining finger separation and heavier outlines. Japanese lettering uses local Noto Sans JP subsets; their OFL license is beside the font files.
 
-`scroll-stories-prototype.tsx` follows the hero with four scroll-driven stories: game development, RBC cloud systems, TD portfolio analytics, and ongoing experiments. The original About & Experience MDX remains accessible HTML below the scenes, with a skip link and résumé.
+`creation-about.tsx` follows the hero with the complete About & Experience MDX and résumé in a static, single-column reading layout. The scroll-story experiments, comparison controls, and walking character are removed.
 
 Run `pnpm dev` for local development. Both `localhost` and `127.0.0.1` are supported; `allowedDevOrigins` explicitly permits the latter so Next.js development WebSocket connections can initialize hydration and animation.
 
-### Three.js scroll-story study
+### Hero paper texture
 
-Prototype question: which spatial storytelling treatment best connects Creation's manga-inspired visual language to the actual work history?
+The ivory hero background uses a small, repeating local SVG texture at `public/images/hero-paper-grain.svg`. Static grain and sparse fibers sit behind the content, without tinting text, adding an animated overlay, or intercepting links. The existing Creation hero animation remains unchanged, including its normal-flow reduced-motion layout.
 
-Run `pnpm dev`, then compare the same homepage using the development-only arrow bar or left/right arrow keys outside interactive controls:
-
-| Variant | URL | Treatment |
-| --- | --- | --- |
-| A — Ink Dioramas | `/?variant=A#scroll-about` | Camera travels between sculpted game, cloud, analytics, and maker mini-worlds. |
-| B — Panel Tunnel | `/?variant=B#scroll-about` | Full-bleed flight through suspended manga frames and dimensional story landmarks. |
-| C — Turning Volume | `/?variant=C#scroll-about` | A tangible manga volume with illustrated chapters and curved, reversible page turns. |
-
-Verdict: open for comparison; A is the initial preview, not a selected production direction. Sources are captured on `prototype/manga-redesign`. The earlier character-layout study remains in commit `d2a0e49`; this preview replaces that character rather than redrawing it.
-
-`story-canvas-prototype.tsx` owns the renderer and scroll lifecycle; each `story-*-prototype.ts` scene factory owns geometry and deterministic camera/object updates. Frames render only on scroll or resize, with device pixel ratio capped at 1.5. Switching variants disposes scene resources and the WebGL context. Reduced motion uses a static scene and normal-flow chapter text; unavailable WebGL preserves the complete HTML story.
+The abandoned Three.js story study is archived in commit `566e17a` on `prototype/manga-redesign`; the earlier character-layout study is archived in `d2a0e49`. Neither renders on the current homepage. No scroll-story direction was selected.
 
 The shared palette uses Creation ivory, ink, and gold across navigation, content, project details, and both themes. `/projects` is one chronological manga-panel collection: varied panel sizes, ink gutters, cropped images, and gold title bands. The separate Featured block is removed without dropping any projects.
 
-Exercised in local Chromium: all three WebGL scenes through their chapters, forward/reverse progression, comparison buttons and keyboard switching, full-experience skip link, and project-route cleanup. Mobile previews were checked at 390×844; the 320×600 reduced-motion preview had no horizontal overflow, no Lenis class, and unchanged scene progress/render count while scrolling. TypeScript and ESLint pass with the existing MDX `<img>` warning. No production build or physical-device check was performed.
+Exercised in local Chromium: the textured hero's opening and completed spread at 1440×1000, the static About anchor and full MDX content, the 390×844 mobile layout, and the 320×600 reduced-motion layout. The texture loads successfully; mobile layouts have no horizontal overflow, and no story canvas, comparison controls, or walking character remain. TypeScript and ESLint pass with the existing MDX `<img>` warning. No production build or physical-device check was performed.
 
 Authenticated editing requires the private configuration below. Missing local auth configuration can produce Auth.js client-fetch errors; no production data is mocked or modified.
 
