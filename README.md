@@ -28,7 +28,7 @@ Run `pnpm dev` for local development. Both `localhost` and `127.0.0.1` are suppo
 
 ### Hero paper texture
 
-The ivory hero background uses a small, repeating local SVG texture at `public/images/hero-paper-grain.svg`. Static grain and sparse fibers sit behind the content, without tinting text, adding an animated overlay, or intercepting links. The existing Creation hero animation remains unchanged, including its normal-flow reduced-motion layout.
+The ivory hero background uses a repeating local SVG texture at `public/images/hero-paper-grain.svg`. Layered grain, irregular low-frequency mottling, and visible light/dark fibers create a rough paper-stock surface behind the content, without tinting text, adding an animated overlay, or intercepting links. The existing Creation hero animation remains unchanged, including its normal-flow reduced-motion layout. The stronger texture was visually checked at 1440×1000 and 390×844.
 
 The abandoned Three.js story study is archived in commit `566e17a` on `prototype/manga-redesign`; the earlier character-layout study is archived in `d2a0e49`. Neither renders on the current homepage. No scroll-story direction was selected.
 
