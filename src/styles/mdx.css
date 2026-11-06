@@ -133,7 +133,7 @@
 .mdx [data-rehype-pretty-code-figure] {
   margin: 2rem 0;
   overflow: hidden;
-  border: 1px solid hsl(var(--border) / 0.9);
+  border: 1px solid hsl(var(--border) / 0.15);
   border-radius: 1.25rem;
   background: linear-gradient(
     180deg,
@@ -145,7 +145,7 @@
 
 .mdx [data-rehype-pretty-code-title] {
   margin: 0;
-  border-bottom: 1px solid hsl(var(--border) / 0.8);
+  border-bottom: 1px solid hsl(var(--border) / 0.15);
   padding: 0.85rem 1.15rem;
   font-size: 0.7rem;
   font-weight: 700;
@@ -156,7 +156,7 @@
 
 .mdx [data-rehype-pretty-code-figure] figcaption:not([data-rehype-pretty-code-title]) {
   margin: 0;
-  border-top: 1px solid hsl(var(--border) / 0.8);
+  border-top: 1px solid hsl(var(--border) / 0.15);
   padding: 0.75rem 1.15rem;
 }
 

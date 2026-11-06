@@ -28,14 +28,14 @@ html {
 .manga-skip-link { position: fixed; top: 8px; left: 16px; z-index: 100; padding: 12px 18px; background: hsl(var(--foreground)); color: hsl(var(--background)); transform: translateY(-160%); }
 .manga-skip-link:focus { transform: translateY(0); }
 :is(.manga-site-header, .manga-site-footer) :focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 4px; }
-.manga-site-footer { border-top: 1px solid hsl(var(--border)); padding-bottom: 0; }
+.manga-site-footer { border-top: 1px solid hsl(var(--border) / .15); padding-bottom: 0; }
 .manga-footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; padding: 36px 32px; }
 .manga-footer-brand p { margin-top: 10px; font-size: 13px; line-height: 1.6; color: hsl(var(--muted-foreground)); }
 .manga-footer-social, .manga-footer-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
 .manga-footer-social a { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; font-size: 14px; font-weight: 650; }
 .manga-footer-social a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .manga-footer-tools button { min-width: 44px; min-height: 44px; }
-.manga-back-top { display: inline-flex; align-items: center; gap: 12px; padding: 0 14px; border: 1px solid currentColor; font-size: 14px; font-weight: 650; }
+.manga-back-top { display: inline-flex; align-items: center; gap: 12px; padding: 0 14px; border: 1px solid hsl(var(--border) / .15); font-size: 14px; font-weight: 650; }
 @media (min-width: 768px) { .manga-mobile-wordmark { display: none; } }
 @media (min-width: 768px) and (max-width: 1100px) {
   .manga-header-inner { gap: 16px; padding-inline: 24px; }

@@ -136,6 +136,9 @@ with its table of contents.
 - Code blocks use one spacing layer: 1rem vertical padding and 1.15rem
   horizontal line insets. Filename headers sit flush with the frame, and
   line-number/diff gutters stay aligned. Inline-code padding is separate.
+- Use the quiet 15% border treatment for code frames and headers, quotes,
+  tables, accordion dividers, step lines, and footer borders. Focus rings and
+  semantic accent colours retain their contrast.
 - No comparison controls or variant query state in the selected implementation.
   The three original studies are archived on
   `prototype/project-detail-directions`, commit `1e343cd`.
