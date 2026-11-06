@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { AlertDialogProps } from "@radix-ui/react-alert-dialog"
+import { IconSearch } from "@tabler/icons-react"
 import { NavItem } from "@/types/nav"
 import { siteConfig } from "@/config/docs"
 import { Button } from "@/components/ui/button"
@@ -18,7 +18,7 @@ const menuPages: NavItem[] = [
   { title: "Image to comic", href: "/misc/image-to-comic" },
 ]
 
-export function CommandMenu({ ...props }: AlertDialogProps) {
+export function CommandMenu() {
   const router = useRouter()
   const [open, setOpen] = React.useState(false)
 
@@ -58,16 +58,8 @@ export function CommandMenu({ ...props }: AlertDialogProps) {
   return (
     <Dialog modal onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
-        <Button
-          className="relative h-8 w-full justify-start rounded-lg bg-background text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64"
-          variant="outline"
-          {...props}
-        >
-          <span className="hidden lg:inline-flex">Search or jump to...</span>
-          <span className="inline-flex lg:hidden">Search...</span>
-          <kbd className="pointer-events-none absolute top-[0.3rem] right-[0.3rem] hidden h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 select-none sm:flex">
-            <span className="text-xs">Ctrl</span>K
-          </kbd>
+        <Button variant="icon" aria-label="Search pages and projects">
+          <IconSearch className="size-6" aria-hidden="true" />
         </Button>
       </DialogTrigger>
       <DialogContent className="quick-jump-dialog" style={{ translate: "none" }} data-lenis-prevent>

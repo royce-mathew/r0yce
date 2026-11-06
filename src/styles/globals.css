@@ -78,9 +78,6 @@
   .lenis.lenis-smooth [data-lenis-prevent] {
     overscroll-behavior: contain;
   }
-  .lenis.lenis-stopped {
-    overflow: hidden;
-  }
   .lenis.lenis-scrolling iframe {
     pointer-events: none;
   }
@@ -92,6 +89,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+}
+
+/* Radix locks the body; clipping the root hides pinned content and breaks scroll position. */
+html.lenis.lenis-stopped:has(body[data-scroll-locked]) {
+  overflow: visible;
 }
 
 /* ─── Grain / noise overlay ─── */

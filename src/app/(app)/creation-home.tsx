@@ -14,7 +14,11 @@ export function CreationHome({ code }: { code: string }) {
     gsap.registerPlugin(ScrollTrigger)
     const media = gsap.matchMedia()
     media.add("(prefers-reduced-motion: no-preference)", () => {
-      const lenis = new Lenis({ duration: 1.05, anchors: true })
+      const lenis = new Lenis({
+        duration: 1.05,
+        anchors: true,
+        virtualScroll: () => !document.body.hasAttribute("data-scroll-locked"),
+      })
       const syncDialogScrollLock = () => {
         if (document.body.hasAttribute("data-scroll-locked")) lenis.stop()
         else lenis.start()
