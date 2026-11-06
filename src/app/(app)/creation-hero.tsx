@@ -5,10 +5,10 @@ import Image from "next/image"
 import Link from "next/link"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { CreationHandsPrototype, creationGap } from "./creation-hands-prototype"
-import "./manga-ending-void-prototype.css"
+import { CreationHands, creationGap } from "./creation-hands"
+import "./creation-hero.css"
 
-export function VoidEndingPrototype() {
+export function CreationHero() {
   const root = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
@@ -30,14 +30,12 @@ export function VoidEndingPrototype() {
       const name = element.querySelector<HTMLElement>(".me-void-name")!
       const first = element.querySelector<HTMLElement>(".me-void-name-first")!
       const last = element.querySelector<HTMLElement>(".me-void-name-last")!
-      // Opening frame is a title card: "Royce", a narrow slit of the portrait, "Mathew", all centred
-      // in the space above the variant switcher. The words grow as large as the stage width allows
-      // so nothing bleeds off-screen at any viewport.
-      const apertureShare = .28
-      const apertureScale = 1.2
+      // The opening crop frames the face rather than isolating the ear.
+      const apertureShare = .42
+      const apertureScale = 1
       const aperture = () => portrait.offsetWidth * apertureShare * apertureScale
       const lockupGap = () => Math.max(14, aperture() * .16)
-      const lockupScale = () => Math.min(mobile ? 1.6 : 1.9, (name.clientWidth * .96 - aperture() - lockupGap() * 2) / (first.offsetWidth + last.offsetWidth))
+      const lockupScale = () => Math.min(mobile ? 1.5 : 1.7, (name.clientWidth * .9 - aperture() - lockupGap() * 2) / (first.offsetWidth + last.offsetWidth))
       // "Mathew" is wider than "Royce", so the slit sits off-centre for the whole lockup to balance.
       const slitCenter = () => name.clientWidth / 2 + (first.offsetWidth - last.offsetWidth) * lockupScale() / 2
       const centerOn = (target: HTMLElement, offsetTop = 0) => (name.offsetTop + spread.offsetTop + spread.offsetHeight) / 2 - offsetTop - target.offsetTop - target.offsetHeight / 2
@@ -63,6 +61,7 @@ export function VoidEndingPrototype() {
         .fromTo(first, { scale: lockupScale, transformOrigin: "100% 50%", x: () => slitCenter() - aperture() / 2 - lockupGap() - first.offsetLeft - first.offsetWidth }, { scale: 1, x: 0, duration: .72 }, 0)
         .fromTo(last, { scale: lockupScale, transformOrigin: "0% 50%", x: () => slitCenter() + aperture() / 2 + lockupGap() - last.offsetLeft }, { scale: 1, x: 0, duration: .72 }, 0)
         .fromTo(portrait, { x: () => name.offsetLeft + slitCenter() - spread.offsetLeft - portrait.offsetLeft - portrait.offsetWidth / 2, y: () => centerOn(portrait, spread.offsetTop), scale: apertureScale }, { x: 0, y: 0, scale: 1, duration: .9 }, .04)
+        .fromTo(".me-void-portrait img", { xPercent: mobile ? -18 : -12 }, { xPercent: 0, duration: .9 }, .04)
         // The slit opens without overshoot so its inset never crosses outside the portrait.
         .fromTo(portrait, { clipPath: `inset(0 ${(1 - apertureShare) * 50}% 0 ${(1 - apertureShare) * 50}%)` }, { clipPath: "inset(0 0% 0 0%)", ease: "power2.out", duration: .7 }, .04)
         .fromTo(".me-void-art-panel", { autoAlpha: 0, rotationX: -30, y: 65 }, { autoAlpha: 1, rotationX: 0, y: 0, duration: .8 }, .2)
@@ -84,12 +83,12 @@ export function VoidEndingPrototype() {
   }, [])
 
   return (
-    <div ref={root} data-ending-prototype="E" data-progress="0" className="me-void">
-      <section className="me-void-track manga-ending-track" aria-labelledby="me-void-name">
-        <div className="me-void-stage manga-ending-stage">
+    <div ref={root} data-creation-hero data-progress="0" className="me-void">
+      <section className="me-void-track" aria-labelledby="me-void-name">
+        <div className="me-void-stage">
           <h1 id="me-void-name" className="me-void-name" aria-label="Royce Mathew"><span className="me-void-name-first" aria-hidden="true">Royce</span><span className="me-void-name-last" aria-hidden="true">Mathew</span></h1>
           <div className="me-void-spread">
-            <div className="me-void-art-panel"><CreationHandsPrototype /></div>
+            <div className="me-void-art-panel"><CreationHands /></div>
             <figure className="me-void-portrait"><Image src="/images/hero-manga-portrait-clean.webp" alt="Black-and-white manga portrait of Royce Mathew" fill preload sizes="(max-width: 767px) 40vw, 38vw" /></figure>
             <div className="me-void-roles me-void-reveal">
               <div className="me-void-orbit" aria-hidden="true" />
@@ -99,7 +98,7 @@ export function VoidEndingPrototype() {
             </div>
             <div className="me-void-actions me-void-reveal">
               <div className="me-void-japanese" aria-hidden="true"><span lang="ja">創造</span><span lang="ja">遊び</span></div>
-              <nav className="me-void-project me-void-navigation" aria-label="Projects"><Link href="/projects?study=panels&variant=E">Projects<span aria-hidden="true">↗</span></Link></nav>
+              <nav className="me-void-project me-void-navigation" aria-label="Projects"><Link href="/projects">Projects<span aria-hidden="true">↗</span></Link></nav>
             </div>
             <nav className="me-void-links me-void-navigation me-void-reveal" aria-label="Personal links">
               <a href="#scroll-about">About<span aria-hidden="true">↓</span></a>

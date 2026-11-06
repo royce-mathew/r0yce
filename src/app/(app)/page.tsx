@@ -1,7 +1,6 @@
-import { Suspense } from "react"
 import { Metadata } from "next"
-import { mainContents, projects } from "#site/content"
-import { MangaHomePrototype } from "./manga-home-prototype"
+import { mainContents } from "#site/content"
+import { CreationHome } from "./creation-home"
 
 export const metadata: Metadata = {
   title: "royce.sh — Royce Mathew, Software & AI Developer",
@@ -58,10 +57,5 @@ export default function Home() {
     throw new Error("About base not found")
   }
 
-  const works = [...projects].filter(project => project.featured).sort((a, b) => b.modifiedDate.localeCompare(a.modifiedDate)).slice(0, 2).map(({ title, description, imageSrc, slug }) => ({ title, description, imageSrc, slug }))
-  return (
-    <Suspense>
-      <MangaHomePrototype code={about.code} works={works} />
-    </Suspense>
-  )
+  return <CreationHome code={about.code} />
 }

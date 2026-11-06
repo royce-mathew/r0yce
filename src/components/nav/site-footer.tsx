@@ -4,7 +4,7 @@ import Link from "next/link"
 import { IconBrandGithubFilled, IconMailFilled, IconArrowUp } from "@tabler/icons-react"
 import { Icons } from "@/config/icons"
 import LightSwitch from "../custom/lightswitch"
-import "./manga-shell-prototype.css"
+import "./site-shell.css"
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear()

@@ -139,7 +139,8 @@ def main():
             "silhouette": traced["silhouette"],
             "light": traced["light"],
             "dense": traced["dense"],
-            "ink": traced["shadow"] + traced["lines"] + traced["weight"],
+            "shadow": traced["shadow"],
+            "ink": traced["lines"] + traced["weight"],
         }
 
     OUT.write_text(

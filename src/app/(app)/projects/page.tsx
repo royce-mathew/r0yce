@@ -1,7 +1,6 @@
 import { Metadata } from "next"
-import { Project, projects } from "#site/content"
+import { projects } from "#site/content"
 import "./projects-prototype.css"
-import { cn } from "@/lib/utils"
 import ProjectButton from "@/components/custom/project-button"
 
 export const metadata: Metadata = {
@@ -44,29 +43,18 @@ export const metadata: Metadata = {
 const sortedProjects = [...projects].sort((a, b) =>
   b.modifiedDate.localeCompare(a.modifiedDate)
 )
-const featuredProjects = sortedProjects.filter((project) => project.featured)
-const regularProjects = sortedProjects.filter((project) => !project.featured)
-
-function ProjectGrid({
-  projects,
-  title,
-  label,
-}: {
-  projects: Project[]
-  title: string
-  label?: string
-}) {
+function ProjectCollection() {
   return (
-    <section className={cn("project-chapter", label === "Highlighted Work" ? "project-chapter-featured" : "project-chapter-archive")}>
+    <section className="project-chapter" aria-labelledby="all-projects-title">
       <div className="project-chapter-heading">
         <div>
-          {label && <span className="label-editorial">{label}</span>}
-          <h2 className="font-display">{title}</h2>
+          <span className="label-editorial">The complete collection / Latest updates first</span>
+          <h2 id="all-projects-title" className="font-display">All Projects</h2>
         </div>
-        <span className="project-chapter-count">{String(projects.length).padStart(2, "0")} entries</span>
+        <span className="project-chapter-count">{String(sortedProjects.length).padStart(2, "0")} entries</span>
       </div>
       <div className="project-panel-grid">
-        {projects.map((project, index) => (
+        {sortedProjects.map((project, index) => (
           <ProjectButton
             key={project.slug}
             project={project}
@@ -101,21 +89,7 @@ export default function AllProjects() {
         <div className="project-index-rule" />
       </section>
 
-      {/* Featured */}
-      {featuredProjects.length > 0 && (
-        <ProjectGrid
-          projects={featuredProjects}
-          title="Featured"
-          label="Highlighted Work"
-        />
-      )}
-
-      {/* All Projects */}
-      <ProjectGrid
-        projects={regularProjects}
-        title="All Projects"
-        label="Complete Archive"
-      />
+      <ProjectCollection />
     </main>
   )
 }

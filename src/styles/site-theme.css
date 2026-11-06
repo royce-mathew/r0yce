@@ -1,0 +1,26 @@
+html {
+  --background: 45 40% 92.16%; --foreground: 60 6.25% 6.27%; --card: 45 40% 95%; --card-foreground: 60 6.25% 6.27%; --popover: 45 40% 95%; --popover-foreground: 60 6.25% 6.27%; --primary: 44 78% 28%; --primary-foreground: 45 40% 96%; --secondary: 45 22% 85%; --secondary-foreground: 60 6.25% 6.27%; --muted: 45 22% 85%; --muted-foreground: 45 8% 32%; --accent: 47.39 83.76% 63.33%; --accent-foreground: 60 6.25% 6.27%; --border: 45 10% 30%; --input: 45 10% 42%; --ring: 44 78% 28%; --gold: 47.39 83.76% 63.33%; --gold-dim: 44 78% 28%; --gold-ink: 44 78% 28%; --surface: 45 24% 87%; --radius: 0;
+  --manga-paper: hsl(var(--background)); --manga-ink: hsl(var(--foreground)); --manga-red: hsl(var(--primary));
+}
+html.dark {
+  --background: 60 6.25% 6.27%; --foreground: 45 40% 92.16%; --card: 60 5% 10%; --card-foreground: 45 40% 92.16%; --popover: 60 5% 10%; --popover-foreground: 45 40% 92.16%; --primary: 47.39 83.76% 63.33%; --primary-foreground: 60 6.25% 6.27%; --secondary: 45 6% 17%; --secondary-foreground: 45 40% 92.16%; --muted: 45 6% 17%; --muted-foreground: 45 13% 73%; --accent: 47.39 83.76% 63.33%; --accent-foreground: 60 6.25% 6.27%; --border: 45 10% 54%; --input: 45 10% 54%; --ring: 47.39 83.76% 63.33%; --gold: 47.39 83.76% 63.33%; --gold-dim: 47.39 83.76% 63.33%; --gold-ink: 47.39 83.76% 63.33%; --surface: 45 6% 13%;
+}
+body { background: var(--manga-paper); color: var(--manga-ink); }
+.font-display { font-family: var(--font-sans), sans-serif; font-weight: 600; font-style: normal; font-synthesis: none; letter-spacing: -.045em; }
+.font-display.italic { font-style: normal; }
+a, button { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--manga-red); outline-offset: 5px; }
+#site-content { scroll-margin-top: 100px; }
+#manga-work-title { scroll-margin-top: 120px; }
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+.kanjou-manga-cover { padding-top: 40px; }
+.kanjou-manga-grid { border: 3px solid var(--manga-ink); padding: 40px; align-items: stretch; }
+.kanjou-manga-cover h1 { text-transform: uppercase; font-size: clamp(48px,6vw,90px); }
+.kanjou-manga-demo { align-self: center; border: 2px solid var(--manga-ink); }
+.kanjou-manga-demo figure { border: 0; border-radius: 0; }
+.kanjou-manga-demo figure + div, .kanjou-manga-demo > div > div { display: none; }
+.mdx-shell blockquote, .mdx-shell table, .mdx-shell img, .mdx-shell [class*="rounded-2xl"] { border-radius: 0; box-shadow: none; }
+.mdx-shell h5 { color: hsl(var(--muted-foreground)); }
+@media(max-width:760px) { .kanjou-manga-grid { padding: 24px 18px; } }
