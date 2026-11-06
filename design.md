@@ -111,7 +111,7 @@ commit `7fe8031`. The current decision is also recorded in `README.md`.
 ## Project detail: Visual case study
 
 Option 2 / B is the selected direction: a large, uncropped project preview
-beside the title, description, real project links, and technology badges.
+beside the title, description, real project links, and technology list.
 Stack the opening on mobile, then give the full article a quiet reading column
 with its table of contents.
 
@@ -120,10 +120,12 @@ with its table of contents.
 - Preserve direct access to every other project. Use a compact current-project
   switcher and Previous / Next links instead of a tall permanent sidebar.
   Keep an All projects link for returning to the grid.
-- Technology badges use recognizable brand logos, not generic code or database
-  symbols. Amazon SES uses AWS's mark; Turnstile uses Cloudflare's. Topic tags
-  retain semantic icons rather than invented brands. Local asset provenance and
-  license notices live in `public/technology/LICENSES.txt`.
+- Show technology logos at a readable size beside plain-text names, with no
+  pills, circular backplates, borders, or arbitrary theme recolouring. Preserve
+  each brand's colours and use white inverse marks for monochrome brands on the
+  dark canvas. Amazon SES uses AWS's mark; Turnstile uses Cloudflare's.
+  Topic labels and the grid's compact tags are text-only. Local asset provenance
+  and license notices live in `public/technology/LICENSES.txt`.
 - Keep the complete MDX articles, code blocks, steps, and working heading links.
   Do not carry the hero's heavy borders into the reading surface.
 - No comparison controls or variant query state in the selected implementation.

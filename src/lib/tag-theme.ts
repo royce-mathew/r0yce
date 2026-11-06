@@ -1,44 +1,4 @@
 import type { CSSProperties } from "react"
-import {
-  LogoDart,
-  LogoLuau,
-  LogoNumpy,
-  LogoPandas,
-  LogoRoblox,
-  LogoFlask,
-  LogoSelenium,
-  LogoYjs,
-  LogoMatplotlib,
-} from "@/components/custom/technology-logos"
-import {
-  IconBrandReact,
-  IconBrandNextjs,
-  IconBrandTailwind,
-  IconBrandSvelte,
-  IconBrandRust,
-  IconBrandPython,
-  IconBrandTypescript,
-  IconBrandJavascript,
-  IconBrandNodejs,
-  IconBrandDiscordFilled,
-  IconBrandFirebase,
-  IconBrandFlutter,
-  IconBrandAws,
-  IconBrandCloudflare,
-  IconBrandSupabase,
-  IconCpu,
-  IconBrain,
-  IconDatabaseFilled,
-  IconChartBar,
-  IconGhostFilled,
-  IconDeviceGamepad2Filled,
-  IconStethoscope,
-  IconBoltFilled,
-  IconTrendingUp,
-  IconCloudFilled,
-  IconSpiderFilled,
-  IconCode,
-} from "@tabler/icons-react"
 
 type TagTheme = {
   accent: string
@@ -84,52 +44,6 @@ const TAG_THEME_PRESETS: Record<string, TagTheme> = {
   pickle: { accent: "110 22% 42%", accentBorder: "110 18% 66%" },
 }
 
-const TAG_ICONS: Record<string, React.ComponentType<any>> = {
-  react: IconBrandReact,
-  "react-native": IconBrandReact,
-  nextjs: IconBrandNextjs,
-  tailwindcss: IconBrandTailwind,
-  svelte: IconBrandSvelte,
-  sveltekit: IconBrandSvelte,
-  rust: IconBrandRust,
-  python: IconBrandPython,
-  typescript: IconBrandTypescript,
-  javascript: IconBrandJavascript,
-  nodejs: IconBrandNodejs,
-  discord: IconBrandDiscordFilled,
-  firebase: IconBrandFirebase,
-  flutter: IconBrandFlutter,
-  dart: LogoDart,
-  ai: IconBrain,
-  "neural-networks": IconCpu,
-  neat: IconCpu,
-  supabase: IconBrandSupabase,
-  sqlite: IconDatabaseFilled,
-  postgres: IconDatabaseFilled,
-  mysql: IconDatabaseFilled,
-  mongodb: IconDatabaseFilled,
-  database: IconDatabaseFilled,
-  "data-analysis": IconChartBar,
-  pandas: LogoPandas,
-  numpy: LogoNumpy,
-  matplotlib: LogoMatplotlib,
-  flask: LogoFlask,
-  pickle: IconBrandPython,
-  "amazon-ses": IconBrandAws,
-  turnstile: IconBrandCloudflare,
-  horror: IconGhostFilled,
-  game: IconDeviceGamepad2Filled,
-  roblox: LogoRoblox,
-  "lua-u": LogoLuau,
-  medical: IconStethoscope,
-  health: IconStethoscope,
-  realtime: IconBoltFilled,
-  forex: IconTrendingUp,
-  api: IconCloudFilled,
-  scraping: IconSpiderFilled,
-  selenium: LogoSelenium,
-  yjs: LogoYjs,
-}
 
 function hashTag(value: string): number {
   let hash = 0
@@ -159,7 +73,3 @@ export function getTagTheme(tag: string) {
   }
 }
 
-export function getTagIcon(tag: string): React.ComponentType<any> {
-  const normalizedTag = tag.trim().toLowerCase().replace(/\s+/g, "-")
-  return TAG_ICONS[normalizedTag] ?? IconCode
-}

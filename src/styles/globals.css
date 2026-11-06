@@ -256,25 +256,6 @@ html.lenis.lenis-stopped:has(body[data-scroll-locked]) {
   font-weight: 600;
 }
 
-.tag-pill-themed .icon {
-  background: hsl(var(--tag-accent));
-  /* smaller, tighter circle */
-  width: 1.125rem;
-  height: 1.125rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.tag-pill-themed .icon svg {
-  /* Tabler icons use currentColor — use card foreground for good contrast on accent circle */
-  color: hsl(var(--card-foreground));
-}
-
-.tag-pill-themed .icon {
-  border: 1px solid hsl(var(--tag-accent-border) / 0.12);
-}
-
 /* Steps: compact pill for large headings, circular badge for smaller headings */
 .steps :is(h1, h2).step {
   padding-left: 0;
