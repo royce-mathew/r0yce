@@ -62,6 +62,22 @@ The harsh About heading rules and career timeline are softened locally, without 
 
 Verified in local Chromium: a transparent, borderless opening with the paper genuinely behind the header; the live diagonal wipe on first scroll and its reversal at the top; unchanged hero sticky offsets; desktop and mobile motion paths; an effectively immediate reduced-motion change; 44px mobile controls and no homepage overflow at 390px and 320px; softened About rules at the reported 523px width; drawer navigation to projects and wordmark navigation home; command search, Login in settings, and skip-link focus. TypeScript and ESLint pass with the existing MDX image warning. Authenticated actions, a production build, and physical devices were not checked.
 
+## Command menu study
+
+Question: should search be a compact keyboard palette, a browsable paper directory, or a full-height navigation index? Three throwaway layouts use the existing shared command-menu trigger and the same five page destinations and thirteen projects. No direction has been selected or promoted to production.
+
+Run `pnpm dev`, then open:
+
+- A / Quick jump: `http://localhost:3000/projects?variant=A&command=1` — compact dark palette, inline paths, and dense single-column results.
+- B / Paper directory: `http://localhost:3000/projects?variant=B&command=1` — ivory directory with separate page/project columns, stacked on mobile.
+- C / Side index: `http://localhost:3000/projects?variant=C&command=1` — full-height right drawer with larger numbered destinations.
+
+The gold bottom comparison bar cycles layouts; its arrow keys work when the bar is focused, without stealing cursor movement from search. Switching preserves the search text, other query parameters, and the URL hash. Reloading preserves the layout. `command=1` opens the study automatically in development; Escape closes it normally. The comparison bar and state logging are development-only. Search retains fuzzy matching, arrow/Enter navigation, Ctrl/Cmd+K and slash shortcuts, focus trapping, and focus restoration. Closing and reopening clears the query.
+
+The complete study is captured on `prototype/command-menu-study`. No implementation issue was supplied; this section is the question, pending verdict, and archive pointer. Keep the prototypes on that throwaway branch until a direction is chosen; do not merge the comparison machinery into production.
+
+Verified in local Chromium on the homepage and project collection: case-insensitive filtering, no-result feedback, real keyboard navigation, opening the Fotoland project, query-preserving variant changes and wraparound, URL/hash preservation, reload stability, keyboard isolation, Tab trapping, Escape focus restoration, shortcuts, homepage scroll locking, and reduced motion. All three layouts were exercised at 1440×1000, 800×1000, 390×844, and 320×600, with native scrolling reaching the final destination, 44px close targets, and no horizontal overflow. TypeScript and ESLint pass with the existing MDX image warning. No production build or physical-device check was performed.
+
 ## Installation
 
 To install the project, follow these steps:
