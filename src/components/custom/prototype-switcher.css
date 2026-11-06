@@ -1,0 +1,7 @@
+.prototype-switcher { position: fixed; z-index: 80; bottom: max(18px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; width: max-content; max-width: calc(100vw - 24px); padding: 6px; border: 1px solid #f0ce53; background: #11110f; color: #f3efe3; box-shadow: 0 8px 32px #0006; border-radius: 50px; font-family: var(--font-sans), sans-serif; }
+.prototype-switcher button { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid #f3efe34d; border-radius: 50%; color: #f0ce53; font-size: 22px; cursor: pointer; }
+.prototype-switcher button:hover { background: #f0ce53; color: #11110f; }
+.prototype-switcher button:focus-visible { outline: 2px solid #f0ce53; outline-offset: 3px; }
+.prototype-switcher > span { min-width: 148px; text-align: center; font-size: 13px; line-height: 1.5; }
+.prototype-switcher small { display: block; color: #f0ce53; text-transform: uppercase; letter-spacing: .13em; font-size: 9px; }
+@media(max-width:360px) { .prototype-switcher { gap: 7px; } .prototype-switcher > span { min-width: 132px; font-size: 12px; } }

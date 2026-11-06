@@ -3,7 +3,7 @@ import Settings from "@/components/custom/settings"
 import { MainNav } from "@/components/nav/main-nav"
 import { MobileNav } from "@/components/nav/mobile-nav"
 import { ClientHeaderWrapper } from "@/components/nav/client-header-wrapper"
-import "./manga-shell-prototype.css"
+import "./site-shell.css"
 
 export function SiteHeader() {
   return (

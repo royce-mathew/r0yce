@@ -1,0 +1,57 @@
+html {
+  --scroll-ink: #11110f;
+  --scroll-paper: #f3efe3;
+  --scroll-accent: #f0ce53;
+  --scroll-rule: #44413f;
+  --scroll-header-rule: 1px;
+}
+:is(.manga-site-header, .manga-site-footer, .manga-mobile-sheet) {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  border-color: hsl(var(--border));
+  font-family: var(--font-sans), sans-serif;
+}
+.manga-site-header { border-width: 0 0 var(--scroll-header-rule); }
+.manga-header-inner { min-height: calc(90px - var(--scroll-header-rule)); padding: 12px 32px; gap: 24px; }
+.manga-desktop-nav { align-items: center; gap: 32px; flex-shrink: 0; }
+.manga-wordmark { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-sans), sans-serif; font-size: 26px; font-weight: 400; line-height: 1; letter-spacing: .08em; text-transform: uppercase; color: inherit; }
+.manga-wordmark-dot { color: hsl(var(--gold-ink)); }
+.manga-main-links { gap: 4px; }
+.manga-nav-link { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 14px; border-bottom: 1px solid transparent; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: inherit; }
+.manga-nav-link[aria-current="page"] { color: hsl(var(--primary)); border-bottom-color: hsl(var(--primary)); }
+.manga-nav-link:hover { border-bottom-color: currentColor; }
+.manga-header-tools button { min-height: 44px; border-radius: 0; color: inherit; border-color: hsl(var(--border)); background: transparent; font-family: var(--font-sans), sans-serif; }
+.manga-header-tools button:hover, .manga-mobile-link:hover { background: hsl(var(--muted)); }
+.manga-settings button { min-width: 44px; }
+.manga-search button { border-color: currentColor; max-width: 100%; }
+.manga-skip-link { position: fixed; top: 8px; left: 16px; z-index: 100; padding: 12px 18px; background: hsl(var(--foreground)); color: hsl(var(--background)); transform: translateY(-160%); }
+.manga-skip-link:focus { transform: translateY(0); }
+:is(.manga-site-header, .manga-site-footer, .manga-mobile-sheet) :focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 4px; }
+.manga-mobile-scroll { max-height: calc(100dvh - 110px); overscroll-behavior: contain; }
+.manga-mobile-link { color: inherit; border-color: hsl(var(--border)); border-radius: 0; }
+.manga-mobile-sublink { overflow-wrap: anywhere; }
+.manga-site-footer { border-top: 1px solid hsl(var(--border)); padding-bottom: 0; }
+.manga-footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; padding: 36px 32px; }
+.manga-footer-brand p { margin-top: 10px; font-size: 13px; line-height: 1.6; color: hsl(var(--muted-foreground)); }
+.manga-footer-social, .manga-footer-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
+.manga-footer-social a { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; font-size: 14px; font-weight: 650; }
+.manga-footer-social a:hover { text-decoration: underline; text-underline-offset: 5px; }
+.manga-footer-tools button { min-width: 44px; min-height: 44px; }
+.manga-back-top { display: inline-flex; align-items: center; gap: 12px; padding: 0 14px; border: 1px solid currentColor; font-size: 14px; font-weight: 650; }
+@media (min-width: 768px) { .manga-mobile-wordmark { display: none; } }
+@media (min-width: 768px) and (max-width: 1100px) {
+  .manga-header-inner { gap: 16px; padding-inline: 24px; }
+  .manga-desktop-nav { gap: 20px; }
+  .manga-main-links { gap: 14px; }
+  .manga-nav-link { padding-inline: 10px; }
+}
+@media (max-width: 767px) {
+  .manga-header-inner { min-height: calc(76px - var(--scroll-header-rule)); padding: 10px 16px; gap: 4px; }
+  .manga-mobile-wordmark { font-size: 20px; padding: 0; margin-right: 0; }
+  .manga-header-tools { min-width: 0; }
+  .manga-search { display: flex; justify-content: flex-end; }
+  .manga-search button { width: auto; min-width: 44px; }
+  .manga-footer-inner { padding: 28px 20px; gap: 20px; align-items: flex-start; }
+  .manga-footer-brand { width: 100%; }
+  .manga-footer-social { gap: 18px; }
+}

@@ -29,27 +29,31 @@ function Hand({ name, id }: { name: keyof typeof creationHands, id: string }) {
       <g className="me-creation-tone">
         <path d={hand.light} fill={`url(#${id}-light)`} />
         <path d={hand.dense} fill={`url(#${id}-dense)`} />
+        <path d={hand.shadow} fill={`url(#${id}-shadow)`} />
       </g>
-      <path d={hand.ink} fill="currentColor" />
-      <path d={hand.silhouette} stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" />
+      <path d={hand.ink} fill="currentColor" stroke="currentColor" strokeWidth=".3" strokeLinejoin="round" />
+      <path d={hand.silhouette} stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round" />
     </g>
   )
 }
 
-export function CreationHandsPrototype() {
+export function CreationHands() {
   const id = useId()
   return (
     <svg className="me-creation-art" viewBox="0 100 1215 256" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true" focusable="false">
       <defs>
         <pattern id={`${id}-light`} width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="2.5" cy="2.5" r=".75" fill="currentColor" /></pattern>
-        <pattern id={`${id}-dense`} width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="2.5" cy="2.5" r="1.3" fill="currentColor" /></pattern>
+        <pattern id={`${id}-dense`} width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="2.5" cy="2.5" r="1.1" fill="currentColor" /></pattern>
+        <pattern id={`${id}-shadow`} width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)">
+          <path d="M0 0V4M2 0V4" stroke="currentColor" strokeWidth=".8" />
+        </pattern>
         <pattern id={`${id}-sketch`} width="31" height="27" patternUnits="userSpaceOnUse">
           <path d="M-5 29 23-4M4 32 34-3M-8 6 34 23M-6 12 26 26" stroke="var(--me-void-paper)" strokeWidth=".7" opacity=".24" />
           <path d="m0 22 24-26m-6 34 20-24" stroke="currentColor" strokeWidth="1.2" opacity=".65" />
         </pattern>
         <radialGradient id={`${id}-halo`} gradientUnits="userSpaceOnUse" cx="634" cy="225" r="160">
           <stop stopColor="var(--me-void-paper)" />
-          <stop offset=".24" stopColor="var(--me-void-accent)" stopOpacity=".7" />
+          <stop offset=".24" stopColor="var(--me-void-accent)" stopOpacity=".45" />
           <stop offset="1" stopColor="var(--me-void-accent)" stopOpacity="0" />
         </radialGradient>
       </defs>
