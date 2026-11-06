@@ -136,6 +136,8 @@ Local clips in `public/project-previews/` are recordings of the public pages at
 back to the opening view, rather than jump cuts. These are live-site tours, not
 recordings of authenticated editing sessions. Projects without footage keep
 their still covers.
+Axelot uses its native dark theme and a wider capture matched to the existing
+cover's aspect ratio, keeping the hover transition consistent with the still.
 
 ## Project detail: Visual case study
 
