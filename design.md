@@ -125,6 +125,12 @@ artwork, choreography, and fixed header offsets; do not add a scroll owner.
 The comparison controls and alternate layouts are removed from the live site.
 The original study is archived on `prototype/topbar-study`, commit `d987a5c`.
 
+The drawer contents use A / Quiet index from the separate navigation study:
+compact dark surface, numbered main links, a quieter project list, and native
+scrolling. No misc section. The discarded drawer alternatives are archived on
+`prototype/index-drawer-study`, commit `d23f851`; their comparison controls are
+removed.
+
 ## Search: Quick jump
 
 The user selected A from the command-menu study. Keep the compact dark palette,
@@ -135,7 +141,12 @@ icon tiles, or boxed input focus ring.
 The selected menu uses normal URLs and retains fuzzy search, keyboard
 navigation, shortcuts, native scrolling, and dialog focus behavior. The full
 rejected-alternative study is archived on `prototype/command-menu-study`,
-commit `1ea2b17`. The Index drawer redesign is a separate, unselected study.
+commit `1ea2b17`.
+
+Wordle, Market State, and Image to Comic are easter eggs discovered through
+command search, not advertised in the Index drawer or primary navigation.
+Preserve their real routes and tools; do not replace discovery with a visible
+misc directory or invent a secret gesture.
 
 ## Spacing and framing
 
