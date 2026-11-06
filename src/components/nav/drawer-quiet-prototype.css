@@ -1,0 +1,19 @@
+.drawer-quiet-prototype { height:100%; min-height:0; display:flex; flex-direction:column; background:#11110f; color:#f3efe3; }
+.drawer-quiet-prototype header { flex:none; padding:28px 72px 24px 28px; }
+.drawer-quiet-prototype .quiet-brand { font:600 25px var(--font-sans),sans-serif; letter-spacing:-.05em; }
+.drawer-quiet-prototype .quiet-brand > span { color:#f0ce53; }
+.drawer-quiet-prototype header p { margin-top:22px; color:#a8a598; font:11px var(--font-mono),monospace; }
+.drawer-quiet-prototype .quiet-drawer-scroll { min-height:0; flex:1; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#f3efe326 transparent; padding:0 28px 110px; }
+.drawer-quiet-prototype a { display:flex; min-height:44px; align-items:center; gap:14px; text-decoration:none; }
+.drawer-quiet-prototype .quiet-site-links { padding-bottom:24px; }
+.drawer-quiet-prototype .quiet-site-links a { min-height:60px; font:400 32px/1.1 var(--font-cal),sans-serif; letter-spacing:-.04em; }
+.drawer-quiet-prototype .quiet-number { width:18px; color:#a8a598; font:10px var(--font-mono),monospace; letter-spacing:0; }
+.drawer-quiet-prototype .quiet-link-arrow { margin-left:auto; flex:none; color:#858276; font:14px var(--font-sans),sans-serif; }
+.drawer-quiet-prototype .quiet-project-links { padding-top:22px; border-top:1px solid #f3efe31a; }
+.drawer-quiet-prototype h2 { display:flex; justify-content:space-between; margin-bottom:12px; color:#a8a598; font:10px var(--font-mono),monospace; text-transform:uppercase; letter-spacing:.12em; }
+.drawer-quiet-prototype .quiet-project-links a { font-size:14px; line-height:1.5; padding-block:10px; }
+.drawer-quiet-prototype a > span:first-child { overflow-wrap:anywhere; }
+.drawer-quiet-prototype a:hover, .drawer-quiet-prototype a[aria-current="page"] { color:#f0ce53; }
+.drawer-quiet-prototype a[aria-current="page"] .quiet-link-arrow { color:#f0ce53; }
+.drawer-quiet-prototype footer { margin-top:32px; color:#858276; font:10px/1.5 var(--font-mono),monospace; }
+@media(max-width:380px) { .drawer-quiet-prototype header { padding-left:22px; } .drawer-quiet-prototype .quiet-drawer-scroll { padding-inline:22px; } }

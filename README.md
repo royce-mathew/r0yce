@@ -62,21 +62,29 @@ The harsh About heading rules and career timeline are softened locally, without 
 
 Verified in local Chromium: a transparent, borderless opening with the paper genuinely behind the header; the live diagonal wipe on first scroll and its reversal at the top; unchanged hero sticky offsets; desktop and mobile motion paths; an effectively immediate reduced-motion change; 44px mobile controls and no homepage overflow at 390px and 320px; softened About rules at the reported 523px width; drawer navigation to projects and wordmark navigation home; command search, Login in settings, and skip-link focus. TypeScript and ESLint pass with the existing MDX image warning. Authenticated actions, a production build, and physical devices were not checked.
 
-## Command menu study
+## Selected command menu
 
-Question: should search be a compact keyboard palette, a browsable paper directory, or a full-height navigation index? Three throwaway layouts use the existing shared command-menu trigger and the same five page destinations and thirteen projects. No direction has been selected or promoted to production.
+The user selected A / Quick jump. The shared search dialog now uses its compact dark layout, inline paths, quiet gold selection marker, and underlined input focus. It renders on normal URLs, independently of prototype query parameters. Five page destinations and thirteen projects retain fuzzy matching, arrow/Enter navigation, Ctrl/Cmd+K and slash shortcuts, native result scrolling, focus trapping, and focus restoration. Closing and reopening clears the query.
+
+`command-menu.tsx` and `command-menu.css` own the selected implementation. The search variants, comparison host, query handling, and search-state logging are removed. The original study remains captured on `prototype/command-menu-study`, commit `1ea2b17`. The floating controls now belong only to the separate Index drawer study below.
+
+Verified the selected search in local Chromium at 1440×1000, 390×844, and 320×600: all eighteen destinations, no-result feedback, filtering and real Fotoland navigation, normal-URL rendering regardless of `variant`, input cursor isolation, shortcuts, query reset, Escape focus restoration, reduced motion, and the quieter input outline.
+
+## Index drawer study
+
+Question: should the navigation remain a compact drawer, become a paper directory, or expand into a full-screen atlas? All three use the same Home, Projects, and Kanjou links and thirteen projects. No drawer direction has been selected.
 
 Run `pnpm dev`, then open:
 
-- A / Quick jump: `http://localhost:3000/projects?variant=A&command=1` — compact dark palette, inline paths, and dense single-column results.
-- B / Paper directory: `http://localhost:3000/projects?variant=B&command=1` — ivory directory with separate page/project columns, stacked on mobile.
-- C / Side index: `http://localhost:3000/projects?variant=C&command=1` — full-height right drawer with larger numbered destinations.
+- A / Quiet index: `http://localhost:3000/projects?variant=A&drawer=1` — narrow dark drawer with a clear site/project hierarchy and quieter framing.
+- B / Paper directory: `http://localhost:3000/projects?variant=B&drawer=1` — ivory split directory, stacked on mobile.
+- C / Navigation atlas: `http://localhost:3000/projects?variant=C&drawer=1` — full-screen primary navigation above a responsive project catalog.
 
-The gold bottom comparison bar cycles layouts; its arrow keys work when the bar is focused, without stealing cursor movement from search. Switching preserves the search text, other query parameters, and the URL hash. Reloading preserves the layout. `command=1` opens the study automatically in development; Escape closes it normally. The comparison bar and state logging are development-only. Search retains fuzzy matching, arrow/Enter navigation, Ctrl/Cmd+K and slash shortcuts, focus trapping, and focus restoration. Closing and reopening clears the query.
+The bottom gold bar cycles layouts, including keyboard arrows while the bar is focused. Existing query parameters and hashes survive changes; reloading preserves the layout. `drawer=1` opens the study automatically in development. Escape and the close button restore focus to Index; following a link closes the drawer. Navigation links do not intercept comparison arrow keys. The comparison bar and state logging are development-only.
 
-The complete study is captured on `prototype/command-menu-study`. No implementation issue was supplied; this section is the question, pending verdict, and archive pointer. Keep the prototypes on that throwaway branch until a direction is chosen; do not merge the comparison machinery into production.
+The full study is captured on `prototype/index-drawer-study`. No implementation issue was supplied; this section records the question, pending verdict, and primary-source pointer. Do not merge the unselected drawer variants or comparison machinery into production.
 
-Verified in local Chromium on the homepage and project collection: case-insensitive filtering, no-result feedback, real keyboard navigation, opening the Fotoland project, query-preserving variant changes and wraparound, URL/hash preservation, reload stability, keyboard isolation, Tab trapping, Escape focus restoration, shortcuts, homepage scroll locking, and reduced motion. All three layouts were exercised at 1440×1000, 800×1000, 390×844, and 320×600, with native scrolling reaching the final destination, 44px close targets, and no horizontal overflow. TypeScript and ESLint pass with the existing MDX image warning. No production build or physical-device check was performed.
+Verified all three drawers in local Chromium at 1440×1000, 800×1000, 390×844, and 320×600: sixteen unique destinations, exact-route current states, 44px link heights and close controls, final-project reachability through native scrolling, and no horizontal overflow. Also exercised Tab trapping, link-arrow isolation, real Fotoland navigation from every variant, comparison wraparound and keyboard control, query/hash preservation, reload stability, close/reopen and focus restoration, homepage scroll locking, and reduced motion. TypeScript and ESLint pass with the existing MDX image warning. No production build, authenticated editing, or physical-device check was performed.
 
 ## Installation
 

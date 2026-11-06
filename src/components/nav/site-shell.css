@@ -5,7 +5,7 @@ html {
   --scroll-rule: #44413f;
   --scroll-header-rule: 1px;
 }
-:is(.manga-site-header, .manga-site-footer, .manga-mobile-sheet) {
+:is(.manga-site-header, .manga-site-footer) {
   background: hsl(var(--background));
   color: hsl(var(--foreground));
   border-color: hsl(var(--border));
@@ -21,15 +21,12 @@ html {
 .manga-nav-link[aria-current="page"] { color: hsl(var(--primary)); border-bottom-color: hsl(var(--primary)); }
 .manga-nav-link:hover { border-bottom-color: currentColor; }
 .manga-header-tools button { min-height: 44px; border-radius: 0; color: inherit; border-color: hsl(var(--border)); background: transparent; font-family: var(--font-sans), sans-serif; }
-.manga-header-tools button:hover, .manga-mobile-link:hover { background: hsl(var(--muted)); }
+.manga-header-tools button:hover { background: hsl(var(--muted)); }
 .manga-settings button { min-width: 44px; }
 .manga-search button { border-color: currentColor; max-width: 100%; }
 .manga-skip-link { position: fixed; top: 8px; left: 16px; z-index: 100; padding: 12px 18px; background: hsl(var(--foreground)); color: hsl(var(--background)); transform: translateY(-160%); }
 .manga-skip-link:focus { transform: translateY(0); }
-:is(.manga-site-header, .manga-site-footer, .manga-mobile-sheet) :focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 4px; }
-.manga-mobile-scroll { max-height: calc(100dvh - 110px); overscroll-behavior: contain; }
-.manga-mobile-link { color: inherit; border-color: hsl(var(--border)); border-radius: 0; }
-.manga-mobile-sublink { overflow-wrap: anywhere; }
+:is(.manga-site-header, .manga-site-footer) :focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 4px; }
 .manga-site-footer { border-top: 1px solid hsl(var(--border)); padding-bottom: 0; }
 .manga-footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; padding: 36px 32px; }
 .manga-footer-brand p { margin-top: 10px; font-size: 13px; line-height: 1.6; color: hsl(var(--muted-foreground)); }

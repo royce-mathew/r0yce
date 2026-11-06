@@ -125,6 +125,18 @@ artwork, choreography, and fixed header offsets; do not add a scroll owner.
 The comparison controls and alternate layouts are removed from the live site.
 The original study is archived on `prototype/topbar-study`, commit `d987a5c`.
 
+## Search: Quick jump
+
+The user selected A from the command-menu study. Keep the compact dark palette,
+single-column results, inline destination paths, quiet gold selection edge, and
+underlined input focus. Do not restore the oversized gold selection pill,
+icon tiles, or boxed input focus ring.
+
+The selected menu uses normal URLs and retains fuzzy search, keyboard
+navigation, shortcuts, native scrolling, and dialog focus behavior. The full
+rejected-alternative study is archived on `prototype/command-menu-study`,
+commit `1ea2b17`. The Index drawer redesign is a separate, unselected study.
+
 ## Spacing and framing
 
 Use Tailwind's 4-point scale and vary section rhythm deliberately. Strong panel
