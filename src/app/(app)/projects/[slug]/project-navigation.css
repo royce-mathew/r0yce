@@ -1,0 +1,91 @@
+.project-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 0;
+  padding-block: 8px;
+  margin-bottom: 2rem;
+  border-block: 1px solid hsl(var(--foreground) / .12);
+  color: hsl(var(--foreground));
+}
+.project-navigation .project-switcher-trigger {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  height: auto;
+  min-height: 44px;
+  min-width: 0;
+  max-width: 440px;
+  padding: 8px 12px;
+  border-radius: 3px;
+  color: inherit;
+  background: hsl(var(--foreground) / .04);
+  font-size: 13px;
+}
+.project-switcher-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.project-switcher-hint {
+  margin-left: auto;
+  color: hsl(var(--muted-foreground));
+  font-size: 11px;
+  font-weight: 400;
+}
+.project-navigation-steps { display: flex; flex-shrink: 0; gap: 8px; }
+.project-navigation-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  gap: 8px;
+  padding-inline: 12px;
+  color: hsl(var(--muted-foreground));
+  font-size: 12px;
+  text-decoration: none;
+}
+.project-navigation-step:hover { color: hsl(var(--gold)); }
+.project-switcher-popover {
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(440px, var(--radix-popover-content-available-height));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px;
+  border: 1px solid hsl(var(--gold) / .2);
+  border-radius: 4px;
+  background: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+  box-shadow: 0 16px 48px #0006;
+}
+.project-switcher-list { display: flex; flex-direction: column; }
+.project-switcher-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 2px;
+  font-size: 13px;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.project-switcher-option:hover { background: hsl(var(--foreground) / .06); }
+.project-switcher-option[aria-current="page"] {
+  background: hsl(var(--gold) / .09);
+  color: hsl(var(--gold));
+}
+.project-switcher-current { flex-shrink: 0; font-size: 10px; }
+.project-navigation :focus-visible,
+.project-switcher-option:focus-visible {
+  outline: 2px solid hsl(var(--gold));
+  outline-offset: -2px;
+}
+@media (max-width: 540px) {
+  .project-navigation { gap: 6px; flex-wrap: wrap; }
+  .project-navigation .project-switcher-trigger { width: 100%; max-width: none; }
+  .project-navigation-steps { width: 100%; justify-content: space-between; }
+  .project-switcher-popover { max-height: min(360px, var(--radix-popover-content-available-height)); }
+}
