@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { projects } from "#site/content"
+import { type Project, projects } from "#site/content"
 import { NumberFlowComponent } from "@/components/ui/number"
 import ProjectButton from "@/components/custom/project-button"
 
@@ -43,6 +43,32 @@ export const metadata: Metadata = {
 const sortedProjects = [...projects].sort((a, b) =>
   b.modifiedDate.localeCompare(a.modifiedDate)
 )
+const featuredProjects = sortedProjects.filter((project) => project.featured)
+const regularProjects = sortedProjects.filter((project) => !project.featured)
+
+function ProjectGrid({ projects, title, label, id }: {
+  projects: Project[]
+  title: string
+  label: string
+  id: string
+}) {
+  return (
+    <section className="w-full py-16 md:py-24" aria-labelledby={id}>
+      <div className="container mx-auto mb-12 flex max-w-7xl items-end justify-between px-6 md:px-8">
+        <div className="space-y-2">
+          <span className="label-editorial text-gold">{label}</span>
+          <h2 id={id} className="font-display text-3xl md:text-4xl">{title}</h2>
+        </div>
+        <div className="mb-2 ml-8 hidden h-px max-w-32 flex-1 bg-border/30 md:block" />
+      </div>
+      <div className="container mx-auto grid max-w-7xl auto-rows-fr grid-cols-1 gap-5 px-6 md:grid-cols-2 md:px-8 lg:grid-cols-3">
+        {projects.map((project, index) => (
+          <ProjectButton key={project.slug} project={project} index={index} className="h-full" />
+        ))}
+      </div>
+    </section>
+  )
+}
 
 export default function AllProjects() {
   return (
@@ -64,20 +90,10 @@ export default function AllProjects() {
         </div>
         <div className="mt-8 h-px w-full bg-border/30" />
       </section>
-      <section className="w-full py-16 md:py-24" aria-labelledby="all-projects-title">
-        <div className="container mx-auto mb-12 flex max-w-7xl items-end justify-between px-6 md:px-8">
-          <div className="space-y-2">
-            <span className="label-editorial text-gold">Complete Archive</span>
-            <h2 id="all-projects-title" className="font-display text-3xl md:text-4xl">All Projects</h2>
-          </div>
-          <div className="mb-2 ml-8 hidden h-px max-w-32 flex-1 bg-border/30 md:block" />
-        </div>
-        <div className="container mx-auto grid max-w-7xl auto-rows-fr grid-cols-1 gap-5 px-6 md:grid-cols-2 md:px-8 lg:grid-cols-3">
-          {sortedProjects.map((project, index) => (
-            <ProjectButton key={project.slug} project={project} index={index} className="h-full" />
-          ))}
-        </div>
-      </section>
+      {featuredProjects.length > 0 && (
+        <ProjectGrid projects={featuredProjects} title="Featured" label="Highlighted Work" id="featured-projects-title" />
+      )}
+      <ProjectGrid projects={regularProjects} title="All Projects" label="Complete Archive" id="all-projects-title" />
     </main>
   )
 }

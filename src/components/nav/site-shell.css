@@ -11,7 +11,7 @@ html {
   border-color: hsl(var(--border));
   font-family: var(--font-sans), sans-serif;
 }
-.manga-site-header { border-width: 0 0 var(--scroll-header-rule); }
+.manga-site-header { border: 0; background: transparent; }
 .manga-header-inner { min-height: calc(90px - var(--scroll-header-rule)); padding: 12px 32px; gap: 24px; }
 .manga-desktop-nav { align-items: center; gap: 32px; flex-shrink: 0; }
 .manga-wordmark { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-sans), sans-serif; font-size: 26px; font-weight: 400; line-height: 1; letter-spacing: .08em; text-transform: uppercase; color: inherit; }

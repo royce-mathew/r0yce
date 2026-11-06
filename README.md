@@ -42,27 +42,25 @@ Authenticated editing requires the private configuration below. Missing local au
 
 Question: which information hierarchy suits the complete collection? The user chose the existing layout from `master`, not any of the three alternatives.
 
-`/projects` restores master’s Selected Works header, total count, equal-width responsive cards, cover gradients, and tag/date footers. It keeps the current `royce.sh` metadata, fixed dark palette, and one complete latest-modified-first collection without a separate Featured section. The grid has three desktop columns, two tablet columns, and one mobile column. The comparison layouts, switcher, keyboard listeners, state logging, and obsolete manga-grid styles are removed.
+`/projects` restores master’s Selected Works header, total count, equal-width responsive cards, cover gradients, and tag/date footers. Featured projects are selected by the existing content flags, followed by the remaining projects in All Projects; each group is latest-modified-first, every project appears once, and the total includes both groups. The grid has three desktop columns, two tablet columns, and one mobile column. The current `royce.sh` metadata and fixed dark palette remain. The comparison layouts, switcher, keyboard listeners, state logging, and obsolete manga-grid styles are removed.
 
 The rejected Editorial / Project ledger / Contact sheet prototypes remain captured as primary source on branch `prototype/projects-layout-study`, commit `7fe8031`. No implementation issue was supplied; this section records the verdict and archive pointer.
 
-Run `pnpm dev`, then open `http://localhost:3000/projects`. Verified in local Chromium at 1440×1000, 800×1000, 390×844, and 320×600: the expected responsive column counts, all 13 unique project links in their existing order, decoded covers, no horizontal overflow, and opening Axelot then returning to the collection. The project collection renders only this selected layout; the topbar study below does not change its cards. Narrow layouts were checked with reduced motion. TypeScript and ESLint pass with the existing MDX image warning. No production build, authenticated editing, or physical-device check.
+Run `pnpm dev`, then open `http://localhost:3000/projects`. Verified the restored split in local Chromium at 1440×1000, 800×1000, and 320×600: three/two/one grid columns, three featured projects (Fotoland, Portfolio, Axelot), ten remaining projects, thirteen unique links overall, and no horizontal overflow. The total still includes both sections. The project collection renders only this selected layout.
 
-## Topbar prototype
+## Selected topbar
 
-Question: which of three topbar layouts best connects the Creation hero with the rest of the site? The shared header hosts three throwaway variants on the real routes:
+The user chose C, the Index drawer, and asked to remove the “Portfolio Index” block and make the header belong to the hero. It is now the shared header on normal URLs, not a query-selected prototype.
 
-- `/?variant=A` — Panel strip: an ivory brand panel, exposed indexed navigation cells, and a bordered utility panel.
-- `/?variant=B` — Print masthead: a centred paper masthead above a separate navigation tier.
-- `/?variant=C` — Index drawer: a minimal wordmark and tools, with the complete navigation behind an Index button on desktop as well as mobile.
+The homepage header starts genuinely transparent over Creation, without a divider or separate painted backing. After the first 24px of scrolling, a diagonal black ink wipe brings in C's dark surface and its subtle lower rule. It stays dark throughout the rest of the page and on other routes; returning to the opening frame lifts the backing away. Reduced motion makes the surface change immediate. The hero's paper extends beneath the transparent header while its content and sticky stage retain their original offsets. This is contextual header styling, not a restored light theme.
 
-Run `pnpm dev`, then open `http://localhost:3000/?variant=A`. Compare the same options above the existing project grid at `/projects?variant=A`, `B`, or `C`. The floating bar and left/right arrow keys update the URL, preserve unrelated query parameters and the hash, and survive reloads. Ordinary navigation links retain their normal URLs; an unqualified destination defaults to A. There is no stored selection. The comparison controls and relevant-state console output are development-only.
+Navigation still uses the existing Index sheet, command search, account settings, and skip link. The outer header remains 90px on desktop and 76px on mobile, preserving Creation's sticky offsets. The header uses the existing GSAP / ScrollTrigger clock, adds no scroll owner, and cleans up its own trigger on navigation. No hero artwork, hero choreography, project card component, or footer changes.
 
-All variants reuse the actual main navigation, mobile sheet, command search, account settings, and skip link. Their fixed 90px desktop / 76px mobile outer heights preserve the existing hero's sticky offsets. No hero artwork, animation, project layout, footer, or theme controls are changed.
+The comparison layouts, variant query handling, floating switcher, arrow-key listeners, and prototype state logging are removed. The original three-way study remains archived on `prototype/topbar-study`, commit `d987a5c`.
 
-Verified in local Chromium: all three headers on the homepage and projects page at desktop and mobile widths, including 320px; unchanged header heights and no horizontal overflow on those pages; 44px minimum visible button targets; animated Creation alignment with motion enabled and normal-flow content with reduced motion; search opening in every variant; input arrow-key isolation; Login in the account popover; independently scrolling navigation with all 13 project links; drawer project navigation and direct Kanjou navigation; skip-link focus; URL wraparound, keyboard switching, and reload stability. TypeScript and ESLint pass with the existing MDX image warning. Private auth configuration still limits authenticated actions. No production build or physical-device check.
+The harsh About heading rules and career timeline are softened locally, without changing global input or focus contrast.
 
-Verdict: no topbar selected yet. The study is captured on `prototype/topbar-study`; it is not a production promotion.
+Verified in local Chromium: a transparent, borderless opening with the paper genuinely behind the header; the live diagonal wipe on first scroll and its reversal at the top; unchanged hero sticky offsets; desktop and mobile motion paths; an effectively immediate reduced-motion change; 44px mobile controls and no homepage overflow at 390px and 320px; softened About rules at the reported 523px width; drawer navigation to projects and wordmark navigation home; command search, Login in settings, and skip-link focus. TypeScript and ESLint pass with the existing MDX image warning. Authenticated actions, a production build, and physical devices were not checked.
 
 ## Installation
 
