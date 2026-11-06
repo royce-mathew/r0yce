@@ -56,14 +56,34 @@
   font-size: 0.8125rem;
 }
 .project-actions a:hover, .project-read:hover { color: hsl(var(--gold)); }
-.project-technologies { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
-.project-technologies .tag-pill-themed {
-  padding: 0.35rem 0.65rem;
-  font-size: 0.6875rem;
-  letter-spacing: 0.035em;
+.project-technologies { margin-top: 1.5rem; }
+.project-technology-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.project-technologies .icon { width: 1.125rem; height: 1.125rem; }
-.project-technologies .icon svg { width: 1rem; height: 1rem; }
+.project-technology-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.project-technology-list img { width: 32px; height: 32px; flex-shrink: 0; object-fit: contain; }
+.project-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.75rem;
+}
 .project-facts {
   display: flex;
   flex-wrap: wrap;

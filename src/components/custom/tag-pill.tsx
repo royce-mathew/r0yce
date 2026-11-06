@@ -1,5 +1,4 @@
-import { createElement } from "react"
-import { getTagIcon, getTagTheme } from "@/lib/tag-theme"
+import { getTagTheme } from "@/lib/tag-theme"
 import { cn } from "@/lib/utils"
 
 interface TagPillProps {
@@ -9,11 +8,6 @@ interface TagPillProps {
 
 export function TagPill({ tag, className }: TagPillProps) {
   const theme = getTagTheme(tag)
-  const icon = createElement(getTagIcon(tag), {
-    className: "w-3 h-3",
-    strokeWidth: 1.6,
-    "aria-hidden": true,
-  })
 
   return (
     <span
@@ -24,10 +18,7 @@ export function TagPill({ tag, className }: TagPillProps) {
       )}
       style={theme.style}
     >
-      <span className="icon inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full">
-        {icon}
-      </span>
-      <span className="ml-0.5">{tag}</span>
+      {tag}
     </span>
   )
 }

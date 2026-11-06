@@ -2,10 +2,10 @@ import type { Project } from "#site/content"
 import Image from "next/image"
 import Link from "next/link"
 import { IconArrowDown, IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react"
-import { TagPill } from "@/components/custom/tag-pill"
 import { DashboardTableOfContents } from "@/components/custom/toc"
 import { ProjectArticle } from "./project-article"
 import { ProjectNavigation } from "./project-navigation"
+import { ProjectTechnologies } from "./project-technologies"
 import "./project-detail.css"
 
 export function ProjectDetail({ project }: { project: Project }) {
@@ -42,9 +42,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               )}
             </div>
           )}
-          <div className="project-technologies" aria-label="Technologies and topics">
-            {project.tags.map(tag => <TagPill key={tag} tag={tag} />)}
-          </div>
+          <ProjectTechnologies tags={project.tags} />
           <div className="project-facts">
             <time dateTime={project.publishedDate}>
               {new Date(project.publishedDate).toLocaleDateString("en-US", {
