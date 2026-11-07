@@ -4,21 +4,24 @@ import * as React from "react"
 import { useRouter } from "next/navigation"
 import { IconSearch } from "@tabler/icons-react"
 import { NavItem } from "@/types/nav"
-import { siteConfig } from "@/config/docs"
+import type { siteConfig } from "@/config/docs"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Command as CommandPrimitive } from "cmdk"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
 import "./command-menu.css"
 
-const menuPages: NavItem[] = [
-  ...siteConfig.mainNav.filter((navItem) => !navItem.external),
+const extraPages: NavItem[] = [
   { title: "Market State", href: "/market-state" },
   { title: "Wordle", href: "/misc/wordle" },
   { title: "Image to comic", href: "/misc/image-to-comic" },
 ]
 
-export function CommandMenu() {
+export function CommandMenu({ navigation }: { navigation: typeof siteConfig }) {
+  const menuPages = [
+    ...navigation.mainNav.filter((navItem) => !navItem.external),
+    ...extraPages,
+  ]
   const router = useRouter()
   const [open, setOpen] = React.useState(false)
 
@@ -82,7 +85,7 @@ export function CommandMenu() {
                 </CommandItem>
               ))}
             </CommandGroup>
-            {siteConfig.sidebarNav.map(group => (
+            {navigation.sidebarNav.map(group => (
               <CommandGroup key={group.title} heading={group.title}>
                 {group.items.map(item => (
                   <CommandItem key={item.href} value={`${item.title} ${item.href} ${group.title}`} onSelect={() => go(item.href as string)}>

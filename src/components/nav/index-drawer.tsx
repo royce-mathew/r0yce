@@ -4,12 +4,12 @@ import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { IconMenu2, IconX } from "@tabler/icons-react"
-import { siteConfig } from "@/config/docs"
+import type { siteConfig } from "@/config/docs"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import "./index-drawer.css"
 
-export function IndexDrawer() {
+export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
   const [open, setOpen] = React.useState(false)
   const pathname = usePathname()
   const close = () => setOpen(false)
@@ -29,13 +29,13 @@ export function IndexDrawer() {
           <header><span className="quiet-brand">royce<span>.sh</span></span><p>Around here.</p></header>
           <div className="quiet-drawer-scroll" data-lenis-prevent>
             <nav aria-label="Site navigation" className="quiet-site-links">
-              {siteConfig.mainNav.map((item, index) => item.href && (
+              {navigation.mainNav.map((item, index) => item.href && (
                 <Link key={item.href} href={item.href} onClick={close} aria-current={pathname === item.href ? "page" : undefined}>
                   <span className="quiet-number">0{index + 1}</span><span>{item.title}</span><span className="quiet-link-arrow" aria-hidden="true">↗</span>
                 </Link>
               ))}
             </nav>
-            {siteConfig.sidebarNav.map(group => (
+            {navigation.sidebarNav.map(group => (
               <nav key={group.title} aria-label={`${group.title} collection`} className="quiet-project-links">
                 <h2>{group.title}<span>{String(group.items.length).padStart(2, "0")}</span></h2>
                 {group.items.map(item => item.href && (

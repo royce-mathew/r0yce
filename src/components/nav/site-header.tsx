@@ -1,5 +1,6 @@
 import { Suspense } from "react"
 import Link from "next/link"
+import { siteConfig } from "@/config/docs"
 import { CommandMenu } from "@/components/custom/command-menu"
 import Settings from "@/components/custom/settings"
 import { IndexDrawer } from "@/components/nav/index-drawer"
@@ -13,10 +14,10 @@ export function SiteHeader() {
       royce<span aria-hidden="true" className="manga-wordmark-dot">.sh</span>
     </Link>
   )
-  const drawer = <IndexDrawer />
+  const drawer = <IndexDrawer navigation={siteConfig} />
   const tools = (
     <div className="manga-header-tools flex flex-1 items-center justify-end gap-2">
-      <div className="manga-search min-w-0 flex-1 md:flex-none"><CommandMenu /></div>
+      <div className="manga-search min-w-0 flex-1 md:flex-none"><CommandMenu navigation={siteConfig} /></div>
       <div className="manga-settings flex shrink-0 items-center"><Settings /></div>
     </div>
   )
