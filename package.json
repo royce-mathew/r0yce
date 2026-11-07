@@ -13,6 +13,7 @@
     "build": "run-s build:content build:next",
     "start": "next start",
     "lint": "eslint .",
+    "perf:check": "node scripts/check-public-js.mjs",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write ./src/app/",
     "prepare": "husky"

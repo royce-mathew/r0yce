@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { AuthProvider } from "@/components/providers/session"
+import { WebVitals } from "@/components/providers/web-vitals"
 import { cal, dmSans, instrumentSerif, jetbrainsMono, mangaJapanese } from "@/styles/fonts"
 
 export const viewport: Viewport = {
@@ -64,12 +65,14 @@ export default function RootLayout({
           <TooltipProvider>{children}</TooltipProvider>
         </AuthProvider>
         <Toaster />
+        {process.env.NODE_ENV === "production" &&
+          process.env.NEXT_PUBLIC_ANALYTICS_ID && (
+            <>
+              <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_ANALYTICS_ID} />
+              <WebVitals />
+            </>
+          )}
       </body>
-      {/* Google Analytics */}
-      {process.env.NODE_ENV === "production" &&
-        process.env.NEXT_PUBLIC_ANALYTICS_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_ANALYTICS_ID} />
-        )}
     </html>
   )
 }
