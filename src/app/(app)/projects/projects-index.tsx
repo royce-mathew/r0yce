@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import type { Project } from "#site/content"
 import { ProjectCardPreview, ProjectPreviewVideo } from "./project-card-preview"
-import "./projects-featured-prototype.css"
+import "./projects-index.css"
 
 function PortfolioCard({ project, emphasis = "regular", eager = false }: {
   project: Project
@@ -44,13 +44,13 @@ function PortfolioCard({ project, emphasis = "regular", eager = false }: {
   )
 }
 
-export function ProjectsFeaturedPrototype({ projects }: { projects: Project[] }) {
+export function ProjectsIndex({ projects }: { projects: Project[] }) {
   const featured = projects.filter((project) => project.featured)
   const remaining = projects.filter((project) => !project.featured)
   const [lead, ...highlights] = featured
 
   return (
-    <main className="projects-index-prototype projects-featured-prototype">
+    <main className="projects-index">
       <header className="pfp-header">
         <h1 className="font-display">Projects</h1>
       </header>

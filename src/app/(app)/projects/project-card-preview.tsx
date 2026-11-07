@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react"
+import { IconPlayerPauseFilled, IconPlayerPlayFilled } from "@tabler/icons-react"
 import "./project-card-preview.css"
 
 const clips: Record<string, string> = {
@@ -73,9 +74,12 @@ export function ProjectCardPreview({ slug, title, className, children }: {
             className="project-preview-toggle"
             aria-label={`${requested ? "Pause" : "Preview"} ${title} demo`}
             aria-pressed={requested}
+            title={`${requested ? "Pause" : "Preview"} ${title} demo`}
             onClick={() => setRequested((active) => !active)}
           >
-            {requested ? "Pause" : "Preview"}
+            {requested
+              ? <IconPlayerPauseFilled size={18} aria-hidden="true" />
+              : <IconPlayerPlayFilled size={18} aria-hidden="true" />}
           </button>
         )}
       </article>

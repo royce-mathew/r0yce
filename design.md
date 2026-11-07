@@ -90,43 +90,27 @@ illustrative detail rather than a cartoon. That is context for a future
 proposal, **not approval to add a character now**. Use original artwork rather
 than copying a manga character.
 
-## Projects: master's layout
+## Projects: Featured grid
 
-The production baseline uses the layout from `master`, not the manga-panel grid or the
-Editorial, Project ledger, and Contact sheet alternatives.
+B / Featured grid is the selected production layout on `/projects`.
 
-- Selected Works header and total-project count.
-- Equal-width cards: three desktop columns, two tablet columns, one mobile
-  column. Keep cover images, subtle gradients, descriptions, and tag/date footers.
-- Keep master's Featured section, populated from the existing `featured` flags,
-  followed by the remaining projects. Sort each group by latest modification.
-  Every project appears once across the two sections; the total counts both.
-- Keep the current dark palette and `royce.sh` identity when reusing master's
-  layout; do not restore its old branding or theme plumbing.
-- No comparison bar, variant state, or prototype keyboard handlers in the
-  selected page.
+- Keep the Projects heading, large featured lead, stacked highlights, and
+  responsive three/two/one-column grid for the remaining projects.
+- Preserve the existing featured flags and latest-modified ordering. Every
+  project appears once and links to its complete case study.
+- Keep the filled dark cards, gold accents, descriptions, and plain-text
+  technology lists. Do not restore the attribution subtitle.
+- The selected implementation is `projects-index.tsx` with `projects-index.css`.
+  Comparison controls, variant state, alternative layouts, and the old
+  equal-card implementation are removed.
 
-The rejected projects studies are archived on `prototype/projects-layout-study`,
-commit `7fe8031`.
-
-### Featured-grid card study
-
-B / Featured grid is the preferred direction for the next projects-page revision.
-Keep its featured-project hierarchy and remove the visible attribution subtitle.
-The card treatment is still being explored on `prototype/projects-index-directions`:
-
-- `?variant=B`: the filled-card baseline.
-- `?variant=D`: borderless editorial images and captions.
-- `?variant=E`: cinematic previews with overlaid captions.
-- `?variant=F`: split image and text panels.
-
-Compare these on `/projects` using the floating switcher. All 13 projects retain
-their real case-study links. The first-round layouts are archived on
-`prototype/projects-index-first-round`, commit `cc91bee`. Production keeps the
-baseline above until a card direction is selected.
+The full B/D/E/F study is archived on `prototype/projects-index-final-study`,
+commit `3e56925`. First-round layouts remain on
+`prototype/projects-index-first-round`, commit `cc91bee`.
 
 Cards with footage play a muted, inline loop on mouse hover or keyboard focus.
-An independent Preview/Pause button supports touch and deliberate playback.
+A compact gold play/pause icon button supports touch and deliberate playback,
+with a 44px target, accessible project-specific label, and hover tooltip.
 Reduced motion keeps covers static until Preview is explicitly activated.
 Video sources are attached only after interaction; leaving the card or viewport
 restores the still cover. Case-study links remain separate from playback controls.
