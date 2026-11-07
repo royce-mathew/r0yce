@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import type { Project } from "#site/content"
 import { ProjectCardPreview, ProjectPreviewVideo } from "./project-card-preview"
+import { resolveTechnology } from "./technologies"
 import "./projects-index.css"
 
 function PortfolioCard({ project, emphasis = "regular", eager = false }: {
@@ -36,7 +37,7 @@ function PortfolioCard({ project, emphasis = "regular", eager = false }: {
         </div>
         <p className="pfp-description">{project.description}</p>
         <ul className="pfp-tags" aria-label="Technologies">
-          {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
+          {project.tags.map((tag) => <li key={tag}>{resolveTechnology(tag).name}</li>)}
         </ul>
       </div>
       </Link>

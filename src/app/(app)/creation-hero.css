@@ -148,8 +148,5 @@
   .me-void-project a span { font-size: 28px; top: 6px; right: 6px; }
   .me-void-links a { font-size: 12px; padding-inline: 10px; }
 }
-@media (min-width: 768px) and (min-height: 930px) and (prefers-reduced-motion: no-preference),
-       (max-width: 767px) and (min-height: 816px) and (prefers-reduced-motion: no-preference) {
-  .me-void-track { height: 280svh; }
-  .me-void-stage { position: sticky; top: var(--site-header-height); height: calc(100svh - var(--site-header-height)); }
-}
+.me-void[data-creation-enhanced] .me-void-track { height: 280svh; }
+.me-void[data-creation-enhanced] .me-void-stage { position: sticky; top: var(--site-header-height); height: calc(100svh - var(--site-header-height)); }

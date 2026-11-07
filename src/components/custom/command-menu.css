@@ -144,7 +144,7 @@
 
 .quick-jump-menu .quick-path {
   max-width: 240px;
-  color: #f3efe366;
+  color: hsl(var(--muted-foreground));
   font-family: var(--font-mono), monospace;
   font-size: 10px;
   text-align: right;

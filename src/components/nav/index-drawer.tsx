@@ -7,9 +7,9 @@ import { IconMenu2, IconX } from "@tabler/icons-react"
 import { siteConfig } from "@/config/docs"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import "./mobile-nav.css"
+import "./index-drawer.css"
 
-export function MobileNav() {
+export function IndexDrawer() {
   const [open, setOpen] = React.useState(false)
   const pathname = usePathname()
   const close = () => setOpen(false)
@@ -17,12 +17,11 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="icon" className="manga-mobile-trigger mr-2 min-h-11 min-w-11 px-0 md:hidden">
+        <Button variant="icon" className="index-drawer-trigger min-h-11 min-w-11 px-0">
           <IconMenu2 className="size-5" />
-          <span className="sr-only">Toggle Menu</span>
+          <span className="sr-only">Open site index</span>
         </Button>
       </SheetTrigger>
-      <Link href="/" className="manga-wordmark manga-mobile-wordmark shrink-0 whitespace-nowrap md:hidden" aria-label="royce.sh home">royce<span className="manga-wordmark-dot" aria-hidden="true">.sh</span></Link>
       <SheetContent side="right" className="index-drawer" style={{ translate: "none" }} hideCloseButton data-lenis-prevent>
         <SheetTitle className="sr-only">Site navigation</SheetTitle>
         <SheetDescription className="sr-only">Browse pages and projects. Escape closes the menu.</SheetDescription>

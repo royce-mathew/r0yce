@@ -8,7 +8,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { CreationHands, creationGap } from "./creation-hands"
 import "./creation-hero.css"
 
-function openingFrame(element: HTMLElement, paint = false) {
+const creationEligibility = {
+  mobile: "(max-width: 767px)",
+  enhanced: "(min-width: 768px) and (min-height: 930px) and (prefers-reduced-motion: no-preference), (max-width: 767px) and (min-height: 816px) and (prefers-reduced-motion: no-preference)",
+}
+
+function openingFrame(element: HTMLElement, paint = false, eligibilityQuery = "") {
+  if (paint) {
+    document.getElementById("creation-opening-frame")?.remove()
+    const enhanced = matchMedia(eligibilityQuery).matches
+    element.toggleAttribute("data-creation-enhanced", enhanced)
+  }
   const mobile = matchMedia("(max-width: 767px)").matches
   const portrait = element.querySelector<HTMLElement>(".me-void-portrait")!
   const spread = element.querySelector<HTMLElement>(".me-void-spread")!
@@ -28,9 +38,7 @@ function openingFrame(element: HTMLElement, paint = false) {
     portraitY: middle - spread.offsetTop - portrait.offsetTop - portrait.offsetHeight / 2,
     scale,
   }
-  if (paint) document.getElementById("creation-opening-frame")?.remove()
-  if (paint && matchMedia("(prefers-reduced-motion: no-preference)").matches &&
-    matchMedia("(min-width: 768px) and (min-height: 930px), (max-width: 767px) and (min-height: 816px)").matches) {
+  if (paint && element.hasAttribute("data-creation-enhanced")) {
     const sheet = document.createElement("style")
     sheet.id = "creation-opening-frame"
     sheet.textContent = `
@@ -54,15 +62,23 @@ export function CreationHero() {
     gsap.registerPlugin(ScrollTrigger)
     const media = gsap.matchMedia()
     document.getElementById("creation-opening-frame")?.remove()
-    media.add({ motion: "(prefers-reduced-motion: no-preference)", mobile: "(max-width: 767px)", reduced: "(prefers-reduced-motion: reduce)", short: "(min-width: 768px) and (max-height: 929px), (max-width: 767px) and (max-height: 815px)" }, context => {
+    media.add({ enhanced: creationEligibility.enhanced, mobile: creationEligibility.mobile, reduced: "(prefers-reduced-motion: reduce)", always: "all" }, context => {
       const navigation = gsap.utils.toArray<HTMLElement>(".me-void-navigation", element)
-      const release = () => navigation.forEach(panel => { panel.inert = false })
-      if (context.conditions?.reduced || context.conditions?.short) {
-        element.dataset.progress = context.conditions.reduced ? "reduced" : "static"
+      const release = () => {
+        navigation.forEach(panel => { panel.inert = false })
+        element.removeAttribute("data-creation-enhanced")
+      }
+      if (!context.conditions?.enhanced) {
+        element.dataset.progress = context.conditions?.reduced ? "reduced" : "static"
         release()
         return release
       }
-      const mobile = context.conditions?.mobile
+      element.setAttribute("data-creation-enhanced", "")
+      const mobile = context.conditions.mobile
+      const navigationReveals = navigation.map(panel => ({
+        panel,
+        reveal: panel.closest<HTMLElement>(".me-void-reveal")!,
+      }))
       const portrait = element.querySelector<HTMLElement>(".me-void-portrait")!
       const name = element.querySelector<HTMLElement>(".me-void-name")!
       const first = element.querySelector<HTMLElement>(".me-void-name-first")!
@@ -83,7 +99,7 @@ export function CreationHero() {
           onRefreshInit: () => { frame = openingFrame(element) },
         },
         onUpdate: () => {
-          navigation.forEach(panel => { panel.inert = timeline.time() < 1.15 })
+          navigationReveals.forEach(({ panel, reveal }) => { panel.inert = Number(gsap.getProperty(reveal, "opacity")) <= 0 })
           element.dataset.progress = timeline.progress().toFixed(3)
         },
       })
@@ -121,7 +137,7 @@ export function CreationHero() {
   }, [])
 
   return (
-    <div ref={root} data-creation-hero data-progress="0" className="me-void">
+    <div ref={root} data-creation-hero data-progress="0" className="me-void" suppressHydrationWarning>
       <section className="me-void-track" aria-labelledby="me-void-name">
         <div className="me-void-stage">
           <h1 id="me-void-name" className="me-void-name" aria-label="Royce Mathew"><span className="me-void-name-first" aria-hidden="true">Royce</span><span className="me-void-name-last" aria-hidden="true">Mathew</span></h1>
@@ -148,7 +164,7 @@ export function CreationHero() {
       </section>
       <span
         hidden
-        dangerouslySetInnerHTML={{ __html: `<script>{const element=document.currentScript.parentElement.parentElement;const paint=${openingFrame.toString()};paint(element,true);document.fonts.ready.then(()=>{if(element.isConnected&&document.getElementById("creation-opening-frame"))paint(element,true)})}</script>` }}
+        dangerouslySetInnerHTML={{ __html: `<script>{const element=document.currentScript.parentElement.parentElement;const paint=${openingFrame.toString()};const eligibility=${JSON.stringify(creationEligibility.enhanced)};paint(element,true,eligibility);document.fonts.ready.then(()=>{if(element.isConnected&&document.getElementById("creation-opening-frame"))paint(element,true,eligibility)})}</script>` }}
       />
     </div>
   )

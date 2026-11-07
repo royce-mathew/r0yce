@@ -26,9 +26,14 @@ preference, theme provider, or theme switcher. White and ivory panels are
 intentional surfaces inside this one palette, not another mode.
 
 Semantic tokens are HSL triples consumed through `hsl(var(--token))`.
-`src/styles/globals.css` defines the base tokens; `src/styles/site-theme.css`
-provides the effective site palette and display-type overrides. Check both,
-rather than copying the older base values into a new component.
+`src/styles/globals.css` is the single owner of the effective shared palette
+and `.font-display` typography. Status colours remain separate semantic tokens.
+`src/styles/site-theme.css` owns shared focus, tap, and reduced-motion defaults.
+Do not introduce a second root palette that overrides the first.
+
+Kanjou's hero owns its layout and document-preview styling directly.
+MDX components and `src/styles/mdx.css` own article surfaces; do not override
+them through global DOM-nesting selectors or Tailwind class-name matching.
 
 | Role                      | Current token / value                                                                  |
 | ------------------------- | -------------------------------------------------------------------------------------- |
@@ -113,6 +118,8 @@ A 14px play/pause icon sits on a quiet 28px dark backing, with gold on hover
 or keyboard focus. Its invisible 44px target supports touch, with a
 project-specific accessible label and hover tooltip.
 Reduced motion keeps covers static until Preview is explicitly activated.
+Enabling reduced motion also stops an automatic preview already in progress;
+explicit playback remains an opt-in, including across preference changes.
 Video sources are attached only after interaction; leaving the card or viewport
 restores the still cover. Case-study links remain separate from playback controls.
 
@@ -144,6 +151,8 @@ with its table of contents.
   Project tags contain technologies only, not topics or categories; use the
   same metadata for detail pages and the grid's text-only tags. Local asset
   provenance and license notices live in `public/technology/LICENSES.txt`.
+  `projects/technologies.ts` resolves canonical names for both surfaces.
+  Unknown technologies keep their original text and render without a logo.
 - Put external project links below the technologies. Source code uses a filled
   neutral button with a solid white GitHub mark and a minimum 44px target.
 - Anchor **Read the story** at the bottom of the desktop intro; on mobile,
@@ -165,6 +174,10 @@ with its table of contents.
 The user selected C from the topbar study. Keep its minimal wordmark, search,
 settings, and Index drawer on desktop as well as mobile. Remove the
 “Portfolio Index” metadata block. Other pages should retain C's dark treatment.
+
+`SiteHeader` renders one home wordmark and one all-viewport `IndexDrawer`.
+`IndexHeader` owns the contextual surface, not alternate desktop/mobile trees.
+Do not hide obsolete navigation or duplicate branding through breakpoint overrides.
 
 On the homepage, the opening header is genuinely transparent over the hero,
 with no divider or painted paper backing. A diagonal black ink wipe engages
@@ -188,6 +201,8 @@ The user selected A from the command-menu study. Keep the compact dark palette,
 single-column results, inline destination paths, quiet gold selection edge, and
 underlined input focus. Do not restore the oversized gold selection pill,
 icon tiles, or boxed input focus ring.
+Destination paths use the shared muted foreground token, with readable contrast
+on both normal and selected result backgrounds.
 
 The selected menu uses normal URLs and retains fuzzy search, keyboard
 navigation, shortcuts, native scrolling, and dialog focus behavior. The full
@@ -222,6 +237,13 @@ Do not let white or bright gold hairlines dominate those dark reading surfaces.
 - Use `gsap.matchMedia()` for responsive and reduced-motion behaviour.
   Reduced motion and short viewports must show the finished content in normal
   flow, without hidden text, inaccessible links, or a required animation.
+  One positive eligibility query in `creation-hero.tsx` controls first paint
+  and GSAP: motion enabled, desktop height ≥930px or mobile height ≥816px,
+  with the width boundary at 768px. Its `data-creation-enhanced` activation
+  also controls sticky layout; CSS does not repeat the eligibility thresholds.
+  Navigation becomes interactive as its own panel starts appearing, not after
+  another animation finishes. Fully hidden navigation remains inert on reverse
+  scrolling; static and reduced-motion links are always available.
 - The first paint matches the animated opening, without flashing the unfolded
   spread before it. Without JavaScript, the complete content remains available.
 - Check the actual animation in a browser with motion enabled, then check the

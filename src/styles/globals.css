@@ -29,33 +29,36 @@
 @layer base {
   :root {
     color-scheme: dark;
-    --radius: 0.375rem;
-    --background: 30 10% 5%;
-    --foreground: 35 15% 90%;
-    --card: 30 8% 7%;
-    --card-foreground: 35 15% 90%;
-    --popover: 30 8% 7%;
-    --popover-foreground: 35 15% 90%;
-    --primary: 32 38% 64%;
-    --primary-foreground: 30 8% 8%;
-    --secondary: 30 6% 12%;
-    --secondary-foreground: 35 15% 90%;
-    --muted: 30 6% 12%;
-    --muted-foreground: 30 8% 55%;
-    --accent: 30 6% 12%;
-    --accent-foreground: 35 15% 90%;
+    --radius: 0;
+    --background: 60 6.25% 6.27%;
+    --foreground: 45 40% 92.16%;
+    --card: 60 5% 10%;
+    --card-foreground: 45 40% 92.16%;
+    --popover: 60 5% 10%;
+    --popover-foreground: 45 40% 92.16%;
+    --primary: 47.39 83.76% 63.33%;
+    --primary-foreground: 60 6.25% 6.27%;
+    --secondary: 45 6% 17%;
+    --secondary-foreground: 45 40% 92.16%;
+    --muted: 45 6% 17%;
+    --muted-foreground: 45 13% 73%;
+    --accent: 47.39 83.76% 63.33%;
+    --accent-foreground: 60 6.25% 6.27%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
     --market-positive: 145 48% 62%;
     --market-negative: 0 72% 65%;
-    --border: 32 12% 16%;
-    --input: 30 6% 14%;
-    --ring: 32 38% 64%;
+    --border: 45 10% 54%;
+    --input: 45 10% 54%;
+    --ring: 47.39 83.76% 63.33%;
 
-    --gold: 32 38% 64%;
-    --gold-dim: 32 20% 35%;
-    --gold-ink: 32 38% 64%;
-    --surface: 30 6% 8%;
+    --gold: 47.39 83.76% 63.33%;
+    --gold-dim: 47.39 83.76% 63.33%;
+    --gold-ink: 47.39 83.76% 63.33%;
+    --surface: 45 6% 13%;
+    --manga-paper: hsl(var(--background));
+    --manga-ink: hsl(var(--foreground));
+    --manga-red: hsl(var(--primary));
     --grain-opacity: 0.04;
   }
 }
@@ -118,7 +121,15 @@ html.lenis.lenis-stopped:has(body[data-scroll-locked]) {
 
 /* ─── Editorial utility classes ─── */
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-synthesis: none;
+  letter-spacing: -0.045em;
+}
+
+.font-display.italic {
+  font-style: normal;
 }
 
 .font-body {

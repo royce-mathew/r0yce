@@ -7,12 +7,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import "./index-header.css"
 
 type IndexHeaderProps = {
-  navigation: ReactNode
-  mobileNavigation: ReactNode
+  brand: ReactNode
+  drawer: ReactNode
   tools: ReactNode
 }
 
-export function IndexHeader({ navigation, mobileNavigation, tools }: IndexHeaderProps) {
+export function IndexHeader({ brand, drawer, tools }: IndexHeaderProps) {
   const pathname = usePathname()
   const root = useRef<HTMLDivElement>(null)
   const isHome = pathname === "/"
@@ -41,9 +41,9 @@ export function IndexHeader({ navigation, mobileNavigation, tools }: IndexHeader
   return (
     <div ref={root} className="index-header" data-surface={isHome ? "clear" : "dark"}>
       <div className="index-header-inner">
-        <div className="index-header-brand">{navigation}</div>
+        <div className="index-header-brand">{brand}</div>
         <div className="index-header-tools">{tools}</div>
-        <div className="index-header-menu">{mobileNavigation}</div>
+        <div className="index-header-menu">{drawer}</div>
       </div>
     </div>
   )

@@ -99,60 +99,52 @@ function DocumentSurface() {
   const finished = writingIndex === -1
 
   return (
-    <div className="relative">
-      {/* Corner marks — the house frame language, borrowed from the home hero */}
-      <div className="pointer-events-none absolute -top-3 -left-3 h-5 w-px bg-primary/30" />
-      <div className="pointer-events-none absolute -top-3 -left-3 h-px w-5 bg-primary/30" />
-      <div className="pointer-events-none absolute -right-3 -bottom-3 h-5 w-px bg-primary/30" />
-      <div className="pointer-events-none absolute -right-3 -bottom-3 h-px w-5 bg-primary/30" />
+    <figure className="bg-surface px-6 py-7 sm:px-8 sm:py-9">
+      <h2 className="font-display text-2xl leading-tight sm:text-3xl">
+        Kickoff notes
+      </h2>
+      <p className="label-editorial mt-2">Draft · saving continuously</p>
 
-      <figure className="rounded-sm border border-border/60 bg-surface px-6 py-7 sm:px-8 sm:py-9">
-        <h2 className="font-display text-2xl leading-tight sm:text-3xl">
-          Kickoff notes
-        </h2>
-        <p className="label-editorial mt-2">Draft · saving continuously</p>
+      <div className="mt-6 h-px w-full bg-border/40" />
 
-        <div className="mt-6 h-px w-full bg-border/40" />
-
-        <div className="mt-6 space-y-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
-          {lines.map((line, index) => (
-            <p key={line.text} className="relative min-h-[1.5em]">
-              <span className="invisible" aria-hidden="true">{line.text}</span>
-              <span className="sr-only">{line.text}</span>
-              <span className="absolute inset-0" aria-hidden="true">{line.text.slice(0, line.shown)}
+      <div className="mt-6 space-y-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
+        {lines.map((line, index) => (
+          <p key={line.text} className="relative min-h-[1.5em]">
+            <span className="invisible" aria-hidden="true">{line.text}</span>
+            <span className="sr-only">{line.text}</span>
+            <span className="absolute inset-0" aria-hidden="true">
+              {line.text.slice(0, line.shown)}
               {(finished || index === writingIndex) && (
-                <Caret author={line.author as 0 | 1} />
+                <Caret author={line.author} />
               )}
-              </span>
-            </p>
-          ))}
-        </div>
+            </span>
+          </p>
+        ))}
+      </div>
 
-        <div className="mt-8 flex items-center justify-between border-t border-border/40 pt-4 font-mono text-[0.7rem] text-muted-foreground/70">
-          <span className="tabular-nums">{visibleCharacters} characters</span>
-          <span>2 people here</span>
-        </div>
+      <div className="mt-8 flex items-center justify-between border-t border-border/40 pt-4 font-mono text-[0.7rem] text-muted-foreground/70">
+        <span className="tabular-nums">{visibleCharacters} characters</span>
+        <span>2 people here</span>
+      </div>
 
-        <figcaption className="sr-only">
-          A document being written by two people at once, each with their own
-          cursor.
-        </figcaption>
-      </figure>
-    </div>
+      <figcaption className="sr-only">
+        A document being written by two people at once, each with their own cursor.
+      </figcaption>
+    </figure>
   )
 }
 
 export function KanjouHero() {
   return (
-    <section className="kanjou-manga-cover container mx-auto max-w-7xl px-6 pt-16 pb-16 md:px-8 md:pt-24 md:pb-24">
-      <div className="kanjou-manga-grid grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
+    <section className="container mx-auto max-w-7xl px-6 pt-10 pb-16 md:px-8 md:pb-24">
+      <div className="grid grid-cols-1 items-stretch gap-12 border-[3px] border-foreground p-10 [@media(max-width:760px)]:px-[18px] [@media(max-width:760px)]:py-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
         {/* Left — the argument */}
         <div>
           <span className="label-editorial text-gold-ink block">
             Kanjou · Collaborative Editor
           </span>
 
-          <h1 className="mt-5 font-display text-5xl leading-[0.95] tracking-tight [overflow-wrap:anywhere] sm:text-6xl md:text-7xl">
+          <h1 className="mt-5 font-display text-[clamp(48px,6vw,90px)] leading-[0.95] tracking-tight uppercase [overflow-wrap:anywhere]">
             <span className="block">Two cursors.</span>
             <span className="text-gold-ink block">One document.</span>
           </h1>
@@ -197,7 +189,7 @@ export function KanjouHero() {
         </div>
 
         {/* Right — the claim, running */}
-        <div className="kanjou-manga-demo">
+        <div className="self-center border-2 border-foreground">
           <DocumentSurface />
         </div>
       </div>

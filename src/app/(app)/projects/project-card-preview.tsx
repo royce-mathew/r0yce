@@ -11,6 +11,8 @@ const clips: Record<string, string> = {
   "projects/kanjou": "/project-previews/kanjou.mp4",
 }
 
+type Playback = "stopped" | "automatic" | "explicit"
+
 const PreviewContext = createContext<{
   src?: string
   requested: boolean
@@ -25,27 +27,40 @@ export function ProjectCardPreview({ slug, title, className, children }: {
 }) {
   const src = clips[slug]
   const card = useRef<HTMLElement>(null)
-  const [requested, setRequested] = useState(false)
-  const stop = useCallback(() => setRequested(false), [])
+  const [playback, setPlayback] = useState<Playback>("stopped")
+  const requested = playback !== "stopped"
+  const stop = useCallback(() => setPlayback("stopped"), [])
   useEffect(() => {
     if (!src || !card.current) return
     const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) setRequested(false)
+      if (!entry.isIntersecting) stop()
     })
     observer.observe(card.current)
     const onVisibility = () => {
-      if (document.hidden) setRequested(false)
+      if (document.hidden) stop()
     }
     document.addEventListener("visibilitychange", onVisibility)
     return () => {
       observer.disconnect()
       document.removeEventListener("visibilitychange", onVisibility)
     }
+  }, [src, stop])
+
+  useEffect(() => {
+    if (!src) return
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const onPreferenceChange = () => {
+      if (preference.matches) {
+        setPlayback((current) => current === "automatic" ? "stopped" : current)
+      }
+    }
+    preference.addEventListener("change", onPreferenceChange)
+    return () => preference.removeEventListener("change", onPreferenceChange)
   }, [src])
 
   const startAutomatic = () => {
     if (src && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setRequested(true)
+      setPlayback((current) => current === "explicit" ? current : "automatic")
     }
   }
 
@@ -75,7 +90,7 @@ export function ProjectCardPreview({ slug, title, className, children }: {
             aria-label={`${requested ? "Pause" : "Preview"} ${title} demo`}
             aria-pressed={requested}
             title={`${requested ? "Pause" : "Preview"} ${title} demo`}
-            onClick={() => setRequested((active) => !active)}
+            onClick={() => setPlayback((current) => current === "stopped" ? "explicit" : "stopped")}
           >
             {requested
               ? <IconPlayerPauseFilled size={14} aria-hidden="true" />

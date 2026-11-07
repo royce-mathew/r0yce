@@ -41,6 +41,13 @@
   color: hsl(var(--foreground));
 }
 
+.mdx blockquote,
+.mdx table,
+.mdx img {
+  border-radius: 0;
+  box-shadow: none;
+}
+
 .mdx blockquote {
   position: relative;
 }
