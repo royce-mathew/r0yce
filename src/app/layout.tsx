@@ -1,28 +1,25 @@
 import "@/styles/globals.css"
 import "@/styles/mdx.css"
+import "@/styles/site-theme.css"
 import type { Metadata, Viewport } from "next"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
-import { LenisProvider } from "@/components/providers/lenis-provider"
 import { AuthProvider } from "@/components/providers/session"
-import { ThemeProvider } from "@/components/providers/theme"
-import { cal, dmSans, instrumentSerif, jetbrainsMono } from "@/styles/fonts"
+import { WebVitals } from "@/components/providers/web-vitals"
+import { cal, dmSans, instrumentSerif, jetbrainsMono, mangaJapanese } from "@/styles/fonts"
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f3ef" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d0c0a" },
-  ],
+  themeColor: "#0d0c0a",
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://r0yce.com"),
+  metadataBase: new URL("https://royce.sh"),
   openGraph: {
-    siteName: "r0yce",
+    siteName: "royce.sh",
     type: "website",
     locale: "en_US",
   },
@@ -34,38 +31,16 @@ export const metadata: Metadata = {
     "max-video-preview": -1,
     googleBot: "index, follow",
   },
-  applicationName: "r0yce",
+  applicationName: "royce.sh",
   appleWebApp: {
-    title: "r0yce",
+    title: "royce.sh",
     statusBarStyle: "default",
     capable: true,
   },
   icons: {
-    icon: [
-      {
-        url: "/favicon.ico",
-        type: "image/x-icon",
-      },
-    ],
-    shortcut: [
-      {
-        url: "/favicon.ico",
-        type: "image/x-icon",
-      },
-    ],
-    apple: [
-      {
-        url: "/apple-icon-57x57.png",
-        sizes: "57x57",
-        type: "image/png",
-      },
-      {
-        url: "/apple-icon-60x60.png",
-        sizes: "60x60",
-        type: "image/png",
-      },
-      // add apple-icon-72x72.png, apple-icon-76x76.png, apple-icon-114x114.png, apple-icon-120x120.png, apple-icon-144x144.png, apple-icon-152x152.png, apple-icon-180x180.png
-    ],
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-icon.png", type: "image/png" }],
   },
 }
 
@@ -75,38 +50,29 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head />
+    <html lang="en">
       <body
         className={cn(
           "min-h-screen bg-background antialiased",
           dmSans.variable,
           instrumentSerif.variable,
           jetbrainsMono.variable,
+          mangaJapanese.variable,
           cal.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <LenisProvider>
-            <AuthProvider>
-              <TooltipProvider>{children}</TooltipProvider>
-            </AuthProvider>
-          </LenisProvider>
-          <Toaster />
-        </ThemeProvider>
-        {/* Grain overlay for atmospheric texture */}
-        <div className="grain-overlay" aria-hidden="true" />
+        <AuthProvider>
+          <TooltipProvider>{children}</TooltipProvider>
+        </AuthProvider>
+        <Toaster />
+        {process.env.NODE_ENV === "production" &&
+          process.env.NEXT_PUBLIC_ANALYTICS_ID && (
+            <>
+              <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_ANALYTICS_ID} />
+              <WebVitals />
+            </>
+          )}
       </body>
-      {/* Google Analytics */}
-      {process.env.NODE_ENV === "production" &&
-        process.env.NEXT_PUBLIC_ANALYTICS_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_ANALYTICS_ID} />
-        )}
     </html>
   )
 }

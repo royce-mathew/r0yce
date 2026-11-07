@@ -1,32 +1,31 @@
 import { Metadata } from "next"
 import { mainContents } from "#site/content"
-import { Mdx } from "@/components/mdx/mdx-components"
-import { AboutSection } from "./about-section"
-import { ProfileSection } from "./profile-section"
+import { CreationHome } from "./creation-home"
 
 export const metadata: Metadata = {
-  title: "Royce Mathew — Developer & Data Scientist",
+  title: "royce.sh — Royce Mathew, Software Developer & AI Engineer",
   description:
-    "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
+    "Portfolio of Royce Mathew — Software Developer, AI Engineer, and Game Developer based in Canada.",
   keywords: [
     "developer",
     "python",
     "javascript",
     "react",
     "computer science",
-    "data science",
+    "AI engineer",
     "portfolio",
     "royce mathew",
   ],
   openGraph: {
-    url: "https://r0yce.com",
+    siteName: "royce.sh",
+    url: "https://royce.sh",
     type: "website",
-    title: "Royce Mathew — Developer & Data Scientist",
+    title: "royce.sh — Royce Mathew, Software Developer & AI Engineer",
     description:
-      "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
+      "Portfolio of Royce Mathew — Software Developer, AI Engineer, and Game Developer based in Canada.",
     images: [
       {
-        url: "https://r0yce.com/images/ProfilePicture2.webp",
+        url: "https://royce.sh/images/ProfilePicture2.webp",
         width: 1200,
         height: 630,
         alt: "Royce Mathew",
@@ -35,12 +34,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Royce Mathew — Developer & Data Scientist",
+    title: "royce.sh — Royce Mathew, Software Developer & AI Engineer",
     description:
-      "Portfolio of Royce Mathew — Software Developer, Data Scientist, and Game Developer based in Canada.",
+      "Portfolio of Royce Mathew — Software Developer, AI Engineer, and Game Developer based in Canada.",
     images: [
       {
-        url: "https://r0yce.com/images/ProfilePicture2.webp",
+        url: "https://royce.sh/images/ProfilePicture2.webp",
         width: 1200,
         height: 630,
         alt: "Royce Mathew",
@@ -48,7 +47,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://r0yce.com",
+    canonical: "https://royce.sh",
   },
 }
 
@@ -58,13 +57,5 @@ export default function Home() {
     throw new Error("About base not found")
   }
 
-  return (
-    <main className="flex min-h-screen flex-col">
-      {/* Hero */}
-      <ProfileSection />
-
-      {/* About Me */}
-      <AboutSection code={about.code} />
-    </main>
-  )
+  return <CreationHome code={about.code} />
 }

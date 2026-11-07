@@ -1,17 +1,15 @@
 "use client"
 
 import { useEffect } from "react"
-import { signInWithCustomToken } from "firebase/auth"
-import { Session } from "next-auth"
+import type { Session } from "next-auth"
 import { SessionProvider, useSession } from "next-auth/react"
-// Here '@lib/firebase/firestore-database' refers to the '/app/_lib/firebase/firestore-database.js' file
-import { auth } from "@/lib/firebase/client"
 
-// Automatically syncs Firebase Auth custom token with NextAuth.js session
-async function syncFirebaseToken(session: Session | null) {
-  //   console.log(session)
-  if (session && session.firebaseToken) {
-    // if (auth.currentUser !== null) return // Already signed into Firebase Auth
+async function syncFirebaseToken(session: Session) {
+  const [{ signInWithCustomToken }, { auth }] = await Promise.all([
+    import("firebase/auth"),
+    import("@/lib/firebase/client"),
+  ])
+  if (session.firebaseToken) {
     try {
       await signInWithCustomToken(auth, session.firebaseToken)
     } catch (error) {
@@ -23,13 +21,14 @@ async function syncFirebaseToken(session: Session | null) {
   }
 }
 
-// Synchronize Firebase Auth custom token with NextAuth.js session
 const FirebaseAuthSynchronize = () => {
   const { data: session } = useSession()
 
   useEffect(() => {
     if (!session) return
-    syncFirebaseToken(session)
+    void syncFirebaseToken(session).catch((error) => {
+      console.error("Error loading Firebase Auth:", error)
+    })
   }, [session])
 
   return null

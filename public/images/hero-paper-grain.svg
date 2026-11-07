@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <filter id="mottle" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="4" seed="23" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 .40  0 0 0 0 .32  0 0 0 0 .19  .85 0 0 0 -.28"/>
+    </filter>
+    <filter id="fibers" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".12 .22" numOctaves="3" seed="8" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 .34  0 0 0 0 .28  0 0 0 0 .18  .85 0 0 0 -.31"/>
+    </filter>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="3" seed="17" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 .28  0 0 0 0 .23  0 0 0 0 .14  .7 0 0 0 -.26"/>
+    </filter>
+  </defs>
+  <g opacity=".72">
+  <path fill="#fff" opacity=".48" filter="url(#mottle)" d="M0 0h512v512H0z"/>
+  <path fill="#fff" opacity=".5" filter="url(#fibers)" d="M0 0h512v512H0z"/>
+  <path fill="#fff" filter="url(#grain)" d="M0 0h512v512H0z"/>
+  <g fill="none" stroke="#746548" stroke-opacity=".18" stroke-width=".65" stroke-linecap="round">
+    <path d="M18 37q5 3 11 0m59 45q8-2 15 1m74-59q5 2 11 0m36 124q8-3 14 0M38 185q7-3 14 0m72 39q8 3 16-1m-79-76 9 2m98 40q6-2 12 0M302 49q7 4 14 0m81 43 9-1m-125 72q9 3 18 0m107 48q6-3 13-1M44 309q7 3 14 0m61 46 10-2m65-83q7-3 15 0m95 60q7 3 14 0m101-39 12 2M68 446q8-2 17 1m88-51q6 3 12 0m70 81q9-3 18 0m91-77q6 3 13 1m55 70 12-2"/>
+  </g>
+  <g fill="none" stroke="#fffdf5" stroke-opacity=".5" stroke-width=".8" stroke-linecap="round">
+    <path d="M45 70q9-3 19 0m87 64 13-2m116-70q7 2 15-1m99 96q6-2 14 0M20 255q8 2 17-1m109 46 12 1m92-71q7-2 14 1m140 50q8 2 17-1M48 380q7 2 14 0m112 77 13-1m80-58q8 3 16 0m119 49 14 2"/>
+  </g>
+  </g>
+</svg>

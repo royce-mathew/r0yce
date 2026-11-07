@@ -155,7 +155,7 @@ const WordlePage: React.FC = () => {
   }
 
   return (
-    <main className="fixed inset-x-0 top-16 bottom-0 z-40 flex flex-col overflow-hidden bg-background md:top-20">
+    <main className="fixed inset-x-0 top-[var(--site-header-height)] bottom-0 z-40 flex flex-col overflow-hidden bg-background">
       <header className="shrink-0 border-b border-border/60 bg-background/95 px-4 py-3 backdrop-blur sm:px-6">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
           <div>

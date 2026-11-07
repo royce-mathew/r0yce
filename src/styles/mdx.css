@@ -1,11 +1,5 @@
 @reference "./globals.css";
 
-pre code[data-theme],
-pre code[data-theme] span {
-  @apply bg-(--shiki-light-bg) text-(--shiki-light);
-  @apply dark:bg-(--shiki-dark-bg) dark:text-(--shiki-dark);
-}
-
 .mdx-shell {
   position: relative;
   --mdx-max-width: 70ch;
@@ -45,6 +39,13 @@ pre code[data-theme] span {
 
 .mdx strong {
   color: hsl(var(--foreground));
+}
+
+.mdx blockquote,
+.mdx table,
+.mdx img {
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .mdx blockquote {
@@ -116,6 +117,13 @@ pre code[data-theme] span {
   color: hsl(var(--gold-dim));
 }
 
+.mdx code:not(pre code) {
+  border-radius: 0.25rem;
+  background: rgb(255 255 255 / 0.05);
+  padding: 0.25rem;
+  color: hsl(var(--primary));
+}
+
 .mdx figure {
   margin: 2rem 0;
 }
@@ -132,7 +140,7 @@ pre code[data-theme] span {
 .mdx [data-rehype-pretty-code-figure] {
   margin: 2rem 0;
   overflow: hidden;
-  border: 1px solid hsl(var(--border) / 0.9);
+  border: 1px solid hsl(var(--border) / 0.15);
   border-radius: 1.25rem;
   background: linear-gradient(
     180deg,
@@ -143,7 +151,8 @@ pre code[data-theme] span {
 }
 
 .mdx [data-rehype-pretty-code-title] {
-  border-bottom: 1px solid hsl(var(--border) / 0.8);
+  margin: 0;
+  border-bottom: 1px solid hsl(var(--border) / 0.15);
   padding: 0.85rem 1.15rem;
   font-size: 0.7rem;
   font-weight: 700;
@@ -152,8 +161,9 @@ pre code[data-theme] span {
   color: hsl(var(--foreground) / 0.74);
 }
 
-.mdx [data-rehype-pretty-code-figure] figcaption {
-  border-top: 1px solid hsl(var(--border) / 0.8);
+.mdx [data-rehype-pretty-code-figure] figcaption:not([data-rehype-pretty-code-title]) {
+  margin: 0;
+  border-top: 1px solid hsl(var(--border) / 0.15);
   padding: 0.75rem 1.15rem;
 }
 
@@ -201,10 +211,12 @@ pre code[data-theme] span {
   background: rgba(240, 82, 82, 0.08);
 }
 
-.mdx [data-rehype-pretty-code-figure] code > .add::before,
-.mdx [data-rehype-pretty-code-figure] code > .remove::before,
-.mdx [data-rehype-pretty-code-figure] code > [data-line].add::before,
-.mdx [data-rehype-pretty-code-figure] code > [data-line].remove::before {
+.mdx
+  [data-rehype-pretty-code-figure]
+  pre.diff
+  code:not([data-line-numbers])
+  > [data-line]::before {
+  content: "";
   user-select: none;
   -webkit-user-select: none;
   display: inline-block;
@@ -215,12 +227,20 @@ pre code[data-theme] span {
   opacity: 0.95;
 }
 
-.mdx [data-rehype-pretty-code-figure] code > .add::before {
+.mdx
+  [data-rehype-pretty-code-figure]
+  pre.diff
+  code:not([data-line-numbers])
+  > .add::before {
   content: "+";
   color: #66bb6a;
 }
 
-.mdx [data-rehype-pretty-code-figure] code > .remove::before {
+.mdx
+  [data-rehype-pretty-code-figure]
+  pre.diff
+  code:not([data-line-numbers])
+  > .remove::before {
   content: "-";
   color: #ef5350;
 }

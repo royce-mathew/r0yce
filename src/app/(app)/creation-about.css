@@ -1,0 +1,31 @@
+.creation-about {
+  --foreground: 43 31% 93%;
+  --muted-foreground: 40 10% 73%;
+  --gold: 47 84% 63%;
+  --gold-dim: 47 84% 63%;
+  --border: 45 8% 22%;
+  background: #11110f;
+  color: #f3efe3;
+  border-top: 1px solid rgb(243 239 227 / .08);
+  padding: 100px 6% 130px;
+  scroll-margin-top: 110px;
+  font-family: var(--font-sans), sans-serif;
+}
+.creation-about-copy { max-width: 1020px; margin-inline: auto; min-width: 0; }
+.creation-about-copy > h2 { font: 400 clamp(42px, 5vw, 68px)/1.08 var(--font-sans), sans-serif; letter-spacing: -.055em; margin: 0 0 65px; text-wrap: balance; }
+.creation-about-copy > h2 > span { color: #f0ce53; }
+.creation-about .prose-content { max-width: none; }
+.creation-about .mdx-shell-about { color: #f3efe3; overflow-wrap: anywhere; }
+.creation-about .mdx-shell-about :is(h2, h3, h4) { color: #f3efe3; font-family: var(--font-sans), sans-serif; font-weight: 450; letter-spacing: -.035em; }
+.creation-about .mdx-shell-about h2 { font-size: clamp(28px, 3.5vw, 46px); }
+.creation-about .mdx-shell-about .border-y > .absolute { opacity: .12; }
+.creation-about .mdx-shell-about :is(img, video, iframe) { max-width: 100%; }
+.creation-about .mdx-shell-about a { color: inherit; text-decoration-color: currentColor; }
+.creation-about .mdx-shell-about :is(code, pre, blockquote) { color: #f3efe3; border-color: hsl(var(--border)); }
+.creation-about a:focus-visible { outline: 2px solid #f0ce53; outline-offset: 5px; }
+@media (max-width: 600px) {
+  .creation-about { padding: 65px 6% 90px; }
+  .creation-about-copy > h2 { font-size: clamp(34px, 8vw, 44px); margin-bottom: 40px; }
+  .creation-about .mdx-shell-about { font-size: 15px; }
+  .creation-about .mdx-shell-about h2 { font-size: 28px; }
+}

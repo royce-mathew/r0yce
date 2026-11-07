@@ -1,72 +1,256 @@
-# Design notes — r0yce.com
+# Design notes — royce.sh
 
-Conventions the site already follows, written down so they stop being implicit.
-The palette, type, and spacing live in `src/styles/globals.css` and
-`tailwind.config.ts`; this file explains the parts that aren't obvious from the
-token names, and records a few rules that were learned the hard way.
+Current design direction, updated from the November 2026 design conversations.
+Later explicit choices take precedence over earlier experiments. A prototype
+request is not approval to keep the result.
 
-## Character
+## Character and identity
 
-Architectural and warm. Serif display against a plain sans body, one accent,
-hairline rules instead of card borders, generous whitespace, asymmetric layout.
-No glassmorphism, no gradient headlines, no three-column icon-tile grids.
+An original manga-inspired portfolio, not a generic portfolio with comic
+decorations added. Use panel composition, gutters, ink weight, restrained
+screentones, Japanese lettering, and reading rhythm deliberately. Keep the
+presentation professional: manga, not a cartoon or a Western-comic pastiche.
 
-## Colour
+- Brand: **royce.sh**, including navigation and metadata.
+- Roles: **Software Developer, AI Engineer, Game Developer**.
+- Carry the same ink, ivory, and gold palette through the whole site. Cohesion
+  does not mean forcing every page into the hero's panel layout.
+- No glassmorphism, gradient headlines, or decorative icon-tile sections.
+- Preserve real content, routes, and visitor tasks. A visual redesign is not a
+  reason to invent services, statistics, or new product scope.
 
-Tokens are HSL triples; Tailwind reads them through `hsl(var(--token))`. Use the
-named token, never a raw value.
+## Colour and surfaces
 
-| Token                  | Light        | Dark         |
-| ---------------------- | ------------ | ------------ |
-| `--background`         | `40 6% 96%`  | `30 10% 5%`  |
-| `--foreground`         | `30 8% 12%`  | `35 15% 90%` |
-| `--surface`            | `40 6% 93%`  | `30 6% 8%`   |
-| `--muted-foreground`   | `30 5% 40%`  | `30 8% 55%`  |
-| `--border`             | `32 15% 85%` | `32 12% 16%` |
-| `--primary` / `--gold` | `32 38% 64%` | `32 38% 64%` |
-| `--primary-foreground` | `30 8% 8%`   | `30 8% 8%`   |
-| `--gold-ink`           | `32 26% 37%` | `32 38% 64%` |
+**Dark-only.** There is no light theme, system-theme selection, saved theme
+preference, theme provider, or theme switcher. White and ivory panels are
+intentional surfaces inside this one palette, not another mode.
 
-Three rules about the gold, all of them load-bearing:
+Semantic tokens are HSL triples consumed through `hsl(var(--token))`.
+`src/styles/globals.css` is the single owner of the effective shared palette
+and `.font-display` typography. Status colours remain separate semantic tokens.
+`src/styles/site-theme.css` owns shared focus, tap, and reduced-motion defaults.
+Do not introduce a second root palette that overrides the first.
 
-1. It is the only accent. Keep it under roughly 5 % of any viewport.
-2. **Gold as a fill** (`bg-primary`) always takes `--primary-foreground` as its
-   ink. That token is dark in _both_ themes because the gold itself is identical
-   in both — a light value there puts every filled button at 1.8:1.
-3. **Gold as text** uses `.text-gold-ink`, not `.text-gold`. The champagne fill
-   measures 2.1:1 on the light paper; `--gold-ink` darkens in light mode and
-   clears AA in both.
+Kanjou's hero owns its layout and document-preview styling directly.
+MDX components and `src/styles/mdx.css` own article surfaces; do not override
+them through global DOM-nesting selectors or Tailwind class-name matching.
 
-Every text/background pair should measure at WCAG AA or better. Measure it —
-the two failures above both looked fine by eye.
+| Role                      | Current token / value                                                                  |
+| ------------------------- | -------------------------------------------------------------------------------------- |
+| Dark canvas               | `--background`: `60 6.25% 6.27%` (approximately `#11110f`)                             |
+| Light ink on dark         | `--foreground`: `45 40% 92.16%` (approximately `#f3efe3`)                              |
+| Card                      | `--card`: `60 5% 10%`                                                                  |
+| Raised surface            | `--surface`: `45 6% 13%`                                                               |
+| Muted text                | `--muted-foreground`: `45 13% 73%`                                                     |
+| Rules and inputs          | `--border` / `--input`: `45 10% 54%`                                                   |
+| Gold accent               | `--primary` / `--gold` / `--gold-ink`: `47.39 83.76% 63.33%` (approximately `#f0ce53`) |
+| Ink on gold               | `--primary-foreground`: `60 6.25% 6.27%`                                               |
+| Hero paper / ink / accent | Local `--me-void-*` variables: `#f3efe3` / `#11110f` / `#f0ce53`                       |
+| Icon accent              | Favicon and Apple icon folded corner: `#f0ce53`, matching the site gold                |
+| Plain white panels        | Japanese-text panel and About / Email / Résumé buttons: `#fff`                         |
+
+Use semantic tokens for shared UI and the existing local hero variables for
+its illustrated spread. Gold is the main UI accent; use dark ink on gold fills.
+Do not apply a gold-on-dark text treatment unchanged to white paper. Check
+contrast on the actual surface; body text should meet WCAG AA. Status colours
+and real project screenshots may retain their functional colours.
 
 ## Typography
 
-- **Display** — Instrument Serif 400, roman. `.font-display`. Headings are never
-  italic; emphasis comes from weight, accent, or a rule.
-- **Body** — DM Sans 300–700.
-- **Mono** — JetBrains Mono 400–500. Timestamps, keyboard syntax, counts, step
-  numbers. Anything columnar also takes `tabular-nums`.
-- **Label** — `.label-editorial`: 10–11 px, uppercase, tracked. One or two per
-  page at most. It is an ordinal device, not decoration, and the heading goes
-  directly underneath it rather than beside it.
+- Use confident, legible headings rather than novelty comic lettering.
+- The current site `.font-display` is DM Sans, weight 600, upright, with tight
+  tracking. The older Instrument Serif font variable is not the effective
+  global heading style.
+- The Creation hero uses local Cal Sans for the name and Projects link, DM Sans
+  for supporting text, and local Noto Sans JP for Japanese lettering.
+- JetBrains Mono handles timestamps, keyboard syntax, counts, and columnar data;
+  use `tabular-nums` where alignment matters.
+- `.label-editorial` is a small uppercase, tracked label. Use it to establish
+  hierarchy, not to fill empty space.
 
-## Spacing
+## Homepage: Creation
 
-Tailwind's 4-point scale. Vary the rhythm between sections deliberately; a page
-where every band has identical padding reads as a template.
+Creation is the selected hero direction. Keep the face-framed opening and
+illustrated multi-panel spread, with the Creation of Adam hands as its central
+art reference. The hands need defined anatomy, separated fingers, sharp ink,
+and readable hatching; vague silhouettes were not acceptable. Preserve the
+dramatic space between the hands without losing their definition.
+
+- Use a soft paper-stock texture on the ivory hero background. The user asked
+  for more paper character, then reduced its strength. Keep grain, mottling,
+  and fibres subtle and behind the content, not as a heavy overlay on text.
+  The current asset is `public/images/hero-paper-grain.svg`.
+- Keep the Japanese-text panel and About / Email / Résumé buttons plain white.
+  The Projects panel remains gold.
+- Keep project browsing behind the Projects link; do not put featured work
+  into the hero.
+- About & Experience follows as the complete, static, single-column content.
+  Keep the résumé link in the hero only, not duplicated below About.
+- Do not restore the walking character or the Three.js / scroll-story
+  experiments. They were explored and dropped.
+
+If character artwork is proposed again, the earlier preference was a
+recognisable manga likeness with curly hair and glasses, with JoJo-like
+illustrative detail rather than a cartoon. That is context for a future
+proposal, **not approval to add a character now**. Use original artwork rather
+than copying a manga character.
+
+## Projects: Featured grid
+
+B / Featured grid is the selected production layout on `/projects`.
+
+- Keep the Projects heading, large featured lead, stacked highlights, and
+  responsive three/two/one-column grid for the remaining projects.
+- Preserve the existing featured flags and latest-modified ordering. Every
+  project appears once and links to its complete case study.
+- Keep the filled dark cards, gold accents, descriptions, and plain-text
+  technology lists. Do not restore the attribution subtitle.
+- The selected implementation is `projects-index.tsx` with `projects-index.css`.
+  Comparison controls, variant state, alternative layouts, and the old
+  equal-card implementation are removed.
+
+The full B/D/E/F study is archived on `prototype/projects-index-final-study`,
+commit `3e56925`. First-round layouts remain on
+`prototype/projects-index-first-round`, commit `cc91bee`.
+
+Cards with footage play a muted, inline loop on mouse hover or keyboard focus.
+A 14px play/pause icon sits on a quiet 28px dark backing, with gold on hover
+or keyboard focus. Its invisible 44px target supports touch, with a
+project-specific accessible label and hover tooltip.
+Reduced motion keeps covers static until Preview is explicitly activated.
+Enabling reduced motion also stops an automatic preview already in progress;
+explicit playback remains an opt-in, including across preference changes.
+Video sources are attached only after interaction; leaving the card or viewport
+restores the still cover. Case-study links remain separate from playback controls.
+
+Local clips in `public/project-previews/` are recordings of the public pages at
+`https://www.fotoland.net/`, `https://www.axelot.io/`, `https://royce.sh/`, and
+`https://royce.sh/kanjou`. They use slow, continuous eased scrolling down and
+back to the opening view, rather than jump cuts. These are live-site tours, not
+recordings of authenticated editing sessions. Projects without footage keep
+their still covers.
+Axelot uses its native dark theme and a wider capture matched to the existing
+cover's aspect ratio, keeping the hover transition consistent with the still.
+
+## Project detail: Visual case study
+
+Option 2 / B is the selected direction: a large, uncropped project preview
+beside a top-aligned title, description, technology list, and real project links.
+Stack the opening on mobile, then give the full article a quiet reading column
+with its table of contents.
+
+- Remove the “Project / Case study” and “Behind the project” eyebrows.
+  Leave the project image uncaptioned.
+- Preserve direct access to every other project. Use a compact current-project
+  switcher and Previous / Next links instead of a tall permanent sidebar.
+  Keep an All projects link for returning to the grid.
+- Show 24px technology logos beside plain-text names, with no
+  pills, circular backplates, borders, or arbitrary theme recolouring. Preserve
+  each brand's colours and use white inverse marks for monochrome brands on the
+  dark canvas. Amazon SES uses AWS's mark; Turnstile uses Cloudflare's.
+  Project tags contain technologies only, not topics or categories; use the
+  same metadata for detail pages and the grid's text-only tags. Local asset
+  provenance and license notices live in `public/technology/LICENSES.txt`.
+  `projects/technologies.ts` resolves canonical names for both surfaces.
+  Unknown technologies keep their original text and render without a logo.
+- Put external project links below the technologies. Source code uses a filled
+  neutral button with a solid white GitHub mark and a minimum 44px target.
+- Anchor **Read the story** at the bottom of the desktop intro; on mobile,
+  keep it after the project facts in the natural reading flow.
+- Keep the complete MDX articles, code blocks, steps, and working heading links.
+  Do not carry the hero's heavy borders into the reading surface.
+- Code blocks use one spacing layer: 1rem vertical padding and 1.15rem
+  horizontal line insets. Filename headers sit flush with the frame, and
+  line-number/diff gutters stay aligned. Inline-code padding is separate.
+- Use the quiet 15% border treatment for code frames and headers, quotes,
+  tables, accordion dividers, step lines, and footer borders. Focus rings and
+  semantic accent colours retain their contrast.
+- No comparison controls or variant query state in the selected implementation.
+  The three original studies are archived on
+  `prototype/project-detail-directions`, commit `1e343cd`.
+
+## Topbar: Index drawer
+
+The user selected C from the topbar study. Keep its minimal wordmark, search,
+settings, and Index drawer on desktop as well as mobile. Remove the
+“Portfolio Index” metadata block. Other pages should retain C's dark treatment.
+
+`SiteHeader` renders one home wordmark and one all-viewport `IndexDrawer`.
+`IndexHeader` owns the contextual surface, not alternate desktop/mobile trees.
+Do not hide obsolete navigation or duplicate branding through breakpoint overrides.
+
+On the homepage, the opening header is genuinely transparent over the hero,
+with no divider or painted paper backing. A diagonal black ink wipe engages
+on the first scroll, then keeps C's dark treatment throughout the rest of the
+page and other routes. Returning to the top lifts the backing away again.
+Respect reduced motion with an immediate surface change. Keep the hero's
+artwork, choreography, and fixed header offsets; do not add a scroll owner.
+
+The comparison controls and alternate layouts are removed from the live site.
+The original study is archived on `prototype/topbar-study`, commit `d987a5c`.
+
+The drawer contents use A / Quiet index from the separate navigation study:
+compact dark surface, numbered main links, a quieter project list, and native
+scrolling. No misc section. The discarded drawer alternatives are archived on
+`prototype/index-drawer-study`, commit `d23f851`; their comparison controls are
+removed.
+
+## Search: Quick jump
+
+The user selected A from the command-menu study. Keep the compact dark palette,
+single-column results, inline destination paths, quiet gold selection edge, and
+underlined input focus. Do not restore the oversized gold selection pill,
+icon tiles, or boxed input focus ring.
+Destination paths use the shared muted foreground token, with readable contrast
+on both normal and selected result backgrounds.
+
+The selected menu uses normal URLs and retains fuzzy search, keyboard
+navigation, shortcuts, native scrolling, and dialog focus behavior. The full
+rejected-alternative study is archived on `prototype/command-menu-study`,
+commit `1ea2b17`.
+
+Wordle, Market State, and Image to Comic are easter eggs discovered through
+command search, not advertised in the Index drawer or primary navigation.
+Preserve their real routes and tools; do not replace discovery with a visible
+misc directory or invent a secret gesture.
+
+## Spacing and framing
+
+Use Tailwind's 4-point scale and vary section rhythm deliberately. Strong panel
+borders and gutters belong to the illustrated hero; restrained borders and
+whitespace belong to the chosen project cards. Do not impose either treatment
+on every surface.
+
+Keep the header rule, About heading dividers, and career timeline low-contrast.
+Do not let white or bright gold hairlines dominate those dark reading surfaces.
 
 ## Motion
 
-- Easing: `cubic-bezier(0.19, 1, 0.22, 1)` everywhere.
-- One orchestrated entrance per page. Content below the fold is simply there.
-- `transform` and `opacity` only.
-- `prefers-reduced-motion: reduce` lands on the finished state.
-- Scroll-linked opacity or scale peaks with the element **mid-viewport**, not at
-  the end of its range. Mapping it `0 → 1` makes things brightest as they leave
-  the top of the screen, which is backwards.
-- App pages carry no entrance motion at all. A list or a writing surface that
-  animates under the user is a defect.
+- Keep the purposeful GSAP / ScrollTrigger choreography in Creation, with Lenis
+  synchronized to the same scroll owner. Prefer spring-like movement where it
+  supports the hero; do not impose one easing on every interaction.
+- Animate hierarchy and the unfolding spread, not every element on the site.
+  About & Experience remains static; utility and editing surfaces should not
+  animate underneath the user.
+- Avoid scroll hijacking, excessive pinning, and effects that delay access to
+  content. Clean up timelines, triggers, and scroll ownership on navigation.
+- Use `gsap.matchMedia()` for responsive and reduced-motion behaviour.
+  Reduced motion and short viewports must show the finished content in normal
+  flow, without hidden text, inaccessible links, or a required animation.
+  One positive eligibility query in `creation-hero.tsx` controls first paint
+  and GSAP: motion enabled, desktop height ≥930px or mobile height ≥816px,
+  with the width boundary at 768px. Its `data-creation-enhanced` activation
+  also controls sticky layout; CSS does not repeat the eligibility thresholds.
+  Navigation becomes interactive as its own panel starts appearing, not after
+  another animation finishes. Fully hidden navigation remains inert on reverse
+  scrolling; static and reduced-motion links are always available.
+- The first paint matches the animated opening, without flashing the unfolded
+  spread before it. Without JavaScript, the complete content remains available.
+- Check the actual animation in a browser with motion enabled, then check the
+  reduced-motion path separately. A reduced-motion fallback is not proof that
+  the animation works.
+- Verify scrolling and navigation on desktop and mobile; avoid layout shifts
+  and sustained scrolling stutter.
 
 ## Interaction
 
@@ -75,8 +259,10 @@ where every band has identical padding reads as a template.
 - Confirm only irreversible actions. Deleting a Firestore document earns a
   dialog; renaming does not.
 - Focus rings appear instantly and are never transitioned.
-- Hit targets ≥ 44 px on coarse pointers. Clickable labels never wrap to two
-  lines.
+- Hit targets ≥ 44 px on coarse pointers. Keep short action labels on one line
+  where space permits, without clipping or creating horizontal overflow.
+- Search and Index preserve the visible page and scroll position while open.
+  Dismissing either restores focus without scrolling the page.
 
 ## Buttons
 
@@ -88,15 +274,17 @@ where every band has identical padding reads as a template.
 
 ## Sticky offsets
 
-The site header is `sticky top-0 z-50`, `h-16` / `md:h-20`. Anything else that
-sticks parks beneath it — `top-16 md:top-20`, z-index below 50. Getting this
-wrong slides the element under the header, which is what the editor toolbar did
-at `top-14 z-10`.
+Sticky toolbars and other surfaces sit below the actual site header, at a lower
+z-index. Check the current header height at each breakpoint rather than copying
+an old fixed offset that lets controls slide underneath it.
 
 ## Imagery
 
-- Screenshots go in a `<figure>` with at most a hairline border, shot to frame
-  so the page doesn't have to crop them.
-- Never re-draw UI chrome — no fake browser bars, phone frames, or window
-  chrome around a screenshot or a code block. The reader already has chrome.
-- App pages don't use decorative imagery. Function carries them.
+- Use real project screenshots. The chosen cards crop covers to a consistent
+  ratio; detailed screenshots in content should remain readable.
+- Do not add fake browser bars, phone frames, or window chrome around
+  screenshots and code blocks.
+- Keep manga illustration sharp and anatomically convincing. Avoid placeholder
+  cartoon characters and decorative imagery on functional app pages.
+- Japanese lettering should have reliable local glyph coverage, appropriate
+  language markup, and a clear role in the composition.

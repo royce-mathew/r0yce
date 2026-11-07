@@ -354,7 +354,7 @@
 .penChoices label:has(input:checked) {
   border-color: hsl(var(--gold-ink));
   background: hsl(var(--accent));
-  color: hsl(var(--gold-ink));
+  color: hsl(var(--accent-foreground));
 }
 
 .penMark {

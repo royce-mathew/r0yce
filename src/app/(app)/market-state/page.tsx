@@ -6,20 +6,21 @@ const description =
   "A live snapshot of US market sentiment, volatility, and index performance."
 
 export const metadata: Metadata = {
-  title: "Market State — r0yce",
+  title: "Market State — royce.sh",
   description,
   alternates: {
-    canonical: "https://r0yce.com/market-state",
+    canonical: "https://royce.sh/market-state",
   },
   openGraph: {
-    url: "https://r0yce.com/market-state",
+    siteName: "royce.sh",
+    url: "https://royce.sh/market-state",
     type: "website",
-    title: "Market State — r0yce",
+    title: "Market State — royce.sh",
     description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Market State — r0yce",
+    title: "Market State — royce.sh",
     description,
   },
 }

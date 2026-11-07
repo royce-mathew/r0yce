@@ -144,15 +144,9 @@ const Toolbar = ({ editor, onSaved, onCreate, onDeleted }: ToolbarProps) => {
     typeof editor.can().redo === "function" ? editor.can().redo() : false
 
   return (
-    /* Parks directly beneath the site header, which is `sticky top-0 z-50` and
-       h-16 / md:h-20 — anything shorter (it used to be top-14, z-10) slides
-       under the header instead of below it.
-
-       Below md the rail scrolls sideways in a single row. Left to wrap, it
-       stacked three rows deep and covered a quarter of a phone screen.
-       `overflow-x` on the sticky element itself is safe; only an ancestor's
-       overflow would break the stick. */
-    <div className="sticky top-16 z-30 flex flex-row flex-nowrap items-center gap-x-1.5 gap-y-1 overflow-x-auto border-b border-border/50 bg-background/95 px-2 py-1.5 backdrop-blur-sm md:top-20 md:flex-wrap md:overflow-x-visible [&>*]:shrink-0">
+    /* The mobile rail scrolls sideways so controls do not cover the document.
+       Overflow belongs here, not on an ancestor, which would break sticky positioning. */
+    <div className="sticky top-[var(--site-header-height)] z-30 flex flex-row flex-nowrap items-center gap-x-1.5 gap-y-1 overflow-x-auto border-b border-border/50 bg-background/95 px-2 py-1.5 backdrop-blur-sm md:flex-wrap md:overflow-x-visible [&>*]:shrink-0">
       {/* Menu Bar */}
       <Dialog>
         <Menubar className="max-w-full border-none">

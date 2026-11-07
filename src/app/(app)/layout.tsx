@@ -10,7 +10,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <>
       <SiteHeader />
-      <main>{children}</main>
+      <div id="site-content" tabIndex={-1}>{children}</div>
       <SiteFooter />
     </>
   )

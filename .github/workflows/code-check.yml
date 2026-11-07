@@ -22,7 +22,6 @@ jobs:
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 10.8.0
           run_install: false
 
       - name: Get pnpm store directory
@@ -58,7 +57,6 @@ jobs:
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 10.8.0
           run_install: false
 
       - name: Get pnpm store directory
@@ -78,3 +76,18 @@ jobs:
         run: pnpm install
 
       - run: pnpm format
+
+  public-js-budget:
+    runs-on: ubuntu-latest
+    name: Public JavaScript budgets
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:content
+      - run: pnpm exec next build --experimental-build-mode compile
+      - run: pnpm perf:check

@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import ComicEditor from "./comic-editor"
 
-const url = "https://r0yce.com/misc/image-to-comic"
-const title = "Image to Comic Converter — Free, Local Photo Filter | r0yce"
+const url = "https://royce.sh/misc/image-to-comic"
+const title = "Image to Comic Converter — Free, Local Photo Filter | royce.sh"
 const description =
   "Convert photos to comic-style ink and screentone in your browser. Adjust pens, shadows, and colors, then download a PNG. No image upload or AI generation."
 
