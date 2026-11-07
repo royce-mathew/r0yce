@@ -90,24 +90,40 @@ illustrative detail rather than a cartoon. That is context for a future
 proposal, **not approval to add a character now**. Use original artwork rather
 than copying a manga character.
 
-## Projects: master's layout
+## Projects: Featured grid
 
-The latest choice is the layout from `master`, not the manga-panel grid or the
-Editorial, Project ledger, and Contact sheet alternatives.
+B / Featured grid is the selected production layout on `/projects`.
 
-- Selected Works header and total-project count.
-- Equal-width cards: three desktop columns, two tablet columns, one mobile
-  column. Keep cover images, subtle gradients, descriptions, and tag/date footers.
-- Keep master's Featured section, populated from the existing `featured` flags,
-  followed by the remaining projects. Sort each group by latest modification.
-  Every project appears once across the two sections; the total counts both.
-- Keep the current dark palette and `royce.sh` identity when reusing master's
-  layout; do not restore its old branding or theme plumbing.
-- No comparison bar, variant state, or prototype keyboard handlers in the
-  selected page.
+- Keep the Projects heading, large featured lead, stacked highlights, and
+  responsive three/two/one-column grid for the remaining projects.
+- Preserve the existing featured flags and latest-modified ordering. Every
+  project appears once and links to its complete case study.
+- Keep the filled dark cards, gold accents, descriptions, and plain-text
+  technology lists. Do not restore the attribution subtitle.
+- The selected implementation is `projects-index.tsx` with `projects-index.css`.
+  Comparison controls, variant state, alternative layouts, and the old
+  equal-card implementation are removed.
 
-The rejected projects studies are archived on `prototype/projects-layout-study`,
-commit `7fe8031`.
+The full B/D/E/F study is archived on `prototype/projects-index-final-study`,
+commit `3e56925`. First-round layouts remain on
+`prototype/projects-index-first-round`, commit `cc91bee`.
+
+Cards with footage play a muted, inline loop on mouse hover or keyboard focus.
+A 14px play/pause icon sits on a quiet 28px dark backing, with gold on hover
+or keyboard focus. Its invisible 44px target supports touch, with a
+project-specific accessible label and hover tooltip.
+Reduced motion keeps covers static until Preview is explicitly activated.
+Video sources are attached only after interaction; leaving the card or viewport
+restores the still cover. Case-study links remain separate from playback controls.
+
+Local clips in `public/project-previews/` are recordings of the public pages at
+`https://www.fotoland.net/`, `https://www.axelot.io/`, `https://royce.sh/`, and
+`https://royce.sh/kanjou`. They use slow, continuous eased scrolling down and
+back to the opening view, rather than jump cuts. These are live-site tours, not
+recordings of authenticated editing sessions. Projects without footage keep
+their still covers.
+Axelot uses its native dark theme and a wider capture matched to the existing
+cover's aspect ratio, keeping the hover transition consistent with the still.
 
 ## Project detail: Visual case study
 

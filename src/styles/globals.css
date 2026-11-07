@@ -246,16 +246,6 @@ html.lenis.lenis-stopped:has(body[data-scroll-locked]) {
   }
 }
 
-/* Themed tag pill using CSS variables supplied by getTagTheme */
-.tag-pill-themed {
-  /* Use the soft token as the pill background so pills read as subtle, not stark white */
-  /* Use the accent hue for text to improve legibility against the soft background */
-  color: hsl(var(--tag-accent));
-  border-color: hsl(var(--tag-accent-border) / 0.1);
-  /* Slightly reduced visual weight */
-  font-weight: 600;
-}
-
 /* Steps: compact pill for large headings, circular badge for smaller headings */
 .steps :is(h1, h2).step {
   padding-left: 0;
