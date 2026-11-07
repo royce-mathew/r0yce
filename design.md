@@ -109,8 +109,9 @@ commit `3e56925`. First-round layouts remain on
 `prototype/projects-index-first-round`, commit `cc91bee`.
 
 Cards with footage play a muted, inline loop on mouse hover or keyboard focus.
-A compact gold play/pause icon button supports touch and deliberate playback,
-with a 44px target, accessible project-specific label, and hover tooltip.
+A 14px play/pause icon sits on a quiet 28px dark backing, with gold on hover
+or keyboard focus. Its invisible 44px target supports touch, with a
+project-specific accessible label and hover tooltip.
 Reduced motion keeps covers static until Preview is explicitly activated.
 Video sources are attached only after interaction; leaving the card or viewport
 restores the still cover. Case-study links remain separate from playback controls.

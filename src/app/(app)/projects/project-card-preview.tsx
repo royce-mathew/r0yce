@@ -78,8 +78,8 @@ export function ProjectCardPreview({ slug, title, className, children }: {
             onClick={() => setRequested((active) => !active)}
           >
             {requested
-              ? <IconPlayerPauseFilled size={18} aria-hidden="true" />
-              : <IconPlayerPlayFilled size={18} aria-hidden="true" />}
+              ? <IconPlayerPauseFilled size={14} aria-hidden="true" />
+              : <IconPlayerPlayFilled size={14} aria-hidden="true" />}
           </button>
         )}
       </article>
