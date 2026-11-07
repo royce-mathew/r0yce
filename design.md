@@ -1,8 +1,6 @@
 # Design notes — royce.sh
 
-Current design direction, updated from the November 2026 design conversations.
-Later explicit choices take precedence over earlier experiments. A prototype
-request is not approval to keep the result.
+Current design constraints for royce.sh.
 
 ## Character and identity
 
@@ -58,9 +56,7 @@ and real project screenshots may retain their functional colours.
 ## Typography
 
 - Use confident, legible headings rather than novelty comic lettering.
-- The current site `.font-display` is DM Sans, weight 600, upright, with tight
-  tracking. The older Instrument Serif font variable is not the effective
-  global heading style.
+- The site `.font-display` is DM Sans, weight 600, upright, with tight tracking.
 - The Creation hero uses local Cal Sans for the name and Projects link, DM Sans
   for supporting text, and local Noto Sans JP for Japanese lettering.
 - JetBrains Mono handles timestamps, keyboard syntax, counts, and columnar data;
@@ -70,34 +66,26 @@ and real project screenshots may retain their functional colours.
 
 ## Homepage: Creation
 
-Creation is the selected hero direction. Keep the face-framed opening and
-illustrated multi-panel spread, with the Creation of Adam hands as its central
-art reference. The hands need defined anatomy, separated fingers, sharp ink,
-and readable hatching; vague silhouettes were not acceptable. Preserve the
-dramatic space between the hands without losing their definition.
+The Creation hero uses a face-framed opening and illustrated multi-panel spread,
+with the Creation of Adam hands as its central art reference. The hands need
+defined anatomy, separated fingers, sharp ink, and readable hatching.
+Preserve the dramatic space between the hands without losing their definition.
 
-- Use a soft paper-stock texture on the ivory hero background. The user asked
-  for more paper character, then reduced its strength. Keep grain, mottling,
-  and fibres subtle and behind the content, not as a heavy overlay on text.
-  The current asset is `public/images/hero-paper-grain.svg`.
+- Use a soft paper-stock texture on the ivory hero background. Keep grain,
+  mottling, and fibres subtle and behind the content, not as a heavy overlay
+  on text. The asset is `public/images/hero-paper-grain.svg`.
 - Keep the Japanese-text panel and About / Email / Résumé buttons plain white.
   The Projects panel remains gold.
 - Keep project browsing behind the Projects link; do not put featured work
   into the hero.
 - About & Experience follows as the complete, static, single-column content.
   Keep the résumé link in the hero only, not duplicated below About.
-- Do not restore the walking character or the Three.js / scroll-story
-  experiments. They were explored and dropped.
-
-If character artwork is proposed again, the earlier preference was a
-recognisable manga likeness with curly hair and glasses, with JoJo-like
-illustrative detail rather than a cartoon. That is context for a future
-proposal, **not approval to add a character now**. Use original artwork rather
-than copying a manga character.
+- Keep the homepage focused on the Creation artwork, without additional
+  characters or Three.js scroll stories.
 
 ## Projects: Featured grid
 
-B / Featured grid is the selected production layout on `/projects`.
+Use the featured-grid layout on `/projects`.
 
 - Keep the Projects heading, large featured lead, stacked highlights, and
   responsive three/two/one-column grid for the remaining projects.
@@ -105,13 +93,8 @@ B / Featured grid is the selected production layout on `/projects`.
   project appears once and links to its complete case study.
 - Keep the filled dark cards, gold accents, descriptions, and plain-text
   technology lists. Do not restore the attribution subtitle.
-- The selected implementation is `projects-index.tsx` with `projects-index.css`.
-  Comparison controls, variant state, alternative layouts, and the old
-  equal-card implementation are removed.
-
-The full B/D/E/F study is archived on `prototype/projects-index-final-study`,
-commit `3e56925`. First-round layouts remain on
-`prototype/projects-index-first-round`, commit `cc91bee`.
+- The implementation is `projects-index.tsx` with `projects-index.css`.
+  Keep one production layout without comparison controls or variant state.
 
 Cards with footage play a muted, inline loop on mouse hover or keyboard focus.
 A 14px play/pause icon sits on a quiet 28px dark backing, with gold on hover
@@ -134,13 +117,12 @@ cover's aspect ratio, keeping the hover transition consistent with the still.
 
 ## Project detail: Visual case study
 
-Option 2 / B is the selected direction: a large, uncropped project preview
-beside a top-aligned title, description, technology list, and real project links.
-Stack the opening on mobile, then give the full article a quiet reading column
-with its table of contents.
+Use a large, uncropped project preview beside a top-aligned title, description,
+technology list, and real project links. Stack the opening on mobile, then give
+the full article a quiet reading column with its table of contents.
 
-- Remove the “Project / Case study” and “Behind the project” eyebrows.
-  Leave the project image uncaptioned.
+- Leave the project image uncaptioned, without “Project / Case study” or
+  “Behind the project” eyebrows.
 - Preserve direct access to every other project. Use a compact current-project
   switcher and Previous / Next links instead of a tall permanent sidebar.
   Keep an All projects link for returning to the grid.
@@ -165,15 +147,13 @@ with its table of contents.
 - Use the quiet 15% border treatment for code frames and headers, quotes,
   tables, accordion dividers, step lines, and footer borders. Focus rings and
   semantic accent colours retain their contrast.
-- No comparison controls or variant query state in the selected implementation.
-  The three original studies are archived on
-  `prototype/project-detail-directions`, commit `1e343cd`.
+- Use direct project URLs without comparison controls or variant query state.
 
 ## Topbar: Index drawer
 
-The user selected C from the topbar study. Keep its minimal wordmark, search,
-settings, and Index drawer on desktop as well as mobile. Remove the
-“Portfolio Index” metadata block. Other pages should retain C's dark treatment.
+Use a minimal wordmark, search, settings, and Index drawer on desktop as well
+as mobile, without a “Portfolio Index” metadata block. Other pages retain
+the dark header treatment.
 
 `SiteHeader` renders one home wordmark and one all-viewport `IndexDrawer`.
 `IndexHeader` owns the contextual surface, not alternate desktop/mobile trees.
@@ -181,33 +161,24 @@ Do not hide obsolete navigation or duplicate branding through breakpoint overrid
 
 On the homepage, the opening header is genuinely transparent over the hero,
 with no divider or painted paper backing. A diagonal black ink wipe engages
-on the first scroll, then keeps C's dark treatment throughout the rest of the
+on the first scroll, then keeps the dark treatment throughout the rest of the
 page and other routes. Returning to the top lifts the backing away again.
 Respect reduced motion with an immediate surface change. Keep the hero's
 artwork, choreography, and fixed header offsets; do not add a scroll owner.
 
-The comparison controls and alternate layouts are removed from the live site.
-The original study is archived on `prototype/topbar-study`, commit `d987a5c`.
-
-The drawer contents use A / Quiet index from the separate navigation study:
-compact dark surface, numbered main links, a quieter project list, and native
-scrolling. No misc section. The discarded drawer alternatives are archived on
-`prototype/index-drawer-study`, commit `d23f851`; their comparison controls are
-removed.
+Use compact dark drawer contents, numbered main links, a quieter project list,
+and native scrolling. No misc section.
 
 ## Search: Quick jump
 
-The user selected A from the command-menu study. Keep the compact dark palette,
-single-column results, inline destination paths, quiet gold selection edge, and
-underlined input focus. Do not restore the oversized gold selection pill,
-icon tiles, or boxed input focus ring.
+Use a compact dark search palette, single-column results, inline destination
+paths, a quiet gold selection edge, and underlined input focus. Avoid oversized
+selection pills, icon tiles, and boxed input focus rings.
 Destination paths use the shared muted foreground token, with readable contrast
 on both normal and selected result backgrounds.
 
-The selected menu uses normal URLs and retains fuzzy search, keyboard
-navigation, shortcuts, native scrolling, and dialog focus behavior. The full
-rejected-alternative study is archived on `prototype/command-menu-study`,
-commit `1ea2b17`.
+Use normal URLs and retain fuzzy search, keyboard navigation, shortcuts,
+native scrolling, and dialog focus behavior.
 
 Wordle, Market State, and Image to Comic are easter eggs discovered through
 command search, not advertised in the Index drawer or primary navigation.

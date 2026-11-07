@@ -69,7 +69,6 @@ export function CreationHero() {
         element.removeAttribute("data-creation-enhanced")
       }
       if (!context.conditions?.enhanced) {
-        element.dataset.progress = context.conditions?.reduced ? "reduced" : "static"
         release()
         return release
       }
@@ -100,7 +99,6 @@ export function CreationHero() {
         },
         onUpdate: () => {
           navigationReveals.forEach(({ panel, reveal }) => { panel.inert = Number(gsap.getProperty(reveal, "opacity")) <= 0 })
-          element.dataset.progress = timeline.progress().toFixed(3)
         },
       })
       timeline
@@ -137,7 +135,7 @@ export function CreationHero() {
   }, [])
 
   return (
-    <div ref={root} data-creation-hero data-progress="0" className="me-void" suppressHydrationWarning>
+    <div ref={root} data-creation-hero className="me-void" suppressHydrationWarning>
       <section className="me-void-track" aria-labelledby="me-void-name">
         <div className="me-void-stage">
           <h1 id="me-void-name" className="me-void-name" aria-label="Royce Mathew"><span className="me-void-name-first" aria-hidden="true">Royce</span><span className="me-void-name-last" aria-hidden="true">Mathew</span></h1>
