@@ -176,25 +176,32 @@ html.lenis.lenis-stopped:has(body[data-scroll-locked]) {
 }
 
 /* ─── Link hover underline reveal ─── */
-.link-underline {
-  position: relative;
+.link-underline,
+.link-underline-target {
   text-decoration: none;
+  background-image:
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(hsl(var(--gold) / 0.45), hsl(var(--gold) / 0.45));
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 0% 1px, var(--link-underline-rest, 0%) 1px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition:
+    background-size 0.4s cubic-bezier(0.19, 1, 0.22, 1),
+    color 0.2s ease;
 }
-.link-underline::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: hsl(var(--gold));
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+
+.link-underline:is(:hover, :focus-visible),
+a:is(:hover, :focus-visible) .link-underline-target {
+  background-size: 100% 1px, var(--link-underline-rest, 0%) 1px;
 }
-.link-underline:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
+
+@media (prefers-reduced-motion: reduce) {
+  .link-underline,
+  .link-underline-target {
+    transition: none;
+  }
 }
 
 /* ─── Scroll reveal defaults ─── */

@@ -150,6 +150,26 @@ the full article a quiet reading column with its table of contents.
   semantic accent colours retain their contrast.
 - Use direct project URLs without comparison controls or variant query state.
 
+## Writing: Field notes and editorial essays
+
+`/blog` uses the selected field-notes index: a serif opening and compact,
+horizontal essay entries with a small illustration. Keep the site's dark canvas,
+ivory type, and gold accents rather than the prototype's light-paper palette.
+`/blog/[slug]` uses the editorial article direction: oversized sans-serif title,
+serif deck and reading column, with section links alongside the essay on desktop.
+
+- Reuse the shared palette, `.label-editorial`, and the MDX rendering pipeline.
+  Blog CSS owns layout and editorial modifiers, not a second theme or prose engine.
+- Author essays as ordinary Markdown in `src/content/blog/*.md`. Frontmatter
+  provides title, description, date, author, tags, and an optional figure key.
+  Velite generates the contents, reading time, and slug; `src/lib/blog.ts` owns
+  newest-first ordering for the index, navigation, and sitemap.
+- Illustrations belong to their essay, not every post. The first compares a broad
+  brief with specific human context and deliberate selection; AI helps execute
+  either. Label it as a conceptual example, not evidence of a probability curve.
+- Keep real article URLs, normal missing-post responses, and complete metadata.
+  Design comparisons and prototype controls stay on the archived prototype branch.
+
 ## Topbar: Index drawer
 
 Use a minimal wordmark, search, settings, and Index drawer on desktop as well
@@ -231,6 +251,11 @@ Do not let white or bright gold hairlines dominate those dark reading surfaces.
 - Confirm only irreversible actions. Deleting a Firestore document earns a
   dialog; renaming does not.
 - Focus rings appear instantly and are never transitioned.
+- Text links share `.link-underline`; card and composite anchors apply
+  `.link-underline-target` to their text label instead of drawing a rule beneath
+  the entire card or its icons. Hover and keyboard focus reveal the same line.
+  Prose retains a quiet underline at rest; reduced motion removes the transition.
+  Wordmarks, image-only links, skip links, and button-styled actions stay distinct.
 - Hit targets ≥ 44 px on coarse pointers. Keep short action labels on one line
   where space permits, without clipping or creating horizontal overflow.
 - Search and Index preserve the visible page and scroll position while open.

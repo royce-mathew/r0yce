@@ -31,7 +31,7 @@ export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
             <nav aria-label="Site navigation" className="quiet-site-links">
               {navigation.mainNav.map((item, index) => item.href && (
                 <Link key={item.href} href={item.href} onClick={close} aria-current={pathname === item.href ? "page" : undefined}>
-                  <span className="quiet-number">0{index + 1}</span><span>{item.title}</span><span className="quiet-link-arrow" aria-hidden="true">↗</span>
+                  <span className="quiet-number">0{index + 1}</span><span className="link-underline-target">{item.title}</span><span className="quiet-link-arrow" aria-hidden="true">↗</span>
                 </Link>
               ))}
             </nav>
@@ -40,7 +40,7 @@ export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
                 <h2>{group.title}<span>{String(group.items.length).padStart(2, "0")}</span></h2>
                 {group.items.map(item => item.href && (
                   <Link key={item.href} href={item.href} onClick={close} aria-current={pathname === item.href ? "page" : undefined}>
-                    <span>{item.title}</span><span className="quiet-link-arrow" aria-hidden="true">↗</span>
+                    <span className="link-underline-target">{item.title}</span><span className="quiet-link-arrow" aria-hidden="true">↗</span>
                   </Link>
                 ))}
               </nav>

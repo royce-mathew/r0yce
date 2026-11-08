@@ -16,15 +16,15 @@ export function ProjectNavigation({ project }: { project: Project }) {
     <nav className="project-navigation" aria-label="Project navigation">
       <ProjectSwitcher items={items} currentHref={currentHref} currentTitle={project.title} />
       <div className="project-navigation-steps">
-        <Link href="/projects" className="project-navigation-step">All projects</Link>
+        <Link href="/projects" className="project-navigation-step"><span className="link-underline-target">All projects</span></Link>
         {previous && (
           <Link href={previous.href} className="project-navigation-step" aria-label={`Previous project: ${previous.title}`}>
-            <span aria-hidden="true">←</span> Previous
+            <span aria-hidden="true">←</span> <span className="link-underline-target">Previous</span>
           </Link>
         )}
         {next && (
           <Link href={next.href} className="project-navigation-step" aria-label={`Next project: ${next.title}`}>
-            Next <span aria-hidden="true">→</span>
+            <span className="link-underline-target">Next</span> <span aria-hidden="true">→</span>
           </Link>
         )}
       </div>

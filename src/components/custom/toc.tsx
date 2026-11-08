@@ -50,7 +50,7 @@ export function DashboardTableOfContents({ toc }: TocProps) {
             !isOnPageTop ? "opacity-100" : "opacity-0"
           )}
         >
-          Back to top <IconArrowUp className="ml-2 size-4" />
+          <span className="link-underline-target">Back to top</span> <IconArrowUp className="ml-2 size-4" />
         </Link>
       </div>
     </div>
@@ -107,7 +107,7 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
             <Link
               href={item.url}
               className={cn(
-                "inline-block no-underline transition-colors hover:text-foreground",
+                "link-underline inline-block transition-colors hover:text-foreground",
                 item.url === `#${activeItem}`
                   ? "font-medium text-foreground"
                   : "text-muted-foreground"

@@ -32,7 +32,7 @@ function PortfolioCard({ project, emphasis = "regular", eager = false }: {
       )}
       <div className="pfp-card-body">
         <div className="pfp-title-row">
-          <h2 className="font-display">{project.title}</h2>
+          <h2 className="font-display"><span className="link-underline-target">{project.title}</span></h2>
           <span className="pfp-arrow" aria-hidden="true">↗</span>
         </div>
         <p className="pfp-description">{project.description}</p>

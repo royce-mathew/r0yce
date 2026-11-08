@@ -762,7 +762,7 @@ export default function NoSiteBusinessFinderClient() {
                               </Badge>
                               <p className="font-semibold">{business.name}</p>
                               <a
-                                className="text-primary underline"
+                                className="link-underline text-primary"
                                 href={business.mapsUrl}
                                 rel="noreferrer"
                                 target="_blank"
@@ -796,7 +796,7 @@ export default function NoSiteBusinessFinderClient() {
                           </Badge>
                           <p className="font-semibold">{business.name}</p>
                           <a
-                            className="text-primary underline"
+                            className="link-underline text-primary"
                             href={business.mapsUrl}
                             rel="noreferrer"
                             target="_blank"

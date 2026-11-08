@@ -1,5 +1,6 @@
 import { projects } from "#site/content"
-import { MainNavItem, SidebarNavItem } from "@/types/nav"
+import { blogPosts } from "@/lib/blog"
+import type { MainNavItem, SidebarNavItem } from "@/types/nav"
 
 interface SiteConfig {
   mainNav: MainNavItem[]
@@ -17,6 +18,10 @@ export const siteConfig: SiteConfig = {
       href: "/projects",
     },
     {
+      title: "Writing",
+      href: "/blog",
+    },
+    {
       title: "Kanjou",
       href: "/kanjou",
     },
@@ -25,11 +30,9 @@ export const siteConfig: SiteConfig = {
     {
       title: "Projects",
       href: "/projects",
-      items: projects
+      items: [...projects]
         .sort(
-          (a, b) =>
-            new Date(a.modifiedDate).getTime() -
-            new Date(b.modifiedDate).getTime()
+          (a, b) => Date.parse(a.modifiedDate) - Date.parse(b.modifiedDate)
         )
         .reverse()
         .map((project) => ({
@@ -39,6 +42,16 @@ export const siteConfig: SiteConfig = {
           modifiedDate: project.modifiedDate,
           items: [],
         })),
+    },
+    {
+      title: "Writing",
+      href: "/blog",
+      items: blogPosts.map((post) => ({
+        title: post.title,
+        href: `/${post.slug}`,
+        modifiedDate: post.date,
+        items: [],
+      })),
     },
   ],
 }

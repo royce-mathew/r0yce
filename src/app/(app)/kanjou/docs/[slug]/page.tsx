@@ -193,10 +193,10 @@ function DocumentEditor({ slug, userName }: DocumentEditorProps) {
       <div className="mb-6">
         <Link
           href="/kanjou/docs"
-          className="link-underline inline-flex min-h-8 items-center gap-1.5 text-xs text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-hidden"
+          className="inline-flex min-h-8 items-center gap-1.5 text-xs text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-hidden"
         >
           <IconArrowLeft className="size-3.5" />
-          <span className="whitespace-nowrap">All documents</span>
+          <span className="link-underline-target whitespace-nowrap">All documents</span>
         </Link>
 
         <Label htmlFor="document-title" className="sr-only">

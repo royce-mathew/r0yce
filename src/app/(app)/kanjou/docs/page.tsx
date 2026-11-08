@@ -75,7 +75,7 @@ function DocumentRow({
           className="min-w-0 rounded-xs focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-hidden"
         >
           <span className="group-hover:text-gold-ink block truncate font-display text-lg leading-snug transition-colors duration-200 md:text-xl">
-            {title}
+            <span className="link-underline-target">{title}</span>
           </span>
           {/* On phones the timestamp rides under the title instead of in its
               own column. */}

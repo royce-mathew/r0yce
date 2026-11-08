@@ -108,7 +108,7 @@ const sharedComponents = {
           : undefined
       }
       className={cn(
-        "font-medium text-primary decoration-2 hover:underline",
+        "link-underline font-medium text-primary",
         className
       )}
       {...props}
@@ -297,7 +297,7 @@ const sharedComponents = {
   Link: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
       className={cn(
-        "font-medium text-gold-dim underline decoration-[hsl(var(--gold)/0.45)] underline-offset-4 transition-colors hover:text-foreground hover:decoration-[hsl(var(--gold))]",
+        "link-underline font-medium text-gold-dim hover:text-foreground",
         className
       )}
       {...props}
