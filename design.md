@@ -91,8 +91,9 @@ Use the featured-grid layout on `/projects`.
   responsive three/two/one-column grid for the remaining projects.
 - Preserve the existing featured flags and latest-modified ordering. Every
   project appears once and links to its complete case study.
-- Keep the filled dark cards, gold accents, descriptions, and plain-text
-  technology lists. Do not restore the attribution subtitle.
+- Keep the filled dark cards, gold accents, and descriptions. Show technology
+  tags as 24px brand icons with accessible names and hover titles; retain text
+  for unknown technologies. Do not restore the attribution subtitle.
 - The implementation is `projects-index.tsx` with `projects-index.css`.
   Keep one production layout without comparison controls or variant state.
 
@@ -131,7 +132,7 @@ the full article a quiet reading column with its table of contents.
   each brand's colours and use white inverse marks for monochrome brands on the
   dark canvas. Amazon SES uses AWS's mark; Turnstile uses Cloudflare's.
   Project tags contain technologies only, not topics or categories; use the
-  same metadata for detail pages and the grid's text-only tags. Local asset
+  same metadata for detail pages and the grid's icon tags. Local asset
   provenance and license notices live in `public/technology/LICENSES.txt`.
   `projects/technologies.ts` resolves canonical names for both surfaces.
   Unknown technologies keep their original text and render without a logo.

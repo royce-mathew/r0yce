@@ -37,7 +37,16 @@ function PortfolioCard({ project, emphasis = "regular", eager = false }: {
         </div>
         <p className="pfp-description">{project.description}</p>
         <ul className="pfp-tags" aria-label="Technologies">
-          {project.tags.map((tag) => <li key={tag}>{resolveTechnology(tag).name}</li>)}
+          {project.tags.map((tag) => {
+            const technology = resolveTechnology(tag)
+            return (
+              <li key={tag} title={technology.name}>
+                {technology.logo
+                  ? <Image src={`/technology/${technology.logo}.svg`} alt={technology.name} width={24} height={24} />
+                  : technology.name}
+              </li>
+            )
+          })}
         </ul>
       </div>
       </Link>
