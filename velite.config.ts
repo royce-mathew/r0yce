@@ -62,11 +62,26 @@ export const Base = defineCollection({
     })),
 })
 
+const BlogPrototype = defineCollection({
+  name: "BlogPrototypePost",
+  pattern: "blog-prototype/**/*.md",
+  schema: s.object({
+    title: s.string(),
+    description: s.string(),
+    date: s.isodate(),
+    author: s.string(),
+    code: s.mdx(),
+    toc: s.toc(),
+    metadata: s.metadata(),
+  }),
+})
+
 export default defineConfig({
   root: "./src/content",
   collections: {
     projects: Project,
     mainContents: Base,
+    blogPrototypePosts: BlogPrototype,
   },
   mdx: {
     remarkPlugins: [remarkGfm],

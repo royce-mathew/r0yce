@@ -34,6 +34,30 @@ Use pnpm to run the scripts defined in `package.json`:
 • `format`: Formats the code with Prettier.
 • `perf:check`: Checks production public-route JavaScript budgets after a Turbopack build.
 
+## Blog design prototype
+
+Run `pnpm prototype:blog`, then open `/prototype/blog`. This is a design-review
+prototype, not the production blog. Three layouts share the same Markdown essay:
+
+- `/prototype/blog?variant=editorial&view=article` — oversized typography and a quiet reading column.
+- `/prototype/blog?variant=fieldnotes&view=article` — warm paper, serif text, and a notebook contents rail.
+- `/prototype/blog?variant=visual&view=article` — split poster opening and an illustrated argument.
+
+Use the floating controls to switch styles or preview the writing index. Left and
+right arrow keys cycle styles outside editable fields. The URL preserves the
+selection. Controls are development-only; the route has `noindex` metadata and is
+not linked from the production navigation.
+
+The first essay lives in
+`src/content/blog-prototype/ai-is-not-replacing-us.md`. Velite compiles its
+frontmatter, Markdown, reading time, and contents using the existing MDX pipeline.
+The illustration expresses a concept, not a measured distribution.
+
+Design question: which reading experience best fits Royce’s writing? Selection is
+pending. Keep these alternatives on `prototype/markdown-blog-styles`; after review,
+implement the selected direction as the production blog rather than merging the
+throwaway route and switcher into the main branch.
+
 ## Development Environment
 
 To set up the development environment, follow these steps:

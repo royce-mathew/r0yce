@@ -1,0 +1,12 @@
+.prototype-switcher { position: fixed; z-index: 10000; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; max-width: calc(100vw - 24px); padding: 8px 12px; border: 1px solid #68665c; border-radius: 999px; background: #f2efe4; color: #202019; box-shadow: 0 8px 40px #0005; font: 12px/1.3 var(--font-sans), sans-serif; }
+.prototype-switcher-tag { text-transform: uppercase; letter-spacing: .1em; font-size: 9px; }
+.prototype-switcher-cycle, .prototype-switcher-views { display: flex; align-items: center; gap: 4px; }
+.prototype-switcher button { min-width: 36px; min-height: 36px; padding: 6px 10px; border-radius: 999px; color: inherit; }
+.prototype-switcher button:hover { background: #ded9c7; }
+.prototype-switcher button:focus-visible { outline: 2px solid #855309; outline-offset: 2px; }
+.prototype-switcher button:disabled { opacity: .5; }
+.prototype-switcher-label { min-width: 116px; text-align: center; }
+.prototype-switcher-views { border-left: 1px solid #bcb8a9; padding-left: 10px; }
+.prototype-switcher-views button[aria-pressed="true"] { background: #24241e; color: #f2efe4; }
+@media (max-width: 540px) { .prototype-switcher { gap: 4px; padding: 6px; bottom: 12px; } .prototype-switcher-tag { display: none; } .prototype-switcher-label { min-width: 108px; } .prototype-switcher-views { padding-left: 4px; } .prototype-switcher button { padding-inline: 8px; } }
+@media print { .prototype-switcher { display: none; } }

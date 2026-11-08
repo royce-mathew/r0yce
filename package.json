@@ -10,6 +10,7 @@
     "dev:next": "next dev",
     "build:next": "next build",
     "dev": "run-p dev:content dev:next",
+    "prototype:blog": "pnpm dev",
     "build": "run-s build:content build:next",
     "start": "next start",
     "lint": "eslint .",
