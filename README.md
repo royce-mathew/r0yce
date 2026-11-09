@@ -80,12 +80,6 @@ Production Web Vitals reporting already uses Google Analytics
 (`NEXT_PUBLIC_ANALYTICS_ID`). After deployment, compare per-page p75 LCP, INP,
 and CLS against the preceding release; targets are ≤ 2.5 s, ≤ 200 ms, and ≤ 0.1.
 
-For client-side navigation, check the Index menu on mobile and tablet after
-`pnpm build && pnpm start`. Link selection releases the drawer and background
-scroll lock immediately; Escape, outside taps, and the close button retain
-the dismissal animation. Repeat Home → Projects → Home and collection links,
-then verify the menu reopens and the destination page scrolls.
-
 ## Content Organization
 
 ```python
