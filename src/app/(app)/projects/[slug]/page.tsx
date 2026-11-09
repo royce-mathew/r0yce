@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   const project = getProjectFromParams(slug)
   if (project == null) return {}
   return {
-    title: `${project.title} — royce.sh`,
+    title: `${project.title} | royce.sh`,
     authors: [
       {
         name: "Royce Mathew",
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
     keywords: project.tags,
     openGraph: {
       siteName: "royce.sh",
-      title: `${project.title} — royce.sh`,
+      title: `${project.title} | royce.sh`,
       description: project.description,
       type: "article",
       url: `https://royce.sh/${project.slug}`,
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${project.title} — royce.sh`,
+      title: `${project.title} | royce.sh`,
       description: project.description,
       images: [
         {

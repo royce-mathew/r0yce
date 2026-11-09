@@ -152,7 +152,7 @@ export function KanjouHero() {
           <p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
             Kanjou is a writing app where edits merge instead of queueing. Two
             people can sit in the same paragraph, type over each other, and both
-            keep their words — the document is a CRDT, so there is no lock to
+            keep their words. The document is a CRDT, so there is no lock to
             wait for and no last-write-wins.
           </p>
 

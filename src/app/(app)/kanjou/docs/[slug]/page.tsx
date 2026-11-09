@@ -184,7 +184,7 @@ function DocumentEditor({ slug, userName }: DocumentEditorProps) {
       await navigator.clipboard.writeText(shareUrl || window.location.href)
       toast("Link copied. Anyone signed in can open this document.")
     } catch {
-      toast("Couldn’t reach the clipboard — copy the address bar instead.")
+      toast("Couldn’t reach the clipboard. Copy the address bar instead.")
     }
   }
   return (
