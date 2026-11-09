@@ -72,7 +72,6 @@ const Blog = defineCollection({
       date: s.isodate(),
       author: s.string(),
       tags: s.array(s.string()).default([]),
-      figure: s.enum(["creative-direction"]).optional(),
       code: s.mdx(),
       toc: s.toc(),
       metadata: s.metadata(),

@@ -1,8 +1,9 @@
 import Link from "next/link"
 import type { BlogPost } from "#site/content"
+import { cn } from "@/lib/utils"
 import { BlogByline } from "./blog-byline"
+import { BlogComments } from "./blog-comments"
 import { BlogProse } from "./blog-prose"
-import { CreativeDirectionFigure } from "./creative-direction-figure"
 import "./blog.css"
 
 export function BlogArticle({ post }: { post: BlogPost }) {
@@ -13,9 +14,9 @@ export function BlogArticle({ post }: { post: BlogPost }) {
       <article>
         <div className="blog-topline">
           <Link className="link-underline" href="/blog">
-            ← Back to writing
+            ← Back to blog
           </Link>
-          <span className="label-editorial">An essay by {post.author}</span>
+          <span className="label-editorial">A blog by {post.author}</span>
         </div>
         <header className="blog-article-heading">
           {post.tags.length > 0 && (
@@ -25,13 +26,10 @@ export function BlogArticle({ post }: { post: BlogPost }) {
           <p className="blog-deck">{post.description}</p>
           <BlogByline post={post} />
         </header>
-        {post.figure === "creative-direction" && <CreativeDirectionFigure />}
-        <div
-          className={`blog-reading${hasContents ? "blog-has-contents" : ""}`}
-        >
+        <div className={cn("blog-reading", hasContents && "blog-has-contents")}>
           {hasContents && (
-            <nav className="blog-contents" aria-label="Essay contents">
-              <p className="label-editorial">In this essay</p>
+            <nav className="blog-contents" aria-label="Blog contents">
+              <p className="label-editorial">In this blog</p>
               <ol>
                 {post.toc.map((item, index) => (
                   <li key={item.url}>
@@ -50,9 +48,10 @@ export function BlogArticle({ post }: { post: BlogPost }) {
           )}
           <div className="min-w-0">
             <BlogProse code={post.code} />
-            <div className="blog-end" aria-label="End of essay">
+            <div className="blog-end" aria-label="End of blog">
               ∎
             </div>
+            <BlogComments key={post.slugAsParams} slug={post.slugAsParams} />
           </div>
         </div>
       </article>

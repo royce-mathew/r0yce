@@ -1,66 +1,49 @@
 ---
-title: 'AI is not replacing us'
-description: 'As execution gets cheaper, the harder work is deciding what deserves to exist and taking responsibility for how it works.'
-date: '2026-11-08'
-author: 'Royce Mathew'
-tags: ['AI', 'Creativity', 'Software']
-figure: 'creative-direction'
+title: "The cost of code you don’t understand"
+description: "AI makes software easier to build and extend. Understanding how it works matters more when changes arrive faster, especially when people depend on the result."
+date: "2026-11-08"
+author: "Royce Mathew"
+tags: ["AI", "Software"]
 ---
 
-Ask a model to build a website for a bakery, then ask for one for an accounting firm. Leave the visual direction open. I would look past the different names and pictures and compare the decisions underneath: the little label above the headline, the generous hero, the rounded cards, the familiar procession of sections. A site can look finished before anyone has decided what should make it belong to this particular business.
+I think technical understanding matters more now that we can generate so much code without writing it ourselves. Getting something to work gives us a starting point, but if we intend to keep using it and adding to it, we need to understand what it does well enough to change it. The tools have made that second part easier to skip.
 
-That is where my concern about AI begins. I am less worried about whether a model can produce a page than about how easily we can accept the first plausible page it produces.
+## Getting to working code is easier
 
-I think creativity and taste become more valuable as execution gets cheaper. Technical knowledge belongs in that argument too. Someone still has to recognize when a convincing result solves the wrong problem.
+Non-technical users can now build useful software for themselves without waiting for a developer. A small tool might clean up a spreadsheet or handle a task they used to do manually. If it does the job and they never need it again, there may be little reason to spend weeks improving its architecture. Disposable software has a place.
 
-## A playable game still needs a reason to exist
+The same ease applies to software people will depend on. How much engineering a project needs doesn't come from how hard the code was to produce. It comes from what depends on it and what failure would cost.
 
-Game development makes this easier to see. Imagine asking a model to reproduce a familiar platformer. There are established answers for movement, obstacles, progression, and rewards. The original designers already made many of the difficult choices. Recreating those choices can take considerable engineering, but the direction comes with the reference.
+## Changes can outpace understanding
 
-Now imagine trying to make a game around an unfamiliar feeling. Perhaps you want the player to hesitate before taking an apparently harmless action. Working code will help you try the idea. It will not settle whether that hesitation feels meaningful or merely annoying.
+A request often arrives as a local change. Someone asks for a button, a report, or a fix to one screen. The change works, the request closes, and the next one arrives. Nothing in that loop requires the person accepting the change to understand how it fits the rest of the system.
 
-A model can suggest mechanics, write a prototype, and offer alternatives you would never have considered. I want that help. But producing more playable versions leaves us with more decisions about which version deserves another week of work.
+The codebase can become a record of requests rather than a system anyone holds in their head. The person who built it may know the parts they touched. Nobody may know the parts that connect them.
 
-> When execution gets cheaper, accepting the wrong answer gets easier too.
+In [Speed at the Cost of Quality](https://doi.org/10.1145/3793302.3793349), He and colleagues studied open-source projects that adopted Cursor. Their main analysis estimated an early increase in code output alongside longer-lasting increases in complexity and static-analysis warnings. These tools flag possible problems in code; they do not count production failures. The quality estimates also varied with the statistical method. The study was observational and did not measure how well developers understood the changes.
 
-The danger is spending the saved time making more of something nobody has properly questioned.
+[Debt Behind the AI Boom](https://arxiv.org/abs/2603.28592), by Liu and colleagues, examined AI-attributed commits across 6,299 repositories. Of the static-analysis findings they tracked, 22.7% remained at the latest revision. Those findings are not necessarily defects people encountered, and the study has no human-only baseline. They do show that accepting a change does not guarantee someone will soon clean up the issues flagged in it.
 
-## The pull toward familiar choices
+## What accumulates underneath
 
-The recurring AI website aesthetic is a useful example because its shortcomings can hide behind polish. A broad brief leaves many decisions unspecified. Familiar layouts fill those gaps. The result may be perfectly usable while saying very little about the people it represents.
+Complexity often comes from small pieces of behavior living in more than one place. A permission rule might exist in the interface, which hides a button, and in the API, which rejects the request. Each check seems reasonable where it was added. When the two drift, the screen offers an action the server refuses, and the next change has to find both copies.
 
-Humans copy conventions too. A repeated layout does not prove that AI is uniquely unoriginal, and familiarity can help visitors find what they need. My objection is to treating a default as if someone deliberately chose it.
+State adds another kind of interaction. A record might be written directly at first, and a retry queue added later gives it a second route, so the code has to decide which copy is authoritative. Failure can leave the same split. An upload can finish while the database write that records it fails, leaving storage and the application disagreeing about what happened. If nobody traced that path, the retry behavior is whatever the code happens to do.
 
-There is some research behind the concern about convergence, although it needs careful limits. In a 2024 experiment, Anil Doshi and Oliver Hauser found that access to AI-generated ideas improved evaluations of individual short stories, especially for less creative writers. The AI-assisted stories were also more similar to one another. Both findings deserve room in the argument. A tool can help an individual make better work while narrowing the variety of work a group produces.
+None of this is unique to generated code. Human teams accumulate duplicated rules and unclear state too. The tools change the rate. It is easier to add a locally working feature than to update the shared understanding of how the system works.
 
-That experiment concerns short stories under particular conditions. It cannot establish what happens to every website, game, or painting. Nor does it prove that model outputs sit on a neat bell curve. I find the pull toward familiar choices a useful concern to investigate, without turning it into a law of creativity.
+## How much understanding the work needs
 
-## Knowing the craft changes what you notice
+[Kanat-Alexander's talk](https://ai.engineer/talks/bU5gDVyu_28) separates disposable software from durable software by looking at the consequences of failure, the cost of replacing it, who depends on it, and the ongoing cost of maintenance. When those obligations are small, a quick version is reasonable. When they grow, the same code needs more care.
 
-I do not buy the argument that computer science stops mattering because a model can write code. Technical experience helps you see requirements that never made it into the request.
+A script that cleans up a copy of a spreadsheet for a one-time analysis can be rerun by hand if it breaks. Nothing downstream depends on it. A tool that holds records that would be hard to reconstruct, moves money, or supports someone's daily work cannot be replaced that casually. Replacing it means preserving the records and the behavior people already rely on.
 
-Consider pre-commit checks. A model can recommend them and configure them. An experienced developer still needs to ask whether they solve a recurring problem, whether the same checks already run in CI, and how much friction they introduce. Adding every familiar best practice is its own way of avoiding judgment.
+The depth that matters follows from those obligations. A small internal tool can stay loosely understood if its failure is cheap and its data is replaceable. Software that other work depends on is different. The more a change can break, and the longer those consequences last, the more the person making it needs to know what it touches.
 
-Architecture has the same problem at a larger scale. A working feature leaves open questions about maintenance, failure, and what the next developer will need to understand. Knowing how systems work lets you challenge an answer before its weaknesses reach users.
+Before extending software other people depend on, I want to answer a few questions. Where does data become permanent, and what reads it afterward? Which rules live in more than one place? What happens when one step succeeds and the next fails? What do the existing checks cover, and what do they miss?
 
-A model can challenge it too, especially with access to the repository and clear instructions. Expertise helps you evaluate that challenge. I see technical knowledge and taste reinforcing each other: understanding the material gives you more precise ways to change it.
+A passing test is evidence, but it covers a narrower set of cases than the system will encounter. In [SpecBench](https://arxiv.org/abs/2605.21384), Zhao and colleagues evaluated coding agents on 30 systems-level tasks. Agents could pass visible tests for individual features and still fail hidden tests that combined those same features. These are benchmark results, not production failure rates, but the gap gives us a concrete reason to check how features work together. A passing suite cannot establish that every combination behaves correctly.
 
-## Models can surprise us
+Sufficient understanding means being able to say what this change affects, what could break, how you would notice, and how you would recover. You do not need to explain every line to answer those questions. If the answers are missing, the next feature is a guess about behavior other people depend on.
 
-The strongest objection to my argument is that models already contribute ideas, rather than merely execute ours. They can propose unusual directions and make discerning selections. I cannot defend a permanent boundary around human creativity, and I do not need one.
-
-I also cannot promise that everyone's job is safe. If routine execution becomes cheaper, some people will lose work. Telling them to develop better taste would be a poor response to losing their income.
-
-My narrower claim concerns responsibility. When a client's preference conflicts with a user's needs, someone must decide whose priority wins. A model can explain the options. The people commissioning and shipping the work remain answerable for the decision. Calling it an AI choice should not give us an escape route.
-
-## Give the model something to disagree with
-
-The practical approach I want is more demanding than asking for a better result. I would start by describing who the work serves, what those people need to do, and which familiar solutions feel wrong for this project. References help when I explain the particular choice I like in each one.
-
-Before implementation, I would ask the model to question the brief and propose genuinely different directions. Then I would choose, explain why, and keep those decisions available as the work develops. That gives the model context it cannot recover from a vague instruction to make something good.
-
-I want more people to be able to build things without first clearing years of technical barriers. I also want room for beginners to develop judgment through making mistakes, rather than expecting them to arrive with fully formed taste. Cheaper prototypes can give them that room, provided we leave time to look closely, ask other people what failed, and try again.
-
-## Source note
-
-[Doshi and Hauser, 2024](https://doi.org/10.1126/sciadv.adn5290) studied AI idea assistance in short-story writing, finding better individual evaluations alongside greater similarity between assisted stories. The study supports a bounded concern about collective diversity, not a conclusion about all art or AI's capacity for creativity.
+I would use the model to help trace an affected workflow through the code, then check what happens when a step fails. If its explanation disagrees with the running software, resolve that before extending the workflow.

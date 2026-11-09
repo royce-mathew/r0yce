@@ -150,25 +150,35 @@ the full article a quiet reading column with its table of contents.
   semantic accent colours retain their contrast.
 - Use direct project URLs without comparison controls or variant query state.
 
-## Writing: Field notes and editorial essays
+## Blog
 
-`/blog` uses the selected field-notes index: a serif opening and compact,
-horizontal essay entries with a small illustration. Keep the site's dark canvas,
-ivory type, and gold accents rather than the prototype's light-paper palette.
+`/blog` opens with a plain Blog heading and compact, horizontal entries with
+numbered thumbnails. Omit collection slogans and redundant post counts.
+Keep the site's dark canvas, ivory type, and gold accents.
 `/blog/[slug]` uses the editorial article direction: oversized sans-serif title,
-serif deck and reading column, with section links alongside the essay on desktop.
+serif deck and reading column, with section links alongside the blog on desktop.
 
 - Reuse the shared palette, `.label-editorial`, and the MDX rendering pipeline.
   Blog CSS owns layout and editorial modifiers, not a second theme or prose engine.
-- Author essays as ordinary Markdown in `src/content/blog/*.md`. Frontmatter
-  provides title, description, date, author, tags, and an optional figure key.
+- Author blogs as ordinary Markdown in `src/content/blog/*.md`. Frontmatter
+  provides title, description, date, author, and tags.
   Velite generates the contents, reading time, and slug; `src/lib/blog.ts` owns
   newest-first ordering for the index, navigation, and sitemap.
-- Illustrations belong to their essay, not every post. The first compares a broad
-  brief with specific human context and deliberate selection; AI helps execute
-  either. Label it as a conceptual example, not evidence of a probability curve.
+- Each index entry is one link. Its title and “Read the blog” label share the
+  existing hover and keyboard-focus underline treatment.
+- Add images directly in Markdown with descriptive alt text, using
+  `![Description](/images/example.webp)` for an asset in `public/images/`.
+  Use the shared MDX image renderer rather than a blog-specific figure registry.
 - Keep real article URLs, normal missing-post responses, and complete metadata.
   Design comparisons and prototype controls stay on the archived prototype branch.
+- Label the collection Blog in navigation and search. Discover individual blogs
+  through the same generated content registry as the index.
+- Comments are publicly readable plain text. Posting requires the existing
+  sign-in flow; authors can delete their own comments after confirmation.
+  Server routes derive identity from Auth.js and persist comments through the
+  existing Firebase Admin connection at `blogComments/{slug}/comments/{id}`.
+  Keep that collection inaccessible to browser Firestore clients. Display
+  storage errors explicitly and preserve failed drafts.
 
 ## Topbar: Index drawer
 
