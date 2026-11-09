@@ -20,7 +20,7 @@ export async function generateMetadata({
   if (!post) notFound()
 
   return {
-    title: `${post.title} — royce.sh`,
+    title: `${post.title} | royce.sh`,
     description: post.description,
     authors: [{ name: post.author }],
     keywords: post.tags,
