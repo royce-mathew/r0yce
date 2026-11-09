@@ -22,7 +22,7 @@
 .index-drawer-body h2 { display:flex; justify-content:space-between; margin-bottom:12px; color:#a8a598; font:10px var(--font-mono),monospace; text-transform:uppercase; letter-spacing:.12em; }
 .index-drawer-body .quiet-project-links a { font-size:14px; line-height:1.5; padding-block:10px; }
 .index-drawer-body a > span:first-child { overflow-wrap:anywhere; }
-.index-drawer-body a:hover, .index-drawer-body a[aria-current="page"] { color:#f0ce53; }
-.index-drawer-body a[aria-current="page"] .quiet-link-arrow { color:#f0ce53; }
+.index-drawer-body a:hover, .index-drawer-body a:is([aria-current="page"],[aria-current="location"]) { color:#f0ce53; }
+.index-drawer-body a:is([aria-current="page"],[aria-current="location"]) .quiet-link-arrow { color:#f0ce53; }
 .index-drawer-body footer { margin-top:32px; color:#858276; font:10px/1.5 var(--font-mono),monospace; }
 @media(max-width:380px) { .index-drawer-body header { padding-left:22px; } .index-drawer-body .quiet-drawer-scroll { padding-inline:22px; } }
