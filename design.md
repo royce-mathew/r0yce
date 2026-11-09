@@ -176,9 +176,14 @@ serif deck and reading column, with section links alongside the blog on desktop.
 - Comments are publicly readable plain text. Posting requires the existing
   sign-in flow; authors can delete their own comments after confirmation.
   Server routes derive identity from Auth.js and persist comments through the
-  existing Firebase Admin connection at `blogComments/{slug}/comments/{id}`.
-  Keep that collection inaccessible to browser Firestore clients. Display
-  storage errors explicitly and preserve failed drafts.
+  existing Firebase Admin connection at `blogComments/{slug}/comments/{id}`,
+  recording each author's posting budget at
+  `blogComments/{slug}/commenters/{authorId}`. `src/lib/blog-comments.ts` owns
+  the cool-down and per-day cap and the server enforces them inside the write
+  transaction, rejects oversized payloads before parsing, and reads at most the
+  most recent comments. Keep both collections inaccessible to browser Firestore
+  clients. Display storage and throttle errors explicitly and preserve failed
+  drafts.
 
 ## Topbar: Index drawer
 

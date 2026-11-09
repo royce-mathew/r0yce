@@ -3,7 +3,11 @@
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
-import { MAX_COMMENT_LENGTH, type BlogComment } from "@/lib/blog-comments"
+import {
+  MAX_COMMENT_LENGTH,
+  MAX_VISIBLE_COMMENTS,
+  type BlogComment,
+} from "@/lib/blog-comments"
 import { Button } from "@/components/ui/button"
 import "./blog-comments.css"
 
@@ -18,6 +22,7 @@ export function BlogComments({ slug }: { slug: string }) {
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState("")
   const [attempt, setAttempt] = useState(0)
+  const [truncated, setTruncated] = useState(false)
   const [draft, setDraft] = useState("")
   const [actionError, setActionError] = useState("")
   const [notice, setNotice] = useState("")
@@ -39,8 +44,12 @@ export function BlogComments({ slug }: { slug: string }) {
           throw new Error(
             await responseError(response, "Could not load comments.")
           )
-        const data: { comments: BlogComment[] } = await response.json()
-        if (!controller.signal.aborted) setComments(data.comments)
+        const data: { comments: BlogComment[]; truncated?: boolean } =
+          await response.json()
+        if (!controller.signal.aborted) {
+          setComments(data.comments)
+          setTruncated(data.truncated === true)
+        }
       } catch (error) {
         if (!controller.signal.aborted) {
           setLoadError(
@@ -78,7 +87,9 @@ export function BlogComments({ slug }: { slug: string }) {
           await responseError(response, "Could not post your comment.")
         )
       const data: { comment: BlogComment } = await response.json()
-      setComments((current) => [...current, data.comment])
+      setComments((current) =>
+        [...current, data.comment].slice(-MAX_VISIBLE_COMMENTS)
+      )
       setDraft("")
       setNotice("Comment posted.")
     } catch (error) {
@@ -151,6 +162,11 @@ export function BlogComments({ slug }: { slug: string }) {
       )}
       {!loading && !loadError && comments.length === 0 && (
         <p>No comments yet. Start the conversation.</p>
+      )}
+      {comments.length > 0 && truncated && (
+        <p className="blog-comments-hint">
+          Showing the most recent {MAX_VISIBLE_COMMENTS} comments.
+        </p>
       )}
       {comments.length > 0 && (
         <ol className="blog-comments-list">
