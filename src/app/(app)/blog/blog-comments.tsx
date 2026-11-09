@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, type FormEvent } from "react"
+import { useEffect, useRef, useState, type SubmitEvent } from "react"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
 import {
@@ -11,9 +11,23 @@ import {
 import { Button } from "@/components/ui/button"
 import "./blog-comments.css"
 
+type CommentList = { comments: BlogComment[]; truncated: boolean }
+
 async function responseError(response: Response, fallback: string) {
   const data = await response.json().catch(() => null)
   return typeof data?.error === "string" ? data.error : fallback
+}
+
+async function fetchComments(
+  endpoint: string,
+  signal?: AbortSignal
+): Promise<CommentList> {
+  const response = await fetch(endpoint, { cache: "no-store", signal })
+  if (!response.ok)
+    throw new Error(await responseError(response, "Could not load comments."))
+  const data: { comments: BlogComment[]; truncated?: boolean } =
+    await response.json()
+  return { comments: data.comments, truncated: data.truncated === true }
 }
 
 export function BlogComments({ slug }: { slug: string }) {
@@ -29,6 +43,10 @@ export function BlogComments({ slug }: { slug: string }) {
   const [pending, setPending] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null)
   const mutationPending = useRef(false)
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  const confirmButtonRef = useRef<HTMLButtonElement>(null)
+  const deleteButtonRefs = useRef(new Map<string, HTMLButtonElement>())
+  const previousConfirmRef = useRef<string | null>(null)
   const endpoint = `/api/blog/${encodeURIComponent(slug)}/comments`
   const callbackUrl = `/blog/${encodeURIComponent(slug)}#comments`
 
@@ -36,19 +54,10 @@ export function BlogComments({ slug }: { slug: string }) {
     const controller = new AbortController()
     async function load() {
       try {
-        const response = await fetch(endpoint, {
-          cache: "no-store",
-          signal: controller.signal,
-        })
-        if (!response.ok)
-          throw new Error(
-            await responseError(response, "Could not load comments.")
-          )
-        const data: { comments: BlogComment[]; truncated?: boolean } =
-          await response.json()
+        const data = await fetchComments(endpoint, controller.signal)
         if (!controller.signal.aborted) {
           setComments(data.comments)
-          setTruncated(data.truncated === true)
+          setTruncated(data.truncated)
         }
       } catch (error) {
         if (!controller.signal.aborted) {
@@ -64,7 +73,36 @@ export function BlogComments({ slug }: { slug: string }) {
     return () => controller.abort()
   }, [endpoint, attempt])
 
-  async function submit(event: FormEvent<HTMLFormElement>) {
+  useEffect(() => {
+    const previous = previousConfirmRef.current
+    previousConfirmRef.current = confirmDelete
+    if (confirmDelete) {
+      confirmButtonRef.current?.focus()
+      return
+    }
+    if (!previous) return
+    // Cancel restores the row's trigger; a completed deletion moves focus to
+    // the section heading instead of dropping it with the removed row.
+    const trigger = deleteButtonRefs.current.get(previous)
+    if (trigger) trigger.focus()
+    else headingRef.current?.focus()
+  }, [confirmDelete])
+
+  /**
+   * Replaces the optimistic list with the server's capped window so the
+   * rendered count and the truncation notice stay authoritative.
+   */
+  async function resyncComments() {
+    try {
+      const data = await fetchComments(endpoint)
+      setComments(data.comments)
+      setTruncated(data.truncated)
+    } catch {
+      // Keep the optimistic list; the next full load will reconcile it.
+    }
+  }
+
+  async function submit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
     if (
       mutationPending.current ||
@@ -92,6 +130,7 @@ export function BlogComments({ slug }: { slug: string }) {
       )
       setDraft("")
       setNotice("Comment posted.")
+      await resyncComments()
     } catch (error) {
       setActionError(
         error instanceof Error ? error.message : "Could not post your comment."
@@ -122,6 +161,7 @@ export function BlogComments({ slug }: { slug: string }) {
       )
       setConfirmDelete(null)
       setNotice("Comment deleted.")
+      await resyncComments()
     } catch (error) {
       setActionError(
         error instanceof Error
@@ -140,7 +180,12 @@ export function BlogComments({ slug }: { slug: string }) {
       className="blog-comments"
       aria-labelledby="blog-comments-heading"
     >
-      <h2 id="blog-comments-heading" className="font-display">
+      <h2
+        id="blog-comments-heading"
+        ref={headingRef}
+        tabIndex={-1}
+        className="font-display"
+      >
         Comments
       </h2>
       {loading && <p role="status">Loading comments…</p>}
@@ -195,6 +240,7 @@ export function BlogComments({ slug }: { slug: string }) {
                       <p>Delete this comment? This cannot be undone.</p>
                       <div className="blog-comments-actions">
                         <Button
+                          ref={confirmButtonRef}
                           type="button"
                           variant="destructive"
                           disabled={pending}
@@ -214,6 +260,10 @@ export function BlogComments({ slug }: { slug: string }) {
                     </div>
                   ) : (
                     <Button
+                      ref={(node) => {
+                        if (node) deleteButtonRefs.current.set(comment.id, node)
+                        else deleteButtonRefs.current.delete(comment.id)
+                      }}
                       type="button"
                       variant="ghost"
                       size="sm"

@@ -204,6 +204,19 @@ a:is(:hover, :focus-visible) .link-underline-target {
   }
 }
 
+/* Forced colors drops background images, so fall back to a real underline. */
+@media (forced-colors: active) {
+  .link-underline,
+  .link-underline-target {
+    background-image: none;
+  }
+
+  .link-underline,
+  a:not(.link-underline) .link-underline-target {
+    text-decoration: underline;
+  }
+}
+
 /* ─── Scroll reveal defaults ─── */
 .reveal-up {
   opacity: 0;

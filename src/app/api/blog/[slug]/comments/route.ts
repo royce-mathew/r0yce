@@ -2,6 +2,7 @@ import { auth } from "@/auth"
 import { getBlogPost } from "@/lib/blog"
 import { MAX_COMMENT_LENGTH } from "@/lib/blog-comments"
 import { createBlogComment, listBlogComments } from "@/lib/blog-comments.server"
+import { isSameOriginRequest } from "@/lib/request-origin"
 
 export const runtime = "nodejs"
 
@@ -95,11 +96,7 @@ export async function POST(request: Request, context: Context) {
   const { slug } = await context.params
   if (!getBlogPost(slug)) return json({ error: "Blog not found." }, 404)
 
-  const origin = request.headers.get("origin")
-  if (
-    (origin !== null && origin !== new URL(request.url).origin) ||
-    request.headers.get("sec-fetch-site") === "cross-site"
-  ) {
+  if (!isSameOriginRequest(request)) {
     return json({ error: "Comments must be submitted from this site." }, 403)
   }
 
