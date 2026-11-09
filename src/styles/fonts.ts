@@ -1,10 +1,4 @@
-import {
-  DM_Sans,
-  Instrument_Serif,
-  JetBrains_Mono,
-  Lora,
-  Work_Sans,
-} from "next/font/google"
+import { DM_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google"
 import localFont from "next/font/local"
 
 export const mangaJapanese = localFont({
@@ -40,7 +34,6 @@ export const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 })
 
-// Keep existing CalSans for backward compatibility
 export const cal = localFont({
   src: "./CalSans-SemiBold.otf",
   variable: "--font-cal",
@@ -48,32 +41,4 @@ export const cal = localFont({
   display: "swap",
 })
 
-export const calTitle = localFont({
-  src: "./CalSans-SemiBold.otf",
-  variable: "--font-title",
-  weight: "600",
-  display: "swap",
-})
-
-// Keep legacy exports for backward compat with velite content
 export const inter = dmSans // alias for files still importing `inter`
-export const lora = Lora({
-  variable: "--font-title",
-  subsets: ["latin"],
-  weight: "600",
-  display: "swap",
-  preload: false,
-})
-export const work = Work_Sans({
-  variable: "--font-title",
-  subsets: ["latin"],
-  weight: "600",
-  display: "swap",
-  preload: false,
-})
-
-export const fontMapper = {
-  "font-cal": calTitle.variable,
-  "font-lora": lora.variable,
-  "font-work": work.variable,
-} as Record<string, string>

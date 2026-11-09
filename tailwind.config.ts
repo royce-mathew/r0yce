@@ -74,7 +74,6 @@ const config = {
           ...defaultTheme.fontFamily.serif,
         ],
         cal: ["var(--font-cal)", ...defaultTheme.fontFamily.sans],
-        title: ["var(--font-title)", ...defaultTheme.fontFamily.sans],
         mono: ["var(--font-mono)", "Consolas", ...defaultTheme.fontFamily.mono],
       },
       typography: ({ theme }: { theme: any }) => ({
