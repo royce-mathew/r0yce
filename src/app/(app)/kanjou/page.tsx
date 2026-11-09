@@ -4,9 +4,9 @@ import Link from "next/link"
 import { KanjouHero } from "./kanjou-hero"
 
 export const metadata: Metadata = {
-  title: "Kanjou — Collaborative Editor",
+  title: "Kanjou | Collaborative Editor",
   description:
-    "Kanjou is a realtime collaborative writing app. Edits merge instead of queueing — two people can type in the same paragraph and both keep their words.",
+    "Kanjou is a realtime collaborative writing app. Edits merge instead of queueing: two people can type in the same paragraph and both keep their words.",
   keywords: [
     "kanjou",
     "collaborative editor",
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     siteName: "royce.sh",
     url: "https://royce.sh/kanjou",
     type: "website",
-    title: "Kanjou — Collaborative Editor",
+    title: "Kanjou | Collaborative Editor",
     description:
-      "A realtime collaborative writing app. Edits merge instead of queueing — two people can type in the same paragraph and both keep their words.",
+      "A realtime collaborative writing app. Edits merge instead of queueing: two people can type in the same paragraph and both keep their words.",
     images: [
       {
         url: "https://royce.sh/images/KanjouDocuments.png",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kanjou — Collaborative Editor",
+    title: "Kanjou | Collaborative Editor",
     description:
       "A realtime collaborative writing app. Edits merge instead of queueing.",
     images: ["https://royce.sh/images/KanjouDocuments.png"],
@@ -81,7 +81,7 @@ const inputRules: { type: string; gives: string; note?: string }[] = [
   {
     type: "$x^2$",
     gives: "Inline maths",
-    note: "Rendered with KaTeX — click an expression to evaluate it",
+    note: "Rendered with KaTeX; click an expression to evaluate it",
   },
   {
     type: "---",
@@ -95,7 +95,7 @@ const inputRules: { type: string; gives: string; note?: string }[] = [
   {
     type: "⌘P",
     gives: "Print the document",
-    note: "Ctrl P on Windows — prints the document view, not the page",
+    note: "Ctrl P on Windows prints the document view, not the page",
   },
 ]
 
@@ -163,7 +163,7 @@ export default function KanjouIntroduction() {
               </p>
               <p>
                 Below that is every document you own, sorted by when you last
-                opened it. Rename or delete from the row itself — there is no
+                opened it. Rename or delete from the row itself; there is no
                 settings screen to go and find.
               </p>
               <p>

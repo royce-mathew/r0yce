@@ -3,9 +3,9 @@ import { mainContents } from "#site/content"
 import { CreationHome } from "./creation-home"
 
 export const metadata: Metadata = {
-  title: "royce.sh — Royce Mathew, Software Developer & AI Engineer",
+  title: "royce.sh | Royce Mathew, Software Developer & AI Engineer",
   description:
-    "Portfolio of Royce Mathew — Software Developer, AI Engineer, and Game Developer based in Canada.",
+    "Portfolio of Royce Mathew: Software Developer, AI Engineer, and Game Developer based in Canada.",
   keywords: [
     "developer",
     "python",
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     siteName: "royce.sh",
     url: "https://royce.sh",
     type: "website",
-    title: "royce.sh — Royce Mathew, Software Developer & AI Engineer",
+    title: "royce.sh | Royce Mathew, Software Developer & AI Engineer",
     description:
-      "Portfolio of Royce Mathew — Software Developer, AI Engineer, and Game Developer based in Canada.",
+      "Portfolio of Royce Mathew: Software Developer, AI Engineer, and Game Developer based in Canada.",
     images: [
       {
         url: "https://royce.sh/images/ProfilePicture2.webp",
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "royce.sh — Royce Mathew, Software Developer & AI Engineer",
+    title: "royce.sh | Royce Mathew, Software Developer & AI Engineer",
     description:
-      "Portfolio of Royce Mathew — Software Developer, AI Engineer, and Game Developer based in Canada.",
+      "Portfolio of Royce Mathew: Software Developer, AI Engineer, and Game Developer based in Canada.",
     images: [
       {
         url: "https://royce.sh/images/ProfilePicture2.webp",

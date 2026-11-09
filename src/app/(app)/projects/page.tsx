@@ -3,14 +3,14 @@ import { projects } from "#site/content"
 import { ProjectsIndex } from "./projects-index"
 
 export const metadata: Metadata = {
-  title: "Projects — royce.sh",
+  title: "Projects | royce.sh",
   description: "Selected works and projects by Royce Mathew.",
   keywords: [...projects.map((project) => project.title)],
   openGraph: {
     siteName: "royce.sh",
     url: "https://royce.sh/projects",
     type: "website",
-    title: "Projects — royce.sh",
+    title: "Projects | royce.sh",
     description: "Selected works and projects by Royce Mathew.",
     images: [
       ...projects.map((project) => ({
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Projects — royce.sh",
+    title: "Projects | royce.sh",
     description: "Selected works and projects by Royce Mathew.",
     images: [
       ...projects.map((project) => ({

@@ -278,7 +278,7 @@ export default function KanjouDocuments() {
       const snapshot = await getDoc(documentRef(documentId))
       return snapshot.exists() ? snapshot.data().content : {}
     } catch {
-      toast("Could not load that template — starting from a blank document.")
+      toast("Could not load that template. Starting from a blank document.")
       return {}
     }
   }
@@ -323,7 +323,7 @@ export default function KanjouDocuments() {
           </DocumentDialog>
           <DocumentDialog
             documentName="Maths preset"
-            description="Opens with LaTeX examples — inline, display, and evaluated."
+            description="Opens with LaTeX examples: inline, display, and evaluated."
             onDialogClose={async (name) =>
               await createNewDocument(
                 name,
@@ -371,8 +371,8 @@ export default function KanjouDocuments() {
           <div className="mt-6 border-t border-border/40 py-16 text-center">
             <p className="font-display text-2xl">No documents yet.</p>
             <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              A document is a page you can write in and hand to someone else —
-              you both type at once, and neither of you overwrites the other.
+              A document is a page you can write in and hand to someone else.
+              You both type at once, and neither of you overwrites the other.
             </p>
             <p className="mt-6 text-sm text-muted-foreground">
               Pick a starting point above.
