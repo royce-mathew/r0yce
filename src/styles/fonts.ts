@@ -30,6 +30,7 @@ export const instrumentSerif = Instrument_Serif({
   weight: "400",
   style: ["normal", "italic"],
   display: "swap",
+  preload: false,
 })
 
 export const jetbrainsMono = JetBrains_Mono({
@@ -61,12 +62,14 @@ export const lora = Lora({
   subsets: ["latin"],
   weight: "600",
   display: "swap",
+  preload: false,
 })
 export const work = Work_Sans({
   variable: "--font-title",
   subsets: ["latin"],
   weight: "600",
   display: "swap",
+  preload: false,
 })
 
 export const fontMapper = {

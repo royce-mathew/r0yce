@@ -33,6 +33,7 @@ Use pnpm to run the scripts defined in `package.json`:
 • `lint:fix`: Attempts to automatically fix lint issues.  
 • `format`: Formats the code with Prettier.
 • `perf:check`: Checks production public-route JavaScript budgets after a Turbopack build.
+• `perf:vitals`: Checks the production home page's median mobile LCP and CLS across five Lighthouse runs.
 
 ## Development Environment
 
@@ -49,19 +50,60 @@ Husky runs `pnpm lint` before commits and enforces [Conventional Commits](https:
 
 ## Performance checks
 
-Run the public-route JavaScript budget check:
+Build and check production public-route JavaScript budgets:
 
 ```sh
-pnpm build:content
-pnpm exec next build --experimental-build-mode compile
+pnpm build
 pnpm perf:check
 ```
 
-CI runs the same check. Route-entry gzip budgets are defined in
-`scripts/check-public-js.mjs`; they do not measure total page transfer or load time.
+Route-entry gzip budgets are defined in `scripts/check-public-js.mjs`; they do
+not measure total page transfer or load time. A compile-only check remains
+available with `pnpm build:content && pnpm exec next build --experimental-build-mode compile`.
 
-Production Web Vitals reporting uses the existing Google Analytics configuration
-(`NEXT_PUBLIC_ANALYTICS_ID`).
+Run the mobile home-page load budget with Chrome/Chromium installed:
+
+```sh
+AUTH_TRUST_HOST=true pnpm perf:vitals
+```
+
+This starts the production build on port 3215 and uses pinned Lighthouse CI.
+Set `CHROME_PATH` if Chrome is not auto-detected. `.lighthouserc.json` checks
+the median of five cold-browser runs with mobile DevTools throttling:
+LCP ≤ 2,500 ms and CLS ≤ 0.1. Reports stay local in `.lighthouseci/`.
+CI runs both budget checks and saves Lighthouse artifacts. Its generated
+local-only credentials permit Firebase SDK initialization and anonymous
+session checks without production secrets; they do not grant database access
+or exercise authenticated workflows.
+
+### Optimization ledger — 2026-11-09
+
+Production builds, Lighthouse 13.6.0, Chromium 150, mobile 412 × 823,
+default mobile DevTools network throttling and 4× CPU slowdown. Five runs per
+variant, interleaved original → image priority → font loading. Browser caches
+reset each run; server image caches warmed equally. The machine had 20 logical
+cores and a starting load average of 0.01. All measured requests succeeded;
+Lighthouse reported no run warnings.
+
+| Experiment | Median LCP (range) | Verdict | Evidence |
+| --- | --- | --- | --- |
+| Original build | 2,871 ms (2,855–2,893) | Baseline | Portrait is the LCP element; seven font preloads compete with it. |
+| Replace portrait preload with eager/high-priority loading | 2,879 ms (2,842–2,894) | Reverted | Within baseline variation; no measurable benefit. |
+| Load Lora, Work Sans, and Instrument Serif on demand | 2,231 ms (2,216–2,237) | Kept | 22.3% faster LCP; four unused home-page font preloads removed, without removing fonts or changing typography. |
+
+The kept change reduced median FCP from 2,539 to 2,138 ms and measured page
+transfer from 647,639 to 572,493 bytes. Median Lighthouse performance rose from
+88 to 93; CLS remained zero. Total blocking time was effectively unchanged
+(192 to 195 ms). Network attribution showed portrait loading, not server time
+or rendering, was the limiter: a diagnostic run's portrait load duration fell
+from 2,231 to 1,614 ms. These are local synthetic results, not production RUM.
+
+Production Web Vitals reporting already uses Google Analytics
+(`NEXT_PUBLIC_ANALYTICS_ID`). After deployment, compare per-page p75 LCP, INP,
+and CLS against the preceding release; targets are ≤ 2.5 s, ≤ 200 ms, and ≤ 0.1.
+Production analytics were not accessible during this run, and the public
+PageSpeed API returned HTTP 429, so field improvement and INP remain unverified.
+No new production alert was provisioned.
 
 ## Content Organization
 
