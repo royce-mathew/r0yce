@@ -165,7 +165,7 @@ export function KanjouHero() {
             </Link>
             <Link
               href="/projects/kanjou"
-              className="link-underline inline-flex min-h-11 items-center rounded-sm border border-border px-6 text-sm font-medium whitespace-nowrap text-foreground transition-colors duration-200 hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-hidden"
+              className="inline-flex min-h-11 items-center rounded-sm border border-border px-6 text-sm font-medium whitespace-nowrap text-foreground transition-colors duration-200 hover:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-hidden"
             >
               Read the build notes
             </Link>

@@ -23,13 +23,13 @@ export function SiteFooter() {
         </div>
         <nav aria-label="Social links" className="manga-footer-social">
           <Link href="https://github.com/royce-mathew" target="_blank" rel="noopener noreferrer">
-            <IconBrandGithubFilled className="size-4" /> GitHub
+            <IconBrandGithubFilled className="size-4" /> <span className="link-underline-target">GitHub</span>
           </Link>
           <Link href="https://www.linkedin.com/in/royce-mathew" target="_blank" rel="noopener noreferrer">
-            <Icons.LinkedIn className="size-4" /> LinkedIn
+            <Icons.LinkedIn className="size-4" /> <span className="link-underline-target">LinkedIn</span>
           </Link>
           <Link href="mailto:royce1mathew@gmail.com">
-            <IconMailFilled className="size-4" /> Email
+            <IconMailFilled className="size-4" /> <span className="link-underline-target">Email</span>
           </Link>
         </nav>
         <div className="manga-footer-tools">

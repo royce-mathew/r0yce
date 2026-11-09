@@ -27,7 +27,7 @@ export function ProjectSwitcher({ items, currentHref, currentTitle }: {
         <div className="project-switcher-list">
           {items.map((item) => (
             <Link key={item.href} href={item.href} className="project-switcher-option" aria-current={item.href === currentHref ? "page" : undefined} onClick={() => setOpen(false)}>
-              <span>{item.title}</span>
+              <span className="link-underline-target">{item.title}</span>
               {item.href === currentHref && <span className="project-switcher-current">Current</span>}
             </Link>
           ))}

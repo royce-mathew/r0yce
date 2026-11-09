@@ -1,5 +1,5 @@
-import { s as svg } from "hastscript"
-import rehypeAutolinkHeadings from "rehype-autolink-headings"
+import { h, s as svg } from "hastscript"
+import rehypeAutolinkHeadings, { type Build } from "rehype-autolink-headings"
 import rehypePrettyCode, { LineElement } from "rehype-pretty-code"
 import { shikiDiffNotation } from "@/lib/shiki-diff-notation"
 import rehypeSlug from "rehype-slug"
@@ -62,11 +62,33 @@ export const Base = defineCollection({
     })),
 })
 
+const Blog = defineCollection({
+  name: "BlogPost",
+  pattern: "blog/*.md",
+  schema: s
+    .object({
+      title: s.string(),
+      description: s.string(),
+      date: s.isodate(),
+      author: s.string(),
+      tags: s.array(s.string()).default([]),
+      code: s.mdx(),
+      toc: s.toc(),
+      metadata: s.metadata(),
+      slug: s.path(),
+    })
+    .transform((data) => ({
+      ...data,
+      slugAsParams: data.slug.split("/").slice(1).join("/"),
+    })),
+})
+
 export default defineConfig({
   root: "./src/content",
   collections: {
     projects: Project,
     mainContents: Base,
+    posts: Blog,
   },
   mdx: {
     remarkPlugins: [remarkGfm],
@@ -101,10 +123,12 @@ export default defineConfig({
         rehypeAutolinkHeadings,
         {
           behavior: "wrap",
-          content: link(),
+          content: ((node) => [
+            h("span.link-underline-target", node.children),
+            headingLinkIcon(),
+          ]) satisfies Build,
           properties: {
-            ariaLabel: "Link to this section",
-            className: ["text-foreground hover:no-underline flex space-x-2"],
+            className: ["text-foreground flex w-fit items-center gap-2"],
           },
         },
       ],
@@ -112,13 +136,12 @@ export default defineConfig({
   },
 })
 
-function link() {
+function headingLinkIcon() {
   return svg(
     "svg.icon",
     {
       ariaHidden: "true",
       viewBox: [0, 0, 16, 16],
-      className: "",
       focusable: false,
       width: 18,
       height: 18,

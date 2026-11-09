@@ -32,9 +32,12 @@
   scroll-margin-top: 7rem;
 }
 
-.mdx a {
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.22em;
+.mdx a.link-underline:not(:has(img, svg, video)) {
+  --link-underline-rest: 100%;
+}
+
+.mdx a.link-underline:has(img, svg, video) {
+  background-image: none;
 }
 
 .mdx strong {

@@ -3,12 +3,24 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { IconSearch } from "@tabler/icons-react"
+import { Command as CommandPrimitive } from "cmdk"
 import { NavItem } from "@/types/nav"
 import type { siteConfig } from "@/config/docs"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Command as CommandPrimitive } from "cmdk"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import "./command-menu.css"
 
 const extraPages: NavItem[] = [
@@ -61,46 +73,84 @@ export function CommandMenu({ navigation }: { navigation: typeof siteConfig }) {
   return (
     <Dialog modal onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
-        <Button variant="icon" aria-label="Search pages and projects">
+        <Button variant="icon" aria-label="Search pages, projects, and blogs">
           <IconSearch className="size-6" aria-hidden="true" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="quick-jump-dialog" style={{ translate: "none" }} data-lenis-prevent>
-        <DialogTitle className="sr-only">Search pages and projects</DialogTitle>
-        <DialogDescription className="sr-only">Use the arrow keys to move and Enter to open a destination.</DialogDescription>
+      <DialogContent
+        className="quick-jump-dialog"
+        style={{ translate: "none" }}
+        data-lenis-prevent
+      >
+        <DialogTitle className="sr-only">
+          Search pages, projects, and blogs
+        </DialogTitle>
+        <DialogDescription className="sr-only">
+          Find pages, projects, and blogs. Use the arrow keys to move and Enter
+          to open a destination.
+        </DialogDescription>
         <Command className="quick-jump-menu" label="Jump to a destination">
           <header className="quick-heading">
-            <span className="quick-slash" aria-hidden="true">/</span>
+            <span className="quick-slash" aria-hidden="true">
+              /
+            </span>
             <span>Jump to</span>
           </header>
-          <CommandInput placeholder="Find a page or project…" aria-label="Search pages and projects" autoFocus />
-          <CommandPrimitive.List className="quick-results" aria-label="Destinations">
-            <CommandEmpty>No destinations found. Try another search.</CommandEmpty>
+          <CommandInput
+            placeholder="Find a page, project, or blog…"
+            aria-label="Search pages, projects, and blogs"
+            autoFocus
+          />
+          <CommandPrimitive.List
+            className="quick-results"
+            aria-label="Destinations"
+          >
+            <CommandEmpty>
+              No destinations found. Try another search.
+            </CommandEmpty>
             <CommandGroup heading="Pages">
-              {menuPages.map(page => (
-                <CommandItem key={page.href} value={`${page.title} ${page.href} Pages`} onSelect={() => go(page.href as string)}>
+              {menuPages.map((page) => (
+                <CommandItem
+                  key={page.href}
+                  value={`${page.title} ${page.href} Pages`}
+                  onSelect={() => go(page.href as string)}
+                >
                   <span className="quick-destination">{page.title}</span>
                   <span className="quick-path">{page.href}</span>
-                  <span className="quick-arrow" aria-hidden="true">↗</span>
+                  <span className="quick-arrow" aria-hidden="true">
+                    ↗
+                  </span>
                 </CommandItem>
               ))}
             </CommandGroup>
-            {navigation.sidebarNav.map(group => (
+            {navigation.sidebarNav.map((group) => (
               <CommandGroup key={group.title} heading={group.title}>
-                {group.items.map(item => (
-                  <CommandItem key={item.href} value={`${item.title} ${item.href} ${group.title}`} onSelect={() => go(item.href as string)}>
+                {group.items.map((item) => (
+                  <CommandItem
+                    key={item.href}
+                    value={`${item.title} ${item.href} ${group.title}`}
+                    onSelect={() => go(item.href as string)}
+                  >
                     <span className="quick-destination">{item.title}</span>
                     <span className="quick-path">{item.href}</span>
-                    <span className="quick-arrow" aria-hidden="true">↗</span>
+                    <span className="quick-arrow" aria-hidden="true">
+                      ↗
+                    </span>
                   </CommandItem>
                 ))}
               </CommandGroup>
             ))}
           </CommandPrimitive.List>
           <footer className="quick-help">
-            <span><kbd>↑↓</kbd> move</span>
-            <span><kbd>Enter</kbd> open</span>
-            <span><kbd>Esc</kbd> close</span>
+            <span>
+              <kbd>↑↓</kbd> move
+            </span>
+            <span>
+              <kbd>Enter</kbd> open
+            </span>
+            <span>
+              <kbd>Esc</kbd> close
+            </span>
           </footer>
         </Command>
       </DialogContent>

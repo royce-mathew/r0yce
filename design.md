@@ -150,6 +150,41 @@ the full article a quiet reading column with its table of contents.
   semantic accent colours retain their contrast.
 - Use direct project URLs without comparison controls or variant query state.
 
+## Blog
+
+`/blog` opens with a plain Blog heading and compact, horizontal entries with
+numbered thumbnails. Omit collection slogans and redundant post counts.
+Keep the site's dark canvas, ivory type, and gold accents.
+`/blog/[slug]` uses the editorial article direction: oversized sans-serif title,
+serif deck and reading column, with section links alongside the blog on desktop.
+
+- Reuse the shared palette, `.label-editorial`, and the MDX rendering pipeline.
+  Blog CSS owns layout and editorial modifiers, not a second theme or prose engine.
+- Author blogs as ordinary Markdown in `src/content/blog/*.md`. Frontmatter
+  provides title, description, date, author, and tags.
+  Velite generates the contents, reading time, and slug; `src/lib/blog.ts` owns
+  newest-first ordering for the index, navigation, and sitemap.
+- Each index entry is one link. Its title and “Read the blog” label share the
+  existing hover and keyboard-focus underline treatment.
+- Add images directly in Markdown with descriptive alt text, using
+  `![Description](/images/example.webp)` for an asset in `public/images/`.
+  Use the shared MDX image renderer rather than a blog-specific figure registry.
+- Keep real article URLs, normal missing-post responses, and complete metadata.
+  Design comparisons and prototype controls stay on the archived prototype branch.
+- Label the collection Blog in navigation and search. Discover individual blogs
+  through the same generated content registry as the index.
+- Comments are publicly readable plain text. Posting requires the existing
+  sign-in flow; authors can delete their own comments after confirmation.
+  Server routes derive identity from Auth.js and persist comments through the
+  existing Firebase Admin connection at `blogComments/{slug}/comments/{id}`,
+  recording each author's posting budget at
+  `blogComments/{slug}/commenters/{authorId}`. `src/lib/blog-comments.ts` owns
+  the cool-down and per-day cap and the server enforces them inside the write
+  transaction, rejects oversized payloads before parsing, and reads at most the
+  most recent comments. Keep both collections inaccessible to browser Firestore
+  clients. Display storage and throttle errors explicitly and preserve failed
+  drafts.
+
 ## Topbar: Index drawer
 
 Use a minimal wordmark, search, settings, and Index drawer on desktop as well
@@ -231,6 +266,11 @@ Do not let white or bright gold hairlines dominate those dark reading surfaces.
 - Confirm only irreversible actions. Deleting a Firestore document earns a
   dialog; renaming does not.
 - Focus rings appear instantly and are never transitioned.
+- Text links share `.link-underline`; card and composite anchors apply
+  `.link-underline-target` to their text label instead of drawing a rule beneath
+  the entire card or its icons. Hover and keyboard focus reveal the same line.
+  Prose retains a quiet underline at rest; reduced motion removes the transition.
+  Wordmarks, image-only links, skip links, and button-styled actions stay distinct.
 - Hit targets ≥ 44 px on coarse pointers. Keep short action labels on one line
   where space permits, without clipping or creating horizontal overflow.
 - Search and Index preserve the visible page and scroll position while open.

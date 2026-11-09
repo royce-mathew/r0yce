@@ -33,7 +33,7 @@ export function ProjectDetail({ project }: { project: Project }) {
             <div className="project-actions">
               {project.links.website && (
                 <Link href={project.links.website} target="_blank" rel="noopener noreferrer">
-                  Visit website <IconArrowUpRight size={16} aria-hidden="true" />
+                  <span className="link-underline-target">Visit website</span> <IconArrowUpRight size={16} aria-hidden="true" />
                 </Link>
               )}
               {project.links.github && (
@@ -54,7 +54,7 @@ export function ProjectDetail({ project }: { project: Project }) {
             <span>{project.metadata.readingTime} min read · {project.metadata.wordCount} words</span>
           </div>
           <a className="project-read" href="#project-article">
-            Read the story <IconArrowDown size={15} aria-hidden="true" />
+            <span className="link-underline-target">Read the story</span> <IconArrowDown size={15} aria-hidden="true" />
           </a>
         </header>
       </section>

@@ -150,12 +150,14 @@ export function CreationHero() {
             </div>
             <div className="me-void-actions me-void-reveal">
               <div className="me-void-japanese" aria-hidden="true"><span lang="ja">創造</span><span lang="ja">遊び</span></div>
-              <nav className="me-void-project me-void-navigation" aria-label="Projects"><Link href="/projects">Projects<span aria-hidden="true">↗</span></Link></nav>
+              <nav className="me-void-project me-void-navigation" aria-label="Projects">
+                <Link href="/projects"><span className="link-underline-target">Projects</span><span aria-hidden="true">↗</span></Link>
+              </nav>
             </div>
             <nav className="me-void-links me-void-navigation me-void-reveal" aria-label="Personal links">
-              <a href="#scroll-about">About<span aria-hidden="true">↓</span></a>
-              <a href="mailto:royce1mathew@gmail.com">Email<span aria-hidden="true">↗</span></a>
-              <a href="/files/Royce%20Mathew%20Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé<span aria-hidden="true">↗</span></a>
+              <a href="#scroll-about"><span className="link-underline-target">About</span><span aria-hidden="true">↓</span></a>
+              <a href="mailto:royce1mathew@gmail.com"><span className="link-underline-target">Email</span><span aria-hidden="true">↗</span></a>
+              <a href="/files/Royce%20Mathew%20Resume.pdf" target="_blank" rel="noopener noreferrer"><span className="link-underline-target">Résumé</span><span aria-hidden="true">↗</span></a>
             </nav>
           </div>
         </div>
