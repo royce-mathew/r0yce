@@ -9,6 +9,7 @@ export type BlogComment = {
   author: {
     id: string
     name: string
+    image: string | null
   }
   createdAt: string
 }
