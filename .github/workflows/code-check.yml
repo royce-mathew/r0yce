@@ -80,6 +80,12 @@ jobs:
   public-js-budget:
     runs-on: ubuntu-latest
     name: Public JavaScript budgets
+    env:
+      AUTH_TRUST_HOST: "true"
+      FIREBASE_PROJECT_ID: demo-royce-perf
+      FIREBASE_CLIENT_EMAIL: ci@demo-royce-perf.iam.gserviceaccount.com
+      NEXT_PUBLIC_FIREBASE_API_KEY: ci-only-api-key
+      NEXT_PUBLIC_FIREBASE_PROJECT_ID: demo-royce-perf
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -88,6 +94,24 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - name: Generate local-only build credentials
+        run: |
+          node --input-type=module <<'NODE'
+          import { generateKeyPairSync, randomBytes } from "node:crypto"
+          import { appendFileSync } from "node:fs"
+          const { privateKey } = generateKeyPairSync("rsa", {
+            modulusLength: 2048,
+            privateKeyEncoding: { type: "pkcs8", format: "pem" },
+            publicKeyEncoding: { type: "spki", format: "pem" },
+          })
+          appendFileSync(process.env.GITHUB_ENV, `AUTH_SECRET=${randomBytes(32).toString("hex")}\nFIREBASE_PRIVATE_KEY<<PERF_KEY\n${privateKey}PERF_KEY\n`)
+          NODE
       - run: pnpm build:content
-      - run: pnpm exec next build --experimental-build-mode compile
+      - run: pnpm build:next
       - run: pnpm perf:check
+      - run: pnpm perf:vitals
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/

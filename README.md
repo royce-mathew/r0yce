@@ -33,6 +33,7 @@ Use pnpm to run the scripts defined in `package.json`:
 • `lint:fix`: Attempts to automatically fix lint issues.  
 • `format`: Formats the code with Prettier.
 • `perf:check`: Checks production public-route JavaScript budgets after a Turbopack build.
+• `perf:vitals`: Checks the production home page's median mobile LCP and CLS across five Lighthouse runs.
 
 ## Development Environment
 
@@ -49,19 +50,35 @@ Husky runs `pnpm lint` before commits and enforces [Conventional Commits](https:
 
 ## Performance checks
 
-Run the public-route JavaScript budget check:
+Build and check production public-route JavaScript budgets:
 
 ```sh
-pnpm build:content
-pnpm exec next build --experimental-build-mode compile
+pnpm build
 pnpm perf:check
 ```
 
-CI runs the same check. Route-entry gzip budgets are defined in
-`scripts/check-public-js.mjs`; they do not measure total page transfer or load time.
+Route-entry gzip budgets are defined in `scripts/check-public-js.mjs`; they do
+not measure total page transfer or load time. A compile-only check remains
+available with `pnpm build:content && pnpm exec next build --experimental-build-mode compile`.
 
-Production Web Vitals reporting uses the existing Google Analytics configuration
-(`NEXT_PUBLIC_ANALYTICS_ID`).
+Run the mobile home-page load budget with Chrome/Chromium installed:
+
+```sh
+AUTH_TRUST_HOST=true pnpm perf:vitals
+```
+
+This starts the production build on port 3215 and uses pinned Lighthouse CI.
+Set `CHROME_PATH` if Chrome is not auto-detected. `.lighthouserc.json` checks
+the median of five cold-browser runs with mobile DevTools throttling:
+LCP ≤ 2,500 ms and CLS ≤ 0.1. Reports stay local in `.lighthouseci/`.
+CI runs both budget checks and saves Lighthouse artifacts. Its generated
+local-only credentials permit Firebase SDK initialization and anonymous
+session checks without production secrets; they do not grant database access
+or exercise authenticated workflows.
+
+Production Web Vitals reporting already uses Google Analytics
+(`NEXT_PUBLIC_ANALYTICS_ID`). After deployment, compare per-page p75 LCP, INP,
+and CLS against the preceding release; targets are ≤ 2.5 s, ≤ 200 ms, and ≤ 0.1.
 
 ## Content Organization
 

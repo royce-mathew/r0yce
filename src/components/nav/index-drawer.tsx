@@ -17,12 +17,11 @@ import {
 import "./index-drawer.css"
 
 export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
-  const [open, setOpen] = React.useState(false)
+  const [state, setState] = React.useState<"open" | "closed" | "navigating">("closed")
   const pathname = usePathname()
-  const close = () => setOpen(false)
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet open={state === "open"} onOpenChange={(open) => setState(open ? "open" : "closed")}>
       <SheetTrigger asChild>
         <Button
           variant="icon"
@@ -32,7 +31,7 @@ export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
           <span className="sr-only">Open site index</span>
         </Button>
       </SheetTrigger>
-      <SheetContent
+      {state !== "navigating" && <SheetContent
         side="right"
         className="index-drawer"
         style={{ translate: "none" }}
@@ -58,7 +57,7 @@ export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
                     <Link
                       key={item.href}
                       href={item.href}
-                      onClick={close}
+                      onClick={() => setState("navigating")}
                       aria-current={
                         pathname === item.href
                           ? "page"
@@ -95,7 +94,7 @@ export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
                       <Link
                         key={item.href}
                         href={item.href}
-                        onClick={close}
+                        onClick={() => setState("navigating")}
                         aria-current={
                           pathname === item.href ? "page" : undefined
                         }
@@ -120,7 +119,7 @@ export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
         >
           <IconX size={18} />
         </SheetClose>
-      </SheetContent>
+      </SheetContent>}
     </Sheet>
   )
 }

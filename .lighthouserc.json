@@ -1,0 +1,31 @@
+{
+  "ci": {
+    "collect": {
+      "url": ["http://127.0.0.1:3215/"],
+      "startServerCommand": "pnpm start --port 3215",
+      "startServerReadyPattern": "Ready",
+      "numberOfRuns": 5,
+      "settings": {
+        "onlyCategories": ["performance"],
+        "throttlingMethod": "devtools",
+        "chromeFlags": "--no-sandbox --disable-dev-shm-usage"
+      }
+    },
+    "assert": {
+      "assertions": {
+        "largest-contentful-paint": [
+          "error",
+          { "maxNumericValue": 2500, "aggregationMethod": "median" }
+        ],
+        "cumulative-layout-shift": [
+          "error",
+          { "maxNumericValue": 0.1, "aggregationMethod": "median" }
+        ]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": ".lighthouseci/reports"
+    }
+  }
+}
