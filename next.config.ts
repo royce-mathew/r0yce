@@ -4,6 +4,15 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
   transpilePackages: ["next-auth"],
   reactStrictMode: true,
+  redirects() {
+    return [
+      {
+        source: "/blog/ai-is-not-replacing-us",
+        destination: "/blog/the-cost-of-code-you-dont-understand",
+        permanent: true,
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {
