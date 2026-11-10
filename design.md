@@ -184,11 +184,6 @@ serif deck and reading column, with section links alongside the blog on desktop.
   most recent comments. Keep both collections inaccessible to browser Firestore
   clients. Display storage and throttle errors explicitly and preserve failed
   drafts.
-  Capture the author's profile image from the same server-side session when
-  posting; never accept author identity or profile images from the request body.
-  Show that image beside the name, with initials for older comments, accounts
-  without a picture, or images that cannot load. Profile images are snapshots
-  taken at posting time, not live lookups of the author's current account.
 
 ## Topbar: Index drawer
 
