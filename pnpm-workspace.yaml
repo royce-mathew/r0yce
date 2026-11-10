@@ -1,23 +1,26 @@
 allowBuilds:
-  "@firebase/util": true
-  esbuild: true
-  protobufjs: true
-  sharp: true
-  unrs-resolver: true
-minimumReleaseAgeExclude:
-  - "@next/env@16.3.4"
-  - "@next/eslint-plugin-next@16.3.4"
-  - "@next/swc-darwin-arm64@16.3.4"
-  - "@next/swc-darwin-x64@16.3.4"
-  - "@next/swc-linux-arm64-gnu@16.3.4"
-  - "@next/swc-linux-arm64-musl@16.3.4"
-  - "@next/swc-linux-x64-gnu@16.3.4"
-  - "@next/swc-linux-x64-musl@16.3.4"
-  - "@next/swc-win32-arm64-msvc@16.3.4"
-  - "@next/swc-win32-x64-msvc@16.3.4"
-  - "@next/third-parties@16.3.4"
-  - eslint-config-next@16.3.4
-  - next@16.3.4
+  "@firebase/util@1.15.3": true
+  esbuild@0.25.12: true
+  protobufjs: false
+strictDepBuilds: true
+engineStrict: true
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+minimumReleaseAgeIgnoreMissingTime: false
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  - next-auth@5.0.0-beta.32
+  - jose@4.15.9
+  - chromium-bidi@157.0.8090-0
+blockExoticSubdeps: true
 overrides:
-  "@types/react": 19.2.18
-  "@types/react-dom": 19.2.5
+  "@types/react": 19.3.0
+  "@types/react-dom": 19.3.0
+  "uuid@<11.1.1": 11.1.1
+  "velite>sharp": 0.35.5
+  "@firebase/firestore>@grpc/grpc-js": 1.14.7
+  "get-uri>basic-ftp": 6.2.6
+  "@aarkue/tiptap-math-extension>katex": 0.19.1
+  "@tailwindcss/typography>postcss-selector-parser": 6.1.6
+  "minimatch@>=7 <11": 11.0.5
+  "@lhci/cli>proxy-agent": 8.0.2

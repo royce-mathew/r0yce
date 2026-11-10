@@ -17,7 +17,7 @@ The `royce.sh` website leverages Next.js to serve MDX content in a flexible envi
 To install the project, follow these steps:
 
 1. Clone the repository.
-2. Install the pinned pnpm version from `package.json`, then run `pnpm install`.
+2. Use Node.js 24.x (24.15+) or 26+, install the pinned pnpm version from `package.json`, then run `pnpm install --frozen-lockfile`.
 3. Configure `.env.local` as described below.
 4. Run `pnpm dev`. Both `localhost` and `127.0.0.1` are supported; `allowedDevOrigins` permits loopback development WebSocket connections.
 5. Build with `pnpm build`, then serve the result with `pnpm start`.

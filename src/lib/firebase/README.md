@@ -1,3 +1,6 @@
+> Historical third-party reference, not the current integration. See
+> [`package.json`](../../../package.json) for current dependency versions.
+
 <!-- https://stackoverflow.com/a/78129064 -->
 
 It's been a few months since this question was initially asked, but I'll share anyway a possible solution because I recently ran into the same issue. So, if anyone else is having trouble using the _Stripe Firebase Extension_ (now officially transferred to _Invertase_, aka `@invertase/firestore-stripe-payments`) along with _Next-Auth_, this might help you out.
