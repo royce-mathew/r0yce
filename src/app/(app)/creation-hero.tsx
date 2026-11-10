@@ -149,8 +149,10 @@ export function CreationHero() {
               <p><span>Game</span> Developer</p>
             </div>
             <div className="me-void-actions me-void-reveal">
-              <div className="me-void-japanese" aria-hidden="true"><span lang="ja">創造</span><span lang="ja">遊び</span></div>
-              <nav className="me-void-project me-void-navigation" aria-label="Projects">
+              <nav className="me-void-destination me-void-blog me-void-navigation" aria-label="Blog">
+                <Link href="/blog"><span className="link-underline-target">Blog</span><span aria-hidden="true">↗</span></Link>
+              </nav>
+              <nav className="me-void-destination me-void-navigation" aria-label="Projects">
                 <Link href="/projects"><span className="link-underline-target">Projects</span><span aria-hidden="true">↗</span></Link>
               </nav>
             </div>

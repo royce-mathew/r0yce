@@ -6,7 +6,7 @@ Current design constraints for royce.sh.
 
 An original manga-inspired portfolio, not a generic portfolio with comic
 decorations added. Use panel composition, gutters, ink weight, restrained
-screentones, Japanese lettering, and reading rhythm deliberately. Keep the
+screentones, and reading rhythm deliberately. Keep the
 presentation professional: manga, not a cartoon or a Western-comic pastiche.
 
 - Brand: **royce.sh**, including navigation and metadata.
@@ -45,7 +45,7 @@ them through global DOM-nesting selectors or Tailwind class-name matching.
 | Ink on gold               | `--primary-foreground`: `60 6.25% 6.27%`                                               |
 | Hero paper / ink / accent | Local `--me-void-*` variables: `#f3efe3` / `#11110f` / `#f0ce53`                       |
 | Icon accent              | Favicon and Apple icon folded corner: `#f0ce53`, matching the site gold                |
-| Plain white panels        | Japanese-text panel and About / Email / Résumé buttons: `#fff`                         |
+| Plain white panels        | Blog panel and About / Email / Résumé buttons: `#fff`                                  |
 
 Use semantic tokens for shared UI and the existing local hero variables for
 its illustrated spread. Gold is the main UI accent; use dark ink on gold fills.
@@ -57,8 +57,8 @@ and real project screenshots may retain their functional colours.
 
 - Use confident, legible headings rather than novelty comic lettering.
 - The site `.font-display` is DM Sans, weight 600, upright, with tight tracking.
-- The Creation hero uses local Cal Sans for the name and Projects link, DM Sans
-  for supporting text, and local Noto Sans JP for Japanese lettering.
+- The Creation hero uses local Cal Sans for the name and Blog / Projects links,
+  and DM Sans for supporting text.
 - JetBrains Mono handles timestamps, keyboard syntax, counts, and columnar data;
   use `tabular-nums` where alignment matters.
 - `.label-editorial` is a small uppercase, tracked label. Use it to establish
@@ -74,8 +74,8 @@ Preserve the dramatic space between the hands without losing their definition.
 - Use a soft paper-stock texture on the ivory hero background. Keep grain,
   mottling, and fibres subtle and behind the content, not as a heavy overlay
   on text. The asset is `public/images/hero-paper-grain.svg`.
-- Keep the Japanese-text panel and About / Email / Résumé buttons plain white.
-  The Projects panel remains gold.
+- Keep the Blog panel and About / Email / Résumé buttons plain white.
+  Blog links to `/blog`; the adjacent Projects panel remains gold.
 - Keep project browsing behind the Projects link; do not put featured work
   into the hero.
 - About & Experience follows as the complete, static, single-column content.
@@ -298,5 +298,3 @@ an old fixed offset that lets controls slide underneath it.
   screenshots and code blocks.
 - Keep manga illustration sharp and anatomically convincing. Avoid placeholder
   cartoon characters and decorative imagery on functional app pages.
-- Japanese lettering should have reliable local glyph coverage, appropriate
-  language markup, and a clear role in the composition.
