@@ -271,9 +271,6 @@ Do not let white or bright gold hairlines dominate those dark reading surfaces.
   the entire card or its icons. Hover and keyboard focus reveal the same line.
   Prose retains a quiet underline at rest; reduced motion removes the transition.
   Wordmarks, image-only links, skip links, and button-styled actions stay distinct.
-- MDX heading links use the shared primary-gold hover color on About and project
-  pages. About's link-color inheritance must not override hovered heading links;
-  keep their resting colors and ordinary prose links unchanged.
 - Hit targets ≥ 44 px on coarse pointers. Keep short action labels on one line
   where space permits, without clipping or creating horizontal overflow.
 - Search and Index preserve the visible page and scroll position while open.
