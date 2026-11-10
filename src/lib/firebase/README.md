@@ -1,3 +1,9 @@
+> Historical third-party reference, not the current integration or dependency
+> matrix. See the [project dependency policy](../../../README.md#dependency-updates-and-supply-chain-policy)
+> and `package.json` for current versions. The project uses Firebase 13,
+> Firebase Admin 13, and Auth.js v5; the older version list and Stripe examples
+> below describe the original article only.
+
 <!-- https://stackoverflow.com/a/78129064 -->
 
 It's been a few months since this question was initially asked, but I'll share anyway a possible solution because I recently ran into the same issue. So, if anyone else is having trouble using the _Stripe Firebase Extension_ (now officially transferred to _Invertase_, aka `@invertase/firestore-stripe-payments`) along with _Next-Auth_, this might help you out.

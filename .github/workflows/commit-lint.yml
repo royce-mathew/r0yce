@@ -12,17 +12,15 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 24
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         with:
           run_install: false
 
-      - name: Install commitlint
-        run: |
-          pnpm install conventional-changelog-conventionalcommits
-          pnpm install commitlint@latest
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Validate current commit (last commit) with commitlint
         if: github.event_name == 'push'
