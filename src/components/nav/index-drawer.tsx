@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { IconMenu2, IconX } from "@tabler/icons-react"
@@ -16,12 +16,30 @@ import {
 } from "@/components/ui/sheet"
 import "./index-drawer.css"
 
-export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
-  const [state, setState] = React.useState<"open" | "closed" | "navigating">("closed")
+type IndexDrawerProps = {
+  navigation: typeof siteConfig
+}
+
+export function IndexDrawer({ navigation }: IndexDrawerProps) {
   const pathname = usePathname()
 
   return (
-    <Sheet open={state === "open"} onOpenChange={(open) => setState(open ? "open" : "closed")}>
+    <IndexDrawerSheet
+      key={pathname}
+      pathname={pathname}
+      navigation={navigation}
+    />
+  )
+}
+
+function IndexDrawerSheet({
+  navigation,
+  pathname,
+}: IndexDrawerProps & { pathname: string }) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
           variant="icon"
@@ -31,7 +49,7 @@ export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
           <span className="sr-only">Open site index</span>
         </Button>
       </SheetTrigger>
-      {state !== "navigating" && <SheetContent
+      <SheetContent
         side="right"
         className="index-drawer"
         style={{ translate: "none" }}
@@ -57,7 +75,11 @@ export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
                     <Link
                       key={item.href}
                       href={item.href}
-                      onClick={() => setState("navigating")}
+                      onNavigate={
+                        pathname === item.href
+                          ? () => setOpen(false)
+                          : undefined
+                      }
                       aria-current={
                         pathname === item.href
                           ? "page"
@@ -94,7 +116,11 @@ export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
                       <Link
                         key={item.href}
                         href={item.href}
-                        onClick={() => setState("navigating")}
+                        onNavigate={
+                          pathname === item.href
+                            ? () => setOpen(false)
+                            : undefined
+                        }
                         aria-current={
                           pathname === item.href ? "page" : undefined
                         }
@@ -119,7 +145,7 @@ export function IndexDrawer({ navigation }: { navigation: typeof siteConfig }) {
         >
           <IconX size={18} />
         </SheetClose>
-      </SheetContent>}
+      </SheetContent>
     </Sheet>
   )
 }

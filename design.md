@@ -205,6 +205,12 @@ artwork, choreography, and fixed header offsets; do not add a scroll owner.
 Use compact dark drawer contents, numbered main links, a quieter project list,
 and native scrolling. No misc section.
 
+Keep the Index drawer and backdrop visible until the destination pathname
+commits, so the previous page cannot flash through between click and navigation.
+The sheet's open state belongs to the current pathname and resets on a route
+change. Selecting the current page dismisses normally; modified clicks retain
+the current drawer while the browser opens the destination separately.
+
 ## Search: Quick jump
 
 Use a compact dark search palette, single-column results, inline destination
