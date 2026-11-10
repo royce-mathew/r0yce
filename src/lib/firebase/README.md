@@ -1,8 +1,5 @@
-> Historical third-party reference, not the current integration or dependency
-> matrix. See the [project dependency policy](../../../README.md#dependency-updates-and-supply-chain-policy)
-> and `package.json` for current versions. The project uses Firebase 13,
-> Firebase Admin 13, and Auth.js v5; the older version list and Stripe examples
-> below describe the original article only.
+> Historical third-party reference, not the current integration. See
+> [`package.json`](../../../package.json) for current dependency versions.
 
 <!-- https://stackoverflow.com/a/78129064 -->
 

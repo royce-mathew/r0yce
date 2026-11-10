@@ -17,53 +17,10 @@ The `royce.sh` website leverages Next.js to serve MDX content in a flexible envi
 To install the project, follow these steps:
 
 1. Clone the repository.
-2. Use Node.js 24.15+ on the 24.x LTS line (or Node.js 26+), install the pinned pnpm version from `package.json`, then run `pnpm install --frozen-lockfile`.
+2. Use Node.js 24.x (24.15+) or 26+, install the pinned pnpm version from `package.json`, then run `pnpm install --frozen-lockfile`.
 3. Configure `.env.local` as described below.
 4. Run `pnpm dev`. Both `localhost` and `127.0.0.1` are supported; `allowedDevOrigins` permits loopback development WebSocket connections.
 5. Build with `pnpm build`, then serve the result with `pnpm start`.
-
-### Dependency updates and supply-chain policy
-
-The dependency refresh uses pnpm 12.18.0, Next.js 16.4.5, React 19.3.1,
-Firebase 13.2.0, Motion 14.10.1, and Tiptap 3.33.0. CI uses Node.js 24
-and frozen installs; deploy with the same supported Node.js runtime.
-
-`pnpm-workspace.yaml` enforces a 24-hour release quarantine, rejects missing
-publication timestamps and provenance downgrades, and blocks exotic transitive
-sources. Install hooks are approved only for the reviewed
-`@firebase/util@1.15.3` and `esbuild@0.25.12`; protobufjs's optional compatibility
-warning hook is disabled. New install hooks require explicit review.
-
-Three exact-version provenance exceptions remain. Their npm registry signatures
-were verified; this authenticates registry artifacts, not publisher provenance:
-
-| Exception | Reason |
-| --- | --- |
-| `next-auth@5.0.0-beta.32` | Official [security-fix release](https://github.com/nextauthjs/next-auth/releases/tag/next-auth%405.0.0-beta.32); preserves the existing v5 API. The `latest` tag is v4, not a v5 upgrade. |
-| `jose@4.15.9` | Legacy Firebase Admin/JWKS dependency; [upstream release](https://github.com/panva/jose/releases/tag/v4.15.9) predates the current refresh. |
-| `chromium-bidi@157.0.8090-0` | Puppeteer's pinned browser-protocol dependency; lacks provenance despite a valid registry signature. Its install scripts are not approved. |
-
-Security overrides update vulnerable transitive copies of UUID, Sharp, gRPC,
-basic-ftp, KaTeX, postcss-selector-parser, and minimatch. A scoped proxy-agent
-override satisfies Puppeteer's peer contract. Review these overrides when their
-parent packages update; do not remove them without re-running `pnpm audit`,
-`pnpm peers check`, the production build, and affected runtime checks.
-
-Compatibility holds are intentional: Firebase Admin stays on 13.10.0 because
-the current Auth.js Firebase adapter supports only Admin 12/13; ESLint and
-`@eslint/js` stay on 9.39.5 because the current React/import/accessibility plugins
-exclude ESLint 10. TypeScript keeps its existing JavaScript-compiler alias to
-`@typescript/typescript6@6.0.2` for the Next.js build and ESLint parser; the
-separate native compiler alias remains at 7.0.2. Newer releases inside the
-24-hour quarantine are deferred rather than bypassing the policy.
-
-For subsequent upgrades, resolve with lifecycle scripts disabled first
-(`pnpm install --ignore-scripts --no-frozen-lockfile`), review the graph, advisories,
-provenance exceptions, and install hooks, then exercise a frozen install,
-`pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm build`, and `pnpm perf:check`.
-Audit results cover known advisories only; they do not guarantee malware-free
-dependencies. `npm-run-all2` replaces the unmaintained task runner while keeping
-the existing `run-p` and `run-s` scripts.
 
 ## Commands
 
