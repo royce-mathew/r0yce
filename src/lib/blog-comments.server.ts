@@ -36,7 +36,11 @@ function toBlogComment(document: DocumentSnapshot): BlogComment | null {
   return {
     id: document.id,
     body: data.body,
-    author: { id: data.author.id, name: data.author.name },
+    author: {
+      id: data.author.id,
+      name: data.author.name,
+      image: typeof data.author.image === "string" ? data.author.image : null,
+    },
     createdAt: data.createdAt.toDate().toISOString(),
   }
 }

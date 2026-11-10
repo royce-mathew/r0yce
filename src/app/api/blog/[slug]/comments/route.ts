@@ -135,6 +135,7 @@ export async function POST(request: Request, context: Context) {
     const result = await createBlogComment(slug, body, {
       id: session.user.id,
       name: session.user.name?.trim() || "Reader",
+      image: session.user.image || null,
     })
 
     if (result.status === "rate-limited") {

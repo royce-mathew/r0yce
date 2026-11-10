@@ -8,6 +8,8 @@ import {
   MAX_VISIBLE_COMMENTS,
   type BlogComment,
 } from "@/lib/blog-comments"
+import { getInitials } from "@/lib/utils"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import "./blog-comments.css"
 
@@ -219,15 +221,29 @@ export function BlogComments({ slug }: { slug: string }) {
             <li key={comment.id}>
               <article aria-label={`Comment by ${comment.author.name}`}>
                 <header className="blog-comment-byline">
-                  <span className="blog-comment-author">
-                    {comment.author.name}
-                  </span>
-                  <time dateTime={comment.createdAt}>
-                    {new Date(comment.createdAt).toLocaleString(undefined, {
-                      dateStyle: "medium",
-                      timeStyle: "short",
-                    })}
-                  </time>
+                  <Avatar aria-hidden="true">
+                    <AvatarImage
+                      src={comment.author.image || undefined}
+                      alt=""
+                      className="object-cover"
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                    />
+                    <AvatarFallback>
+                      {getInitials(comment.author.name)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="blog-comment-meta">
+                    <span className="blog-comment-author">
+                      {comment.author.name}
+                    </span>
+                    <time dateTime={comment.createdAt}>
+                      {new Date(comment.createdAt).toLocaleString(undefined, {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      })}
+                    </time>
+                  </div>
                 </header>
                 <p className="blog-comment-body">{comment.body}</p>
                 {session?.user.id === comment.author.id &&
