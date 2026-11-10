@@ -25,7 +25,7 @@ export function CopyButton({ className, content, ...props }: CopyButtonProps) {
     <Button
       variant="ghost"
       className={cn(
-        "relative z-10 w-fit rounded-lg bg-black/10 p-2 opacity-0 transition-opacity duration-200 ease-in-out hover:bg-black/15 group-hover:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100",
+        "relative z-10 w-fit rounded-lg bg-black/10 p-2 text-foreground opacity-0 transition-opacity duration-200 ease-in-out hover:bg-black/15 hover:text-foreground group-hover:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100",
         className
       )}
       onClick={handleCopy}
