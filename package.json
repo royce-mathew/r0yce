@@ -18,7 +18,7 @@
     "lint": "eslint .",
     "perf:check": "node scripts/check-public-js.mjs",
     "perf:vitals": "lhci autorun",
-    "test:blog": "playwright test tests/blog-filters.spec.ts",
+    "test:e2e": "playwright test",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write ./src/app/",
     "prepare": "husky"
