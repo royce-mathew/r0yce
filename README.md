@@ -80,12 +80,6 @@ Production Web Vitals reporting already uses Google Analytics
 (`NEXT_PUBLIC_ANALYTICS_ID`). After deployment, compare per-page p75 LCP, INP,
 and CLS against the preceding release; targets are ≤ 2.5 s, ≤ 200 ms, and ≤ 0.1.
 
-## Homepage motion
-
-The scroll-driven hero reveals Software Developer, AI Engineer, and Game Developer
-in order. Each label stays hidden until its own reveal, including when scrolling
-backward. Reduced-motion and compact static layouts show all three roles directly.
-
 ## Content Organization
 
 ```python
