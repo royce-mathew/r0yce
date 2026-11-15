@@ -87,6 +87,7 @@ export function CreationHero() {
       navigation.forEach(panel => { panel.inert = true })
       // All staggered panels start hidden, including those whose tweens begin after the first frame.
       gsap.set(".me-void-reveal", { autoAlpha: 0, y: 35, rotationX: -12 })
+      gsap.set(".me-void-roles p", { x: -35, autoAlpha: 0 })
       const timeline = gsap.timeline({
         defaults: { ease: "elastic.out(1, .85)" },
         scrollTrigger: {
