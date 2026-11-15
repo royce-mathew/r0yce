@@ -26,13 +26,13 @@ export function BlogIndex({ posts }: { posts: BlogSummary[] }) {
     else years.set(year, [post])
   }
 
-  function updateFilters(updates: Record<string, string>) {
+  function updateFilters(updates: Record<string, string>, method: "pushState" | "replaceState") {
     const url = new URL(window.location.href)
     for (const [key, value] of Object.entries(updates)) {
       if (value) url.searchParams.set(key, value)
       else url.searchParams.delete(key)
     }
-    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`)
+    window.history[method](null, "", `${url.pathname}${url.search}${url.hash}`)
   }
 
   return (
@@ -48,9 +48,9 @@ export function BlogIndex({ posts }: { posts: BlogSummary[] }) {
         </header>
         <div className="blog-index-toolbar">
           <div className="blog-index-topics" role="group" aria-label="Filter blogs by topic">
-            <button type="button" aria-pressed={!tag} onClick={() => updateFilters({ tag: "" })}>All blogs</button>
+            <button type="button" aria-pressed={!tag} onClick={() => updateFilters({ tag: "" }, "pushState")}>All blogs</button>
             {tags.map(topic => (
-              <button key={topic} type="button" aria-pressed={tag === topic} onClick={() => updateFilters({ tag: topic })}>{topic}</button>
+              <button key={topic} type="button" aria-pressed={tag === topic} onClick={() => updateFilters({ tag: topic }, "pushState")}>{topic}</button>
             ))}
           </div>
           <label className="blog-index-search">
@@ -65,7 +65,7 @@ export function BlogIndex({ posts }: { posts: BlogSummary[] }) {
                 if (query === currentQuery && input.value !== query) input.value = query
               }}
               placeholder="Find a thought…"
-              onChange={event => updateFilters({ q: event.target.value })}
+              onChange={event => updateFilters({ q: event.target.value }, "replaceState")}
             />
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="6" stroke="currentColor" strokeWidth="1.5" /><path d="m15 15 5 5" stroke="currentColor" strokeWidth="1.5" /></svg>
           </label>
@@ -94,7 +94,7 @@ export function BlogIndex({ posts }: { posts: BlogSummary[] }) {
             <div className="blog-index-empty">
               <h2>{posts.length === 0 ? "No blogs published yet." : "No blogs found."}</h2>
               <p>{posts.length === 0 ? "Check back for notes on software and AI." : "Try another search or clear the filters."}</p>
-              {posts.length > 0 && <button type="button" onClick={() => updateFilters({ q: "", tag: "" })}>Clear filters ↗</button>}
+              {posts.length > 0 && <button type="button" onClick={() => updateFilters({ q: "", tag: "" }, "pushState")}>Clear filters ↗</button>}
             </div>
           )}
         </div>
