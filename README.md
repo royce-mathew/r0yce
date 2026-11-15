@@ -42,10 +42,6 @@ index beside a short introduction, with search and topic filters stored in the
 `q` and `tag` URL parameters. Filtered links render their results on the server;
 typing and topic changes update immediately without a page reload.
 
-The selected direction came from the three-way homepage exploration preserved on
-branch `prototype/blog-homepage-exploration`. Production uses only the Notebook
-layout, without the prototype switcher or unused alternatives.
-
 ## Development Environment
 
 To set up the development environment, follow these steps:
