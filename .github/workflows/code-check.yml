@@ -109,6 +109,9 @@ jobs:
       - run: pnpm build:content
       - run: pnpm build:next
       - run: pnpm perf:check
+      - name: Install Chromium for end-to-end tests
+        run: pnpm exec playwright install --with-deps --only-shell chromium
+      - run: pnpm test:e2e
       - run: pnpm perf:vitals
       - uses: actions/upload-artifact@v4
         if: always()

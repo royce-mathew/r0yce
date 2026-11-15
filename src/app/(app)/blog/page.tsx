@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { connection } from "next/server"
 import { blogPosts } from "@/lib/blog"
 import { BlogIndex } from "./blog-index"
 
@@ -14,6 +15,20 @@ export const metadata: Metadata = {
   },
 }
 
-export default function BlogPage() {
-  return <BlogIndex posts={blogPosts} />
+export default async function BlogPage() {
+  await connection()
+
+  return (
+    <BlogIndex
+      posts={blogPosts.map(post => ({
+        title: post.title,
+        description: post.description,
+        date: post.date,
+        author: post.author,
+        tags: post.tags,
+        slug: post.slug,
+        metadata: post.metadata,
+      }))}
+    />
+  )
 }
