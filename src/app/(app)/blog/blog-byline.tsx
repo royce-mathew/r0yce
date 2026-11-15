@@ -7,7 +7,7 @@ const dateFormatter = new Intl.DateTimeFormat("en", {
   timeZone: "UTC",
 })
 
-export function BlogByline({ post }: { post: BlogPost }) {
+export function BlogByline({ post }: { post: Pick<BlogPost, "author" | "date" | "metadata"> }) {
   return (
     <div className="blog-byline">
       <span className="text-foreground">{post.author}</span>

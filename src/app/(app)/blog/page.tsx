@@ -1,8 +1,6 @@
-import { Suspense } from "react"
 import type { Metadata } from "next"
 import { blogPosts } from "@/lib/blog"
 import { BlogIndex } from "./blog-index"
-import { BlogHomepagePrototype } from "./blog-homepage-prototype"
 
 export const metadata: Metadata = {
   title: "Blog | royce.sh",
@@ -16,21 +14,27 @@ export const metadata: Metadata = {
   },
 }
 
-export default function BlogPage() {
-  if (process.env.NODE_ENV !== "production") {
-    return (
-      <Suspense fallback={<BlogIndex posts={blogPosts} />}>
-        <BlogHomepagePrototype posts={blogPosts.map(post => ({
-          title: post.title,
-          description: post.description,
-          date: post.date,
-          author: post.author,
-          tags: post.tags,
-          slug: post.slug,
-          readingTime: post.metadata.readingTime,
-        }))} />
-      </Suspense>
-    )
-  }
-  return <BlogIndex posts={blogPosts} />
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string | string[]; tag?: string | string[] }>
+}) {
+  const params = await searchParams
+  const query = typeof params.q === "string" ? params.q : ""
+  const tag = typeof params.tag === "string" ? params.tag : ""
+
+  return (
+    <BlogIndex
+      key={JSON.stringify([query, tag])}
+      posts={blogPosts.map(post => ({
+        title: post.title,
+        description: post.description,
+        date: post.date,
+        author: post.author,
+        tags: post.tags,
+        slug: post.slug,
+        metadata: post.metadata,
+      }))}
+    />
+  )
 }

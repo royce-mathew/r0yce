@@ -35,23 +35,16 @@ Use pnpm to run the scripts defined in `package.json`:
 • `perf:check`: Checks production public-route JavaScript budgets after a Turbopack build.
 • `perf:vitals`: Checks the production home page's median mobile LCP and CLS across five Lighthouse runs.
 
-### Blog homepage prototypes
+### Blog homepage
 
-On branch `prototype/blog-homepage`, run `pnpm dev` and open `/blog?variant=editorial`.
-Three throwaway directions compare information hierarchy using the existing header,
-footer, article data, fonts, and paper/ink/yellow art style:
+Run `pnpm dev` and open `/blog`. The Notebook layout presents a year-grouped blog
+index beside a short introduction, with search and topic filters stored in the
+`q` and `tag` URL parameters. Filtered links render their results on the server;
+typing and topic changes update immediately without a page reload.
 
-| URL key | Direction | Tradeoff |
-| --- | --- | --- |
-| `editorial` | Intro, featured essay, and code illustration | More room per article; less archive density |
-| `notebook` | Side introduction and compact, year-grouped writing index | Fast scanning; less visual emphasis |
-| `dispatch` | Illustrated, cover-first latest essay with an archive below | Strong lead story; older writing sits farther down |
-
-The floating bottom bar and ← / → keys cycle directions. Search and topic filters
-stay in the URL across comparisons; arrow shortcuts leave focused controls alone.
-Only the one currently published essay is shown; no invented posts or subscription
-controls. These are development-only prototypes: production keeps the existing
-blog index. Keep this PR as a design review until a direction is chosen.
+The selected direction came from the three-way homepage exploration preserved on
+branch `prototype/blog-homepage-exploration`. Production uses only the Notebook
+layout, without the prototype switcher or unused alternatives.
 
 ## Development Environment
 

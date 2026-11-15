@@ -16,7 +16,6 @@ export function BlogArticle({ post }: { post: BlogPost }) {
           <Link className="link-underline" href="/blog">
             ← Back to blog
           </Link>
-          <span className="label-editorial">A blog by {post.author}</span>
         </div>
         <header className="blog-article-heading">
           {post.tags.length > 0 && (
