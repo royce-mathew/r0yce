@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import type { BlogPost } from "#site/content"
@@ -8,19 +7,16 @@ import { BlogByline } from "./blog-byline"
 import "./blog-index.css"
 
 type BlogSummary = Pick<BlogPost, "title" | "description" | "date" | "author" | "tags" | "slug" | "metadata">
-type Filters = { query: string; tag: string }
 
 export function BlogIndex({ posts }: { posts: BlogSummary[] }) {
   const params = useSearchParams()
-  const [filters, setFilters] = useState<Filters>(() => ({
-    query: params.get("q") ?? "",
-    tag: params.get("tag") ?? "",
-  }))
+  const query = params.get("q") ?? ""
+  const tag = params.get("tag") ?? ""
   const tags = [...new Set(posts.flatMap(post => post.tags))]
-  const query = filters.query.trim().toLowerCase()
+  const normalizedQuery = query.trim().toLowerCase()
   const visible = posts.filter(post =>
-    (!filters.tag || post.tags.includes(filters.tag)) &&
-    `${post.title} ${post.description} ${post.tags.join(" ")}`.toLowerCase().includes(query)
+    (!tag || post.tags.includes(tag)) &&
+    `${post.title} ${post.description} ${post.tags.join(" ")}`.toLowerCase().includes(normalizedQuery)
   )
   const years = new Map<string, BlogSummary[]>()
   for (const post of visible) {
@@ -30,19 +26,9 @@ export function BlogIndex({ posts }: { posts: BlogSummary[] }) {
     else years.set(year, [post])
   }
 
-  useEffect(() => {
-    function restoreFilters() {
-      const params = new URLSearchParams(window.location.search)
-      setFilters({ query: params.get("q") ?? "", tag: params.get("tag") ?? "" })
-    }
-    window.addEventListener("popstate", restoreFilters)
-    return () => window.removeEventListener("popstate", restoreFilters)
-  }, [])
-
-  function updateFilters(next: Filters) {
-    setFilters(next)
+  function updateFilters(updates: Record<string, string>) {
     const url = new URL(window.location.href)
-    for (const [key, value] of Object.entries({ q: next.query, tag: next.tag })) {
+    for (const [key, value] of Object.entries(updates)) {
       if (value) url.searchParams.set(key, value)
       else url.searchParams.delete(key)
     }
@@ -62,14 +48,25 @@ export function BlogIndex({ posts }: { posts: BlogSummary[] }) {
         </header>
         <div className="blog-index-toolbar">
           <div className="blog-index-topics" role="group" aria-label="Filter blogs by topic">
-            <button type="button" aria-pressed={!filters.tag} onClick={() => updateFilters({ ...filters, tag: "" })}>All blogs</button>
-            {tags.map(tag => (
-              <button key={tag} type="button" aria-pressed={filters.tag === tag} onClick={() => updateFilters({ ...filters, tag })}>{tag}</button>
+            <button type="button" aria-pressed={!tag} onClick={() => updateFilters({ tag: "" })}>All blogs</button>
+            {tags.map(topic => (
+              <button key={topic} type="button" aria-pressed={tag === topic} onClick={() => updateFilters({ tag: topic })}>{topic}</button>
             ))}
           </div>
           <label className="blog-index-search">
             <span>Search blogs</span>
-            <input type="search" value={filters.query} placeholder="Find a thought…" onChange={event => updateFilters({ ...filters, query: event.target.value })} />
+            <input
+              type="search"
+              defaultValue={query}
+              ref={input => {
+                if (!input) return
+                const currentQuery = new URLSearchParams(window.location.search).get("q") ?? ""
+                // URL updates can finish after newer keystrokes; only apply the current URL.
+                if (query === currentQuery && input.value !== query) input.value = query
+              }}
+              placeholder="Find a thought…"
+              onChange={event => updateFilters({ q: event.target.value })}
+            />
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="6" stroke="currentColor" strokeWidth="1.5" /><path d="m15 15 5 5" stroke="currentColor" strokeWidth="1.5" /></svg>
           </label>
         </div>
@@ -97,7 +94,7 @@ export function BlogIndex({ posts }: { posts: BlogSummary[] }) {
             <div className="blog-index-empty">
               <h2>{posts.length === 0 ? "No blogs published yet." : "No blogs found."}</h2>
               <p>{posts.length === 0 ? "Check back for notes on software and AI." : "Try another search or clear the filters."}</p>
-              {posts.length > 0 && <button type="button" onClick={() => updateFilters({ query: "", tag: "" })}>Clear filters ↗</button>}
+              {posts.length > 0 && <button type="button" onClick={() => updateFilters({ q: "", tag: "" })}>Clear filters ↗</button>}
             </div>
           )}
         </div>
