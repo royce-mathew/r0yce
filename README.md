@@ -35,13 +35,6 @@ Use pnpm to run the scripts defined in `package.json`:
 • `perf:check`: Checks production public-route JavaScript budgets after a Turbopack build.
 • `perf:vitals`: Checks the production home page's median mobile LCP and CLS across five Lighthouse runs.
 
-### Blog homepage
-
-Run `pnpm dev` and open `/blog`. The Notebook layout presents a year-grouped blog
-index beside a short introduction, with search and topic filters stored in the
-`q` and `tag` URL parameters. Filtered links render their results on the server;
-typing and topic changes update immediately without a page reload.
-
 ## Development Environment
 
 To set up the development environment, follow these steps:
