@@ -23,6 +23,7 @@ export function CopyButton({ className, content, ...props }: CopyButtonProps) {
   }
   return (
     <Button
+      aria-label={hasCopied ? "Copied" : "Copy code"}
       variant="ghost"
       className={cn(
         "relative z-10 w-fit rounded-lg bg-black/10 p-2 text-foreground opacity-0 transition-opacity duration-200 ease-in-out hover:bg-black/15 hover:text-foreground group-hover:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100",
@@ -31,16 +32,15 @@ export function CopyButton({ className, content, ...props }: CopyButtonProps) {
       onClick={handleCopy}
       {...props}
     >
-      {/* <span className="sr-only">Copy</span> */}
       {hasCopied ? (
         <div className="flex items-center space-x-3">
           <div>Copied</div>
           <div>
-            <IconClipboardCheck className="size-6" />
+            <IconClipboardCheck className="size-6" aria-hidden="true" />
           </div>
         </div>
       ) : (
-        <IconClipboardCopy className="size-6" />
+        <IconClipboardCopy className="size-6" aria-hidden="true" />
       )}
     </Button>
   )

@@ -86,7 +86,8 @@ After `pnpm build`, run `pnpm test:e2e`. Playwright starts the production
 server on `127.0.0.1:3219`; leave that port free. Install its browser with
 `pnpm exec playwright install --with-deps --only-shell chromium` if needed.
 Coverage includes blog-filter history and Wordle keyboard entry, restarting,
-and opening site search without submitting a guess.
+and opening site search without submitting a guess. Code-copy coverage checks
+keyboard activation by accessible name and the exact clipboard contents.
 
 ## Content Organization
 
