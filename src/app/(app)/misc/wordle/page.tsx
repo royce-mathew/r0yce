@@ -111,6 +111,7 @@ const WordlePage: React.FC = () => {
         event.altKey ||
         event.ctrlKey ||
         event.metaKey ||
+        (target instanceof HTMLElement && target.closest("button, a, select")) ||
         (target instanceof HTMLInputElement && target !== inputRef.current) ||
         target instanceof HTMLTextAreaElement ||
         (target instanceof HTMLElement && target.isContentEditable)
