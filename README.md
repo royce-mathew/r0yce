@@ -80,6 +80,14 @@ Production Web Vitals reporting already uses Google Analytics
 (`NEXT_PUBLIC_ANALYTICS_ID`). After deployment, compare per-page p75 LCP, INP,
 and CLS against the preceding release; targets are ≤ 2.5 s, ≤ 200 ms, and ≤ 0.1.
 
+## End-to-end checks
+
+After `pnpm build`, run `pnpm test:e2e`. Playwright starts the production
+server on `127.0.0.1:3219`; leave that port free. Install its browser with
+`pnpm exec playwright install --with-deps --only-shell chromium` if needed.
+Coverage includes blog-filter history and Wordle keyboard entry, restarting,
+and opening site search without submitting a guess.
+
 ## Content Organization
 
 ```python
