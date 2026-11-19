@@ -32,6 +32,7 @@ Use pnpm to run the scripts defined in `package.json`:
 • `lint`: Runs ESLint to check for code issues.  
 • `lint:fix`: Attempts to automatically fix lint issues.  
 • `format`: Formats the code with Prettier.
+• `test:e2e`: Runs browser checks against the production build, including keyboard navigation in project contents. Run `pnpm build` first.
 • `perf:check`: Checks production public-route JavaScript budgets after a Turbopack build.
 • `perf:vitals`: Checks the production home page's median mobile LCP and CLS across five Lighthouse runs.
 
