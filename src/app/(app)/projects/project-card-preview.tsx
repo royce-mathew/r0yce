@@ -30,6 +30,9 @@ export function ProjectCardPreview({ slug, title, className, children }: {
   const [playback, setPlayback] = useState<Playback>("stopped")
   const requested = playback !== "stopped"
   const stop = useCallback(() => setPlayback("stopped"), [])
+  const stopAutomatic = useCallback(() => {
+    setPlayback((current) => current === "automatic" ? "stopped" : current)
+  }, [])
   useEffect(() => {
     if (!src || !card.current) return
     const observer = new IntersectionObserver(([entry]) => {
@@ -50,13 +53,11 @@ export function ProjectCardPreview({ slug, title, className, children }: {
     if (!src) return
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)")
     const onPreferenceChange = () => {
-      if (preference.matches) {
-        setPlayback((current) => current === "automatic" ? "stopped" : current)
-      }
+      if (preference.matches) stopAutomatic()
     }
     preference.addEventListener("change", onPreferenceChange)
     return () => preference.removeEventListener("change", onPreferenceChange)
-  }, [src])
+  }, [src, stopAutomatic])
 
   const startAutomatic = () => {
     if (src && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -73,13 +74,13 @@ export function ProjectCardPreview({ slug, title, className, children }: {
           if (event.pointerType === "mouse") startAutomatic()
         }}
         onPointerLeave={(event) => {
-          if (event.pointerType === "mouse") stop()
+          if (event.pointerType === "mouse") stopAutomatic()
         }}
         onFocus={(event) => {
           if (event.target instanceof HTMLAnchorElement) startAutomatic()
         }}
         onBlur={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget)) stop()
+          if (!event.currentTarget.contains(event.relatedTarget)) stopAutomatic()
         }}
       >
         {children}

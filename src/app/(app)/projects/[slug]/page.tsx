@@ -1,19 +1,22 @@
+import { notFound } from "next/navigation"
 import { projects } from "#site/content"
-import { ErrorBoundary } from "@/components/nav/error"
 import { ProjectDetail } from "./project-detail"
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>
 }
 
+export const dynamicParams = false
+
 function getProjectFromParams(slug: string) {
-  return projects.find((project) => project.slugAsParams === slug)
+  const project = projects.find((project) => project.slugAsParams === slug)
+  if (!project) notFound()
+  return project
 }
 
 export async function generateMetadata({ params }: ProjectPageProps) {
   const { slug } = await params
   const project = getProjectFromParams(slug)
-  if (project == null) return {}
   return {
     title: `${project.title} | royce.sh`,
     authors: [
@@ -67,14 +70,6 @@ export const generateStaticParams = async () =>
 const ProjectLayout = async ({ params }: ProjectPageProps) => {
   const { slug } = await params
   const project = getProjectFromParams(slug)
-
-  if (!project)
-    return (
-      <ErrorBoundary
-        error={{ message: `Project not found for slug: ${slug}` }}
-        rerouteUrl="/projects"
-      />
-    )
 
   return <ProjectDetail project={project} />
 }
