@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { useRef } from "react"
 import type { BlogPost } from "#site/content"
 import { BlogByline } from "./blog-byline"
 import "./blog-index.css"
@@ -10,6 +11,7 @@ type BlogSummary = Pick<BlogPost, "title" | "description" | "date" | "author" | 
 
 export function BlogIndex({ posts }: { posts: BlogSummary[] }) {
   const params = useSearchParams()
+  const searchInput = useRef<HTMLInputElement>(null)
   const query = params.get("q") ?? ""
   const tag = params.get("tag") ?? ""
   const tags = [...new Set(posts.flatMap(post => post.tags))]
@@ -59,6 +61,7 @@ export function BlogIndex({ posts }: { posts: BlogSummary[] }) {
               type="search"
               defaultValue={query}
               ref={input => {
+                searchInput.current = input
                 if (!input) return
                 const currentQuery = new URLSearchParams(window.location.search).get("q") ?? ""
                 // URL updates can finish after newer keystrokes; only apply the current URL.
@@ -94,7 +97,17 @@ export function BlogIndex({ posts }: { posts: BlogSummary[] }) {
             <div className="blog-index-empty">
               <h2>{posts.length === 0 ? "No blogs published yet." : "No blogs found."}</h2>
               <p>{posts.length === 0 ? "Check back for notes on software and AI." : "Try another search or clear the filters."}</p>
-              {posts.length > 0 && <button type="button" onClick={() => updateFilters({ q: "", tag: "" }, "pushState")}>Clear filters ↗</button>}
+              {posts.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    searchInput.current?.focus()
+                    updateFilters({ q: "", tag: "" }, "pushState")
+                  }}
+                >
+                  Clear filters ↗
+                </button>
+              )}
             </div>
           )}
         </div>

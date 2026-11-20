@@ -36,6 +36,7 @@ export function CommandMenu({ navigation }: { navigation: typeof siteConfig }) {
   ]
   const router = useRouter()
   const [open, setOpen] = React.useState(false)
+  const shortcutOrigin = React.useRef<HTMLElement | null>(null)
 
   React.useEffect(() => {
     const down = (event: KeyboardEvent) => {
@@ -54,16 +55,20 @@ export function CommandMenu({ navigation }: { navigation: typeof siteConfig }) {
         }
 
         event.preventDefault()
-        setOpen((isOpen) => !isOpen)
+        if (!open && event.target instanceof HTMLElement && event.target !== document.body) {
+          shortcutOrigin.current = event.target
+        }
+        setOpen(!open)
       }
     }
 
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
-  }, [])
+  }, [open])
 
   const go = React.useCallback(
     (href: string) => {
+      shortcutOrigin.current = null
       setOpen(false)
       router.push(href)
     },
@@ -81,6 +86,14 @@ export function CommandMenu({ navigation }: { navigation: typeof siteConfig }) {
         className="quick-jump-dialog"
         style={{ translate: "none" }}
         data-lenis-prevent
+        onCloseAutoFocus={(event) => {
+          const origin = shortcutOrigin.current
+          shortcutOrigin.current = null
+          if (!origin) return
+
+          origin.focus({ preventScroll: true })
+          if (document.activeElement === origin) event.preventDefault()
+        }}
       >
         <DialogTitle className="sr-only">
           Search pages, projects, and blogs
