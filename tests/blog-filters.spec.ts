@@ -13,9 +13,13 @@ test("unmatched search shows empty results and clearing is reversible", async ({
   await expect(page.getByRole("heading", { name: "No blogs found." })).toBeVisible()
   await expect(articles).toHaveCount(0)
 
-  await page.getByRole("button", { name: /^Clear filters/ }).click()
+  await search.press("Tab")
+  const clear = page.getByRole("button", { name: /^Clear filters/ })
+  await expect(clear).toBeFocused()
+  await page.keyboard.press("Enter")
   await expect(page).toHaveURL("/blog")
   await expect(search).toHaveValue("")
+  await expect(search).toBeFocused()
   await expect(articles.first()).toBeVisible()
 
   await page.goBack()
