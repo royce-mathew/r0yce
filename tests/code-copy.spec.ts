@@ -6,8 +6,9 @@ test("code can be copied by keyboard using its accessible button name", async ({
   await page.goto("/projects/spyder")
   const copy = page.locator("figure").filter({ hasText: "python3 setup.py" }).getByRole("button")
   await expect(copy).toHaveAccessibleName("Copy code")
+  await page.getByRole("heading", { name: "Linux / MacOs" }).getByRole("link").focus()
   const focusedCopy = copy.and(page.locator(":focus"))
-  for (let tab = 0; tab < 30 && (await focusedCopy.count()) === 0; tab++) {
+  for (let tab = 0; tab < 3 && (await focusedCopy.count()) === 0; tab++) {
     await page.keyboard.press("Tab")
   }
   await expect(copy).toBeFocused()
