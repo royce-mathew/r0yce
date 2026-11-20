@@ -149,7 +149,9 @@ async function getQuote(
   quote: (typeof QUOTES)[number]
 ): Promise<MarketQuote | null> {
   const symbol = encodeURIComponent(quote.symbol)
-  const url = `${YAHOO_CHART_URL}/${symbol}?range=1mo&interval=1d`
+  // Yahoo reports chartPreviousClose as the close before the requested range,
+  // so a longer range would turn the daily change into a multi-week move.
+  const url = `${YAHOO_CHART_URL}/${symbol}?range=1d&interval=1d`
   return decodeQuote(await fetchJson(url), quote)
 }
 

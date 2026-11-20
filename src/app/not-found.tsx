@@ -1,12 +1,14 @@
-"use client"
-
-import React from "react"
+import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
+export const metadata: Metadata = {
+  title: "Page not found | royce.sh",
+}
+
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center space-y-8 p-8">
+    <main className="flex min-h-screen flex-col items-center justify-center space-y-8 p-8">
       <Image
         title="Error 404"
         width={280}
@@ -27,6 +29,6 @@ export default function NotFound() {
       >
         Return home
       </Link>
-    </div>
+    </main>
   )
 }
