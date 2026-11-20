@@ -129,9 +129,17 @@
 
 @media (max-width: 600px) {
   .hg-theme-dark .hg-button {
-    margin: 2px 2px;
+    flex: 1 1 0;
+    min-width: 0;
+    margin: 2px 1px;
     font-size: 13px;
-    padding: 10px 14px;
+    padding: 10px clamp(2px, 2vw, 14px);
+  }
+
+  /* The library's 5px right margin on every key but the last would keep ten
+     keys from sharing a phone-width row. */
+  .hg-theme-dark .hg-row .hg-button:not(:last-child) {
+    margin-right: 1px;
   }
 }
 
@@ -181,7 +189,7 @@
   }
 
   .hg-theme-dark .hg-button {
-    margin: 1px 3px;
-    padding: 6px 12px;
+    margin: 1px clamp(1px, 0.5vw, 3px);
+    padding: 6px clamp(2px, 2.5vw, 12px);
   }
 }

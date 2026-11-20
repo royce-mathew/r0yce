@@ -111,7 +111,8 @@ const WordlePage: React.FC = () => {
         event.altKey ||
         event.ctrlKey ||
         event.metaKey ||
-        (target instanceof HTMLElement && target.closest("button, a, select")) ||
+        (target instanceof HTMLElement &&
+          target.closest("button, a, select")) ||
         (target instanceof HTMLInputElement && target !== inputRef.current) ||
         target instanceof HTMLTextAreaElement ||
         (target instanceof HTMLElement && target.isContentEditable)
@@ -276,12 +277,26 @@ const WordlePage: React.FC = () => {
 
         <div className="w-full max-w-[720px] shrink-0">
           <Keyboard
+            buttonAttributes={[
+              {
+                attribute: "aria-label",
+                value: "Backspace",
+                buttons: "{bksp}",
+              },
+              {
+                attribute: "title",
+                value: "Backspace",
+                buttons: "{bksp}",
+              },
+            ]}
             buttonTheme={[
               {
                 class: "hg-disabled",
                 buttons: unavailableLetters.join(" "),
               },
             ]}
+            display={{ "{bksp}": "⌫" }}
+            mergeDisplay
             layout={{
               default: [
                 "q w e r t y u i o p",
