@@ -156,7 +156,7 @@ const WordlePage: React.FC = () => {
   }
 
   return (
-    <main className="fixed inset-x-0 top-[var(--site-header-height)] bottom-0 z-40 flex flex-col overflow-hidden bg-background">
+    <main className="fixed inset-x-0 top-[var(--site-header-height)] bottom-0 z-40 flex flex-col overflow-y-auto bg-background">
       <header className="shrink-0 border-b border-border/60 bg-background/95 px-4 py-3 backdrop-blur sm:px-6">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-4">
           <div>
@@ -175,10 +175,10 @@ const WordlePage: React.FC = () => {
         </div>
       </header>
 
-      <div className="mx-auto flex min-h-0 w-full max-w-3xl flex-1 flex-col items-center justify-between gap-3 px-4 py-3 sm:px-6">
+      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <section
           aria-label="Wordle board"
-          className="flex min-h-0 flex-1 items-center justify-center"
+          className="flex flex-1 items-center justify-center"
         >
           <div className="grid grid-rows-6 gap-px overflow-hidden rounded-xl border border-border bg-border shadow-sm">
             {/* Show attempts left with empty tiles */}
