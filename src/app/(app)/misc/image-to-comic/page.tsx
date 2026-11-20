@@ -83,7 +83,7 @@ const questions = [
 
 export default function ImageToComicPage() {
   return (
-    <>
+    <main>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -187,6 +187,6 @@ export default function ImageToComicPage() {
           </dl>
         </section>
       </article>
-    </>
+    </main>
   )
 }

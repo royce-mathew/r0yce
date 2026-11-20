@@ -32,8 +32,6 @@ export function DashboardTableOfContents({ toc }: TocProps) {
     return null
   }
 
-  // Check if the active heading is the first item in the TOC
-  const isOnPageTop = itemIds[0] === activeHeading || activeHeading === null
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
@@ -43,15 +41,12 @@ export function DashboardTableOfContents({ toc }: TocProps) {
       <Tree tree={toc} activeItem={activeHeading} />
       <div className="space-y-3 pt-3">
         <Separator className="w-full" />
-        <Link
+        <a
           href="#"
-          className={cn(
-            "flex items-center space-x-2 text-sm text-muted-foreground transition-opacity hover:text-foreground",
-            !isOnPageTop ? "opacity-100" : "opacity-0"
-          )}
+          className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground"
         >
           <span className="link-underline-target">Back to top</span> <IconArrowUp className="ml-2 size-4" />
-        </Link>
+        </a>
       </div>
     </div>
   )

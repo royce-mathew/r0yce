@@ -59,14 +59,14 @@ export function ProjectDetail({ project }: { project: Project }) {
         </header>
       </section>
       <section className={`project-reading-layout${project.hasToc ? " project-has-toc" : ""}`} aria-label="Project story">
-        <article id="project-article" className="project-article">
-          <ProjectArticle code={project.code} />
-        </article>
         {project.hasToc && (
           <aside className="project-contents" aria-label="On this page">
             <DashboardTableOfContents toc={project.toc} />
           </aside>
         )}
+        <article id="project-article" className="project-article">
+          <ProjectArticle code={project.code} />
+        </article>
       </section>
     </main>
   )
