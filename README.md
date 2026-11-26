@@ -65,11 +65,13 @@ NEXT_PUBLIC_ADAPTIVE_HELP=1 pnpm dev
 ```
 
 In **Settings**, select **Show adaptive cursor effects**, then move your mouse.
-A tracking frame follows the pointer, with a live mood label, score, and
-signal readout. Clicks scatter small squares. The model can also highlight
-site search when it detects friction. Reduced motion hides the cursor readout
-but keeps the search hint. The setting follows navigation in the tab and resets
-on reload. The reader and model load only after opt-in.
+A tracking frame follows the pointer, then locks onto controls and shows their
+names and disabled state. Small squares trail the pointer and scatter on
+click. The readout moves away from viewport edges and the site header.
+The model can also highlight site search when it detects friction. Reduced
+motion hides the cursor effects but keeps the search hint. The setting follows
+navigation in the tab and resets on reload. The reader and model load only
+after opt-in.
 Interaction signals and the baseline stay in memory; search, settings, and the
 sign-in form are excluded from the reader.
 
