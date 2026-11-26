@@ -1,5 +1,7 @@
 import { Metadata } from "next"
-import { mainContents } from "#site/content"
+import Image from "next/image"
+import Link from "next/link"
+import { mainContents, projects } from "#site/content"
 import { CreationHome } from "./creation-home"
 
 export const metadata: Metadata = {
@@ -51,11 +53,37 @@ export const metadata: Metadata = {
   },
 }
 
+const selectedWork = projects.filter((project) => project.featured)
+  .sort((a, b) => b.modifiedDate.localeCompare(a.modifiedDate))
+
 export default function Home() {
   const about = mainContents.find((base) => base.slugAsParams === "about")
   if (!about) {
     throw new Error("About base not found")
   }
 
-  return <CreationHome code={about.code} />
+  return (
+    <CreationHome code={about.code}>
+      <section id="selected-work" className="creation-work" aria-labelledby="selected-work-title">
+        <header className="creation-work-heading">
+          <h2 id="selected-work-title">Selected work<span aria-hidden="true">.</span></h2>
+          <Link href="/projects">All projects <span aria-hidden="true">↗</span></Link>
+        </header>
+        <ul className="creation-work-list">
+          {selectedWork.map((project) => (
+            <li key={project.slug}>
+              <Link href={`/${project.slug.replace(/^\/+/, "")}`} className="creation-work-project">
+                {project.imageSrc && (
+                  <Image src={project.imageSrc} alt="" width={1000} height={625}
+                    sizes="(max-width: 767px) 90vw, (max-width: 1450px) 30vw, 430px" />
+                )}
+                <h3>{project.title}<span aria-hidden="true">↗</span></h3>
+                <p>{project.description}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </CreationHome>
+  )
 }
