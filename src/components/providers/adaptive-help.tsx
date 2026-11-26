@@ -1,6 +1,14 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react"
+import { AdaptiveCursor, trackAdaptiveCursor } from "./adaptive-cursor"
 
 const loadMood =
   process.env.NEXT_PUBLIC_ADAPTIVE_HELP === "1"
@@ -22,6 +30,7 @@ export function AdaptiveHelpProvider({ children }: { children: ReactNode }) {
   const [enabled, setEnabled] = useState(false)
   const [suggested, setSuggested] = useState(false)
   const [unavailable, setUnavailable] = useState(false)
+  const cursorRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const load = loadMood
@@ -29,6 +38,7 @@ export function AdaptiveHelpProvider({ children }: { children: ReactNode }) {
 
     let cancelled = false
     let stop: (() => void) | undefined
+    let stopCursor: (() => void) | undefined
     let wasSuggested = false
 
     async function start(load: NonNullable<typeof loadMood>) {
@@ -53,6 +63,8 @@ export function AdaptiveHelpProvider({ children }: { children: ReactNode }) {
         }
         stop = reader.stop
         reader.start()
+        const cursor = cursorRef.current
+        if (cursor) stopCursor = trackAdaptiveCursor(cursor)
       } catch {
         stop?.()
         if (!cancelled) setUnavailable(true)
@@ -63,6 +75,7 @@ export function AdaptiveHelpProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true
       stop?.()
+      stopCursor?.()
     }
   }, [enabled])
 
@@ -80,6 +93,9 @@ export function AdaptiveHelpProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
+      {enabled && !unavailable && (
+        <AdaptiveCursor cursorRef={cursorRef} suggested={suggested} />
+      )}
     </AdaptiveHelpContext.Provider>
   )
 }
@@ -102,11 +118,12 @@ export function AdaptiveHelpSetting() {
           onChange={(event) => help.setEnabled(event.currentTarget.checked)}
           type="checkbox"
         />
-        Highlight search if I might be stuck
+        Show adaptive cursor effects
       </label>
       <p className="text-muted-foreground" id="adaptive-help-description">
-        Libraries.dev analyzes pointer, click, scroll, and typing patterns in
-        this tab. The signals stay in memory and are not sent anywhere.
+        See a ring and click ripple by your mouse. If you might be stuck,
+        adaptive help also highlights site search. Libraries.dev analyzes
+        interaction patterns in this tab without saving or sending them.
       </p>
       {help.enabled && help.unavailable && (
         <p role="status">Adaptive help could not start. Search still works.</p>

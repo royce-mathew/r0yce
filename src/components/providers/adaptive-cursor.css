@@ -1,0 +1,67 @@
+.adaptive-cursor {
+  position: fixed;
+  z-index: 60;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  user-select: none;
+  color: var(--scroll-accent, #f0ce53);
+}
+
+.adaptive-cursor-ring,
+.adaptive-cursor-ripple {
+  position: absolute;
+  inset: -9px auto auto -9px;
+  width: 18px;
+  height: 18px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.adaptive-cursor-ring {
+  box-shadow: 0 0 0 1px #11110f;
+  transition: scale 140ms ease-out, box-shadow 140ms ease-out;
+}
+
+.adaptive-cursor-ripple {
+  opacity: 0;
+}
+
+.adaptive-cursor[data-suggested="true"] .adaptive-cursor-ring {
+  scale: 1.35;
+  box-shadow: 0 0 0 2px #11110f, 0 0 12px currentColor;
+}
+
+.adaptive-cursor-label {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: max-content;
+  max-width: 140px;
+  padding: 4px 7px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  background: #11110f;
+  font: 500 12px/1.4 var(--font-mono), monospace;
+}
+
+.adaptive-cursor[data-suggested="true"] .adaptive-cursor-label {
+  background: var(--scroll-accent, #f0ce53);
+  color: #11110f;
+}
+
+.adaptive-cursor[data-flip-x] .adaptive-cursor-label {
+  right: 15px;
+  left: auto;
+}
+
+.adaptive-cursor[data-flip-y] .adaptive-cursor-label {
+  top: auto;
+  bottom: 15px;
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .adaptive-cursor {
+    display: none;
+  }
+}

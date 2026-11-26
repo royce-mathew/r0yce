@@ -51,8 +51,8 @@ Husky runs `pnpm lint` before commits and enforces [Conventional Commits](https:
 
 ### Adaptive site search
 
-Site search works without the Libraries.dev model. To add the optional search
-highlight, download the React kit 0.5 and model 0.4 from
+Site search works without the Libraries.dev model. To add the optional cursor
+effects and search highlight, download the React kit 0.5 and model 0.4 from
 [Libraries.dev → Install](https://libraries.dev/mood-recognition). Run these
 commands from the repository root, with `downloads` set to the ZIP directory:
 
@@ -64,11 +64,13 @@ install -D .site-mood/LICENSE-MODEL.md public/licenses/site-mood.txt
 NEXT_PUBLIC_ADAPTIVE_HELP=1 pnpm dev
 ```
 
-In **Settings**, select **Highlight search if I might be stuck**. Only then
-does the browser load the reader and model. The setting follows navigation
-within the tab and resets on reload. Interaction signals and the reader's
-baseline stay in memory. Search, settings, and the sign-in form are excluded
-from the reader.
+In **Settings**, select **Show adaptive cursor effects**, then move your mouse.
+The cursor shows a ring and a click ripple. When the model detects friction,
+the ring and the shared search button light up. Reduced motion hides the cursor
+effects without disabling the search hint. The setting follows navigation in
+the tab and resets on reload. The reader and model load only after opt-in.
+Interaction signals and the baseline stay in memory; search, settings, and the
+sign-in form are excluded from the reader.
 
 For an authorized production build, provision the ZIPs privately and set
 `NEXT_PUBLIC_ADAPTIVE_HELP=1` when running `pnpm build`. Do not commit the kit
