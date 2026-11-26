@@ -49,6 +49,35 @@ To set up the development environment, follow these steps:
 
 Husky runs `pnpm lint` before commits and enforces [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) with commitlint.
 
+### Adaptive site search
+
+Site search works without the Libraries.dev model. To add the optional search
+highlight, download the React kit 0.5 and model 0.4 from
+[Libraries.dev → Install](https://libraries.dev/mood-recognition). Run these
+commands from the repository root, with `downloads` set to the ZIP directory:
+
+```sh
+downloads="$HOME/Downloads"
+unzip -o "$downloads/MoodRecognition-React-0.5.zip" -d .site-mood
+unzip -o "$downloads/MoodRecognition-0.4.zip" -d .site-mood
+install -D .site-mood/LICENSE-MODEL.md public/licenses/site-mood.txt
+NEXT_PUBLIC_ADAPTIVE_HELP=1 pnpm dev
+```
+
+In **Settings**, select **Highlight search if I might be stuck**. Only then
+does the browser load the reader and model. The setting follows navigation
+within the tab and resets on reload. Interaction signals and the reader's
+baseline stay in memory. Search, settings, and the sign-in form are excluded
+from the reader.
+
+For an authorized production build, provision the ZIPs privately and set
+`NEXT_PUBLIC_ADAPTIVE_HELP=1` when running `pnpm build`. Do not commit the kit
+or model, publish the archives, or serve the model as a standalone download.
+Before releasing an enabled build, verify that your distribution complies with
+the [Libraries.dev Model License](https://github.com/Jakubantalik/Libraries.dev/blob/main/LICENSE-MODEL.md)
+and this repository's license. Commercial releases require a qualifying
+Libraries.dev plan.
+
 ## Performance checks
 
 Build and check production public-route JavaScript budgets:

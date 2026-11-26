@@ -15,7 +15,7 @@ export default async function SignInPage(props: {
   const searchParams = await props.searchParams
   const callbackUrl = (searchParams?.callbackUrl as string) ?? "/"
   return (
-    <main className="container flex h-screen items-center justify-center">
+    <main className="container flex h-screen items-center justify-center" data-mood-ignore="">
       <div className="outline-outline max-w-96 space-y-3 rounded bg-foreground/5 p-8">
         <h1 className="text-3xl font-bold">Sign in</h1>
         <p>

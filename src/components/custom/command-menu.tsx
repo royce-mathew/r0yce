@@ -6,6 +6,7 @@ import { IconSearch } from "@tabler/icons-react"
 import { Command as CommandPrimitive } from "cmdk"
 import { NavItem } from "@/types/nav"
 import type { siteConfig } from "@/config/docs"
+import { useAdaptiveSearchHint } from "@/components/providers/adaptive-help"
 import { Button } from "@/components/ui/button"
 import {
   Command,
@@ -36,6 +37,7 @@ export function CommandMenu({ navigation }: { navigation: typeof siteConfig }) {
   ]
   const router = useRouter()
   const [open, setOpen] = React.useState(false)
+  const suggested = useAdaptiveSearchHint()
   const shortcutOrigin = React.useRef<HTMLElement | null>(null)
 
   React.useEffect(() => {
@@ -78,7 +80,13 @@ export function CommandMenu({ navigation }: { navigation: typeof siteConfig }) {
   return (
     <Dialog modal onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
-        <Button variant="icon" aria-label="Search pages, projects, and blogs">
+        <Button
+          variant="icon"
+          aria-label="Search pages, projects, and blogs"
+          className="quick-jump-trigger"
+          data-adaptive-suggested={!open && suggested ? "" : undefined}
+          data-mood-ignore=""
+        >
           <IconSearch className="size-6" aria-hidden="true" />
         </Button>
       </DialogTrigger>
@@ -86,6 +94,7 @@ export function CommandMenu({ navigation }: { navigation: typeof siteConfig }) {
         className="quick-jump-dialog"
         style={{ translate: "none" }}
         data-lenis-prevent
+        data-mood-ignore=""
         onCloseAutoFocus={(event) => {
           const origin = shortcutOrigin.current
           shortcutOrigin.current = null
