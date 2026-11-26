@@ -12,6 +12,11 @@
 
 The `royce.sh` website leverages Next.js to serve MDX content in a flexible environment, supporting both static site generation and on-demand server rendering. The application tracks content for each page, including projects, blog posts, and other resources, using MDX files to store metadata and content.
 
+The homepage uses a black-and-white portrait and traced artwork from Michelangelo’s
+*Creation of Adam*. Its dark, pointer-responsive opening takes inspiration from
+[Peter Alm’s portfolio](https://peteralm.com/). The work section uses the same
+featured project entries as `/projects`.
+
 ## Installation
 
 To install the project, follow these steps:
@@ -48,6 +53,40 @@ To set up the development environment, follow these steps:
 ### Commits
 
 Husky runs `pnpm lint` before commits and enforces [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) with commitlint.
+
+### Adaptive site search
+
+Site search works without the Libraries.dev model. To add the optional cursor
+effects and search highlight, download the React kit 0.5 and model 0.4 from
+[Libraries.dev → Install](https://libraries.dev/mood-recognition). Run these
+commands from the repository root, with `downloads` set to the ZIP directory:
+
+```sh
+downloads="$HOME/Downloads"
+unzip -o "$downloads/MoodRecognition-React-0.5.zip" -d .site-mood
+unzip -o "$downloads/MoodRecognition-0.4.zip" -d .site-mood
+install -D .site-mood/LICENSE-MODEL.md public/licenses/site-mood.txt
+NEXT_PUBLIC_ADAPTIVE_HELP=1 pnpm dev
+```
+
+In **Settings**, select **Show adaptive cursor effects**, then move your mouse.
+A tracking frame follows the pointer, then locks onto controls and shows their
+names and disabled state. Small squares trail the pointer and scatter on
+click. The readout moves away from viewport edges and the site header.
+The model can also highlight site search when it detects friction. Reduced
+motion hides the cursor effects but keeps the search hint. The setting follows
+navigation in the tab and resets on reload. The reader and model load only
+after opt-in.
+Interaction signals and the baseline stay in memory; search, settings, and the
+sign-in form are excluded from the reader.
+
+For an authorized production build, provision the ZIPs privately and set
+`NEXT_PUBLIC_ADAPTIVE_HELP=1` when running `pnpm build`. Do not commit the kit
+or model, publish the archives, or serve the model as a standalone download.
+Before releasing an enabled build, verify that your distribution complies with
+the [Libraries.dev Model License](https://github.com/Jakubantalik/Libraries.dev/blob/main/LICENSE-MODEL.md)
+and this repository's license. Commercial releases require a qualifying
+Libraries.dev plan.
 
 ## Performance checks
 

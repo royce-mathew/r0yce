@@ -6,6 +6,7 @@ import { GoogleAnalytics } from "@next/third-parties/google"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { AdaptiveHelpProvider } from "@/components/providers/adaptive-help"
 import { AuthProvider } from "@/components/providers/session"
 import { WebVitals } from "@/components/providers/web-vitals"
 import { cal, dmSans, instrumentSerif, jetbrainsMono } from "@/styles/fonts"
@@ -61,7 +62,13 @@ export default function RootLayout({
         )}
       >
         <AuthProvider>
-          <TooltipProvider>{children}</TooltipProvider>
+          <TooltipProvider>
+            {process.env.NEXT_PUBLIC_ADAPTIVE_HELP === "1" ? (
+              <AdaptiveHelpProvider>{children}</AdaptiveHelpProvider>
+            ) : (
+              children
+            )}
+          </TooltipProvider>
         </AuthProvider>
         <Toaster />
         {process.env.NODE_ENV === "production" &&

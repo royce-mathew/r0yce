@@ -7,6 +7,7 @@ export default defineConfig([
   prettier,
   globalIgnores([
     ".next/**",
+    ".site-mood/**",
     "out/**",
     "build/**",
     "next-env.d.ts",

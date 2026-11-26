@@ -4,7 +4,7 @@ import { useId } from "react"
 import { creationHands } from "./creation-hands-paths"
 
 // The fingertips nearly touch here in the traced fresco crop; focus lines and the spark radiate from it.
-export const creationGap = { x: 634, y: 225 }
+const creationGap = { x: 634, y: 225 }
 
 // Uneven rays keep the burst closer to ruled manga ink than a regular sunburst.
 const focusLines = Array.from({ length: 76 }, (_, index) => {
@@ -47,24 +47,12 @@ export function CreationHands() {
         <pattern id={`${id}-shadow`} width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)">
           <path d="M0 0V4M2 0V4" stroke="currentColor" strokeWidth=".8" />
         </pattern>
-        <pattern id={`${id}-sketch`} width="31" height="27" patternUnits="userSpaceOnUse">
-          <path d="M-5 29 23-4M4 32 34-3M-8 6 34 23M-6 12 26 26" stroke="var(--me-void-paper)" strokeWidth=".7" opacity=".24" />
-          <path d="m0 22 24-26m-6 34 20-24" stroke="currentColor" strokeWidth="1.2" opacity=".65" />
-        </pattern>
         <radialGradient id={`${id}-halo`} gradientUnits="userSpaceOnUse" cx="634" cy="225" r="160">
           <stop stopColor="var(--me-void-paper)" />
           <stop offset=".24" stopColor="var(--me-void-accent)" stopOpacity=".45" />
           <stop offset="1" stopColor="var(--me-void-accent)" stopOpacity="0" />
         </radialGradient>
       </defs>
-      <g className="me-creation-backdrop">
-        <path d="M-500-500H1800V900H-500Z" fill="#353831" />
-        <path d="M-500-500H1800V900H-500Z" fill={`url(#${id}-sketch)`} />
-        <g stroke="var(--me-void-paper)" strokeWidth="1.1" opacity=".22">
-          <path d="M-30 160Q80 112 170 143T340 116Q410 75 495 114M-30 166Q90 122 174 149T342 123M760 112Q820 72 916 108T1100 80Q1200 46 1300 94M-30 331Q120 280 239 327T430 350M810 351Q940 296 1050 337T1300 309" />
-          <path d="M70 118q40-32 99-15m50 40q75-51 130-18M874 92q58-42 113-21m62 51q74-38 135-26M70 326q80-29 155 11m670-5q90-37 156 2" strokeDasharray="24 7 5 11" />
-        </g>
-      </g>
       <g className="me-creation-energy">
         <circle cx="634" cy="225" r="160" fill={`url(#${id}-halo)`} />
         <path d={impactShards} fill="var(--me-void-paper)" opacity=".9" />
