@@ -1,11 +1,16 @@
 declare module "#site-mood-engine" {
+  export type MoodReading = {
+    mood: "frustrated" | "confused" | "lost" | "away" | null
+    reaction: number
+    score: number
+    fast: number
+    probabilities: Record<"lost" | "confused" | "frustrated" | "blocked", number> | null
+  }
+
   export function createMoodReader(options: {
     model: unknown
     baselineKey: null
-    onReading: (reading: {
-      mood: "frustrated" | "confused" | "lost" | "away" | null
-      reaction: number
-    }) => void
+    onReading: (reading: MoodReading) => void
   }): {
     readonly reading: { isModelLoaded: boolean }
     start(): void

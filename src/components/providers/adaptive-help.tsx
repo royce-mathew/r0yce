@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react"
-import { AdaptiveCursor, trackAdaptiveCursor } from "./adaptive-cursor"
+import { AdaptiveCursor, trackAdaptiveCursor, type CursorHud } from "./adaptive-cursor"
 
 const loadMood =
   process.env.NEXT_PUBLIC_ADAPTIVE_HELP === "1"
@@ -38,7 +38,7 @@ export function AdaptiveHelpProvider({ children }: { children: ReactNode }) {
 
     let cancelled = false
     let stop: (() => void) | undefined
-    let stopCursor: (() => void) | undefined
+    let cursorHud: CursorHud | undefined
     let wasSuggested = false
 
     async function start(load: NonNullable<typeof loadMood>) {
@@ -49,7 +49,9 @@ export function AdaptiveHelpProvider({ children }: { children: ReactNode }) {
         const reader = createMoodReader({
           model,
           baselineKey: null,
-          onReading({ mood, reaction }) {
+          onReading(reading) {
+            cursorHud?.update(reading)
+            const { mood, reaction } = reading
             const next = mood !== null && mood !== "away" && reaction >= 0.5
             if (next !== wasSuggested) {
               wasSuggested = next
@@ -64,7 +66,7 @@ export function AdaptiveHelpProvider({ children }: { children: ReactNode }) {
         stop = reader.stop
         reader.start()
         const cursor = cursorRef.current
-        if (cursor) stopCursor = trackAdaptiveCursor(cursor)
+        if (cursor) cursorHud = trackAdaptiveCursor(cursor)
       } catch {
         stop?.()
         if (!cancelled) setUnavailable(true)
@@ -75,7 +77,7 @@ export function AdaptiveHelpProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true
       stop?.()
-      stopCursor?.()
+      cursorHud?.stop()
     }
   }, [enabled])
 
@@ -94,7 +96,7 @@ export function AdaptiveHelpProvider({ children }: { children: ReactNode }) {
     >
       {children}
       {enabled && !unavailable && (
-        <AdaptiveCursor cursorRef={cursorRef} suggested={suggested} />
+        <AdaptiveCursor cursorRef={cursorRef} />
       )}
     </AdaptiveHelpContext.Provider>
   )
@@ -121,7 +123,7 @@ export function AdaptiveHelpSetting() {
         Show adaptive cursor effects
       </label>
       <p className="text-muted-foreground" id="adaptive-help-description">
-        See a ring and click ripple by your mouse. If you might be stuck,
+        Show a live mood readout beside your mouse. If you might be stuck,
         adaptive help also highlights site search. Libraries.dev analyzes
         interaction patterns in this tab without saving or sending them.
       </p>

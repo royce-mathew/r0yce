@@ -65,10 +65,11 @@ NEXT_PUBLIC_ADAPTIVE_HELP=1 pnpm dev
 ```
 
 In **Settings**, select **Show adaptive cursor effects**, then move your mouse.
-The cursor shows a ring and a click ripple. When the model detects friction,
-the ring and the shared search button light up. Reduced motion hides the cursor
-effects without disabling the search hint. The setting follows navigation in
-the tab and resets on reload. The reader and model load only after opt-in.
+A tracking frame follows the pointer, with a live mood label, score, and
+signal readout. Clicks scatter small squares. The model can also highlight
+site search when it detects friction. Reduced motion hides the cursor readout
+but keeps the search hint. The setting follows navigation in the tab and resets
+on reload. The reader and model load only after opt-in.
 Interaction signals and the baseline stay in memory; search, settings, and the
 sign-in form are excluded from the reader.
 
