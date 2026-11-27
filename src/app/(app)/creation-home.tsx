@@ -1,6 +1,6 @@
 "use client"
 
-import { useLayoutEffect } from "react"
+import { useLayoutEffect, type ReactNode } from "react"
 import Lenis from "lenis"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -9,7 +9,7 @@ import { CreationAbout } from "./creation-about"
 import "lenis/dist/lenis.css"
 import "./creation-home.css"
 
-export function CreationHome({ code }: { code: string }) {
+export function CreationHome({ code, children }: { code: string; children: ReactNode }) {
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
     const media = gsap.matchMedia()
@@ -39,5 +39,11 @@ export function CreationHome({ code }: { code: string }) {
     return () => media.revert()
   }, [])
 
-  return <main className="creation-home"><CreationHero /><CreationAbout code={code} /></main>
+  return (
+    <main className="creation-home">
+      <CreationHero />
+      {children}
+      <CreationAbout code={code} />
+    </main>
+  )
 }

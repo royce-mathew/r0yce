@@ -12,6 +12,10 @@
 
 The `royce.sh` website leverages Next.js to serve MDX content in a flexible environment, supporting both static site generation and on-demand server rendering. The application tracks content for each page, including projects, blog posts, and other resources, using MDX files to store metadata and content.
 
+The homepage opens with a full-screen halftone portrait inspired by
+[Peter Alm’s portfolio](https://peteralm.com/). Selected work follows the portrait
+and uses the same featured project entries as `/projects`.
+
 ## Installation
 
 To install the project, follow these steps:

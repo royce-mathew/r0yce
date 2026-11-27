@@ -21,19 +21,12 @@
   transition: clip-path .6s cubic-bezier(.22, 1, .36, 1);
   pointer-events: none;
 }
-.index-header[data-surface="clear"] {
-  --header-foreground: #11110f;
-  --header-button-background: #11110f;
-  --header-button-foreground: #f3efe3;
-  --header-focus: #11110f;
-}
 .index-header[data-surface="clear"]::before {
   clip-path: polygon(0 0, 100% 0, 100% -35%, 0 -5%);
 }
 .index-header-inner { display: flex; align-items: center; gap: 22px; height: var(--site-header-height); max-width: 1600px; margin: auto; padding: 0 32px; }
 .index-header .manga-wordmark { text-transform: none; font-family: var(--font-cal), var(--font-sans), sans-serif; font-size: 34px; font-weight: 600; letter-spacing: -.065em; }
 .index-header .manga-wordmark-dot { color: #f0ce53; transition: color .22s .08s; }
-.index-header[data-surface="clear"] .manga-wordmark-dot { color: inherit; }
 .index-header-tools { margin-left: auto; }
 .index-header .manga-header-tools { display: flex; align-items: center; gap: 6px; }
 .index-header .manga-header-tools button:hover { background: #8882; }
